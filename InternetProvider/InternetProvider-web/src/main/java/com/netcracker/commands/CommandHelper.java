@@ -6,6 +6,7 @@
 package com.netcracker.commands;
 
 import com.netcracker.commands.impl.NoCommand;
+import com.netcracker.commands.impl.TestAjax;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -19,12 +20,14 @@ public class CommandHelper {
     private static CommandHelper commandHelper;
 
     private static final String NO_COMMAND = "no_command";
+    private static final String TEST_AJAX = "test_ajax";
 
     private Map<String, ICommand> commands;
 
     private CommandHelper() {
         commands = new HashMap<String, ICommand>();
         commands.put(NO_COMMAND, new NoCommand());
+        commands.put(TEST_AJAX, new TestAjax());
     }
 
     public static CommandHelper getInstance() {

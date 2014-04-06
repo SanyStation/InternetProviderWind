@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Controller extends HttpServlet {
 
+    private static final String AJAX_REQUEST_HEADER = "XMLHttpRequest";
+    private static final String HEADER = "X-Requested-With";
+
     private CommandHelper helper = CommandHelper.getInstance();
 
     /**
@@ -33,11 +36,22 @@ public class Controller extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // response.setContentType("text/html;charset=UTF-8");
-        ICommand command = helper.getCommand(request);
-        String page = command.execute(request, response);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-        dispatcher.forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        System.out.println(request.getParameter("command"));
+        try {
+            String page = null;
+            ICommand command = helper.getCommand(request);
+            page = command.execute(request, response);
+
+            if (AJAX_REQUEST_HEADER.equals(request.getHeader(HEADER))) {
+                response.getWriter().write(page);
+            } else {
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+                dispatcher.forward(request, response);
+            }
+        } catch (ServletException se) {
+
+        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
