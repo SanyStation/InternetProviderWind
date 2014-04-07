@@ -22,18 +22,18 @@ public class TestAjax implements ICommand {
     private final Random r = new Random();
 
     public TestAjax() {
-        names.add("Толя");
-        names.add("Саня");
-        names.add("Сашко");
-        names.add("Ваня");
-        names.add("Оксана");
-        names.add("Ден");
-        names.add("Міша");
-        names.add("Аня");
-        names.add("Олег");
-        names.add("Артем");
-        names.add("Андрій");
-        names.add("Вася");
+        names.add("xottabut");
+        names.add("SanyStation");
+        names.add("sashko");
+        names.add("j-martyn");
+        names.add("Oksana");
+        names.add("t0xicDen");
+        names.add("myshkoua");
+        names.add("AnnetG");
+        names.add("Oleg");
+        names.add("Artem");
+        names.add("ANdrii");
+        names.add("my little pony");
     }
 
     @Override
