@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class TestAjax implements ICommand {
 
-    List<String> names = new ArrayList<String>();
-    Random r = new Random();
+    private final List<String> names = new ArrayList<String>();
+    private final Random r = new Random();
 
     public TestAjax() {
         names.add("Толя");
