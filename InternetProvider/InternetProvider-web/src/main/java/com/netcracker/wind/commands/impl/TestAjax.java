@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.commands.impl;
+package com.netcracker.wind.commands.impl;
 
-import com.netcracker.commands.ICommand;
+import com.netcracker.wind.commands.ICommand;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

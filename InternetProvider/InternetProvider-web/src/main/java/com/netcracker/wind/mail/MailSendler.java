@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.mail;
+package com.netcracker.wind.mail;
 
 import java.util.Date;
 import java.util.logging.Level;

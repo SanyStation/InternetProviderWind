@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.servlets;
+package com.netcracker.wind.servlets;
 
-import com.netcracker.commands.CommandHelper;
-import com.netcracker.commands.ICommand;
+import com.netcracker.wind.commands.CommandHelper;
+import com.netcracker.wind.commands.ICommand;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

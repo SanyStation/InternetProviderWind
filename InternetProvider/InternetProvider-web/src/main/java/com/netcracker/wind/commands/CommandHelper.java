@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.commands;
+package com.netcracker.wind.commands;
 
-import com.netcracker.commands.impl.NoCommand;
-import com.netcracker.commands.impl.TestAjax;
+import com.netcracker.wind.commands.impl.NoCommand;
+import com.netcracker.wind.commands.impl.TestAjax;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;

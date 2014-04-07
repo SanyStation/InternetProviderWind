@@ -3,7 +3,7 @@
     <display-name>InternetProvider-web</display-name>
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>com.netcracker.servlets.Controller</servlet-class>
+        <servlet-class>com.netcracker.wind.servlets.Controller</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
