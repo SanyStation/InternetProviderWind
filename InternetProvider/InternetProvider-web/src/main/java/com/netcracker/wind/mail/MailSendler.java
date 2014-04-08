@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -20,11 +18,10 @@ import javax.mail.internet.MimeMessage;
 
 /**
  *
- * @author Oksana
+ * @author Oksana and Sashko
  * MailSendler is a class which help sending mails
  */
-@Named
-@RequestScoped
+
 public class MailSendler {
 
     private static final String FROM = "boreas.org";
@@ -33,10 +30,10 @@ public class MailSendler {
     private Session mailSession;
     /**
      * 
-     * @param to - array of destination email addresses 
-     * @param subject  - string for the subject of sending email
-     * @param body - is actually a message 
-     * @return - true when massage has been sent; - false - when MessagingException or other exceptions have happened
+     * @param to array of destination email addresses 
+     * @param subject   string for the subject of sending email
+     * @param body is actually a message 
+     * @return true when massage has been sent; - false - when MessagingException or other exceptions have happened
      */
     public boolean sendEmail(String[] to, String subject, String body) {
 
