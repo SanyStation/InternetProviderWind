@@ -16,10 +16,9 @@
         <script>
             $(document).ready(function() {
                 $('input[type=submit]').click(function() {
-                    //alert("44");
                     $.ajax({
                         type: 'POST',
-                        url: "Controller",
+                        url: 'Controller',
                         data: {
                             'command': $('input[name=command]').val()
                         },
@@ -31,7 +30,7 @@
                         }
                     });
                 });
-            })
+            });
         </script>
         <h1 align="center">Test AJAX</h1>
         <div id="dynamic" align="center">

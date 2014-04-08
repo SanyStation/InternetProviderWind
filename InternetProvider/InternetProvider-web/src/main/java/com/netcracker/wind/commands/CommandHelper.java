@@ -22,7 +22,7 @@ public class CommandHelper {
     private static final String NO_COMMAND = "no_command";
     private static final String TEST_AJAX = "test_ajax";
 
-    private Map<String, ICommand> commands;
+    private final Map<String, ICommand> commands;
 
     private CommandHelper() {
         commands = new HashMap<String, ICommand>();

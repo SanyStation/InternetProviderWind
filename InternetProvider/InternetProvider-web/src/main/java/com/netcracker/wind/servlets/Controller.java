@@ -8,6 +8,7 @@ package com.netcracker.wind.servlets;
 import com.netcracker.wind.commands.CommandHelper;
 import com.netcracker.wind.commands.ICommand;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,8 +37,6 @@ public class Controller extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        System.out.println(request.getParameter("command"));
         try {
             String page = null;
             ICommand command = helper.getCommand(request);
@@ -50,7 +49,9 @@ public class Controller extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } catch (ServletException se) {
-
+            //TODO Log4j ServletException
+        } catch (IOException ioe) {
+            //TODO Log4j IOException
         }
     }
 

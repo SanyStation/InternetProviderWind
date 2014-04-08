@@ -20,7 +20,7 @@ public class Test {
         routers.add(new Router("Cisco 7606", 60, 0));
         routers.add(new Router("Cisco 7606", 60, 15));
         routers.add(new Router("Cisco 7606", 60, 23));
-        
+
         List<Order> orders = new ArrayList();
         orders.add(new Order(100, "Silver internet", "01.01.2014", 25));
         orders.add(new Order(101, "Golden internet", "01.01.2014", 40));
@@ -32,16 +32,19 @@ public class Test {
         orders.add(new Order(242, "Platinum internet", "20.01.2014", 55));
         orders.add(new Order(301, "Platinum internet", "20.01.2014", 55));
         orders.add(new Order(302, "Silver internet", "20.01.2014", 25));
-        orders.add(new Order(501, "Silver internet", "29.01.2014", 25));
-        
+
+        for (int i = 0; i < 100; i++) {
+            orders.add(new Order(501, "Silver internet " + 1, "29.01.201" + i, 25));
+        }
+
         Calendar calendarFrom = Calendar.getInstance();
         Calendar calendarTo = Calendar.getInstance();
         calendarFrom.set(2014, 0, 1);
         calendarTo.set(2014, 0, 31);
-        
+
         Report report = ReportFactory.getReport(ReportFactory.XLS);
         report.generateRiUtilizationAndCapacityReport(routers);
-        report.generateSiNewOrdersPerPeriodReport(orders, calendarFrom, 
+        report.generateSiNewOrdersPerPeriodReport(orders, calendarFrom,
                 calendarTo);
     }
 
