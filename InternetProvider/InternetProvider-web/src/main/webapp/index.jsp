@@ -8,38 +8,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
+        <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
         <script>
-            $(document).ready(function() {
-                $('input[type=submit]').click(function() {
+            function getName(command) {
+                $(document).ready(function() {
+//                    $('input[type=submit]').click(function() {
                     $.ajax({
                         type: 'POST',
                         url: 'Controller',
+                        dataType: 'text',
                         data: {
-                            'command': $('input[name=command]').val()
+                            'command': command
                         },
                         success: function(data) {
-                            $("#dynamic").append(data);
+                            var element = $.parseJSON(data);//JSON.parse(data);
+                            $("#dynamic").html(element.name);
                         },
                         error: function() {
                             alert("AJAX error");
                         }
                     });
                 });
-            });
+//                });
+            }
         </script>
-        <h1 align="center">Test AJAX</h1>
-        <div id="dynamic" align="center">
-
-            <input type="hidden" name="command" value="test_ajax"/>
-
-            <input type="submit" name="b" value="Test"/>
+        <title>NameGenerator</title>
+    </head>
+    <body>
+        <h1 align="center">Name generator</h1>
+        <div align="center">
+            <input type="submit" value="Generate" onclick="getName('name_generator')"/>
+            <div id="dynamic" >
+            </div>
         </div>
     </body>
-    <form action="Controller" method="POST">
-    </form>
 </html>
