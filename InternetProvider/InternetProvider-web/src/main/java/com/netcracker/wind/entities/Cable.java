@@ -3,33 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
  *
  * @author Anatolii
  */
-public class Roles implements Serializable {
+public class Cable implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private Integer id;
-    private String name;
-    private Collection<Tasks> tasksCollection;
-    private Collection<Users> usersCollection;
+    private ServiceInstance serviceInstances;
+    private Port ports;
 
-    public Roles() {
+    public Cable() {
     }
 
-    public Roles(Integer id) {
+    public Cable(Integer id) {
         this.id = id;
-    }
-
-    public Roles(Integer id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     public Integer getId() {
@@ -40,28 +33,20 @@ public class Roles implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public ServiceInstance getServiceInstances() {
+        return serviceInstances;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setServiceInstances(ServiceInstance serviceInstances) {
+        this.serviceInstances = serviceInstances;
     }
 
-    public Collection<Tasks> getTasksCollection() {
-        return tasksCollection;
+    public Port getPorts() {
+        return ports;
     }
 
-    public void setTasksCollection(Collection<Tasks> tasksCollection) {
-        this.tasksCollection = tasksCollection;
-    }
-
-    public Collection<Users> getUsersCollection() {
-        return usersCollection;
-    }
-
-    public void setUsersCollection(Collection<Users> usersCollection) {
-        this.usersCollection = usersCollection;
+    public void setPorts(Port ports) {
+        this.ports = ports;
     }
 
     @Override
@@ -74,10 +59,10 @@ public class Roles implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roles)) {
+        if (!(object instanceof Cable)) {
             return false;
         }
-        Roles other = (Roles) object;
+        Cable other = (Cable) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -86,7 +71,7 @@ public class Roles implements Serializable {
 
     @Override
     public String toString() {
-        return "com.netcracker.wind.entities.Roles[ id=" + id + " ]";
+        return "com.netcracker.wind.entities.Cables[ id=" + id + " ]";
     }
-    
+
 }

@@ -11,17 +11,17 @@ import java.io.Serializable;
  *
  * @author Anatolii
  */
-public class Cables implements Serializable {
+public class Circuit implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer id;
-    private ServiceInstances serviceInstances;
-    private Ports ports;
+    private ServiceInstance serviceInstances;
+    private Port ports;
 
-    public Cables() {
+    public Circuit() {
     }
 
-    public Cables(Integer id) {
+    public Circuit(Integer id) {
         this.id = id;
     }
 
@@ -33,19 +33,19 @@ public class Cables implements Serializable {
         this.id = id;
     }
 
-    public ServiceInstances getServiceInstances() {
+    public ServiceInstance getServiceInstances() {
         return serviceInstances;
     }
 
-    public void setServiceInstances(ServiceInstances serviceInstances) {
+    public void setServiceInstances(ServiceInstance serviceInstances) {
         this.serviceInstances = serviceInstances;
     }
 
-    public Ports getPorts() {
+    public Port getPorts() {
         return ports;
     }
 
-    public void setPorts(Ports ports) {
+    public void setPorts(Port ports) {
         this.ports = ports;
     }
 
@@ -59,10 +59,10 @@ public class Cables implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cables)) {
+        if (!(object instanceof Circuit)) {
             return false;
         }
-        Cables other = (Cables) object;
+        Circuit other = (Circuit) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -71,7 +71,7 @@ public class Cables implements Serializable {
 
     @Override
     public String toString() {
-        return "com.netcracker.wind.entities.Cables[ id=" + id + " ]";
+        return "com.netcracker.wind.entities.Circuits[ id=" + id + " ]";
     }
 
 }

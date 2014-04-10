@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author Anatolii
  */
-public class ServiceOrders implements Serializable {
+public class ServiceOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer id;
@@ -22,21 +22,21 @@ public class ServiceOrders implements Serializable {
     private Date completedate;
     private String status;
     private String scenario;
-    private Collection<ServiceInstances> serviceInstancesCollection;
-    private Collection<Tasks> tasksCollection;
-    private Users users;
-    private ServiceLocations serviceLocations;
-    private Services services;
-    private ProviderLocations providerLocations;
+    private Collection<ServiceInstance> serviceInstancesCollection;
+    private Collection<Task> tasksCollection;
+    private User users;
+    private ServiceLocation serviceLocations;
+    private Service services;
+    private ProviderLocation providerLocations;
 
-    public ServiceOrders() {
+    public ServiceOrder() {
     }
 
-    public ServiceOrders(Integer id) {
+    public ServiceOrder(Integer id) {
         this.id = id;
     }
 
-    public ServiceOrders(Integer id, String scenario) {
+    public ServiceOrder(Integer id, String scenario) {
         this.id = id;
         this.scenario = scenario;
     }
@@ -89,51 +89,51 @@ public class ServiceOrders implements Serializable {
         this.scenario = scenario;
     }
 
-    public Collection<ServiceInstances> getServiceInstancesCollection() {
+    public Collection<ServiceInstance> getServiceInstancesCollection() {
         return serviceInstancesCollection;
     }
 
-    public void setServiceInstancesCollection(Collection<ServiceInstances> serviceInstancesCollection) {
+    public void setServiceInstancesCollection(Collection<ServiceInstance> serviceInstancesCollection) {
         this.serviceInstancesCollection = serviceInstancesCollection;
     }
 
-    public Collection<Tasks> getTasksCollection() {
+    public Collection<Task> getTasksCollection() {
         return tasksCollection;
     }
 
-    public void setTasksCollection(Collection<Tasks> tasksCollection) {
+    public void setTasksCollection(Collection<Task> tasksCollection) {
         this.tasksCollection = tasksCollection;
     }
 
-    public Users getUsers() {
+    public User getUsers() {
         return users;
     }
 
-    public void setUsers(Users users) {
+    public void setUsers(User users) {
         this.users = users;
     }
 
-    public ServiceLocations getServiceLocations() {
+    public ServiceLocation getServiceLocations() {
         return serviceLocations;
     }
 
-    public void setServiceLocations(ServiceLocations serviceLocations) {
+    public void setServiceLocations(ServiceLocation serviceLocations) {
         this.serviceLocations = serviceLocations;
     }
 
-    public Services getServices() {
+    public Service getServices() {
         return services;
     }
 
-    public void setServices(Services services) {
+    public void setServices(Service services) {
         this.services = services;
     }
 
-    public ProviderLocations getProviderLocations() {
+    public ProviderLocation getProviderLocations() {
         return providerLocations;
     }
 
-    public void setProviderLocations(ProviderLocations providerLocations) {
+    public void setProviderLocations(ProviderLocation providerLocations) {
         this.providerLocations = providerLocations;
     }
 
@@ -147,10 +147,10 @@ public class ServiceOrders implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ServiceOrders)) {
+        if (!(object instanceof ServiceOrder)) {
             return false;
         }
-        ServiceOrders other = (ServiceOrders) object;
+        ServiceOrder other = (ServiceOrder) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

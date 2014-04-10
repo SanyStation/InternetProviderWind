@@ -12,21 +12,21 @@ import java.util.Collection;
  *
  * @author Anatolii
  */
-public class ServiceInstances implements Serializable {
+public class ServiceInstance implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer id;
     private String status;
-    private Users users;
-    private ServiceOrders serviceOrders;
-    private Services services;
-    private Collection<Circuits> circuitsCollection;
-    private Collection<Cables> cablesCollection;
+    private User users;
+    private ServiceOrder serviceOrders;
+    private Service services;
+    private Collection<Circuit> circuitsCollection;
+    private Collection<Cable> cablesCollection;
 
-    public ServiceInstances() {
+    public ServiceInstance() {
     }
 
-    public ServiceInstances(Integer id) {
+    public ServiceInstance(Integer id) {
         this.id = id;
     }
 
@@ -46,43 +46,43 @@ public class ServiceInstances implements Serializable {
         this.status = status;
     }
 
-    public Users getUsers() {
+    public User getUsers() {
         return users;
     }
 
-    public void setUsers(Users users) {
+    public void setUsers(User users) {
         this.users = users;
     }
 
-    public ServiceOrders getServiceOrders() {
+    public ServiceOrder getServiceOrders() {
         return serviceOrders;
     }
 
-    public void setServiceOrders(ServiceOrders serviceOrders) {
+    public void setServiceOrders(ServiceOrder serviceOrders) {
         this.serviceOrders = serviceOrders;
     }
 
-    public Services getServices() {
+    public Service getServices() {
         return services;
     }
 
-    public void setServices(Services services) {
+    public void setServices(Service services) {
         this.services = services;
     }
 
-    public Collection<Circuits> getCircuitsCollection() {
+    public Collection<Circuit> getCircuitsCollection() {
         return circuitsCollection;
     }
 
-    public void setCircuitsCollection(Collection<Circuits> circuitsCollection) {
+    public void setCircuitsCollection(Collection<Circuit> circuitsCollection) {
         this.circuitsCollection = circuitsCollection;
     }
 
-    public Collection<Cables> getCablesCollection() {
+    public Collection<Cable> getCablesCollection() {
         return cablesCollection;
     }
 
-    public void setCablesCollection(Collection<Cables> cablesCollection) {
+    public void setCablesCollection(Collection<Cable> cablesCollection) {
         this.cablesCollection = cablesCollection;
     }
 
@@ -96,10 +96,10 @@ public class ServiceInstances implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ServiceInstances)) {
+        if (!(object instanceof ServiceInstance)) {
             return false;
         }
-        ServiceInstances other = (ServiceInstances) object;
+        ServiceInstance other = (ServiceInstance) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

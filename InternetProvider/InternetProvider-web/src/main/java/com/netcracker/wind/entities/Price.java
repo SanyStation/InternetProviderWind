@@ -11,18 +11,24 @@ import java.io.Serializable;
  *
  * @author Anatolii
  */
-public class Circuits implements Serializable {
+public class Price implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer id;
-    private ServiceInstances serviceInstances;
-    private Ports ports;
+    private Integer price;
+    private Service services;
+    private ProviderLocation providerLocations;
 
-    public Circuits() {
+    public Price() {
     }
 
-    public Circuits(Integer id) {
+    public Price(Integer id) {
         this.id = id;
+    }
+
+    public Price(Integer id, Integer price) {
+        this.id = id;
+        this.price = price;
     }
 
     public Integer getId() {
@@ -33,20 +39,28 @@ public class Circuits implements Serializable {
         this.id = id;
     }
 
-    public ServiceInstances getServiceInstances() {
-        return serviceInstances;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setServiceInstances(ServiceInstances serviceInstances) {
-        this.serviceInstances = serviceInstances;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public Ports getPorts() {
-        return ports;
+    public Service getServices() {
+        return services;
     }
 
-    public void setPorts(Ports ports) {
-        this.ports = ports;
+    public void setServices(Service services) {
+        this.services = services;
+    }
+
+    public ProviderLocation getProviderLocations() {
+        return providerLocations;
+    }
+
+    public void setProviderLocations(ProviderLocation providerLocations) {
+        this.providerLocations = providerLocations;
     }
 
     @Override
@@ -59,10 +73,10 @@ public class Circuits implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Circuits)) {
+        if (!(object instanceof Price)) {
             return false;
         }
-        Circuits other = (Circuits) object;
+        Price other = (Price) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -71,7 +85,7 @@ public class Circuits implements Serializable {
 
     @Override
     public String toString() {
-        return "com.netcracker.wind.entities.Circuits[ id=" + id + " ]";
+        return "com.netcracker.wind.entities.Prices[ id=" + id + " ]";
     }
 
 }

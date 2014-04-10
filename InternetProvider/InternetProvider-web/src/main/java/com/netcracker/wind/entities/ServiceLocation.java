@@ -12,23 +12,23 @@ import java.util.Collection;
  *
  * @author Anatolii
  */
-public class ServiceLocations implements Serializable {
+public class ServiceLocation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer id;
     private Integer posX;
     private Integer posY;
     private String address;
-    private Collection<ServiceOrders> serviceOrdersCollection;
+    private Collection<ServiceOrder> serviceOrdersCollection;
 
-    public ServiceLocations() {
+    public ServiceLocation() {
     }
 
-    public ServiceLocations(Integer id) {
+    public ServiceLocation(Integer id) {
         this.id = id;
     }
 
-    public ServiceLocations(Integer id, Integer posX, Integer posY) {
+    public ServiceLocation(Integer id, Integer posX, Integer posY) {
         this.id = id;
         this.posX = posX;
         this.posY = posY;
@@ -66,11 +66,11 @@ public class ServiceLocations implements Serializable {
         this.address = address;
     }
 
-    public Collection<ServiceOrders> getServiceOrdersCollection() {
+    public Collection<ServiceOrder> getServiceOrdersCollection() {
         return serviceOrdersCollection;
     }
 
-    public void setServiceOrdersCollection(Collection<ServiceOrders> serviceOrdersCollection) {
+    public void setServiceOrdersCollection(Collection<ServiceOrder> serviceOrdersCollection) {
         this.serviceOrdersCollection = serviceOrdersCollection;
     }
 
@@ -84,10 +84,10 @@ public class ServiceLocations implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ServiceLocations)) {
+        if (!(object instanceof ServiceLocation)) {
             return false;
         }
-        ServiceLocations other = (ServiceLocations) object;
+        ServiceLocation other = (ServiceLocation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

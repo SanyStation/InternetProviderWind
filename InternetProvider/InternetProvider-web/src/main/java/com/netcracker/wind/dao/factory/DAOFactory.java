@@ -3,16 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package com.netcracker.wind.dao.factory;
 
-package com.netcracker.wind.dao;
+import com.netcracker.wind.dao.IUserDAO;
+import com.netcracker.wind.dao.impl.UserDAO;
 
 /**
  *
  * @author Oksana
  */
 public class DAOFactory {
-    public static UserDAO createUserDAO(){
+
+    public static IUserDAO createUserDAO() {
         return new UserDAO();
-    } 
-    
+    }
+
 }

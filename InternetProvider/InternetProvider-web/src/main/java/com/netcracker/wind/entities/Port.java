@@ -6,25 +6,25 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  *
  * @author Anatolii
  */
-public class Tasks implements Serializable {
+public class Port implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer id;
-    private String type;
-    private String status;
-    private Users users;
-    private ServiceOrders serviceOrders;
-    private Roles roles;
+    private Character free;
+    private Device devices;
+    private Circuit circuits;
+    private Collection<Cable> cablesCollection;
 
-    public Tasks() {
+    public Port() {
     }
 
-    public Tasks(Integer id) {
+    public Port(Integer id) {
         this.id = id;
     }
 
@@ -36,44 +36,36 @@ public class Tasks implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public Character getFree() {
+        return free;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setFree(Character free) {
+        this.free = free;
     }
 
-    public String getStatus() {
-        return status;
+    public Device getDevices() {
+        return devices;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDevices(Device devices) {
+        this.devices = devices;
     }
 
-    public Users getUsers() {
-        return users;
+    public Circuit getCircuits() {
+        return circuits;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setCircuits(Circuit circuits) {
+        this.circuits = circuits;
     }
 
-    public ServiceOrders getServiceOrders() {
-        return serviceOrders;
+    public Collection<Cable> getCablesCollection() {
+        return cablesCollection;
     }
 
-    public void setServiceOrders(ServiceOrders serviceOrders) {
-        this.serviceOrders = serviceOrders;
-    }
-
-    public Roles getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Roles roles) {
-        this.roles = roles;
+    public void setCablesCollection(Collection<Cable> cablesCollection) {
+        this.cablesCollection = cablesCollection;
     }
 
     @Override
@@ -86,10 +78,10 @@ public class Tasks implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tasks)) {
+        if (!(object instanceof Port)) {
             return false;
         }
-        Tasks other = (Tasks) object;
+        Port other = (Port) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -98,7 +90,7 @@ public class Tasks implements Serializable {
 
     @Override
     public String toString() {
-        return "com.netcracker.wind.entities.Tasks[ id=" + id + " ]";
+        return "com.netcracker.wind.entities.Ports[ id=" + id + " ]";
     }
 
 }

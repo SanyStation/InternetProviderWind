@@ -12,36 +12,36 @@ import java.util.Collection;
  *
  * @author Anatolii
  */
-public class Users implements Serializable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Short id;
+    private Integer id;
     private String name;
     private String email;
     private String password;
-    private Character blocked;
-    private Collection<ServiceInstances> serviceInstancesCollection;
-    private Collection<Tasks> tasksCollection;
-    private Roles roles;
-    private Collection<ServiceOrders> serviceOrdersCollection;
+    private boolean blocked;
+    private Collection<ServiceInstance> serviceInstancesCollection;
+    private Collection<Task> tasksCollection;
+    private Role roles;
+    private Collection<ServiceOrder> serviceOrdersCollection;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(Short id) {
+    public User(Integer id) {
         this.id = id;
     }
 
-    public Users(Short id, String password) {
+    public User(Integer id, String password) {
         this.id = id;
         this.password = password;
     }
 
-    public Short getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -69,43 +69,43 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    public Character getBlocked() {
+    public boolean getBlocked() {
         return blocked;
     }
 
-    public void setBlocked(Character blocked) {
+    public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }
 
-    public Collection<ServiceInstances> getServiceInstancesCollection() {
+    public Collection<ServiceInstance> getServiceInstancesCollection() {
         return serviceInstancesCollection;
     }
 
-    public void setServiceInstancesCollection(Collection<ServiceInstances> serviceInstancesCollection) {
+    public void setServiceInstancesCollection(Collection<ServiceInstance> serviceInstancesCollection) {
         this.serviceInstancesCollection = serviceInstancesCollection;
     }
 
-    public Collection<Tasks> getTasksCollection() {
+    public Collection<Task> getTasksCollection() {
         return tasksCollection;
     }
 
-    public void setTasksCollection(Collection<Tasks> tasksCollection) {
+    public void setTasksCollection(Collection<Task> tasksCollection) {
         this.tasksCollection = tasksCollection;
     }
 
-    public Roles getRoles() {
+    public Role getRoles() {
         return roles;
     }
 
-    public void setRoles(Roles roles) {
+    public void setRoles(Role roles) {
         this.roles = roles;
     }
 
-    public Collection<ServiceOrders> getServiceOrdersCollection() {
+    public Collection<ServiceOrder> getServiceOrdersCollection() {
         return serviceOrdersCollection;
     }
 
-    public void setServiceOrdersCollection(Collection<ServiceOrders> serviceOrdersCollection) {
+    public void setServiceOrdersCollection(Collection<ServiceOrder> serviceOrdersCollection) {
         this.serviceOrdersCollection = serviceOrdersCollection;
     }
 
@@ -119,10 +119,10 @@ public class Users implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Users)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Users other = (Users) object;
+        User other = (User) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

@@ -3,32 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  *
  * @author Anatolii
  */
-public class Prices implements Serializable {
-
+public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
-    private Integer price;
-    private Services services;
-    private ProviderLocations providerLocations;
+    private String name;
+    private Collection<Task> tasksCollection;
+    private Collection<User> usersCollection;
 
-    public Prices() {
+    public Role() {
     }
 
-    public Prices(Integer id) {
+    public Role(Integer id) {
         this.id = id;
     }
 
-    public Prices(Integer id, Integer price) {
+    public Role(Integer id, String name) {
         this.id = id;
-        this.price = price;
+        this.name = name;
     }
 
     public Integer getId() {
@@ -39,28 +40,28 @@ public class Prices implements Serializable {
         this.id = id;
     }
 
-    public Integer getPrice() {
-        return price;
+    public String getName() {
+        return name;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Services getServices() {
-        return services;
+    public Collection<Task> getTasksCollection() {
+        return tasksCollection;
     }
 
-    public void setServices(Services services) {
-        this.services = services;
+    public void setTasksCollection(Collection<Task> tasksCollection) {
+        this.tasksCollection = tasksCollection;
     }
 
-    public ProviderLocations getProviderLocations() {
-        return providerLocations;
+    public Collection<User> getUsersCollection() {
+        return usersCollection;
     }
 
-    public void setProviderLocations(ProviderLocations providerLocations) {
-        this.providerLocations = providerLocations;
+    public void setUsersCollection(Collection<User> usersCollection) {
+        this.usersCollection = usersCollection;
     }
 
     @Override
@@ -73,10 +74,10 @@ public class Prices implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Prices)) {
+        if (!(object instanceof Role)) {
             return false;
         }
-        Prices other = (Prices) object;
+        Role other = (Role) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -85,7 +86,7 @@ public class Prices implements Serializable {
 
     @Override
     public String toString() {
-        return "com.netcracker.wind.entities.Prices[ id=" + id + " ]";
+        return "com.netcracker.wind.entities.Roles[ id=" + id + " ]";
     }
-
+    
 }

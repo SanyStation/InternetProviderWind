@@ -12,24 +12,24 @@ import java.util.Collection;
  *
  * @author Anatolii
  */
-public class ProviderLocations implements Serializable {
+public class ProviderLocation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer id;
     private Integer posX;
     private Integer posY;
     private String address;
-    private Collection<Prices> pricesCollection;
-    private Collection<ServiceOrders> serviceOrdersCollection;
+    private Collection<Price> pricesCollection;
+    private Collection<ServiceOrder> serviceOrdersCollection;
 
-    public ProviderLocations() {
+    public ProviderLocation() {
     }
 
-    public ProviderLocations(Integer id) {
+    public ProviderLocation(Integer id) {
         this.id = id;
     }
 
-    public ProviderLocations(Integer id, Integer posX, Integer posY) {
+    public ProviderLocation(Integer id, Integer posX, Integer posY) {
         this.id = id;
         this.posX = posX;
         this.posY = posY;
@@ -67,19 +67,19 @@ public class ProviderLocations implements Serializable {
         this.address = address;
     }
 
-    public Collection<Prices> getPricesCollection() {
+    public Collection<Price> getPricesCollection() {
         return pricesCollection;
     }
 
-    public void setPricesCollection(Collection<Prices> pricesCollection) {
+    public void setPricesCollection(Collection<Price> pricesCollection) {
         this.pricesCollection = pricesCollection;
     }
 
-    public Collection<ServiceOrders> getServiceOrdersCollection() {
+    public Collection<ServiceOrder> getServiceOrdersCollection() {
         return serviceOrdersCollection;
     }
 
-    public void setServiceOrdersCollection(Collection<ServiceOrders> serviceOrdersCollection) {
+    public void setServiceOrdersCollection(Collection<ServiceOrder> serviceOrdersCollection) {
         this.serviceOrdersCollection = serviceOrdersCollection;
     }
 
@@ -93,10 +93,10 @@ public class ProviderLocations implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProviderLocations)) {
+        if (!(object instanceof ProviderLocation)) {
             return false;
         }
-        ProviderLocations other = (ProviderLocations) object;
+        ProviderLocation other = (ProviderLocation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

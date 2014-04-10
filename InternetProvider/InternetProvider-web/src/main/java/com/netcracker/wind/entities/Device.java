@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
@@ -12,19 +13,15 @@ import java.util.Collection;
  *
  * @author Anatolii
  */
-public class Ports implements Serializable {
-
+public class Device implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
-    private Character free;
-    private Devices devices;
-    private Circuits circuits;
-    private Collection<Cables> cablesCollection;
+    private Collection<Port> portsCollection;
 
-    public Ports() {
+    public Device() {
     }
 
-    public Ports(Integer id) {
+    public Device(Integer id) {
         this.id = id;
     }
 
@@ -36,36 +33,12 @@ public class Ports implements Serializable {
         this.id = id;
     }
 
-    public Character getFree() {
-        return free;
+    public Collection<Port> getPortsCollection() {
+        return portsCollection;
     }
 
-    public void setFree(Character free) {
-        this.free = free;
-    }
-
-    public Devices getDevices() {
-        return devices;
-    }
-
-    public void setDevices(Devices devices) {
-        this.devices = devices;
-    }
-
-    public Circuits getCircuits() {
-        return circuits;
-    }
-
-    public void setCircuits(Circuits circuits) {
-        this.circuits = circuits;
-    }
-
-    public Collection<Cables> getCablesCollection() {
-        return cablesCollection;
-    }
-
-    public void setCablesCollection(Collection<Cables> cablesCollection) {
-        this.cablesCollection = cablesCollection;
+    public void setPortsCollection(Collection<Port> portsCollection) {
+        this.portsCollection = portsCollection;
     }
 
     @Override
@@ -78,10 +51,10 @@ public class Ports implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Ports)) {
+        if (!(object instanceof Device)) {
             return false;
         }
-        Ports other = (Ports) object;
+        Device other = (Device) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -90,7 +63,7 @@ public class Ports implements Serializable {
 
     @Override
     public String toString() {
-        return "com.netcracker.wind.entities.Ports[ id=" + id + " ]";
+        return "com.netcracker.wind.entities.Devices[ id=" + id + " ]";
     }
-
+    
 }

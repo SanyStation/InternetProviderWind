@@ -12,24 +12,24 @@ import java.util.Collection;
  *
  * @author Anatolii
  */
-public class Services implements Serializable {
+public class Service implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer id;
     private String name;
     private String description;
-    private Collection<Prices> pricesCollection;
-    private Collection<ServiceInstances> serviceInstancesCollection;
-    private Collection<ServiceOrders> serviceOrdersCollection;
+    private Collection<Price> pricesCollection;
+    private Collection<ServiceInstance> serviceInstancesCollection;
+    private Collection<ServiceOrder> serviceOrdersCollection;
 
-    public Services() {
+    public Service() {
     }
 
-    public Services(Integer id) {
+    public Service(Integer id) {
         this.id = id;
     }
 
-    public Services(Integer id, String name) {
+    public Service(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -58,27 +58,27 @@ public class Services implements Serializable {
         this.description = description;
     }
 
-    public Collection<Prices> getPricesCollection() {
+    public Collection<Price> getPricesCollection() {
         return pricesCollection;
     }
 
-    public void setPricesCollection(Collection<Prices> pricesCollection) {
+    public void setPricesCollection(Collection<Price> pricesCollection) {
         this.pricesCollection = pricesCollection;
     }
 
-    public Collection<ServiceInstances> getServiceInstancesCollection() {
+    public Collection<ServiceInstance> getServiceInstancesCollection() {
         return serviceInstancesCollection;
     }
 
-    public void setServiceInstancesCollection(Collection<ServiceInstances> serviceInstancesCollection) {
+    public void setServiceInstancesCollection(Collection<ServiceInstance> serviceInstancesCollection) {
         this.serviceInstancesCollection = serviceInstancesCollection;
     }
 
-    public Collection<ServiceOrders> getServiceOrdersCollection() {
+    public Collection<ServiceOrder> getServiceOrdersCollection() {
         return serviceOrdersCollection;
     }
 
-    public void setServiceOrdersCollection(Collection<ServiceOrders> serviceOrdersCollection) {
+    public void setServiceOrdersCollection(Collection<ServiceOrder> serviceOrdersCollection) {
         this.serviceOrdersCollection = serviceOrdersCollection;
     }
 
@@ -92,10 +92,10 @@ public class Services implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Services)) {
+        if (!(object instanceof Service)) {
             return false;
         }
-        Services other = (Services) object;
+        Service other = (Service) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
