@@ -5,7 +5,7 @@
  */
 package com.netcracker.wind.dao.impl;
 
-import com.netcracker.wind.commands.connection.ConnectionPool;
+import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IUserDAO;
 import com.netcracker.wind.entities.User;
 import java.sql.Connection;
