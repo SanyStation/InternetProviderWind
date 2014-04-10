@@ -8,12 +8,14 @@ package com.netcracker.wind.dao.impl;
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IUserDAO;
 import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +28,7 @@ public class UserDAO implements IUserDAO {
 
     private static final String DELETE = "DELETE FROM USERS WHERE ID=?";
 
-    private static final String INSERT = "INSERT INTO USERS (ID,NAME,EMAIL,PASSWORD,BLOCKED,ROLES) VALUES(?,?,?,?,?,?)";
+    private static final String INSERT = "INSERT INTO USERS (ID,NAME,EMAIL,PASSWORD,BLOCKED,ROLE_ID) VALUES(?,?,?,?,?,?)";
     private static final String SELECT = "SELECT * FROM USERS";
     private static final String UPDATE = "UPDATE USERS SET EMAIL=? ,PASSWORD=?,BLOCKED WHERE ID=?";
     private static final String ID = "ID";
@@ -34,7 +36,7 @@ public class UserDAO implements IUserDAO {
     private static final String EMAIL = "EMAIL";
     private static final String PASSWORD = "PASSWORD";
     private static final String BLOCKED = "BLOCKED";
-    private static final String ROLE = "ROLES";
+    private static final String ROLE = "ROLE_ID";
     private ConnectionPool connectionPool;
 
     /**
@@ -178,4 +180,13 @@ public class UserDAO implements IUserDAO {
             connectionPool.close(con);
         }
     }
+
+ 
+    public List<User> findByRole(int roleID) {
+     List<User> users = findWhere("WHERE ROLES=?", new Object[]{roleID});
+        if (users.size() == 0) {
+            return null;
+        } else {
+            return users;
+        }}
 }

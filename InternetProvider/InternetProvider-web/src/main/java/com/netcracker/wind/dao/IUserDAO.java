@@ -5,7 +5,10 @@
  */
 package com.netcracker.wind.dao;
 
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -17,5 +20,6 @@ public interface IUserDAO {
     public void delete(int id);
     public User findByID(int id);
     public void update(User user);
+    public List<User> findByRole(int roleID);
 
 }

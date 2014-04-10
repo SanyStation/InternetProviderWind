@@ -7,6 +7,7 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IRoleDAO;
+import com.netcracker.wind.dao.factory.DAOFactory;
 import com.netcracker.wind.entities.Role;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -133,6 +134,7 @@ public class RoleDAO implements IRoleDAO {
                 Role role = new Role();
                 role.setId(rs.getInt(ID));
                 role.setName(rs.getString(NAME));
+                role.setUsersCollection(DAOFactory.createUserDAO().findByRole(role.getId()));
                 roles.add(role);
             }
         } catch (SQLException ex) {
