@@ -8,7 +8,6 @@ package com.netcracker.wind.servlets;
 import com.netcracker.wind.commands.CommandHelper;
 import com.netcracker.wind.commands.ICommand;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
