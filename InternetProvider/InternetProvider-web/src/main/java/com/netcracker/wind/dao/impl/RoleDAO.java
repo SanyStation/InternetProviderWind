@@ -28,7 +28,7 @@ public class RoleDAO implements IRoleDAO {
 
     private static final String INSERT = "INSERT INTO ROLES (ID,NAME) VALUES(?,?)";
     private static final String SELECT = "SELECT * FROM ROLES";
-    private static final String UPDATE = "";
+    private static final String UPDATE = "UPDATE ROLES SET NAME=? WHERE ID=?";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
 
@@ -141,5 +141,22 @@ public class RoleDAO implements IRoleDAO {
         }
 
         return roles;
+    }
+
+    public void update(Role role) {
+        Connection con = null;
+        try {
+            con = connectionPool.getConnection();
+            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat.setString(1, role.getName());
+            stat.setInt(2, role.getId());
+            stat.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            connectionPool.close(con);
+        }
+
     }
 }

@@ -16,4 +16,6 @@ public interface IRoleDAO {
     public void add(Role role);
     public void delete(int id);
     public Role findByID(int role);
+    public void update(Role role);
+    
 }

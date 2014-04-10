@@ -16,5 +16,6 @@ public interface IUserDAO {
     public void add(User user);
     public void delete(int id);
     public User findByID(int id);
+    public void update(User user);
 
 }

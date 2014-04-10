@@ -28,7 +28,7 @@ public class UserDAO implements IUserDAO {
 
     private static final String INSERT = "INSERT INTO USERS (ID,NAME,EMAIL,PASSWORD,BLOCKED,ROLES) VALUES(?,?,?,?,?,?)";
     private static final String SELECT = "SELECT * FROM USERS";
-    private static final String UPDATE = "";
+    private static final String UPDATE = "UPDATE USERS SET EMAIL=? ,PASSWORD=?,BLOCKED WHERE ID=?";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String EMAIL = "EMAIL";
@@ -155,5 +155,27 @@ public class UserDAO implements IUserDAO {
         }
 
         return users;
+    }
+/**
+ * updates users data such as email, password, and status(blocked/unblocked)
+ * @param user 
+ */
+    public void update(User user) {
+        Connection con = null;
+        try {
+            con = connectionPool.getConnection();
+            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat.setString(1, user.getEmail());
+            stat.setString(2, user.getPassword());
+            stat.setBoolean(3, user.getBlocked());
+            stat.setInt(4, user.getId());
+
+            stat.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            connectionPool.close(con);
+        }
     }
 }
