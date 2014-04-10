@@ -6,9 +6,8 @@
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.IUserDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
-import com.netcracker.wind.entities.User;
+import com.netcracker.wind.dao.IRoleDAO;
+import com.netcracker.wind.entities.Role;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,40 +21,32 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class UserDAO implements IUserDAO {
+public class RoleDAO implements IRoleDAO {
 
-    private static final String DELETE = "DELETE FROM USERS WHERE ID=?";
+    private ConnectionPool connectionPool;
+    private static final String DELETE = "DELETE FROM ROLES WHERE ID=?";
 
-    private static final String INSERT = "INSERT INTO USERS (ID,NAME,EMAIL,PASSWORD,BLOCKED,ROLES) VALUES(?,?,?,?,?,?)";
-    private static final String SELECT = "SELECT * FROM USERS";
+    private static final String INSERT = "INSERT INTO ROLES (ID,NAME) VALUES(?,?)";
+    private static final String SELECT = "SELECT * FROM ROLES";
     private static final String UPDATE = "";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
-    private static final String EMAIL = "EMAIL";
-    private static final String PASSWORD = "PASSWORD";
-    private static final String BLOCKED = "BLOCKED";
-    private static final String ROLE = "ROLES";
-    private ConnectionPool connectionPool;
 
     /**
      *
-     * @param user object for adding to database
+     * @param role object for adding to database
      */
-    public void add(User user) {
+    public void add(Role role) {
         Connection connection = null;
         try {
             connection = connectionPool.getConnection();
             PreparedStatement stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, user.getId());
-            stat.setString(2, user.getName());
-            stat.setString(3, user.getEmail());
-            stat.setString(4, user.getPassword());
-            stat.setBoolean(5, user.getBlocked());
-            stat.setInt(6, user.getRoles().getId());
+            stat.setInt(1, role.getId());
+            stat.setString(2, role.getName());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             connectionPool.close(connection);
         }
@@ -63,7 +54,7 @@ public class UserDAO implements IUserDAO {
 
     /**
      *
-     * @param id primary key of User for deleting
+     * @param id primary key by which object will be deleted
      */
     public void delete(int id) {
         Connection con = null;
@@ -73,7 +64,7 @@ public class UserDAO implements IUserDAO {
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             connectionPool.close(con);
         }
@@ -81,16 +72,15 @@ public class UserDAO implements IUserDAO {
 
     /**
      *
-     * @param id User's id for deleting
-     * @return User with defined id when user exists in database; null if object
-     * wasn't found
+     * @param id id by which we will search role
+     * @return Role with defined id if that role exists in database
      */
-    public User findByID(int id) {
-        List<User> users = findWhere("WHERE ID=?", new Object[]{id});
-        if (users.size() == 0) {
+    public Role findByID(int id) {
+        List<Role> roles = findWhere("WHERE ID=?", new Object[]{id});
+        if (roles.size() == 0) {
             return null;
         } else {
-            return users.get(0);
+            return roles.get(0);
         }
     }
 
@@ -98,10 +88,10 @@ public class UserDAO implements IUserDAO {
      *
      * @param where SQL statement where for searching by different parameters
      * @param param parameters by which search will be formed
-     * @return list of found users
+     * @return list of found roles
      */
-    private List<User> findWhere(String where, Object[] param) {
-        List<User> users = null;
+    private List<Role> findWhere(String where, Object[] param) {
+        List<Role> roles = null;
         Connection con = null;
         ResultSet rs = null;
         try {
@@ -113,9 +103,8 @@ public class UserDAO implements IUserDAO {
                 }
             }
             rs = stat.executeQuery();
-            users = parseResult(rs);
+            roles = parseResult(rs);
         } catch (SQLException ex) {
-            //TODO
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
 
@@ -123,37 +112,34 @@ public class UserDAO implements IUserDAO {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
-                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
-
-        return users;
+        return roles;
     }
 
     /**
      *
+     *
      * @param rs result return from database
-     * @return list of founded users
+     * @return list of founded roles
+     *
      */
-    private List<User> parseResult(ResultSet rs) {
-        List<User> users = new ArrayList<User>();
+    private List<Role> parseResult(ResultSet rs) {
+        List<Role> roles = new ArrayList<Role>();
         try {
             while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt(ID));
-                user.setName(rs.getString(NAME));
-                user.setEmail(rs.getString(EMAIL));
-                user.setPassword(rs.getString(PASSWORD));
-                user.setBlocked(rs.getBoolean(BLOCKED));
-                user.setRoles(DAOFactory.createRoleDAO().findByID(rs.getInt(ROLE)));
-                users.add(user);
+                Role role = new Role();
+                role.setId(rs.getInt(ID));
+                role.setName(rs.getString(NAME));
+                roles.add(role);
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return users;
+        return roles;
     }
 }

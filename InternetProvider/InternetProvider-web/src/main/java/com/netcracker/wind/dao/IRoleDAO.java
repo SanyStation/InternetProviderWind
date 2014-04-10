@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.netcracker.wind.dao;
 
-import com.netcracker.wind.entities.User;
+import com.netcracker.wind.entities.Role;
 
 /**
  *
- * @author Anatolii
+ * @author Oksana
  */
-public interface IUserDAO {
-
-    public void add(User user);
+public interface IRoleDAO {
+    public void add(Role role);
     public void delete(int id);
-    public User findByID(int id);
-
+    public Role findByID(int role);
 }

@@ -5,7 +5,9 @@
  */
 package com.netcracker.wind.dao.factory;
 
+import com.netcracker.wind.dao.IRoleDAO;
 import com.netcracker.wind.dao.IUserDAO;
+import com.netcracker.wind.dao.impl.RoleDAO;
 import com.netcracker.wind.dao.impl.UserDAO;
 
 /**
@@ -16,6 +18,9 @@ public class DAOFactory {
 
     public static IUserDAO createUserDAO() {
         return new UserDAO();
+    }
+     public static IRoleDAO createRoleDAO() {
+        return new RoleDAO();
     }
 
 }
