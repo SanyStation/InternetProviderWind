@@ -6,15 +6,15 @@
 
 package com.netcracker.wind.dao;
 
-import com.netcracker.wind.entities.ServiceOrder;
+import com.netcracker.wind.entities.ServiceLocation;
 
 /**
  *
  * @author Oksana
  */
-public interface IServiceOrderDAO {
-    public void add(ServiceOrder serviceOrder);
+public interface IServiceLocationDAO {
+      public void add(ServiceLocation serviceLocation);
     public void delete(int id);
-    public ServiceOrder findByID(int role);
-    public void update(ServiceOrder role);
+    public ServiceLocation findByID(int role);
+    public void update(ServiceLocation serviceLocation);
 }
