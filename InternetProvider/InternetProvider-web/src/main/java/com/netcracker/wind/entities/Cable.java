@@ -15,6 +15,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class Cable implements Serializable {
 
+    private static final long serialVersionUID = -589654569642300050L;
+
     private Integer id;
     private ServiceInstance serviceInstance;
     private Port port;
@@ -56,7 +58,7 @@ public class Cable implements Serializable {
         builder.append(id);
         builder.append(serviceInstance);
         builder.append(port);
-        
+
         return builder.toHashCode();
     }
 
@@ -76,7 +78,7 @@ public class Cable implements Serializable {
         builder.append(id, rhs.getId());
         builder.append(serviceInstance, rhs.getServiceInstances());
         builder.append(port, rhs.getPorts());
-        
+
         return builder.isEquals();
     }
 
