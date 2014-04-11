@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
@@ -14,7 +13,7 @@ import java.util.Collection;
  * @author Anatolii
  */
 public class Device implements Serializable {
-    private static final long serialVersionUID = 1L;
+
     private Integer id;
     private Collection<Port> portsCollection;
 
@@ -65,5 +64,5 @@ public class Device implements Serializable {
     public String toString() {
         return "com.netcracker.wind.entities.Devices[ id=" + id + " ]";
     }
-    
+
 }

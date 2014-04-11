@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
@@ -14,7 +13,7 @@ import java.util.Collection;
  * @author Anatolii
  */
 public class Role implements Serializable {
-    private static final long serialVersionUID = 1L;
+
     private Integer id;
     private String name;
     private Collection<Task> tasksCollection;
@@ -88,5 +87,5 @@ public class Role implements Serializable {
     public String toString() {
         return "com.netcracker.wind.entities.Roles[ id=" + id + " ]";
     }
-    
+
 }

@@ -14,7 +14,6 @@ import java.util.Collection;
  */
 public class Port implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     private Integer id;
     private Character free;
     private Device devices;

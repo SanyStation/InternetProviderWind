@@ -14,7 +14,6 @@ import java.util.Collection;
  */
 public class ServiceInstance implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     private Integer id;
     private String status;
     private User users;

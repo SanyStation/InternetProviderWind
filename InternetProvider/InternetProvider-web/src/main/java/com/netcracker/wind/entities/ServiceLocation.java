@@ -14,7 +14,6 @@ import java.util.Collection;
  */
 public class ServiceLocation implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     private Integer id;
     private Integer posX;
     private Integer posY;

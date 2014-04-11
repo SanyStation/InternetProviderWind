@@ -13,7 +13,6 @@ import java.io.Serializable;
  */
 public class DeviceProfit implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     private Integer profit;
     private int deviceId;
 

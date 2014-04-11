@@ -14,7 +14,10 @@ import com.netcracker.wind.entities.Circuit;
 public interface ICircuitDAO {
 
     public void add(Circuit circuit);
+
     public void delete(int idCircuit);
+
     public Circuit findByID(int idCircuit);
+
     public void update(Circuit circuit);
 }
