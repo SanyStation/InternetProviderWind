@@ -14,6 +14,10 @@ import com.netcracker.wind.entities.Cable;
  * @author Oksana
  */
 public class CableDAO implements ICableDAO {
+    private static final String UPDATE="";
+    private static final String DELETE="";
+    private static final String INSERT="";
+    private static final String SELECT="";
 
     public void add(Cable cable) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

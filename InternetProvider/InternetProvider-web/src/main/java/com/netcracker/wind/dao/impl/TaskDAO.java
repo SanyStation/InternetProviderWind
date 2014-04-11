@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * @author Oksana
  */
 public class TaskDAO implements ITaskDAO{
-     private static final String DELETE = "DELETE FROM TASKS WHERE ID=?";
+    private static final String DELETE = "DELETE FROM TASKS WHERE ID=?";
     private static final String INSERT = "INSERT INTO TASKS (ID,USER_ID,TYPE,STATUS,ROLE_ID,SERVICE_ORDERS_ID) VALUES(?,?,?,?,?,?)";
     private static final String SELECT = "SELECT * FROM TASKS";
     private static final String UPDATE = "UPDATE TASKS SET USER_ID=? ,STATUS=? WHERE ID=?";

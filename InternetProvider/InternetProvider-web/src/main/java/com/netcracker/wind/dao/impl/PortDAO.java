@@ -14,6 +14,10 @@ import com.netcracker.wind.entities.Port;
  * @author Oksana
  */
 public class PortDAO implements IPortDAO {
+    private static final String UPDATE="";
+    private static final String DELETE="";
+    private static final String INSERT="";
+    private static final String SELECT="";
 
     public void add(Port port) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
