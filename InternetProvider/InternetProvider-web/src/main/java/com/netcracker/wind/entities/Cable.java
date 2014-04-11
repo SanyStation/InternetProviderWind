@@ -6,6 +6,8 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -14,8 +16,8 @@ import java.io.Serializable;
 public class Cable implements Serializable {
 
     private Integer id;
-    private ServiceInstance serviceInstances;
-    private Port ports;
+    private ServiceInstance serviceInstance;
+    private Port port;
 
     public Cable() {
     }
@@ -33,39 +35,49 @@ public class Cable implements Serializable {
     }
 
     public ServiceInstance getServiceInstances() {
-        return serviceInstances;
+        return serviceInstance;
     }
 
     public void setServiceInstances(ServiceInstance serviceInstances) {
-        this.serviceInstances = serviceInstances;
+        this.serviceInstance = serviceInstances;
     }
 
     public Port getPorts() {
-        return ports;
+        return port;
     }
 
     public void setPorts(Port ports) {
-        this.ports = ports;
+        this.port = ports;
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(id);
+        builder.append(serviceInstance);
+        builder.append(port);
+        
+        return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof Cable)) {
             return false;
         }
-        Cable other = (Cable) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        Cable rhs = (Cable) object;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(id, rhs.getId());
+        builder.append(serviceInstance, rhs.getServiceInstances());
+        builder.append(port, rhs.getPorts());
+        
+        return builder.isEquals();
     }
 
     @Override
