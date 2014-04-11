@@ -5,8 +5,9 @@
  */
 package com.netcracker.wind.commands;
 
-import com.netcracker.wind.commands.impl.NoCommand;
 import com.netcracker.wind.commands.impl.NameGenerator;
+import com.netcracker.wind.commands.impl.NoCommand;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,10 @@ public class CommandHelper {
 
     private static final String NO_COMMAND = "no_command";
     private static final String TEST_AJAX = "name_generator";
+   
+    
+    
+            
 
     private final Map<String, ICommand> commands;
 
@@ -28,6 +33,7 @@ public class CommandHelper {
         commands = new HashMap<String, ICommand>();
         commands.put(NO_COMMAND, new NoCommand());
         commands.put(TEST_AJAX, new NameGenerator());
+    
     }
 
     public static CommandHelper getInstance() {

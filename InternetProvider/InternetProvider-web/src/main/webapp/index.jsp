@@ -36,11 +36,18 @@
         <title>NameGenerator</title>
     </head>
     <body>
+
+        <form action="mail.jsp" method="POST">
+            <input type="submit" value="show_sentmail"  />
+        </form>
+
         <h1 align="center">Name generator</h1>
         <div align="center">
             <input type="submit" value="Generate" onclick="getName('name_generator')"/>
             <div id="dynamic" >
             </div>
         </div>
+
+
     </body>
 </html>
