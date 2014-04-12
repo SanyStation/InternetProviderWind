@@ -7,12 +7,16 @@ package com.netcracker.wind.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
  * @author Anatolii
  */
 public class Device implements Serializable {
+
+    private static final long serialVersionUID = -2152609240262921250L;
 
     private Integer id;
     private Collection<Port> portsCollection;
@@ -42,22 +46,30 @@ public class Device implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(id);
+        builder.append(portsCollection);
+
+        return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof Device)) {
             return false;
         }
-        Device other = (Device) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        Device rhs = (Device) object;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(id, rhs.getId());
+        builder.append(portsCollection, rhs.getPortsCollection());
+
+        return builder.isEquals();
     }
 
     @Override

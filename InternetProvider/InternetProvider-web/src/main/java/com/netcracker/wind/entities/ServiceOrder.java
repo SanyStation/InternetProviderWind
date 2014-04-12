@@ -8,12 +8,16 @@ package com.netcracker.wind.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
  * @author Anatolii
  */
 public class ServiceOrder implements Serializable {
+
+    private static final long serialVersionUID = 2972707714220134975L;
 
     private Integer id;
     private Date enterdate;
@@ -138,22 +142,52 @@ public class ServiceOrder implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(id);
+        builder.append(enterdate);
+        builder.append(procesdate);
+        builder.append(completedate);
+        builder.append(status);
+        builder.append(scenario);
+        builder.append(serviceInstancesCollection);
+        builder.append(tasksCollection);
+        builder.append(users);
+        builder.append(serviceLocations);
+        builder.append(services);
+        builder.append(providerLocations);
+
+        return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof ServiceOrder)) {
             return false;
         }
-        ServiceOrder other = (ServiceOrder) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+
+        ServiceOrder rhs = (ServiceOrder) object;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(id, rhs.getId());
+        builder.append(enterdate, rhs.getEnterdate());
+        builder.append(procesdate, rhs.getProcesdate());
+        builder.append(completedate, rhs.getCompletedate());
+        builder.append(status, rhs.getStatus());
+        builder.append(scenario, rhs.getScenario());
+        builder.append(serviceInstancesCollection, rhs.getServiceInstancesCollection());
+        builder.append(tasksCollection, rhs.getTasksCollection());
+        builder.append(users, rhs.getUsers());
+        builder.append(serviceLocations, rhs.getServiceLocations());
+        builder.append(services, rhs.getServices());
+        builder.append(providerLocations, rhs.getProviderLocations());
+
+        return builder.isEquals();
     }
 
     @Override

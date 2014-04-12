@@ -6,6 +6,8 @@
 package com.netcracker.wind.commands.impl;
 
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.connection.ConnectionPool;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -44,13 +46,20 @@ public class NameGenerator implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         JSONObject jsono = new JSONObject();
+        String error = "All good";
         try {
-            jsono.put(KEY, names.get(r.nextInt(12)));
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
+            Connection connection = connectionPool.getConnection();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            error = exception.getMessage();
+        }
+        try {
+            jsono.put(KEY, error + " " + names.get(r.nextInt(12)));
         } catch (JSONException ex) {
             //TODO delete this logging and add Log4j
             Logger.getLogger(NameGenerator.class.getName()).log(Level.SEVERE, null, ex);
         }
         return jsono.toString();
     }
-
 }

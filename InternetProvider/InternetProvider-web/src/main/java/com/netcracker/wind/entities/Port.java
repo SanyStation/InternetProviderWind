@@ -7,12 +7,16 @@ package com.netcracker.wind.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
  * @author Anatolii
  */
 public class Port implements Serializable {
+
+    private static final long serialVersionUID = 1983449719630976337L;
 
     private Integer id;
     private Character free;
@@ -69,22 +73,37 @@ public class Port implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(id);
+        builder.append(free);
+        builder.append(circuits);
+        builder.append(cablesCollection);
+
+        return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof Port)) {
             return false;
         }
-        Port other = (Port) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+
+        Port rhs = (Port) object;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(id, rhs.getId());
+        builder.append(free, rhs.getFree());
+        builder.append(devices, rhs.getDevices());
+        builder.append(circuits, rhs.getCircuits());
+        builder.append(cablesCollection, rhs.getCablesCollection());
+
+        return builder.isEquals();
     }
 
     @Override

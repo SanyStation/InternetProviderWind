@@ -7,12 +7,16 @@ package com.netcracker.wind.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
  * @author Anatolii
  */
 public class Service implements Serializable {
+
+    private static final long serialVersionUID = 810980848160712242L;
 
     private Integer id;
     private String name;
@@ -83,22 +87,40 @@ public class Service implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(id);
+        builder.append(name);
+        builder.append(description);
+        builder.append(pricesCollection);
+        builder.append(serviceInstancesCollection);
+        builder.append(serviceOrdersCollection);
+
+        return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof Service)) {
             return false;
         }
-        Service other = (Service) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+
+        Service rhs = (Service) object;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(id, rhs.getId());
+        builder.append(name, rhs.getName());
+        builder.append(description, rhs.getDescription());
+        builder.append(pricesCollection, rhs.getPricesCollection());
+        builder.append(serviceInstancesCollection, rhs.getServiceInstancesCollection());
+        builder.append(serviceOrdersCollection, rhs.getServiceOrdersCollection());
+
+        return builder.isEquals();
     }
 
     @Override

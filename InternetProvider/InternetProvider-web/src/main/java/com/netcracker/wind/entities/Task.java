@@ -6,12 +6,16 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
  * @author Anatolii
  */
 public class Task implements Serializable {
+
+    private static final long serialVersionUID = -9049678772835215167L;
 
     private Integer id;
     private String type;
@@ -77,22 +81,40 @@ public class Task implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(id);
+        builder.append(type);
+        builder.append(status);
+        builder.append(users);
+        builder.append(serviceOrders);
+        builder.append(roles);
+
+        return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof Task)) {
             return false;
         }
-        Task other = (Task) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+
+        Task rhs = (Task) object;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(id, rhs.getId());
+        builder.append(status, rhs.getStatus());
+        builder.append(type, rhs.getType());
+        builder.append(users, rhs.getUsers());
+        builder.append(serviceOrders, rhs.getServiceOrders());
+        builder.append(roles, rhs.getRoles());
+
+        return builder.isEquals();
     }
 
     @Override
