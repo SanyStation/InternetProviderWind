@@ -26,7 +26,6 @@ public class RoleDAO implements IRoleDAO {
 
     private ConnectionPool connectionPool;
     private static final String DELETE = "DELETE FROM ROLES WHERE ID=?";
-
     private static final String INSERT = "INSERT INTO ROLES (ID,NAME) VALUES(?,?)";
     private static final String SELECT = "SELECT * FROM ROLES";
     private static final String UPDATE = "UPDATE ROLES SET NAME=? WHERE ID=?";

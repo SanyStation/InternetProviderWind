@@ -18,6 +18,7 @@ public class Cable implements Serializable {
     private static final long serialVersionUID = -589654569642300050L;
 
     private Integer id;
+    //instance or location?
     private ServiceInstance serviceInstance;
     private Port port;
 
