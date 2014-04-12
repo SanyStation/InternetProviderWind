@@ -151,4 +151,13 @@ public Circuit findByID(int idCircuit) {
         }
 
     }
+
+    public Circuit findByPort(int idPort) {
+         List<Circuit> circuits = findWhere("WHERE PORT_ID=?", new Object[]{idPort});
+        if (circuits.size() == 0) {
+            return null;
+        } else {
+            return circuits.get(0);
+        }
+    }
 }

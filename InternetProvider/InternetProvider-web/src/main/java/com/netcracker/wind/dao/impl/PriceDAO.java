@@ -6,33 +6,156 @@
 
 package com.netcracker.wind.dao.impl;
 
+import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IPriceDAO;
+import com.netcracker.wind.dao.factory.DAOFactory;
 import com.netcracker.wind.entities.Price;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Oksana
  */
 public class PriceDAO implements IPriceDAO{
-    private static final String UPDATE="";
-    private static final String DELETE="";
-    private static final String INSERT="";
-    private static final String SELECT="";
+    private ConnectionPool connectionPool;
+    private static final String UPDATE="UPDATE PRICES SET PRICE WHERE ID=?";
+    private static final String DELETE="DELETE FROM PRICES WHERE ID=?";
+    private static final String INSERT="INSERT INTO PRICES (ID,PROVIDER_LOCATION_ID,SERVICE_ID,PRICE) VALUES (?,?,?,?)";
+    private static final String SELECT="SELECT * FROM PRICES";
+    private static final String ID="ID";
+    private static final String PLID ="PROVIDER_LOCATION_ID";
+    private static final String SERVICE = "SERVICE_ID";
+    private static final String PRICE = "PRICE";
 
     public void add(Price price) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
+            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat.setInt(1, price.getId());
+            stat.setInt(2, price.getProviderLocations().getId());
+            stat.setInt(3, price.getServices().getId());
+            stat.setInt(4, price.getPrice());
+            stat.executeUpdate();
+        } catch (SQLException ex) {
+            //TODO changer logger
+            Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            connectionPool.close(connection);
+        }}
 
     public void delete(int idPrice) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         Connection con = null;
+        try {
+            con = connectionPool.getConnection();
+            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat.setInt(1, idPrice);
+            stat.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            connectionPool.close(con);
+        }
     }
-
     public Price findByID(int idPrice) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         List<Price> roles = findWhere("WHERE ID=?", new Object[]{idPrice});
+        if (roles.size() == 0) {
+            return null;
+        } else {
+            return roles.get(0);
+        }
+    }
+     /**
+     *
+     * @param where SQL statement where for searching by different parameters
+     * @param param parameters by which search will be formed
+     * @return list of found roles
+     */
+    private List<Price> findWhere(String where, Object[] param) {
+        List<Price> prices = null;
+        Connection con = null;
+        ResultSet rs = null;
+        try {
+            con = connectionPool.getConnection();
+            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            if (param != null) {
+                for (int i = 0; i < param.length; i++) {
+                    stat.setObject(i + 1, param[i]);
+                }
+            }
+            rs = stat.executeQuery();
+            prices = parseResult(rs);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            try {
+                rs.close();
+            } catch (SQLException ex) {
+                //TODO
+                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            connectionPool.close(con);
+        }
+        return prices;
     }
 
+
+     /**
+     *
+     *
+     * @param rs result return from database
+     * @return list of founded roles
+     *
+     */
+    private List<Price> parseResult(ResultSet rs) {
+        List<Price> prices = new ArrayList<Price>();
+        try {
+            while (rs.next()) {
+                Price price = new Price();
+                price.setId(rs.getInt(ID));
+                price.setProviderLocations(DAOFactory.createProviderLocationDAO().findByID(rs.getInt(PLID)));
+                price.setServices(DAOFactory.createServiceDAO().findByID(rs.getInt(SERVICE)));
+                price.setPrice(rs.getInt(PRICE));
+                prices.add(price);
+            }
+        } catch (SQLException ex) {
+            //TODO
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return prices;
+    }
     public void update(Price price) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     Connection con = null;
+        try {
+            con = connectionPool.getConnection();
+            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat.setInt(1, price.getPrice());
+            stat.setInt(2, price.getId());
+            stat.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            connectionPool.close(con);
+        }
+    }
+
+    public List<Price> findByProviderLoc(int idPLoc) {
+        List<Price> prices = findWhere("WHERE PROVIDER_LOCATION_ID=?", new Object[]{idPLoc});
+        if (prices.size() == 0) {
+            return null;
+        } else {
+            return prices;
+        }
     }
     
 }

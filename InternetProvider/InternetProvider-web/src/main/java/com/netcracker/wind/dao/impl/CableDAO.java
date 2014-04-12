@@ -153,4 +153,13 @@ public class CableDAO implements ICableDAO {
         }
 
     }
+
+    public List<Cable> findByPort(int idPort) {
+         List<Cable> cables = findWhere("WHERE PORT_ID=?", new Object[]{idPort});
+        if (cables.size() == 0) {
+            return null;
+        } else {
+            return cables;
+        }
+    }
 }

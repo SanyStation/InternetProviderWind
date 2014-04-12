@@ -153,7 +153,7 @@ public class RoleDAO implements IRoleDAO {
             stat.setInt(2, role.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
 
             connectionPool.close(con);

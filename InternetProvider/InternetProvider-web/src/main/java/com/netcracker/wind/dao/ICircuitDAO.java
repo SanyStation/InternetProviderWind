@@ -18,6 +18,7 @@ public interface ICircuitDAO {
     public void delete(int idCircuit);
 
     public Circuit findByID(int idCircuit);
+    public Circuit findByPort(int idPort);
 
     public void update(Circuit circuit);
 }

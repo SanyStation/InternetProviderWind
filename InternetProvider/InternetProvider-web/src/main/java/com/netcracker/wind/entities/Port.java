@@ -19,9 +19,10 @@ public class Port implements Serializable {
     private static final long serialVersionUID = 1983449719630976337L;
 
     private Integer id;
-    private Character free;
+    private boolean free;
     private Device devices;
     private Circuit circuits;
+    //only one cable on port????
     private Collection<Cable> cablesCollection;
 
     public Port() {
@@ -39,11 +40,11 @@ public class Port implements Serializable {
         this.id = id;
     }
 
-    public Character getFree() {
+    public boolean getFree() {
         return free;
     }
 
-    public void setFree(Character free) {
+    public void setFree(boolean free) {
         this.free = free;
     }
 
