@@ -25,6 +25,7 @@ public class ServiceOrder implements Serializable {
     private Date completedate;
     private String status;
     private String scenario;
+    //one order - one istance ???
     private Collection<ServiceInstance> serviceInstancesCollection;
     private Collection<Task> tasksCollection;
     private User users;

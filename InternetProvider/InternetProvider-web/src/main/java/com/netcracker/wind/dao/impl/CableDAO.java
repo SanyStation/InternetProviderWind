@@ -162,4 +162,13 @@ public class CableDAO implements ICableDAO {
             return cables;
         }
     }
+
+    public List<Cable> findByServInst(int idSI) {
+          List<Cable> cables = findWhere("WHERE SERVICE_INSTANCE_ID=?", new Object[]{idSI});
+        if (cables.size() == 0) {
+            return null;
+        } else {
+            return cables;
+        }
+    }
 }

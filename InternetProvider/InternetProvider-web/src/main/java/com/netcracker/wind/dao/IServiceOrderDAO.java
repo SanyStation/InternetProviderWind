@@ -5,7 +5,9 @@
  */
 package com.netcracker.wind.dao;
 
+
 import com.netcracker.wind.entities.ServiceOrder;
+import java.util.List;
 
 /**
  *
@@ -18,6 +20,8 @@ public interface IServiceOrderDAO {
     public void delete(int id);
 
     public ServiceOrder findByID(int role);
+    public List<ServiceOrder> findByProvLoc(int pLID);
+    public List<ServiceOrder> findByService(int idService);
 
     public void update(ServiceOrder role);
 }

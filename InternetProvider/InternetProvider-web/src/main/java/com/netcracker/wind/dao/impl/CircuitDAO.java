@@ -160,4 +160,13 @@ public Circuit findByID(int idCircuit) {
             return circuits.get(0);
         }
     }
+
+    public List<Circuit> findByServInst(int idSI) {
+       List<Circuit> roles = findWhere("WHERE SERVICE_INSTANCE_ID=?", new Object[]{idSI});
+        if (roles.size() == 0) {
+            return null;
+        } else {
+            return roles;
+        }
+    }
 }

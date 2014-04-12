@@ -157,5 +157,14 @@ public class PriceDAO implements IPriceDAO{
             return prices;
         }
     }
+
+    public List<Price> findByService(int idService) {
+     List<Price> prices = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
+        if (prices.size() == 0) {
+            return null;
+        } else {
+            return prices;
+        }
+    }
     
 }

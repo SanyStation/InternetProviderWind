@@ -23,7 +23,9 @@ public class ServiceInstance implements Serializable {
     private User users;
     private ServiceOrder serviceOrders;
     private Service services;
+    //one circuit - one instance ???
     private Collection<Circuit> circuitsCollection;
+    //one cable - one instanse ???
     private Collection<Cable> cablesCollection;
 
     public ServiceInstance() {
