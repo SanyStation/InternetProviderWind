@@ -27,7 +27,7 @@ public class CableDAO implements ICableDAO {
     private ConnectionPool connectionPool;
     private static final String DELETE = "DELETE FROM CABLES WHERE ID=?";
     private static final String INSERT = "INSERT INTO CABLES (ID,PORT_ID,SERVICE_LOCATION_ID) VALUES(?,?,?)";
-    private static final String SELECT = "SELECT * FROM CABLES";
+    private static final String SELECT = "SELECT * FROM CABLES ";
     //TODO check this with bd
     private static final String UPDATE = "UPDATE CABLES SET PORT_ID=?,SERVICE_INSTANCE_ID=? WHERE ID=?";
     private static final String ID = "ID";
@@ -68,7 +68,7 @@ public class CableDAO implements ICableDAO {
 
     public Cable findByID(int idCable) {
         List<Cable> cables = findWhere("WHERE ID=?", new Object[]{idCable});
-        if (cables.size() == 0) {
+        if (cables.isEmpty()) {
             return null;
         } else {
             return cables.get(0);
@@ -100,7 +100,9 @@ public class CableDAO implements ICableDAO {
         } finally {
 
             try {
-                rs.close();
+                if (rs != null) {
+                    rs.close();
+                }
             } catch (SQLException ex) {
                 //TODO
                 Logger.getLogger(CableDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -148,15 +150,14 @@ public class CableDAO implements ICableDAO {
         } catch (SQLException ex) {
             Logger.getLogger(CableDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
             connectionPool.close(con);
         }
 
     }
 
     public List<Cable> findByPort(int idPort) {
-         List<Cable> cables = findWhere("WHERE PORT_ID=?", new Object[]{idPort});
-        if (cables.size() == 0) {
+        List<Cable> cables = findWhere("WHERE PORT_ID=?", new Object[]{idPort});
+        if (cables.isEmpty()) {
             return null;
         } else {
             return cables;
@@ -164,8 +165,8 @@ public class CableDAO implements ICableDAO {
     }
 
     public List<Cable> findByServInst(int idSI) {
-          List<Cable> cables = findWhere("WHERE SERVICE_INSTANCE_ID=?", new Object[]{idSI});
-        if (cables.size() == 0) {
+        List<Cable> cables = findWhere("WHERE SERVICE_INSTANCE_ID=?", new Object[]{idSI});
+        if (cables.isEmpty()) {
             return null;
         } else {
             return cables;

@@ -46,16 +46,8 @@ public class NameGenerator implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         JSONObject jsono = new JSONObject();
-        String error = "All good";
         try {
-            ConnectionPool connectionPool = ConnectionPool.getInstance();
-            Connection connection = connectionPool.getConnection();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            error = exception.getMessage();
-        }
-        try {
-            jsono.put(KEY, error + " " + names.get(r.nextInt(12)));
+            jsono.put(KEY, names.get(r.nextInt(12)));
         } catch (JSONException ex) {
             //TODO delete this logging and add Log4j
             Logger.getLogger(NameGenerator.class.getName()).log(Level.SEVERE, null, ex);

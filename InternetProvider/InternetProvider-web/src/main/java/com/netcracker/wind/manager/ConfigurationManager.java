@@ -5,22 +5,28 @@
  */
 package com.netcracker.wind.manager;
 
+import java.util.ResourceBundle;
+
 /**
  *
  * @author Anatolii
  */
 public class ConfigurationManager {
 
-    private static ConfigurationManager configurationManager;
+    private static final String FILE_PROPERTIES = "configuration";
+
+    private static final ConfigurationManager configurationManager = new ConfigurationManager();
+    private final ResourceBundle bundle;
 
     private ConfigurationManager() {
+        bundle = ResourceBundle.getBundle(FILE_PROPERTIES);
     }
 
     public static ConfigurationManager getInstance() {
-        if (configurationManager == null) {
-            configurationManager = new ConfigurationManager();
-        }
         return configurationManager;
     }
 
+    public String getProperty(String key) {
+        return bundle.getString(key);
+    }
 }
