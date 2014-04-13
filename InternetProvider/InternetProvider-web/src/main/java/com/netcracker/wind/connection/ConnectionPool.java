@@ -36,24 +36,16 @@ public class ConnectionPool {
     }
 
     public static ConnectionPool getInstance() {
-//        if (connectionPool == null) {
-//            synchronized (ConnectionPool.class) {
-//                if (connectionPool == null) {
-//                    connectionPool = new ConnectionPool();
-//                }
-//            }
-//        }
         return connectionPool;
     }
 
-    public Connection getConnection() {
+    public synchronized Connection getConnection() {
         Connection connection = null;
         try {
             connection = dataSource.getConnection();
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionPool.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //TODO how is right it do? 
         return connection;
     }
 

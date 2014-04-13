@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.ICircuitDAO;
 import com.netcracker.wind.dao.factory.DAOFactory;
 import com.netcracker.wind.entities.Circuit;
-import com.netcracker.wind.entities.Role;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +27,7 @@ public class CircuitDAO implements ICircuitDAO {
     private ConnectionPool connectionPool;
     private static final String DELETE = "DELETE FROM CIRCUITS WHERE ID=?";
     private static final String INSERT = "INSERT INTO CIRCUITS (ID,SERVICE_INSTANCE_ID,PORT_ID) VALUES(?,?,?)";
-    private static final String SELECT = "SELECT * FROM CIRCUITS";
+    private static final String SELECT = "SELECT * FROM CIRCUITS ";
     private static final String UPDATE = "UPDATE CIRCUITS SET SERVICE_INSTANCE_ID=?,PORT_ID=? WHERE ID=?";
     private static final String ID = "ID";
     private static final String SIID = "SERVICE_INSTANCE_ID";
@@ -53,7 +51,7 @@ public class CircuitDAO implements ICircuitDAO {
     }
 
     public void delete(int idCircuit) {
-          Connection con = null;
+        Connection con = null;
         try {
             con = connectionPool.getConnection();
             PreparedStatement stat = con.prepareStatement(DELETE);
@@ -65,9 +63,10 @@ public class CircuitDAO implements ICircuitDAO {
             connectionPool.close(con);
         }
     }
-public Circuit findByID(int idCircuit) {
-       List<Circuit> roles = findWhere("WHERE ID=?", new Object[]{idCircuit});
-        if (roles.size() == 0) {
+
+    public Circuit findByID(int idCircuit) {
+        List<Circuit> roles = findWhere("WHERE ID=?", new Object[]{idCircuit});
+        if (roles.isEmpty()) {
             return null;
         } else {
             return roles.get(0);
@@ -97,9 +96,10 @@ public Circuit findByID(int idCircuit) {
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
             try {
-                rs.close();
+                if (rs != null) {
+                    rs.close();
+                }
             } catch (SQLException ex) {
                 //TODO
                 Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,7 +140,7 @@ public Circuit findByID(int idCircuit) {
             con = connectionPool.getConnection();
             PreparedStatement stat = con.prepareStatement(UPDATE);
             stat.setInt(1, circuit.getServiceInstances().getId());
-            stat.setInt(2,circuit.getPorts().getId());
+            stat.setInt(2, circuit.getPorts().getId());
             stat.setInt(3, circuit.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
@@ -153,8 +153,8 @@ public Circuit findByID(int idCircuit) {
     }
 
     public Circuit findByPort(int idPort) {
-         List<Circuit> circuits = findWhere("WHERE PORT_ID=?", new Object[]{idPort});
-        if (circuits.size() == 0) {
+        List<Circuit> circuits = findWhere("WHERE PORT_ID=?", new Object[]{idPort});
+        if (circuits.isEmpty()) {
             return null;
         } else {
             return circuits.get(0);
@@ -162,8 +162,8 @@ public Circuit findByID(int idCircuit) {
     }
 
     public List<Circuit> findByServInst(int idSI) {
-       List<Circuit> roles = findWhere("WHERE SERVICE_INSTANCE_ID=?", new Object[]{idSI});
-        if (roles.size() == 0) {
+        List<Circuit> roles = findWhere("WHERE SERVICE_INSTANCE_ID=?", new Object[]{idSI});
+        if (roles.isEmpty()) {
             return null;
         } else {
             return roles;

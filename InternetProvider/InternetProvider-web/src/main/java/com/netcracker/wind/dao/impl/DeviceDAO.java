@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -23,17 +22,17 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class DeviceDAO implements IDeviceDAO{
-      private ConnectionPool connectionPool;
+public class DeviceDAO implements IDeviceDAO {
+
+    private ConnectionPool connectionPool;
     private static final String DELETE = "DELETE FROM DEVICES WHERE ID=?";
     private static final String INSERT = "INSERT INTO DEVICES (ID) VALUES (?)";
-    private static final String SELECT = "SELECT * FROM DEVICES";
+    private static final String SELECT = "SELECT * FROM DEVICES ";
     private static final String ID = "ID";
    // private static final String UPDATE = "";
-   
 
     public void add(Device device) {
- Connection connection = null;
+        Connection connection = null;
         try {
             connection = connectionPool.getConnection();
             PreparedStatement stat = connection.prepareStatement(INSERT);
@@ -48,7 +47,7 @@ public class DeviceDAO implements IDeviceDAO{
     }
 
     public void delete(int idDevice) {
-     Connection con = null;
+        Connection con = null;
         try {
             con = connectionPool.getConnection();
             PreparedStatement stat = con.prepareStatement(DELETE);
@@ -62,14 +61,15 @@ public class DeviceDAO implements IDeviceDAO{
     }
 
     public Device findByID(int idDevice) {
-    List<Device> roles = findWhere("WHERE ID=?", new Object[]{idDevice});
-        if (roles.size() == 0) {
+        List<Device> roles = findWhere("WHERE ID=?", new Object[]{idDevice});
+        if (roles.isEmpty()) {
             return null;
         } else {
             return roles.get(0);
         }
     }
- /**
+
+    /**
      *
      * @param where SQL statement where for searching by different parameters
      * @param param parameters by which search will be formed
@@ -103,7 +103,8 @@ public class DeviceDAO implements IDeviceDAO{
         }
         return devices;
     }
-/**
+
+    /**
      *
      *
      * @param rs result return from database
@@ -127,6 +128,5 @@ public class DeviceDAO implements IDeviceDAO{
 
         return devices;
     }
-   
-    
+
 }
