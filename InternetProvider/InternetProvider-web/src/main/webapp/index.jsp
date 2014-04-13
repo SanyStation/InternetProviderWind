@@ -40,6 +40,12 @@
         <form action="mail.jsp" method="POST">
             <input type="submit" value="show_sentmail"  />
         </form>
+        
+        <h3>Reports</h3>
+        <form action="report.jsp" method="POST">
+            <input type="submit" value="Go to reports" name="report" />
+        </form>
+        
 
         <h1 align="center">Name generator</h1>
         <div align="center">
