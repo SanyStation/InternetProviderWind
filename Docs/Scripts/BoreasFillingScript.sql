@@ -256,6 +256,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 71 .. 140 LOOP
 		insert into service_orders
@@ -282,6 +284,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
    FOR a in 141 .. 200 LOOP
 		insert into service_orders
@@ -308,6 +312,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 201 .. 270 LOOP
 		insert into service_orders
@@ -334,6 +340,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 271 .. 340 LOOP
 		insert into service_orders
@@ -360,6 +368,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 341 .. 400 LOOP
 		insert into service_orders
@@ -386,6 +396,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 401 .. 470 LOOP
 		insert into service_orders
@@ -412,6 +424,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 471 .. 540 LOOP
 		insert into service_orders
@@ -438,6 +452,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 541 .. 600 LOOP
 		insert into service_orders
@@ -464,6 +480,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 601 .. 670 LOOP
 		insert into service_orders
@@ -490,6 +508,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 671 .. 740 LOOP
 		insert into service_orders
@@ -516,6 +536,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 741 .. 800 LOOP
 		insert into service_orders
@@ -542,6 +564,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 801 .. 870 LOOP
 		insert into service_orders
@@ -568,6 +592,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 871 .. 940 LOOP
 		insert into service_orders
@@ -594,6 +620,8 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
   FOR a in 941 .. 1000 LOOP
 		insert into service_orders
@@ -620,5 +648,7 @@ BEGIN
 		(status, type, user_id, role_id, service_orders_id)
 		values 
 		('completed', 'sending bill', 1002, 4, a);
+		update ports
+		set free = 0 where id = a;
   END LOOP;
 END;
