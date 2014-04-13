@@ -6,6 +6,7 @@
 package com.netcracker.wind.dao;
 
 import com.netcracker.wind.entities.Port;
+import java.util.List;
 
 /**
  *
@@ -20,4 +21,5 @@ public interface IPortDAO {
     public Port findByID(int idPort);
 
     public void update(Port port);
+    public List<Port> findByDevice(int idDevice);
 }

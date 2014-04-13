@@ -7,12 +7,16 @@ package com.netcracker.wind.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
  * @author Anatolii
  */
 public class Role implements Serializable {
+
+    private static final long serialVersionUID = 4491197292843435012L;
 
     private Integer id;
     private String name;
@@ -65,22 +69,35 @@ public class Role implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(id);
+        builder.append(name);
+        builder.append(tasksCollection);
+        builder.append(usersCollection);
+
+        return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof Role)) {
             return false;
         }
-        Role other = (Role) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+
+        Role rhs = (Role) object;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(id, rhs.getId());
+        builder.append(name, rhs.getName());
+        builder.append(tasksCollection, rhs.getTasksCollection());
+        builder.append(usersCollection, rhs.getUsersCollection());
+
+        return builder.isEquals();
     }
 
     @Override

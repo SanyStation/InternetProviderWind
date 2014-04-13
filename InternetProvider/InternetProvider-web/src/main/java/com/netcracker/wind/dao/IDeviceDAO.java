@@ -19,6 +19,7 @@ public interface IDeviceDAO {
 
     public Device findByID(int idDevice);
 
-    public void update(Device device);
+    //just one id - nothing to update
+    //public void update(Device device);
 
 }

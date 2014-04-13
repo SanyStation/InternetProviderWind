@@ -7,12 +7,16 @@ package com.netcracker.wind.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
  * @author Anatolii
  */
 public class ServiceLocation implements Serializable {
+
+    private static final long serialVersionUID = -4939536133882667333L;
 
     private Integer id;
     private Integer posX;
@@ -75,22 +79,38 @@ public class ServiceLocation implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(id);
+        builder.append(posX);
+        builder.append(posY);
+        builder.append(address);
+        builder.append(serviceOrdersCollection);
+
+        return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof ServiceLocation)) {
             return false;
         }
-        ServiceLocation other = (ServiceLocation) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+
+        ServiceLocation rhs = (ServiceLocation) object;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(id, rhs.getId());
+        builder.append(posX, rhs.getPosX());
+        builder.append(posY, rhs.getPosY());
+        builder.append(address, rhs.getAddress());
+        builder.append(serviceOrdersCollection, rhs.getServiceOrdersCollection());
+
+        return builder.isEquals();
     }
 
     @Override

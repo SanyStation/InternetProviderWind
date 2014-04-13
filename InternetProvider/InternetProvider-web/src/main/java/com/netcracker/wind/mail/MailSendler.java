@@ -24,7 +24,7 @@ import javax.mail.internet.MimeMessage;
 
 public class MailSendler {
 
-    private static final String FROM = "boreas.org";
+    private static final String FROM = "wind@boreas.ml";
     
     @Resource(lookup = "mail/MyMail")
     private Session mailSession;

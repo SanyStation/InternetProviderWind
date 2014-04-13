@@ -7,6 +7,8 @@ package com.netcracker.wind.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -14,12 +16,16 @@ import java.util.Collection;
  */
 public class ServiceInstance implements Serializable {
 
+    private static final long serialVersionUID = 9023896353581772798L;
+
     private Integer id;
     private String status;
     private User users;
     private ServiceOrder serviceOrders;
     private Service services;
+    //one circuit - one instance ???
     private Collection<Circuit> circuitsCollection;
+    //one cable - one instanse ???
     private Collection<Cable> cablesCollection;
 
     public ServiceInstance() {
@@ -87,22 +93,42 @@ public class ServiceInstance implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(id);
+        builder.append(status);
+        builder.append(users);
+        builder.append(serviceOrders);
+        builder.append(services);
+        builder.append(circuitsCollection);
+        builder.append(cablesCollection);
+
+        return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof ServiceInstance)) {
             return false;
         }
-        ServiceInstance other = (ServiceInstance) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+
+        ServiceInstance rhs = (ServiceInstance) object;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(id, rhs.getId());
+        builder.append(status, rhs.getStatus());
+        builder.append(users, rhs.getUsers());
+        builder.append(serviceOrders, rhs.getServiceOrders());
+        builder.append(services, rhs.getServices());
+        builder.append(circuitsCollection, rhs.getCircuitsCollection());
+        builder.append(cablesCollection, rhs.getCablesCollection());
+
+        return builder.isEquals();
     }
 
     @Override

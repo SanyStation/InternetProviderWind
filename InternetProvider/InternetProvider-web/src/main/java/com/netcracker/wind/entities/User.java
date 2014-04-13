@@ -7,6 +7,8 @@ package com.netcracker.wind.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -14,7 +16,8 @@ import java.util.Collection;
  */
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 6475947738102035160L;
+
     private Integer id;
     private String name;
     private String email;
@@ -111,22 +114,46 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(id);
+        builder.append(name);
+        builder.append(email);
+        builder.append(password);
+        builder.append(blocked);
+        builder.append(serviceOrdersCollection);
+        builder.append(tasksCollection);
+        builder.append(roles);
+        builder.append(serviceOrdersCollection);
+
+        return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
         if (!(object instanceof User)) {
             return false;
         }
-        User other = (User) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+
+        User rhs = (User) object;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(id, rhs.getId());
+        builder.append(name, rhs.getName());
+        builder.append(email, rhs.getEmail());
+        builder.append(password, rhs.getPassword());
+        builder.append(blocked, rhs.getBlocked());
+        builder.append(serviceInstancesCollection, rhs.getServiceInstancesCollection());
+        builder.append(tasksCollection, rhs.getTasksCollection());
+        builder.append(roles, rhs.getRoles());
+        builder.append(serviceOrdersCollection, rhs.getServiceOrdersCollection());
+
+        return builder.isEquals();
     }
 
     @Override

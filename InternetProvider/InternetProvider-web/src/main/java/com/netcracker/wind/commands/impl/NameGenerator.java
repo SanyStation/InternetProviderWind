@@ -6,6 +6,8 @@
 package com.netcracker.wind.commands.impl;
 
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.connection.ConnectionPool;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -52,5 +54,4 @@ public class NameGenerator implements ICommand {
         }
         return jsono.toString();
     }
-
 }

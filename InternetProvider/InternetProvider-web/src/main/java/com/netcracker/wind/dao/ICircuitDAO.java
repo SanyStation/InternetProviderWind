@@ -6,6 +6,7 @@
 package com.netcracker.wind.dao;
 
 import com.netcracker.wind.entities.Circuit;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,8 @@ public interface ICircuitDAO {
     public void delete(int idCircuit);
 
     public Circuit findByID(int idCircuit);
+    public Circuit findByPort(int idPort);
+     public List<Circuit> findByServInst(int idSI);
 
     public void update(Circuit circuit);
 }
