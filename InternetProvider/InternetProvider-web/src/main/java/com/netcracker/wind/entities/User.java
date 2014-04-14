@@ -6,7 +6,7 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -23,10 +23,10 @@ public class User implements Serializable {
     private String email;
     private String password;
     private boolean blocked;
-    private Collection<ServiceInstance> serviceInstancesCollection;
-    private Collection<Task> tasksCollection;
+    private List<ServiceInstance> serviceInstancesList;
+    private List<Task> tasksList;
     private Role roles;
-    private Collection<ServiceOrder> serviceOrdersCollection;
+    private List<ServiceOrder> serviceOrdersList;
 
     public User() {
     }
@@ -80,20 +80,20 @@ public class User implements Serializable {
         this.blocked = blocked;
     }
 
-    public Collection<ServiceInstance> getServiceInstancesCollection() {
-        return serviceInstancesCollection;
+    public List<ServiceInstance> getServiceInstancesList() {
+        return serviceInstancesList;
     }
 
-    public void setServiceInstancesCollection(Collection<ServiceInstance> serviceInstancesCollection) {
-        this.serviceInstancesCollection = serviceInstancesCollection;
+    public void setServiceInstancesList(List<ServiceInstance> serviceInstancesList) {
+        this.serviceInstancesList = serviceInstancesList;
     }
 
-    public Collection<Task> getTasksCollection() {
-        return tasksCollection;
+    public List<Task> getTasksList() {
+        return tasksList;
     }
 
-    public void setTasksCollection(Collection<Task> tasksCollection) {
-        this.tasksCollection = tasksCollection;
+    public void setTasksList(List<Task> tasksList) {
+        this.tasksList = tasksList;
     }
 
     public Role getRoles() {
@@ -104,12 +104,12 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
-    public Collection<ServiceOrder> getServiceOrdersCollection() {
-        return serviceOrdersCollection;
+    public List<ServiceOrder> getServiceOrdersList() {
+        return serviceOrdersList;
     }
 
-    public void setServiceOrdersCollection(Collection<ServiceOrder> serviceOrdersCollection) {
-        this.serviceOrdersCollection = serviceOrdersCollection;
+    public void setServiceOrdersList(List<ServiceOrder> serviceOrdersList) {
+        this.serviceOrdersList = serviceOrdersList;
     }
 
     @Override
@@ -121,10 +121,10 @@ public class User implements Serializable {
         builder.append(email);
         builder.append(password);
         builder.append(blocked);
-        builder.append(serviceOrdersCollection);
-        builder.append(tasksCollection);
+        builder.append(serviceOrdersList);
+        builder.append(tasksList);
         builder.append(roles);
-        builder.append(serviceOrdersCollection);
+        builder.append(serviceOrdersList);
 
         return builder.toHashCode();
     }
@@ -148,10 +148,10 @@ public class User implements Serializable {
         builder.append(email, rhs.getEmail());
         builder.append(password, rhs.getPassword());
         builder.append(blocked, rhs.getBlocked());
-        builder.append(serviceInstancesCollection, rhs.getServiceInstancesCollection());
-        builder.append(tasksCollection, rhs.getTasksCollection());
+        builder.append(serviceInstancesList, rhs.getServiceInstancesList());
+        builder.append(tasksList, rhs.getTasksList());
         builder.append(roles, rhs.getRoles());
-        builder.append(serviceOrdersCollection, rhs.getServiceOrdersCollection());
+        builder.append(serviceOrdersList, rhs.getServiceOrdersList());
 
         return builder.isEquals();
     }

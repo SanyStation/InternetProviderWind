@@ -28,7 +28,7 @@ public class PriceDAO implements IPriceDAO{
     private static final String UPDATE="UPDATE PRICES SET PRICE WHERE ID=?";
     private static final String DELETE="DELETE FROM PRICES WHERE ID=?";
     private static final String INSERT="INSERT INTO PRICES (ID,PROVIDER_LOCATION_ID,SERVICE_ID,PRICE) VALUES (?,?,?,?)";
-    private static final String SELECT="SELECT * FROM PRICES";
+    private static final String SELECT="SELECT * FROM PRICES ";
     private static final String ID="ID";
     private static final String PLID ="PROVIDER_LOCATION_ID";
     private static final String SERVICE = "SERVICE_ID";
@@ -66,7 +66,7 @@ public class PriceDAO implements IPriceDAO{
     }
     public Price findByID(int idPrice) {
          List<Price> roles = findWhere("WHERE ID=?", new Object[]{idPrice});
-        if (roles.size() == 0) {
+        if (roles.isEmpty()) {
             return null;
         } else {
             return roles.get(0);
@@ -151,7 +151,7 @@ public class PriceDAO implements IPriceDAO{
 
     public List<Price> findByProviderLoc(int idPLoc) {
         List<Price> prices = findWhere("WHERE PROVIDER_LOCATION_ID=?", new Object[]{idPLoc});
-        if (prices.size() == 0) {
+        if (prices.isEmpty()) {
             return null;
         } else {
             return prices;
@@ -160,7 +160,7 @@ public class PriceDAO implements IPriceDAO{
 
     public List<Price> findByService(int idService) {
      List<Price> prices = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
-        if (prices.size() == 0) {
+        if (prices.isEmpty()) {
             return null;
         } else {
             return prices;

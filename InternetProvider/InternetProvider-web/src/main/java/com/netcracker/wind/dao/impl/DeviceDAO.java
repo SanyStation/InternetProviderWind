@@ -118,7 +118,7 @@ public class DeviceDAO implements IDeviceDAO {
                 Device device = new Device();
                 int id = rs.getInt(ID);
                 device.setId(id);
-                device.setPortsCollection(DAOFactory.createPortDAO().findByDevice(id));
+                device.setPortsList(DAOFactory.createPortDAO().findByDevice(id));
                 devices.add(device);
             }
         } catch (SQLException ex) {

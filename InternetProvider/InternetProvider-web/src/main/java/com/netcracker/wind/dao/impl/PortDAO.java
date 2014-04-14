@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -24,17 +23,18 @@ import java.util.logging.Logger;
  * @author Oksana
  */
 public class PortDAO implements IPortDAO {
+
     private ConnectionPool connectionPool;
-    private static final String UPDATE="UPDATE PORTS SET FREE=? WHERE ID=?";
-    private static final String DELETE="DELETE FROM PORTS WHERE ID=?";
-    private static final String INSERT="INSERT INTO PORTS (ID,DEVICE_ID,FREE) VALUES (?,?)";
-    private static final String SELECT="SELECT * FROM PORTS";
-    private static final String ID="ID";
-    private static final String DEVICE="DEVICE_ID";
+    private static final String UPDATE = "UPDATE PORTS SET FREE=? WHERE ID=?";
+    private static final String DELETE = "DELETE FROM PORTS WHERE ID=?";
+    private static final String INSERT = "INSERT INTO PORTS (ID,DEVICE_ID,FREE) VALUES (?,?)";
+    private static final String SELECT = "SELECT * FROM PORTS ";
+    private static final String ID = "ID";
+    private static final String DEVICE = "DEVICE_ID";
     private static final String FREE = "FREE";
 
     public void add(Port port) {
-      Connection connection = null;
+        Connection connection = null;
         try {
             connection = connectionPool.getConnection();
             PreparedStatement stat = connection.prepareStatement(INSERT);
@@ -47,10 +47,11 @@ public class PortDAO implements IPortDAO {
             Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             connectionPool.close(connection);
-        }}
+        }
+    }
 
     public void delete(int idPort) {
-      Connection con = null;
+        Connection con = null;
         try {
             con = connectionPool.getConnection();
             PreparedStatement stat = con.prepareStatement(DELETE);
@@ -65,8 +66,8 @@ public class PortDAO implements IPortDAO {
 
     public Port findByID(int idPort) {
 
-     List<Port> ports = findWhere("WHERE ID=?", new Object[]{idPort});
-        if (ports.size() == 0) {
+        List<Port> ports = findWhere("WHERE ID=?", new Object[]{idPort});
+        if (ports.isEmpty()) {
             return null;
         } else {
             return ports.get(0);
@@ -107,7 +108,8 @@ public class PortDAO implements IPortDAO {
         }
         return ports;
     }
-     /**
+
+    /**
      *
      *
      * @param rs result return from database
@@ -124,7 +126,8 @@ public class PortDAO implements IPortDAO {
                 port.setDevices(DAOFactory.createDeviceDAO().findByID(rs.getInt(DEVICE)));
                 port.setFree(rs.getBoolean(FREE));
                 port.setCircuits(DAOFactory.createCircuitDAO().findByPort(id));
-                port.setCablesCollection(DAOFactory.createCableDAO().findByPort(id));
+                //TODO get(0) - ???
+                port.setCable(DAOFactory.createCableDAO().findByPort(id).get(0));
                 ports.add(port);
             }
         } catch (SQLException ex) {
@@ -136,7 +139,7 @@ public class PortDAO implements IPortDAO {
     }
 
     public void update(Port port) {
-     Connection con = null;
+        Connection con = null;
         try {
             con = connectionPool.getConnection();
             PreparedStatement stat = con.prepareStatement(UPDATE);
@@ -148,15 +151,17 @@ public class PortDAO implements IPortDAO {
         } finally {
 
             connectionPool.close(con);
-        }}
+        }
+    }
 
     public List<Port> findByDevice(int idDevice) {
-    
-     List<Port> ports = findWhere("WHERE DEVICE_ID=?", new Object[]{idDevice});
-        if (ports.size() == 0) {
+
+        List<Port> ports = findWhere("WHERE DEVICE_ID=?", new Object[]{idDevice});
+        if (ports.isEmpty()) {
             return null;
         } else {
             return ports;
-        }}
-    
+        }
+    }
+
 }

@@ -6,7 +6,7 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -22,8 +22,8 @@ public class ProviderLocation implements Serializable {
     private Integer posX;
     private Integer posY;
     private String address;
-    private Collection<Price> pricesCollection;
-    private Collection<ServiceOrder> serviceOrdersCollection;
+    private List<Price> pricesList;
+    private List<ServiceOrder> serviceOrdersList;
 
     public ProviderLocation() {
     }
@@ -70,20 +70,20 @@ public class ProviderLocation implements Serializable {
         this.address = address;
     }
 
-    public Collection<Price> getPricesCollection() {
-        return pricesCollection;
+    public List<Price> getPricesList() {
+        return pricesList;
     }
 
-    public void setPricesCollection(Collection<Price> pricesCollection) {
-        this.pricesCollection = pricesCollection;
+    public void setPricesList(List<Price> pricesList) {
+        this.pricesList = pricesList;
     }
 
-    public Collection<ServiceOrder> getServiceOrdersCollection() {
-        return serviceOrdersCollection;
+    public List<ServiceOrder> getServiceOrdersList() {
+        return serviceOrdersList;
     }
 
-    public void setServiceOrdersCollection(Collection<ServiceOrder> serviceOrdersCollection) {
-        this.serviceOrdersCollection = serviceOrdersCollection;
+    public void setServiceOrdersList(List<ServiceOrder> serviceOrdersList) {
+        this.serviceOrdersList = serviceOrdersList;
     }
 
     @Override
@@ -94,8 +94,8 @@ public class ProviderLocation implements Serializable {
         builder.append(posX);
         builder.append(posY);
         builder.append(address);
-        builder.append(pricesCollection);
-        builder.append(serviceOrdersCollection);
+        builder.append(pricesList);
+        builder.append(serviceOrdersList);
 
         return builder.toHashCode();
     }
@@ -118,8 +118,8 @@ public class ProviderLocation implements Serializable {
         builder.append(posX, rhs.getPosX());
         builder.append(posY, rhs.getPosY());
         builder.append(address, rhs.getAddress());
-        builder.append(pricesCollection, rhs.getPricesCollection());
-        builder.append(serviceOrdersCollection, rhs.getServiceOrdersCollection());
+        builder.append(pricesList, rhs.getPricesList());
+        builder.append(serviceOrdersList, rhs.getServiceOrdersList());
 
         return builder.isEquals();
     }

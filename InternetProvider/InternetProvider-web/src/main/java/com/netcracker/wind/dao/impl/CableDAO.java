@@ -42,7 +42,7 @@ public class CableDAO implements ICableDAO {
             stat.setInt(1, cable.getId());
             stat.setInt(2, cable.getPorts().getId());
             // do we need to add to to tables
-            stat.setInt(3, cable.getServiceInstances().getId());
+            stat.setInt(3, cable.getServiceLocation().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
@@ -126,7 +126,7 @@ public class CableDAO implements ICableDAO {
                 Cable cable = new Cable();
                 cable.setId(rs.getInt(ID));
                 cable.setPorts(DAOFactory.createPortDAO().findByID(rs.getInt(PORT)));
-                cable.setServiceInstances(DAOFactory.createServiceInstanceDAO().findByID(rs.getInt(SIID)));
+                cable.setServiceLocation(DAOFactory.createServiceLocationDAO().findByID(rs.getInt(SIID)));
 
                 cables.add(cable);
             }
@@ -144,7 +144,7 @@ public class CableDAO implements ICableDAO {
             con = connectionPool.getConnection();
             PreparedStatement stat = con.prepareStatement(UPDATE);
             stat.setInt(1, cable.getPorts().getId());
-            stat.setInt(2, cable.getServiceInstances().getId());
+            stat.setInt(2, cable.getServiceLocation().getId());
             stat.setInt(3, cable.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {

@@ -6,7 +6,7 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -21,9 +21,9 @@ public class Service implements Serializable {
     private Integer id;
     private String name;
     private String description;
-    private Collection<Price> pricesCollection;
-    private Collection<ServiceInstance> serviceInstancesCollection;
-    private Collection<ServiceOrder> serviceOrdersCollection;
+    private List<Price> pricesList;
+    private List<ServiceInstance> serviceInstancesList;
+    private List<ServiceOrder> serviceOrdersList;
 
     public Service() {
     }
@@ -61,28 +61,28 @@ public class Service implements Serializable {
         this.description = description;
     }
 
-    public Collection<Price> getPricesCollection() {
-        return pricesCollection;
+    public List<Price> getPricesList() {
+        return pricesList;
     }
 
-    public void setPricesCollection(Collection<Price> pricesCollection) {
-        this.pricesCollection = pricesCollection;
+    public void setPricesList(List<Price> pricesList) {
+        this.pricesList = pricesList;
     }
 
-    public Collection<ServiceInstance> getServiceInstancesCollection() {
-        return serviceInstancesCollection;
+    public List<ServiceInstance> getServiceInstancesList() {
+        return serviceInstancesList;
     }
 
-    public void setServiceInstancesCollection(Collection<ServiceInstance> serviceInstancesCollection) {
-        this.serviceInstancesCollection = serviceInstancesCollection;
+    public void setServiceInstancesList(List<ServiceInstance> serviceInstancesList) {
+        this.serviceInstancesList = serviceInstancesList;
     }
 
-    public Collection<ServiceOrder> getServiceOrdersCollection() {
-        return serviceOrdersCollection;
+    public List<ServiceOrder> getServiceOrdersList() {
+        return serviceOrdersList;
     }
 
-    public void setServiceOrdersCollection(Collection<ServiceOrder> serviceOrdersCollection) {
-        this.serviceOrdersCollection = serviceOrdersCollection;
+    public void setServiceOrdersList(List<ServiceOrder> serviceOrdersList) {
+        this.serviceOrdersList = serviceOrdersList;
     }
 
     @Override
@@ -92,9 +92,9 @@ public class Service implements Serializable {
         builder.append(id);
         builder.append(name);
         builder.append(description);
-        builder.append(pricesCollection);
-        builder.append(serviceInstancesCollection);
-        builder.append(serviceOrdersCollection);
+        builder.append(pricesList);
+        builder.append(serviceInstancesList);
+        builder.append(serviceOrdersList);
 
         return builder.toHashCode();
     }
@@ -116,9 +116,9 @@ public class Service implements Serializable {
         builder.append(id, rhs.getId());
         builder.append(name, rhs.getName());
         builder.append(description, rhs.getDescription());
-        builder.append(pricesCollection, rhs.getPricesCollection());
-        builder.append(serviceInstancesCollection, rhs.getServiceInstancesCollection());
-        builder.append(serviceOrdersCollection, rhs.getServiceOrdersCollection());
+        builder.append(pricesList, rhs.getPricesList());
+        builder.append(serviceInstancesList, rhs.getServiceInstancesList());
+        builder.append(serviceOrdersList, rhs.getServiceOrdersList());
 
         return builder.isEquals();
     }

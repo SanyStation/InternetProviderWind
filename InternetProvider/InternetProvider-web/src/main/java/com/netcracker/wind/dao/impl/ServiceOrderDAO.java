@@ -31,7 +31,7 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
     private static final String INSERT = "INSERT INTO SERVICE_ORDERS (ID,ENTERDATA,PROCESDATE,"
             + "COMPLETEDATA,USER_ID,SERVICE_ID,PROVIDER_LOCATION_ID,SERVICE_LOCATION_ID,STATUS"
             + ",SCENARIO,SERVICE_INSTANCE_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String SELECT = "SELECT * FROM SERVICE_ORDERS";
+    private static final String SELECT = "SELECT * FROM SERVICE_ORDERS ";
     private static final String ID = "ID";
     private static final String ENT_D = "ENTERDATA";
     private static final String PROC_D = "PROCESDATE";
@@ -86,7 +86,7 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
 
     public ServiceOrder findByID(int idSO) {
         List<ServiceOrder> roles = findWhere("WHERE ID=?", new Object[]{idSO});
-        if (roles.size() == 0) {
+        if (roles.isEmpty()) {
             return null;
         } else {
             return roles.get(0);
@@ -170,7 +170,7 @@ public void update(ServiceOrder role) {
 
     public List<ServiceOrder> findByProvLoc(int pLID) {
 List<ServiceOrder> roles = findWhere("WHERE PROVIDER_LOCATION_ID=?", new Object[]{pLID});
-        if (roles.size() == 0) {
+        if (roles.isEmpty()) {
             return null;
         } else {
             return roles;
@@ -178,7 +178,7 @@ List<ServiceOrder> roles = findWhere("WHERE PROVIDER_LOCATION_ID=?", new Object[
 
     public List<ServiceOrder> findByService(int idService) {
        List<ServiceOrder> roles = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
-        if (roles.size() == 0) {
+        if (roles.isEmpty()) {
             return null;
         } else {
             return roles;

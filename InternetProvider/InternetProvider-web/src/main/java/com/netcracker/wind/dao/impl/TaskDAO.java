@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 public class TaskDAO implements ITaskDAO{
     private static final String DELETE = "DELETE FROM TASKS WHERE ID=?";
     private static final String INSERT = "INSERT INTO TASKS (ID,USER_ID,TYPE,STATUS,ROLE_ID,SERVICE_ORDERS_ID) VALUES(?,?,?,?,?,?)";
-    private static final String SELECT = "SELECT * FROM TASKS";
+    private static final String SELECT = "SELECT * FROM TASKS ";
     private static final String UPDATE = "UPDATE TASKS SET USER_ID=? ,STATUS=? WHERE ID=?";
     private static final String ID = "ID";
     private static final String USER = "USER_ID";
@@ -73,7 +73,7 @@ public class TaskDAO implements ITaskDAO{
 
     public Task findByID(int id) {
      List<Task> tasks = findWhere("WHERE ID=?", new Object[]{id});
-        if (tasks.size() == 0) {
+        if (tasks.isEmpty()) {
             return null;
         } else {
             return tasks.get(0);

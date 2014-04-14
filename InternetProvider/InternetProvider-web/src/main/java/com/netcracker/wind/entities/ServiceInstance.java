@@ -6,7 +6,7 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -21,12 +21,10 @@ public class ServiceInstance implements Serializable {
     private Integer id;
     private String status;
     private User users;
-    private ServiceOrder serviceOrders;
+    private ServiceOrder serviceOrder;
     private Service services;
-    //one circuit - one instance ???
-    private Collection<Circuit> circuitsCollection;
-    //one cable - one instanse ???
-    private Collection<Cable> cablesCollection;
+    private Circuit circuit;
+    private List<ServiceOrder> serviceOrdersList;
 
     public ServiceInstance() {
     }
@@ -60,11 +58,11 @@ public class ServiceInstance implements Serializable {
     }
 
     public ServiceOrder getServiceOrders() {
-        return serviceOrders;
+        return serviceOrder;
     }
 
     public void setServiceOrders(ServiceOrder serviceOrders) {
-        this.serviceOrders = serviceOrders;
+        this.serviceOrder = serviceOrders;
     }
 
     public Service getServices() {
@@ -75,20 +73,20 @@ public class ServiceInstance implements Serializable {
         this.services = services;
     }
 
-    public Collection<Circuit> getCircuitsCollection() {
-        return circuitsCollection;
+    public Circuit getCircuit() {
+        return circuit;
     }
 
-    public void setCircuitsCollection(Collection<Circuit> circuitsCollection) {
-        this.circuitsCollection = circuitsCollection;
+    public void setCircuit(Circuit circuitsList) {
+        this.circuit = circuitsList;
     }
 
-    public Collection<Cable> getCablesCollection() {
-        return cablesCollection;
+    public List<ServiceOrder> getServiceOrdersList() {
+        return serviceOrdersList;
     }
 
-    public void setCablesCollection(Collection<Cable> cablesCollection) {
-        this.cablesCollection = cablesCollection;
+    public void getServiceOrdersList(List<ServiceOrder> serviceOrdersList) {
+        this.serviceOrdersList = serviceOrdersList;
     }
 
     @Override
@@ -98,10 +96,10 @@ public class ServiceInstance implements Serializable {
         builder.append(id);
         builder.append(status);
         builder.append(users);
-        builder.append(serviceOrders);
+        builder.append(serviceOrder);
         builder.append(services);
-        builder.append(circuitsCollection);
-        builder.append(cablesCollection);
+        builder.append(circuit);
+        builder.append(serviceOrdersList);
 
         return builder.toHashCode();
     }
@@ -123,10 +121,10 @@ public class ServiceInstance implements Serializable {
         builder.append(id, rhs.getId());
         builder.append(status, rhs.getStatus());
         builder.append(users, rhs.getUsers());
-        builder.append(serviceOrders, rhs.getServiceOrders());
+        builder.append(serviceOrder, rhs.getServiceOrders());
         builder.append(services, rhs.getServices());
-        builder.append(circuitsCollection, rhs.getCircuitsCollection());
-        builder.append(cablesCollection, rhs.getCablesCollection());
+        builder.append(circuit, rhs.getCircuit());
+        builder.append(serviceOrdersList, rhs.getServiceOrdersList());
 
         return builder.isEquals();
     }

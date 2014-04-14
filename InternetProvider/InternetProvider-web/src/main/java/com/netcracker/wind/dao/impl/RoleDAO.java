@@ -27,7 +27,7 @@ public class RoleDAO implements IRoleDAO {
     private ConnectionPool connectionPool;
     private static final String DELETE = "DELETE FROM ROLES WHERE ID=?";
     private static final String INSERT = "INSERT INTO ROLES (ID,NAME) VALUES(?,?)";
-    private static final String SELECT = "SELECT * FROM ROLES";
+    private static final String SELECT = "SELECT * FROM ROLES ";
     private static final String UPDATE = "UPDATE ROLES SET NAME=? WHERE ID=?";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
@@ -77,7 +77,7 @@ public class RoleDAO implements IRoleDAO {
      */
     public Role findByID(int id) {
         List<Role> roles = findWhere("WHERE ID=?", new Object[]{id});
-        if (roles.size() == 0) {
+        if (roles.isEmpty()) {
             return null;
         } else {
             return roles.get(0);
@@ -133,7 +133,7 @@ public class RoleDAO implements IRoleDAO {
                 Role role = new Role();
                 role.setId(rs.getInt(ID));
                 role.setName(rs.getString(NAME));
-                role.setUsersCollection(DAOFactory.createUserDAO().findByRole(role.getId()));
+                role.setUsersList(DAOFactory.createUserDAO().findByRole(role.getId()));
                 roles.add(role);
             }
         } catch (SQLException ex) {

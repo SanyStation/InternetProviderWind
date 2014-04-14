@@ -22,8 +22,7 @@ public class Port implements Serializable {
     private boolean free;
     private Device devices;
     private Circuit circuits;
-    //only one cable on port????
-    private Collection<Cable> cablesCollection;
+    private Cable cable;
 
     public Port() {
     }
@@ -64,12 +63,12 @@ public class Port implements Serializable {
         this.circuits = circuits;
     }
 
-    public Collection<Cable> getCablesCollection() {
-        return cablesCollection;
+    public Cable getCable() {
+        return cable;
     }
 
-    public void setCablesCollection(Collection<Cable> cablesCollection) {
-        this.cablesCollection = cablesCollection;
+    public void setCable(Cable cable) {
+        this.cable = cable;
     }
 
     @Override
@@ -79,7 +78,7 @@ public class Port implements Serializable {
         builder.append(id);
         builder.append(free);
         builder.append(circuits);
-        builder.append(cablesCollection);
+        builder.append(cable);
 
         return builder.toHashCode();
     }
@@ -102,7 +101,7 @@ public class Port implements Serializable {
         builder.append(free, rhs.getFree());
         builder.append(devices, rhs.getDevices());
         builder.append(circuits, rhs.getCircuits());
-        builder.append(cablesCollection, rhs.getCablesCollection());
+        builder.append(cable, rhs.getCable());
 
         return builder.isEquals();
     }

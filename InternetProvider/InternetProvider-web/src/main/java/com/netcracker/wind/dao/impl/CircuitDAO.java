@@ -39,7 +39,7 @@ public class CircuitDAO implements ICircuitDAO {
             connection = connectionPool.getConnection();
             PreparedStatement stat = connection.prepareStatement(INSERT);
             stat.setInt(1, circuit.getId());
-            stat.setInt(2, circuit.getServiceInstances().getId());
+            stat.setInt(2, circuit.getServiceInstance().getId());
             stat.setInt(3, circuit.getPorts().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
@@ -122,7 +122,7 @@ public class CircuitDAO implements ICircuitDAO {
             while (rs.next()) {
                 Circuit circuit = new Circuit();
                 circuit.setId(rs.getInt(ID));
-                circuit.setServiceInstances(DAOFactory.createServiceInstanceDAO().findByID(rs.getInt(SIID)));
+                circuit.setServiceInstance(DAOFactory.createServiceInstanceDAO().findByID(rs.getInt(SIID)));
                 circuit.setPorts(DAOFactory.createPortDAO().findByID(rs.getInt(PORT)));
                 roles.add(circuit);
             }
@@ -139,7 +139,7 @@ public class CircuitDAO implements ICircuitDAO {
         try {
             con = connectionPool.getConnection();
             PreparedStatement stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, circuit.getServiceInstances().getId());
+            stat.setInt(1, circuit.getServiceInstance().getId());
             stat.setInt(2, circuit.getPorts().getId());
             stat.setInt(3, circuit.getId());
             stat.executeUpdate();

@@ -6,7 +6,7 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -20,8 +20,8 @@ public class Role implements Serializable {
 
     private Integer id;
     private String name;
-    private Collection<Task> tasksCollection;
-    private Collection<User> usersCollection;
+    private List<Task> tasksList;
+    private List<User> usersList;
 
     public Role() {
     }
@@ -51,20 +51,20 @@ public class Role implements Serializable {
         this.name = name;
     }
 
-    public Collection<Task> getTasksCollection() {
-        return tasksCollection;
+    public List<Task> getTasksList() {
+        return tasksList;
     }
 
-    public void setTasksCollection(Collection<Task> tasksCollection) {
-        this.tasksCollection = tasksCollection;
+    public void setTasksList(List<Task> tasksList) {
+        this.tasksList = tasksList;
     }
 
-    public Collection<User> getUsersCollection() {
-        return usersCollection;
+    public List<User> getUsersList() {
+        return usersList;
     }
 
-    public void setUsersCollection(Collection<User> usersCollection) {
-        this.usersCollection = usersCollection;
+    public void setUsersList(List<User> usersList) {
+        this.usersList = usersList;
     }
 
     @Override
@@ -72,8 +72,8 @@ public class Role implements Serializable {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(name);
-        builder.append(tasksCollection);
-        builder.append(usersCollection);
+        builder.append(tasksList);
+        builder.append(usersList);
 
         return builder.toHashCode();
     }
@@ -94,8 +94,8 @@ public class Role implements Serializable {
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
         builder.append(name, rhs.getName());
-        builder.append(tasksCollection, rhs.getTasksCollection());
-        builder.append(usersCollection, rhs.getUsersCollection());
+        builder.append(tasksList, rhs.getTasksList());
+        builder.append(usersList, rhs.getUsersList());
 
         return builder.isEquals();
     }

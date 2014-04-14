@@ -8,7 +8,6 @@ package com.netcracker.wind.dao.impl;
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IServiceLocationDAO;
 import com.netcracker.wind.dao.factory.DAOFactory;
-import com.netcracker.wind.entities.ProviderLocation;
 import com.netcracker.wind.entities.ServiceLocation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +23,7 @@ import java.util.logging.Logger;
  * @author Oksana
  */
 public class ServiceLocationDAO implements IServiceLocationDAO {
-
+    //Need add one field cable
     private ConnectionPool connectionPool;
     private static final String UPDATE = "UPDATE SERVICE_LOCATIONS SET POS_X=?,POS_Y=?,ADDRESS=? WHERE ID=?";
     private static final String DELETE = "DELETE FROM SERVICE_LOCATIONS WHERE ID=?";
@@ -69,7 +68,7 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
 
     public ServiceLocation findByID(int id) {
         List<ServiceLocation> serviceLocations = findWhere("WHERE ID=?", new Object[]{id});
-        if (serviceLocations.size() == 0) {
+        if (serviceLocations.isEmpty()) {
             return null;
         } else {
             return serviceLocations.get(0);
@@ -128,7 +127,7 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
                 provLoc.setPosX(rs.getInt(X));
                 provLoc.setPosY(rs.getInt(Y));
                 provLoc.setAddress(rs.getString(ADDRESS));
-                provLoc.setServiceOrdersCollection(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
+                provLoc.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
                 provLocs.add(provLoc);
             }
         } catch (SQLException ex) {

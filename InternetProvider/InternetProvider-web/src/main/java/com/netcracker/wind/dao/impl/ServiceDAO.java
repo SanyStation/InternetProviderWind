@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -24,17 +23,18 @@ import java.util.logging.Logger;
  * @author Oksana
  */
 public class ServiceDAO implements IServiceDAO {
+
     private ConnectionPool connectionPool;
-    private static final String UPDATE="UPDATE SERVICES SET NAME=?,DESCRIPTION=? WHERE ID=?";
-    private static final String DELETE="DELETE FROM SERVICES WHERE ID=?";
-    private static final String INSERT="INSERT INTO SERVICES (ID,NAME,DESCRIPTION) VALUES (?,?,?)";
-    private static final String SELECT="SELECT * FROM SERVICES";
-    private static final String ID="ID";
-    private static final String NAME ="NAME";
-    private static final String DESCR ="DESCRIPTION";
+    private static final String UPDATE = "UPDATE SERVICES SET NAME=?,DESCRIPTION=? WHERE ID=?";
+    private static final String DELETE = "DELETE FROM SERVICES WHERE ID=?";
+    private static final String INSERT = "INSERT INTO SERVICES (ID,NAME,DESCRIPTION) VALUES (?,?,?)";
+    private static final String SELECT = "SELECT * FROM SERVICES ";
+    private static final String ID = "ID";
+    private static final String NAME = "NAME";
+    private static final String DESCR = "DESCRIPTION";
 
     public void add(Service service) {
-    Connection connection = null;
+        Connection connection = null;
         try {
             connection = connectionPool.getConnection();
             PreparedStatement stat = connection.prepareStatement(INSERT);
@@ -65,8 +65,8 @@ public class ServiceDAO implements IServiceDAO {
     }
 
     public Service findByID(int idService) {
-       List<Service> services = findWhere("WHERE ID=?", new Object[]{idService});
-        if (services.size() == 0) {
+        List<Service> services = findWhere("WHERE ID=?", new Object[]{idService});
+        if (services.isEmpty()) {
             return null;
         } else {
             return services.get(0);
@@ -120,14 +120,14 @@ public class ServiceDAO implements IServiceDAO {
         try {
             while (rs.next()) {
                 Service service = new Service();
-                int id=rs.getInt(ID);
+                int id = rs.getInt(ID);
                 service.setId(id);
                 service.setName(rs.getString(NAME));
                 service.setDescription(rs.getString(DESCR));
-                service.setPricesCollection(DAOFactory.createPriceDAO().findByService(id));
-                service.setServiceInstancesCollection(DAOFactory.createServiceInstanceDAO().findByService(id));
-                service.setServiceOrdersCollection(DAOFactory.createServiceOrderDAO().findByService(id));
-                
+                service.setPricesList(DAOFactory.createPriceDAO().findByService(id));
+                service.setServiceInstancesList(DAOFactory.createServiceInstanceDAO().findByService(id));
+                service.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByService(id));
+
                 services.add(service);
             }
         } catch (SQLException ex) {
@@ -154,5 +154,5 @@ public class ServiceDAO implements IServiceDAO {
             connectionPool.close(con);
         }
     }
-    
+
 }

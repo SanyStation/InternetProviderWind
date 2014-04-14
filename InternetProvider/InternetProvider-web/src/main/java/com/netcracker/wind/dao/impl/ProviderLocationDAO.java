@@ -68,7 +68,7 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
 
     public ProviderLocation findByID(int idPL) {
         List<ProviderLocation> providerLocations = findWhere("WHERE ID=?", new Object[]{idPL});
-        if (providerLocations.size() == 0) {
+        if (providerLocations.isEmpty()) {
             return null;
         } else {
             return providerLocations.get(0);
@@ -127,8 +127,8 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
                 provLoc.setPosX(rs.getInt(X));
                 provLoc.setPosY(rs.getInt(Y));
                 provLoc.setAddress(rs.getString(ADDRESS));
-                provLoc.setPricesCollection(DAOFactory.createPriceDAO().findByProviderLoc(id));
-                provLoc.setServiceOrdersCollection(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
+                provLoc.setPricesList(DAOFactory.createPriceDAO().findByProviderLoc(id));
+                provLoc.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
                 provLocs.add(provLoc);
             }
         } catch (SQLException ex) {

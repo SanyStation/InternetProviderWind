@@ -28,7 +28,7 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
     private static final String UPDATE = "UPDATE SERVICE_INSTANCES SET STATUS=? WHERE ID=?";
     private static final String DELETE = "DELETE FROM SERVICE_INSTANCES WHERE ID=?";
     private static final String INSERT = "INSERT INTO SERVICE_INSTANCES (ID,USER_ID,SERVICE_ORDER_ID,STATUS,SERVICE_ID) VALUES(?,?,?,?,?)";
-    private static final String SELECT = "SELECT * FROM SERVICE_INSTANCES";
+    private static final String SELECT = "SELECT * FROM SERVICE_INSTANCES ";
     private static final String ID = "ID";
     private static final String USER = "USER_ID";
     private static final String SO = "SERVICE_ORDER_ID";
@@ -70,7 +70,7 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
 
     public ServiceInstance findByID(int idSI) {
         List<ServiceInstance> servInsts = findWhere("WHERE ID=?", new Object[]{idSI});
-        if (servInsts.size() == 0) {
+        if (servInsts.isEmpty()) {
             return null;
         } else {
             return servInsts.get(0);
@@ -124,14 +124,16 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
         try {
             while (rs.next()) {
                 ServiceInstance servInst = new ServiceInstance();
-                int id= rs.getInt(ID);
+                int id = rs.getInt(ID);
                 servInst.setId(id);
                 servInst.setUsers(DAOFactory.createUserDAO().findByID(rs.getInt(USER)));
                 servInst.setServiceOrders(DAOFactory.createServiceOrderDAO().findByID(rs.getInt(SO)));
                 servInst.setStatus(rs.getString(STATUS));
                 servInst.setServices(DAOFactory.createServiceDAO().findByID(rs.getInt(SERVICE)));
-                servInst.setCablesCollection(DAOFactory.createCableDAO().findByServInst(id));
-                servInst.setCircuitsCollection(DAOFactory.createCircuitDAO().findByServInst(id));
+                //Need refactor
+                //servInst.setServiceOrders(DAOFactory.createCableDAO().findByServInst(id));
+                //TODO get(0) - ???
+                servInst.setCircuit(DAOFactory.createCircuitDAO().findByServInst(id).get(0));
                 servInsts.add(servInst);
             }
         } catch (SQLException ex) {
@@ -142,9 +144,8 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
         return servInsts;
     }
 
-
-public void update(ServiceInstance serviceInstance) {
-       Connection con = null;
+    public void update(ServiceInstance serviceInstance) {
+        Connection con = null;
         try {
             con = connectionPool.getConnection();
             PreparedStatement stat = con.prepareStatement(UPDATE);
@@ -161,12 +162,12 @@ public void update(ServiceInstance serviceInstance) {
     }
 
     public List<ServiceInstance> findByService(int idService) {
-          List<ServiceInstance> servInsts = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
-        if (servInsts.size() == 0) {
+        List<ServiceInstance> servInsts = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
+        if (servInsts.isEmpty()) {
             return null;
         } else {
             return servInsts;
         }
     }
-    
+
 }

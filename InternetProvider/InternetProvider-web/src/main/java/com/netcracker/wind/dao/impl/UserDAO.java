@@ -8,7 +8,6 @@ package com.netcracker.wind.dao.impl;
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IUserDAO;
 import com.netcracker.wind.dao.factory.DAOFactory;
-import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +27,7 @@ public class UserDAO implements IUserDAO {
     private static final String DELETE = "DELETE FROM USERS WHERE ID=?";
 
     private static final String INSERT = "INSERT INTO USERS (ID,NAME,EMAIL,PASSWORD,BLOCKED,ROLE_ID) VALUES(?,?,?,?,?,?)";
-    private static final String SELECT = "SELECT * FROM USERS";
+    private static final String SELECT = "SELECT * FROM USERS ";
     private static final String UPDATE = "UPDATE USERS SET EMAIL=? ,PASSWORD=?,BLOCKED WHERE ID=?";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
@@ -88,7 +87,7 @@ public class UserDAO implements IUserDAO {
      */
     public User findByID(int id) {
         List<User> users = findWhere("WHERE ID=?", new Object[]{id});
-        if (users.size() == 0) {
+        if (users.isEmpty()) {
             return null;
         } else {
             return users.get(0);
@@ -183,7 +182,7 @@ public class UserDAO implements IUserDAO {
  
     public List<User> findByRole(int roleID) {
      List<User> users = findWhere("WHERE ROLES=?", new Object[]{roleID});
-        if (users.size() == 0) {
+        if (users.isEmpty()) {
             return null;
         } else {
             return users;

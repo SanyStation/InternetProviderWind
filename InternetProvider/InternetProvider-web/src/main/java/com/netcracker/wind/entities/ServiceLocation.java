@@ -6,7 +6,7 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -22,7 +22,9 @@ public class ServiceLocation implements Serializable {
     private Integer posX;
     private Integer posY;
     private String address;
-    private Collection<ServiceOrder> serviceOrdersCollection;
+    private Cable cable;
+
+    private List<ServiceOrder> serviceOrdersList;
 
     public ServiceLocation() {
     }
@@ -69,12 +71,20 @@ public class ServiceLocation implements Serializable {
         this.address = address;
     }
 
-    public Collection<ServiceOrder> getServiceOrdersCollection() {
-        return serviceOrdersCollection;
+    public Cable getCable() {
+        return cable;
     }
 
-    public void setServiceOrdersCollection(Collection<ServiceOrder> serviceOrdersCollection) {
-        this.serviceOrdersCollection = serviceOrdersCollection;
+    public void setCable(Cable cable) {
+        this.cable = cable;
+    }
+
+    public List<ServiceOrder> getServiceOrdersList() {
+        return serviceOrdersList;
+    }
+
+    public void setServiceOrdersList(List<ServiceOrder> serviceOrdersList) {
+        this.serviceOrdersList = serviceOrdersList;
     }
 
     @Override
@@ -85,7 +95,8 @@ public class ServiceLocation implements Serializable {
         builder.append(posX);
         builder.append(posY);
         builder.append(address);
-        builder.append(serviceOrdersCollection);
+        builder.append(cable);
+        builder.append(serviceOrdersList);
 
         return builder.toHashCode();
     }
@@ -108,7 +119,8 @@ public class ServiceLocation implements Serializable {
         builder.append(posX, rhs.getPosX());
         builder.append(posY, rhs.getPosY());
         builder.append(address, rhs.getAddress());
-        builder.append(serviceOrdersCollection, rhs.getServiceOrdersCollection());
+        builder.append(cable, rhs.getCable());
+        builder.append(serviceOrdersList, rhs.getServiceOrdersList());
 
         return builder.isEquals();
     }

@@ -19,7 +19,7 @@ public class Cable implements Serializable {
 
     private Integer id;
     //instance or location?
-    private ServiceInstance serviceInstance;
+    private ServiceLocation serviceLocation;
     private Port port;
 
     public Cable() {
@@ -37,12 +37,12 @@ public class Cable implements Serializable {
         this.id = id;
     }
 
-    public ServiceInstance getServiceInstances() {
-        return serviceInstance;
+    public ServiceLocation getServiceLocation() {
+        return serviceLocation;
     }
 
-    public void setServiceInstances(ServiceInstance serviceInstances) {
-        this.serviceInstance = serviceInstances;
+    public void setServiceLocation(ServiceLocation serviceLocation) {
+        this.serviceLocation = serviceLocation;
     }
 
     public Port getPorts() {
@@ -57,7 +57,7 @@ public class Cable implements Serializable {
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
-        builder.append(serviceInstance);
+        builder.append(serviceLocation);
         builder.append(port);
 
         return builder.toHashCode();
@@ -77,7 +77,7 @@ public class Cable implements Serializable {
         Cable rhs = (Cable) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
-        builder.append(serviceInstance, rhs.getServiceInstances());
+        builder.append(serviceLocation, rhs.getServiceLocation());
         builder.append(port, rhs.getPorts());
 
         return builder.isEquals();

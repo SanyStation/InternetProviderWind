@@ -6,7 +6,7 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -19,7 +19,7 @@ public class Device implements Serializable {
     private static final long serialVersionUID = -2152609240262921250L;
 
     private Integer id;
-    private Collection<Port> portsCollection;
+    private List<Port> portsCollection;
 
     public Device() {
     }
@@ -36,11 +36,11 @@ public class Device implements Serializable {
         this.id = id;
     }
 
-    public Collection<Port> getPortsCollection() {
+    public List<Port> getPortsList() {
         return portsCollection;
     }
 
-    public void setPortsCollection(Collection<Port> portsCollection) {
+    public void setPortsList(List<Port> portsCollection) {
         this.portsCollection = portsCollection;
     }
 
@@ -67,7 +67,7 @@ public class Device implements Serializable {
         Device rhs = (Device) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
-        builder.append(portsCollection, rhs.getPortsCollection());
+        builder.append(portsCollection, rhs.getPortsList());
 
         return builder.isEquals();
     }
