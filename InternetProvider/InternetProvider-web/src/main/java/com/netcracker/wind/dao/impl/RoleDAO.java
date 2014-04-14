@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class RoleDAO implements IRoleDAO {
 
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM ROLES WHERE ID=?";
     private static final String INSERT = "INSERT INTO ROLES (ID,NAME) VALUES(?,?)";
     private static final String SELECT = "SELECT * FROM ROLES ";
@@ -107,7 +107,6 @@ public class RoleDAO implements IRoleDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
             try {
                 rs.close();
             } catch (SQLException ex) {
@@ -133,7 +132,7 @@ public class RoleDAO implements IRoleDAO {
                 Role role = new Role();
                 role.setId(rs.getInt(ID));
                 role.setName(rs.getString(NAME));
-                role.setUsersList(DAOFactory.createUserDAO().findByRole(role.getId()));
+//                role.setUsersList(DAOFactory.createUserDAO().findByRole(role.getId()));
                 roles.add(role);
             }
         } catch (SQLException ex) {

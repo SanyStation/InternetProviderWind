@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Oksana
+ * @author Oksana and Anatolii
  */
 public class UserDAO implements IUserDAO {
 
@@ -35,7 +35,7 @@ public class UserDAO implements IUserDAO {
     private static final String PASSWORD = "PASSWORD";
     private static final String BLOCKED = "BLOCKED";
     private static final String ROLE = "ROLE_ID";
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     /**
      *
@@ -103,10 +103,11 @@ public class UserDAO implements IUserDAO {
     private List<User> findWhere(String where, Object[] param) {
         List<User> users = null;
         Connection con = null;
+        PreparedStatement stat = null;
         ResultSet rs = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -118,16 +119,19 @@ public class UserDAO implements IUserDAO {
             //TODO
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
             try {
-                rs.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stat != null) {
+                    stat.close();
+                }
             } catch (SQLException ex) {
                 //TODO
                 Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
-
         return users;
     }
 
@@ -156,10 +160,12 @@ public class UserDAO implements IUserDAO {
 
         return users;
     }
-/**
- * updates users data such as email, password, and status(blocked/unblocked)
- * @param user 
- */
+
+    /**
+     * updates users data such as email, password, and status(blocked/unblocked)
+     *
+     * @param user
+     */
     public void update(User user) {
         Connection con = null;
         try {
@@ -179,12 +185,22 @@ public class UserDAO implements IUserDAO {
         }
     }
 
- 
     public List<User> findByRole(int roleID) {
-     List<User> users = findWhere("WHERE ROLES=?", new Object[]{roleID});
+        List<User> users = findWhere("WHERE ROLES_ID=?", new Object[]{roleID});
         if (users.isEmpty()) {
             return null;
         } else {
             return users;
-        }}
+        }
+    }
+
+    public User findByEmailAndPassword(String email, String password) {
+        List<User> users = findWhere("WHERE email=? AND password=?", new Object[]{email, password});
+        if (users.isEmpty()) {
+            return null;
+        } else if (users.size() == 1) {
+            return users.get(0);
+        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

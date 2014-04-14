@@ -20,6 +20,8 @@ public interface IUserDAO {
 
     public User findByID(int id);
 
+    public User findByEmailAndPassword(String email, String password);
+
     public void update(User user);
 
     public List<User> findByRole(int roleID);
