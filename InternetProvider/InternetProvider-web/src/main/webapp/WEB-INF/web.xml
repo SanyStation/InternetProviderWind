@@ -17,12 +17,78 @@
         <servlet-name>ReportController</servlet-name>
         <url-pattern>/ReportController</url-pattern>
     </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+        <servlet>
+        <servlet-name>private_controller</servlet-name>
+        <servlet-class>com.netcracker.wind.auth.private_controller</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>private_controller</servlet-name>
+        <url-pattern>/profile</url-pattern>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>/WEB-INF/user/*</url-pattern>
+            <url-pattern>/index.jsp</url-pattern>
+            <url-pattern>/WEB-INF/profile/*</url-pattern>
+            <url-pattern>/WEB-INF/admin/*</url-pattern>
+            <url-pattern>/WEB-INF/ie/*</url-pattern>
+            <url-pattern>/WEB-INF/cse/*</url-pattern>
+            <url-pattern>/WEB-INF/pe/*</url-pattern>
+        </jsp-property-group>
+    </jsp-config>
+    <security-constraint>
+        <display-name>login zone</display-name>
+        <web-resource-collection>
+            <web-resource-name>login zone</web-resource-name>
+            <description/>
+            <url-pattern>/profile/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>Administrator</role-name>
+            <role-name>CustomerUser</role-name>
+            <role-name>CustomerSupportEngineer</role-name>
+            <role-name>ProvisioningEngineer</role-name>
+            <role-name>InstallationEngineer</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>JDBCRealmNetCrackerAuth</realm-name>
+        <form-login-config>
+            <form-login-page>/WEB-INF/profile/login.jsp</form-login-page>
+            <form-error-page>/WEB-INF/profile/error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>Administrator</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>CustomerUser</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>CustomerSupportEngineer</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>ProvisioningEngineer</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>InstallationEngineer</role-name>
+    </security-role>
 </web-app>
