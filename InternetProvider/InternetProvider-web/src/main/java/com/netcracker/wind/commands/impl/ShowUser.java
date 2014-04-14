@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.netcracker.wind.commands.impl;
 
 import com.netcracker.wind.commands.ICommand;
@@ -12,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Bed Anatolii
+ * @author Oksana
  */
-public class NoCommand implements ICommand {
+public class ShowUser implements ICommand{
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-         request.setAttribute("depts", DAOFactory.createUserDAO().findByRole(1));
-        return "printUsers.jsp"; 
+        request.setAttribute("depts", DAOFactory.createUserDAO().findByRole(1));
+        return "printUsers.jsp";    
     }
-
+    
 }

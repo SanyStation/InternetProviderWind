@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class CircuitDAO implements ICircuitDAO {
 
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM CIRCUITS WHERE ID=?";
     private static final String INSERT = "INSERT INTO CIRCUITS (ID,SERVICE_INSTANCE_ID,PORT_ID) VALUES(?,?,?)";
     private static final String SELECT = "SELECT * FROM CIRCUITS ";
@@ -33,11 +33,16 @@ public class CircuitDAO implements ICircuitDAO {
     private static final String SIID = "SERVICE_INSTANCE_ID";
     private static final String PORT = "PORT_ID";
 
+    /**
+     *
+     * @param circuit
+     */
     public void add(Circuit circuit) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, circuit.getId());
             stat.setInt(2, circuit.getServiceInstance().getId());
             stat.setInt(3, circuit.getPorts().getId());
@@ -46,24 +51,48 @@ public class CircuitDAO implements ICircuitDAO {
             //TODO changer logger
             Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
 
+    /**
+     *
+     * @param idCircuit
+     */
     public void delete(int idCircuit) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, idCircuit);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
 
+    /**
+     *
+     * @param idCircuit
+     * @return
+     */
     public Circuit findByID(int idCircuit) {
         List<Circuit> roles = findWhere("WHERE ID=?", new Object[]{idCircuit});
         if (roles.isEmpty()) {
@@ -83,9 +112,10 @@ public class CircuitDAO implements ICircuitDAO {
         List<Circuit> roles = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -102,6 +132,13 @@ public class CircuitDAO implements ICircuitDAO {
                 }
             } catch (SQLException ex) {
                 //TODO
+                Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
                 Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
@@ -134,11 +171,16 @@ public class CircuitDAO implements ICircuitDAO {
         return roles;
     }
 
+    /**
+     *
+     * @param circuit
+     */
     public void update(Circuit circuit) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setInt(1, circuit.getServiceInstance().getId());
             stat.setInt(2, circuit.getPorts().getId());
             stat.setInt(3, circuit.getId());
@@ -146,12 +188,23 @@ public class CircuitDAO implements ICircuitDAO {
         } catch (SQLException ex) {
             Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
 
     }
 
+    /**
+     *
+     * @param idPort
+     * @return
+     */
     public Circuit findByPort(int idPort) {
         List<Circuit> circuits = findWhere("WHERE PORT_ID=?", new Object[]{idPort});
         if (circuits.isEmpty()) {
@@ -161,6 +214,11 @@ public class CircuitDAO implements ICircuitDAO {
         }
     }
 
+    /**
+     *
+     * @param idSI
+     * @return
+     */
     public List<Circuit> findByServInst(int idSI) {
         List<Circuit> roles = findWhere("WHERE SERVICE_INSTANCE_ID=?", new Object[]{idSI});
         if (roles.isEmpty()) {

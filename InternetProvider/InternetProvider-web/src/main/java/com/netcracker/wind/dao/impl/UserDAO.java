@@ -43,9 +43,10 @@ public class UserDAO implements IUserDAO {
      */
     public void add(User user) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, user.getId());
             stat.setString(2, user.getName());
             stat.setString(3, user.getEmail());
@@ -57,6 +58,13 @@ public class UserDAO implements IUserDAO {
             //TODO changer logger
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
@@ -67,9 +75,10 @@ public class UserDAO implements IUserDAO {
      */
     public void delete(int id) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
@@ -168,9 +177,10 @@ public class UserDAO implements IUserDAO {
      */
     public void update(User user) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setString(1, user.getEmail());
             stat.setString(2, user.getPassword());
             stat.setBoolean(3, user.getBlocked());
@@ -180,7 +190,13 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }

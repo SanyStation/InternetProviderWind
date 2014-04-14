@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class ServiceInstanceDAO implements IServiceInstanceDAO {
 
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE SERVICE_INSTANCES SET STATUS=? WHERE ID=?";
     private static final String DELETE = "DELETE FROM SERVICE_INSTANCES WHERE ID=?";
     private static final String INSERT = "INSERT INTO SERVICE_INSTANCES (ID,USER_ID,SERVICE_ORDER_ID,STATUS,SERVICE_ID) VALUES(?,?,?,?,?)";
@@ -37,9 +37,10 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
 
     public void add(ServiceInstance serviceInstance) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, serviceInstance.getId());
             stat.setInt(2, serviceInstance.getUsers().getId());
             stat.setInt(3, serviceInstance.getServiceOrders().getId());
@@ -50,20 +51,35 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
             //TODO changer logger
             Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
 
     public void delete(int idSI) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, idSI);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
@@ -87,9 +103,10 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
         List<ServiceInstance> servInsts = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -100,7 +117,13 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             try {
                 rs.close();
             } catch (SQLException ex) {
@@ -146,16 +169,23 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
 
     public void update(ServiceInstance serviceInstance) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setString(1, serviceInstance.getStatus());
             stat.setInt(2, serviceInstance.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
 

@@ -38,9 +38,10 @@ public class RoleDAO implements IRoleDAO {
      */
     public void add(Role role) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, role.getId());
             stat.setString(2, role.getName());
             stat.executeUpdate();
@@ -48,6 +49,13 @@ public class RoleDAO implements IRoleDAO {
             //TODO changer logger
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
@@ -58,14 +66,22 @@ public class RoleDAO implements IRoleDAO {
      */
     public void delete(int id) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
@@ -94,9 +110,10 @@ public class RoleDAO implements IRoleDAO {
         List<Role> roles = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -107,6 +124,13 @@ public class RoleDAO implements IRoleDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             try {
                 rs.close();
             } catch (SQLException ex) {
@@ -145,16 +169,23 @@ public class RoleDAO implements IRoleDAO {
 
     public void update(Role role) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setString(1, role.getName());
             stat.setInt(2, role.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
 

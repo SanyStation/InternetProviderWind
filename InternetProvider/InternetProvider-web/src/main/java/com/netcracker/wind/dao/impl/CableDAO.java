@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class CableDAO implements ICableDAO {
 
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM CABLES WHERE ID=?";
     private static final String INSERT = "INSERT INTO CABLES (ID,PORT_ID,SERVICE_LOCATION_ID) VALUES(?,?,?)";
     private static final String SELECT = "SELECT * FROM CABLES ";
@@ -36,36 +36,58 @@ public class CableDAO implements ICableDAO {
 
     public void add(Cable cable) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, cable.getId());
             stat.setInt(2, cable.getPorts().getId());
-            // do we need to add to to tables
+            // do we need to add to the tables
             stat.setInt(3, cable.getServiceLocation().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CableDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
 
     public void delete(int idCable) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, idCable);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CableDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
 
+    /**
+     *
+     * @param idCable the id of cable by which search will be done
+     * @return entities with idCable if it exists in database, and null -
+     * otherwise
+     */
     public Cable findByID(int idCable) {
         List<Cable> cables = findWhere("WHERE ID=?", new Object[]{idCable});
         if (cables.isEmpty()) {
@@ -82,19 +104,20 @@ public class CableDAO implements ICableDAO {
      * @return list of found roles
      */
     private List<Cable> findWhere(String where, Object[] param) {
-        List<Cable> roles = null;
+        List<Cable> cables = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
                 }
             }
             rs = stat.executeQuery();
-            roles = parseResult(rs);
+            cables = parseResult(rs);
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -107,9 +130,16 @@ public class CableDAO implements ICableDAO {
                 //TODO
                 Logger.getLogger(CableDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CableDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
-        return roles;
+        return cables;
     }
 
     /**
@@ -140,9 +170,10 @@ public class CableDAO implements ICableDAO {
 
     public void update(Cable cable) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setInt(1, cable.getPorts().getId());
             stat.setInt(2, cable.getServiceLocation().getId());
             stat.setInt(3, cable.getId());
@@ -150,6 +181,14 @@ public class CableDAO implements ICableDAO {
         } catch (SQLException ex) {
             Logger.getLogger(CableDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CableDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
 

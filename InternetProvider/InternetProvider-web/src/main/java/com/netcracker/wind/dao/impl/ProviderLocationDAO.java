@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class ProviderLocationDAO implements IProviderLocationDAO {
 
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE ROVIDER_LOCATIONS SET POS_X=?,POS_Y=?,ADDRESS=? WHERE ID=?";
     private static final String DELETE = "DELETE FROM ROVIDER_LOCATIONS WHERE ID=?";
     private static final String INSERT = "INSERT INTO PROVIDER_LOCATIONS (ID,POS_X,POS_Y,ADDRESS) VALUES (?,?,?,?)";
@@ -36,9 +36,10 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
 
     public void add(ProviderLocation providerLocation) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, providerLocation.getId());
             stat.setInt(2, providerLocation.getPosX());
             stat.setInt(3, providerLocation.getPosY());
@@ -48,20 +49,35 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
             //TODO changer logger
             Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
 
     public void delete(int idPL) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, idPL);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
@@ -85,9 +101,10 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
         List<ProviderLocation> provLocs = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -98,7 +115,13 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             try {
                 rs.close();
             } catch (SQLException ex) {
@@ -141,9 +164,10 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
 
     public void update(ProviderLocation providerLocation) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setInt(1, providerLocation.getPosX());
             stat.setInt(2, providerLocation.getPosY());
             stat.setString(3, providerLocation.getAddress());
@@ -152,7 +176,13 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -23,22 +22,28 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class PriceDAO implements IPriceDAO{
-    private ConnectionPool connectionPool;
-    private static final String UPDATE="UPDATE PRICES SET PRICE WHERE ID=?";
-    private static final String DELETE="DELETE FROM PRICES WHERE ID=?";
-    private static final String INSERT="INSERT INTO PRICES (ID,PROVIDER_LOCATION_ID,SERVICE_ID,PRICE) VALUES (?,?,?,?)";
-    private static final String SELECT="SELECT * FROM PRICES ";
-    private static final String ID="ID";
-    private static final String PLID ="PROVIDER_LOCATION_ID";
+public class PriceDAO implements IPriceDAO {
+
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String UPDATE = "UPDATE PRICES SET PRICE WHERE ID=?";
+    private static final String DELETE = "DELETE FROM PRICES WHERE ID=?";
+    private static final String INSERT = "INSERT INTO PRICES (ID,PROVIDER_LOCATION_ID,SERVICE_ID,PRICE) VALUES (?,?,?,?)";
+    private static final String SELECT = "SELECT * FROM PRICES ";
+    private static final String ID = "ID";
+    private static final String PLID = "PROVIDER_LOCATION_ID";
     private static final String SERVICE = "SERVICE_ID";
     private static final String PRICE = "PRICE";
 
+    /**
+     *
+     * @param price
+     */
     public void add(Price price) {
-     Connection connection = null;
+        Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, price.getId());
             stat.setInt(2, price.getProviderLocations().getId());
             stat.setInt(3, price.getServices().getId());
@@ -48,31 +53,58 @@ public class PriceDAO implements IPriceDAO{
             //TODO changer logger
             Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
-        }}
+        }
+    }
 
+    /**
+     *
+     * @param idPrice
+     */
     public void delete(int idPrice) {
-         Connection con = null;
+        Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, idPrice);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
+
+    /**
+     *
+     * @param idPrice
+     * @return
+     */
     public Price findByID(int idPrice) {
-         List<Price> roles = findWhere("WHERE ID=?", new Object[]{idPrice});
+        List<Price> roles = findWhere("WHERE ID=?", new Object[]{idPrice});
         if (roles.isEmpty()) {
             return null;
         } else {
             return roles.get(0);
         }
     }
-     /**
+
+    /**
      *
      * @param where SQL statement where for searching by different parameters
      * @param param parameters by which search will be formed
@@ -82,9 +114,10 @@ public class PriceDAO implements IPriceDAO{
         List<Price> prices = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -95,7 +128,13 @@ public class PriceDAO implements IPriceDAO{
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             try {
                 rs.close();
             } catch (SQLException ex) {
@@ -107,8 +146,7 @@ public class PriceDAO implements IPriceDAO{
         return prices;
     }
 
-
-     /**
+    /**
      *
      *
      * @param rs result return from database
@@ -133,22 +171,39 @@ public class PriceDAO implements IPriceDAO{
 
         return prices;
     }
+
+    /**
+     *
+     * @param price
+     */
     public void update(Price price) {
-     Connection con = null;
+        Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setInt(1, price.getPrice());
             stat.setInt(2, price.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
 
+    /**
+     *
+     * @param idPLoc
+     * @return
+     */
     public List<Price> findByProviderLoc(int idPLoc) {
         List<Price> prices = findWhere("WHERE PROVIDER_LOCATION_ID=?", new Object[]{idPLoc});
         if (prices.isEmpty()) {
@@ -158,13 +213,18 @@ public class PriceDAO implements IPriceDAO{
         }
     }
 
+    /**
+     *
+     * @param idService
+     * @return
+     */
     public List<Price> findByService(int idService) {
-     List<Price> prices = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
+        List<Price> prices = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
         if (prices.isEmpty()) {
             return null;
         } else {
             return prices;
         }
     }
-    
+
 }

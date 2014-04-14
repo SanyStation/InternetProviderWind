@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -23,7 +22,8 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class TaskDAO implements ITaskDAO{
+public class TaskDAO implements ITaskDAO {
+
     private static final String DELETE = "DELETE FROM TASKS WHERE ID=?";
     private static final String INSERT = "INSERT INTO TASKS (ID,USER_ID,TYPE,STATUS,ROLE_ID,SERVICE_ORDERS_ID) VALUES(?,?,?,?,?,?)";
     private static final String SELECT = "SELECT * FROM TASKS ";
@@ -34,15 +34,15 @@ public class TaskDAO implements ITaskDAO{
     private static final String ROLE = "ROLE_ID";
     private static final String TYPE = "TYPE";
     private static final String SO = "SERVICE_ORDERS_ID";
-    
 
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     public void add(Task task) {
-          Connection connection = null;
+        Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, task.getId());
             stat.setInt(2, task.getUsers().getId());
             stat.setString(3, task.getType());
@@ -54,40 +54,59 @@ public class TaskDAO implements ITaskDAO{
             //TODO changer logger
             Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
-        }}
+        }
+    }
 
     public void delete(int id) {
-         Connection con = null;
+        Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
 
     public Task findByID(int id) {
-     List<Task> tasks = findWhere("WHERE ID=?", new Object[]{id});
+        List<Task> tasks = findWhere("WHERE ID=?", new Object[]{id});
         if (tasks.isEmpty()) {
             return null;
         } else {
             return tasks.get(0);
-        }}
+        }
+    }
 
     /**
      * allows to update task's user and task's status
-     * @param task 
+     *
+     * @param task
      */
     public void update(Task task) {
-         Connection con = null;
+        Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setInt(1, task.getUsers().getId());
             stat.setString(2, task.getStatus());
             stat.setInt(3, task.getId());
@@ -96,10 +115,17 @@ public class TaskDAO implements ITaskDAO{
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
-        }}
-    
+        }
+    }
+
     /**
      *
      * @param where SQL statement where for searching by different parameters
@@ -110,9 +136,10 @@ public class TaskDAO implements ITaskDAO{
         List<Task> tasks = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -130,6 +157,13 @@ public class TaskDAO implements ITaskDAO{
             } catch (SQLException ex) {
                 //TODO
                 Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -154,7 +188,7 @@ public class TaskDAO implements ITaskDAO{
                 task.setRoles(DAOFactory.createRoleDAO().findByID(rs.getInt(ROLE)));
                 //TODO 
                 //task.setServiceOrders(DAOFactory.createSODAO().findByID());
-               
+
             }
         } catch (SQLException ex) {
             //TODO
@@ -163,5 +197,5 @@ public class TaskDAO implements ITaskDAO{
 
         return tasks;
     }
-    
+
 }

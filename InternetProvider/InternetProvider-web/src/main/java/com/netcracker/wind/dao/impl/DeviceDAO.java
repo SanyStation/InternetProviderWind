@@ -24,42 +24,71 @@ import java.util.logging.Logger;
  */
 public class DeviceDAO implements IDeviceDAO {
 
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM DEVICES WHERE ID=?";
     private static final String INSERT = "INSERT INTO DEVICES (ID) VALUES (?)";
     private static final String SELECT = "SELECT * FROM DEVICES ";
     private static final String ID = "ID";
-   // private static final String UPDATE = "";
+    // private static final String UPDATE = "";
 
+    /**
+     *
+     * @param device
+     */
     public void add(Device device) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, device.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
             Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
 
+    /**
+     *
+     * @param idDevice
+     */
     public void delete(int idDevice) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, idDevice);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
 
+    /**
+     *
+     * @param idDevice
+     * @return
+     */
     public Device findByID(int idDevice) {
         List<Device> roles = findWhere("WHERE ID=?", new Object[]{idDevice});
         if (roles.isEmpty()) {
@@ -79,9 +108,10 @@ public class DeviceDAO implements IDeviceDAO {
         List<Device> devices = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -92,7 +122,13 @@ public class DeviceDAO implements IDeviceDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             try {
                 rs.close();
             } catch (SQLException ex) {

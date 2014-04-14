@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class ServiceDAO implements IServiceDAO {
 
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE SERVICES SET NAME=?,DESCRIPTION=? WHERE ID=?";
     private static final String DELETE = "DELETE FROM SERVICES WHERE ID=?";
     private static final String INSERT = "INSERT INTO SERVICES (ID,NAME,DESCRIPTION) VALUES (?,?,?)";
@@ -35,9 +35,10 @@ public class ServiceDAO implements IServiceDAO {
 
     public void add(Service service) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, service.getId());
             stat.setString(2, service.getName());
             stat.setString(3, service.getDescription());
@@ -46,20 +47,35 @@ public class ServiceDAO implements IServiceDAO {
             //TODO changer logger
             Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
 
     public void delete(int idService) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, idService);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
@@ -83,9 +99,10 @@ public class ServiceDAO implements IServiceDAO {
         List<Service> services = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -101,6 +118,13 @@ public class ServiceDAO implements IServiceDAO {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
+                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
                 Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
@@ -140,9 +164,10 @@ public class ServiceDAO implements IServiceDAO {
 
     public void update(Service service) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setString(1, service.getName());
             stat.setString(2, service.getDescription());
             stat.setInt(3, service.getId());
@@ -150,7 +175,13 @@ public class ServiceDAO implements IServiceDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }

@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  */
 public class ServiceOrderDAO implements IServiceOrderDAO {
 
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "";
     private static final String DELETE = "DELETE FROM SERVICE_ORDERS WHERE ID=?";
     private static final String INSERT = "INSERT INTO SERVICE_ORDERS (ID,ENTERDATA,PROCESDATE,"
@@ -46,9 +46,10 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
 
     public void add(ServiceOrder serviceOrder) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, serviceOrder.getId());
             stat.setDate(2, (Date) serviceOrder.getEnterdate());
             stat.setDate(3, (Date) serviceOrder.getProcesdate());
@@ -66,20 +67,35 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
             //TODO changer logger
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
 
     public void delete(int id) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
@@ -103,9 +119,10 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
         List<ServiceOrder> roles = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -121,6 +138,13 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
+                Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
                 Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
@@ -163,26 +187,26 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
         return roles;
     }
 
-
-public void update(ServiceOrder role) {
+    public void update(ServiceOrder role) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public List<ServiceOrder> findByProvLoc(int pLID) {
-List<ServiceOrder> roles = findWhere("WHERE PROVIDER_LOCATION_ID=?", new Object[]{pLID});
-        if (roles.isEmpty()) {
-            return null;
-        } else {
-            return roles;
-        }    }
-
-    public List<ServiceOrder> findByService(int idService) {
-       List<ServiceOrder> roles = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
+        List<ServiceOrder> roles = findWhere("WHERE PROVIDER_LOCATION_ID=?", new Object[]{pLID});
         if (roles.isEmpty()) {
             return null;
         } else {
             return roles;
         }
     }
-    
+
+    public List<ServiceOrder> findByService(int idService) {
+        List<ServiceOrder> roles = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
+        if (roles.isEmpty()) {
+            return null;
+        } else {
+            return roles;
+        }
+    }
+
 }

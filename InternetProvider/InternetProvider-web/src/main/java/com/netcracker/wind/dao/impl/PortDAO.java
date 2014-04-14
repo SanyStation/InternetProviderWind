@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class PortDAO implements IPortDAO {
 
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE PORTS SET FREE=? WHERE ID=?";
     private static final String DELETE = "DELETE FROM PORTS WHERE ID=?";
     private static final String INSERT = "INSERT INTO PORTS (ID,DEVICE_ID,FREE) VALUES (?,?)";
@@ -35,9 +35,10 @@ public class PortDAO implements IPortDAO {
 
     public void add(Port port) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, port.getId());
             stat.setInt(2, port.getDevices().getId());
             stat.setBoolean(3, port.getFree());
@@ -46,20 +47,35 @@ public class PortDAO implements IPortDAO {
             //TODO changer logger
             Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
 
     public void delete(int idPort) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, idPort);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
@@ -84,9 +100,10 @@ public class PortDAO implements IPortDAO {
         List<Port> ports = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -97,6 +114,13 @@ public class PortDAO implements IPortDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             try {
                 rs.close();
@@ -140,16 +164,23 @@ public class PortDAO implements IPortDAO {
 
     public void update(Port port) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setBoolean(1, port.getFree());
             stat.setInt(2, port.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }

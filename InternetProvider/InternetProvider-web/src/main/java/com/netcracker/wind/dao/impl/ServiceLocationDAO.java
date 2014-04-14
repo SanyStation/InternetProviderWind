@@ -23,8 +23,9 @@ import java.util.logging.Logger;
  * @author Oksana
  */
 public class ServiceLocationDAO implements IServiceLocationDAO {
+
     //Need add one field cable
-    private ConnectionPool connectionPool;
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE SERVICE_LOCATIONS SET POS_X=?,POS_Y=?,ADDRESS=? WHERE ID=?";
     private static final String DELETE = "DELETE FROM SERVICE_LOCATIONS WHERE ID=?";
     private static final String INSERT = "INSERT INTO _LOCATIONS (ID,POS_X,POS_Y,ADDRESS) VALUES (?,?,?,?)";
@@ -36,9 +37,10 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
 
     public void add(ServiceLocation serviceLocation) {
         Connection connection = null;
+        PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            PreparedStatement stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT);
             stat.setInt(1, serviceLocation.getId());
             stat.setInt(2, serviceLocation.getPosX());
             stat.setInt(3, serviceLocation.getPosY());
@@ -48,20 +50,35 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
             //TODO changer logger
             Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(connection);
         }
     }
 
     public void delete(int id) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(DELETE);
+            stat = con.prepareStatement(DELETE);
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
@@ -85,9 +102,10 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
         List<ServiceLocation> provLocs = null;
         Connection con = null;
         ResultSet rs = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(SELECT + where);
+            stat = con.prepareStatement(SELECT + where);
             if (param != null) {
                 for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
@@ -98,6 +116,13 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             try {
                 rs.close();
@@ -140,9 +165,10 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
 
     public void update(ServiceLocation serviceLocation) {
         Connection con = null;
+        PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            PreparedStatement stat = con.prepareStatement(UPDATE);
+            stat = con.prepareStatement(UPDATE);
             stat.setInt(1, serviceLocation.getPosX());
             stat.setInt(2, serviceLocation.getPosY());
             stat.setString(3, serviceLocation.getAddress());
@@ -151,7 +177,13 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             connectionPool.close(con);
         }
     }
