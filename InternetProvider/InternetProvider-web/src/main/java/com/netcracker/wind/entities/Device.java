@@ -58,7 +58,8 @@ public class Device implements Serializable {
     }
 
     public double getUtilizationPercent() {
-        return (double) getUtilization() / getCapacity();
+        return getCapacity() > 0 ? 
+                (double) getUtilization() / getCapacity() : 0;
     }
 
     @Override
