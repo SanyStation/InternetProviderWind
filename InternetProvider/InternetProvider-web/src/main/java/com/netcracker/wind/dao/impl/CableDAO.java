@@ -216,4 +216,8 @@ public class CableDAO implements ICableDAO {
             return cables;
         }
     }
+
+    public List<Cable> findAll() {
+       return findWhere("", null);
+    }
 }

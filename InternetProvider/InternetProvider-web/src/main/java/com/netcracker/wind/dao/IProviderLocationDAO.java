@@ -6,6 +6,7 @@
 package com.netcracker.wind.dao;
 
 import com.netcracker.wind.entities.ProviderLocation;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,8 @@ public interface IProviderLocationDAO {
     public void delete(int idPL);
 
     public ProviderLocation findByID(int idPL);
+    
+    public List<ProviderLocation> findAll();
 
     public void update(ProviderLocation providerLocation);
 }

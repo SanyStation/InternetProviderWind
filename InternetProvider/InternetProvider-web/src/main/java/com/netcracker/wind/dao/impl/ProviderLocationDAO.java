@@ -186,4 +186,8 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
             connectionPool.close(con);
         }
     }
+
+    public List<ProviderLocation> findAll() {
+        return findWhere("", null);
+    }
 }

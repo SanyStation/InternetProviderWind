@@ -160,4 +160,8 @@ public class DeviceDAO implements IDeviceDAO {
         return devices;
     }
 
+    public List<Device> findAll() {
+        return findWhere("", null);
+    }
+
 }

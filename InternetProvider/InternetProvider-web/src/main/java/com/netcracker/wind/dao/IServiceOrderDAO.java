@@ -22,6 +22,6 @@ public interface IServiceOrderDAO {
     public ServiceOrder findByID(int role);
     public List<ServiceOrder> findByProvLoc(int pLID);
     public List<ServiceOrder> findByService(int idService);
-
+    public List<ServiceOrder> findAll();
     public void update(ServiceOrder role);
 }

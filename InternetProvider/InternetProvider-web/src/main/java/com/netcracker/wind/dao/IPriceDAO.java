@@ -21,6 +21,7 @@ public interface IPriceDAO {
     public Price findByID(int idPrice);
     public List<Price> findByProviderLoc(int idPLoc);
     public List<Price> findByService(int idService);
+    public List<Price> findAll();
 
     public void update(Price price);
 }

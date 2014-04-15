@@ -6,6 +6,7 @@
 package com.netcracker.wind.dao;
 
 import com.netcracker.wind.entities.Device;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,7 @@ public interface IDeviceDAO {
     public void delete(int idDevice);
 
     public Device findByID(int idDevice);
+    public List<Device> findAll();
 
     //just one id - nothing to update
     //public void update(Device device);
