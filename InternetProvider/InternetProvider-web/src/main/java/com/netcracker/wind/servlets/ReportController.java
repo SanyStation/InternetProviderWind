@@ -1,7 +1,7 @@
 package com.netcracker.wind.servlets;
 
-import com.netcracker.wind.test.Order;
-import com.netcracker.wind.test.Router;
+import com.netcracker.wind.entities.Device;
+import com.netcracker.wind.entities.ServiceOrder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,24 +38,14 @@ public class ReportController extends HttpServlet {
                 dispatcher = request
                         .getRequestDispatcher("report.jsp");
             } else if (value.equals("riUtilNCap")) {
-                List<Router> routers = new ArrayList();
+                List<Device> routers = new ArrayList();
                 
                 httpSession.setAttribute("routers", routers);
                 dispatcher = request
                         .getRequestDispatcher("RiUtilNCap.jsp");
             } else if (value.equals("siNewOrders")) {
-                List<Order> orders = new ArrayList();
-                orders.add(new Order(100, "Silver internet", "01.01.2014", 25));
-                orders.add(new Order(101, "Golden internet", "01.01.2014", 40));
-                orders.add(new Order(110, "Golden internet", "01.01.2014", 40));
-                orders.add(new Order(111, "Golden internet", "09.01.2014", 40));
-                orders.add(new Order(112, "Silver internet", "10.01.2014", 25));
-                orders.add(new Order(113, "Silver internet", "12.01.2014", 25));
-                orders.add(new Order(201, "Silver internet", "13.01.2014", 25));
-                orders.add(new Order(242, "Platinum internet", "20.01.2014", 55));
-                orders.add(new Order(301, "Platinum internet", "20.01.2014", 55));
-                orders.add(new Order(302, "Silver internet", "20.01.2014", 25));
-                orders.add(new Order(501, "Silver internet", "29.01.2014", 25));
+                List<ServiceOrder> orders = new ArrayList();
+                
                 httpSession.setAttribute("orders", orders);
                 dispatcher = request
                         .getRequestDispatcher("SiNewOrders.jsp");
