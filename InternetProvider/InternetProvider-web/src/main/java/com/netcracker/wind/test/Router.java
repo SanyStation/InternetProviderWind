@@ -45,4 +45,8 @@ public class Router {
         this.utilization = utilization;
     }
     
+    public double getUtilizationPercent() {
+        return capacity > 0 ? (double) utilization / capacity : 0;
+    }
+    
 }

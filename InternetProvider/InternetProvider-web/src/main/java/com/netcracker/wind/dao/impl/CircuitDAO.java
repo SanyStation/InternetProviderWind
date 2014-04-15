@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -24,11 +19,13 @@ import java.util.logging.Logger;
  */
 public class CircuitDAO implements ICircuitDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String DELETE = "DELETE FROM CIRCUITS WHERE ID=?";
-    private static final String INSERT = "INSERT INTO CIRCUITS (ID,SERVICE_INSTANCE_ID,PORT_ID) VALUES(?,?,?)";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String DELETE = "DELETE FROM CIRCUITS WHERE ID = ?";
+    private static final String INSERT = "INSERT INTO CIRCUITS (ID, "
+            + "SERVICE_INSTANCE_ID, PORT_ID) VALUES(?, ?, ?)";
     private static final String SELECT = "SELECT * FROM CIRCUITS ";
-    private static final String UPDATE = "UPDATE CIRCUITS SET SERVICE_INSTANCE_ID=?,PORT_ID=? WHERE ID=?";
+    private static final String UPDATE = "UPDATE CIRCUITS SET "
+            + "SERVICE_INSTANCE_ID = ?, PORT_ID = ? WHERE ID = ?";
     private static final String ID = "ID";
     private static final String SIID = "SERVICE_INSTANCE_ID";
     private static final String PORT = "PORT_ID";
@@ -94,11 +91,12 @@ public class CircuitDAO implements ICircuitDAO {
      * @return
      */
     public Circuit findByID(int idCircuit) {
-        List<Circuit> roles = findWhere("WHERE ID=?", new Object[]{idCircuit});
-        if (roles.isEmpty()) {
+        List<Circuit> circuits =
+                findWhere("WHERE ID = ?", new Object[]{idCircuit});
+        if (circuits.isEmpty()) {
             return null;
         } else {
-            return roles.get(0);
+            return circuits.get(0);
         }
     }
 
@@ -106,10 +104,10 @@ public class CircuitDAO implements ICircuitDAO {
      *
      * @param where SQL statement where for searching by different parameters
      * @param param parameters by which search will be formed
-     * @return list of found roles
+     * @return list of found circuits
      */
     private List<Circuit> findWhere(String where, Object[] param) {
-        List<Circuit> roles = null;
+        List<Circuit> circuits = null;
         Connection con = null;
         ResultSet rs = null;
         PreparedStatement stat = null;
@@ -117,12 +115,12 @@ public class CircuitDAO implements ICircuitDAO {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(SELECT + where);
             if (param != null) {
-                for (int i = 0; i < param.length; i++) {
+                for (int i = 0; i < param.length; ++i) {
                     stat.setObject(i + 1, param[i]);
                 }
             }
             rs = stat.executeQuery();
-            roles = parseResult(rs);
+            circuits = parseResult(rs);
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -143,32 +141,38 @@ public class CircuitDAO implements ICircuitDAO {
             }
             connectionPool.close(con);
         }
-        return roles;
+        return circuits;
     }
 
     /**
      *
      *
      * @param rs result return from database
-     * @return list of founded roles
+     * @return list of founded circuits
      *
      */
     private List<Circuit> parseResult(ResultSet rs) {
-        List<Circuit> roles = new ArrayList<Circuit>();
+        List<Circuit> circuits = new ArrayList<Circuit>();
         try {
             while (rs.next()) {
                 Circuit circuit = new Circuit();
                 circuit.setId(rs.getInt(ID));
-                circuit.setServiceInstance(DAOFactory.createServiceInstanceDAO().findByID(rs.getInt(SIID)));
-                circuit.setPorts(DAOFactory.createPortDAO().findByID(rs.getInt(PORT)));
-                roles.add(circuit);
+                circuit.setServiceInstance(
+                        DAOFactory.createServiceInstanceDAO().findByID(
+                                rs.getInt(SIID)
+                        )
+                );
+                circuit.setPorts(
+                        DAOFactory.createPortDAO().findByID(rs.getInt(PORT))
+                );
+                circuits.add(circuit);
             }
         } catch (SQLException ex) {
             //TODO
             Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return roles;
+        return circuits;
     }
 
     /**
@@ -206,7 +210,8 @@ public class CircuitDAO implements ICircuitDAO {
      * @return
      */
     public Circuit findByPort(int idPort) {
-        List<Circuit> circuits = findWhere("WHERE PORT_ID=?", new Object[]{idPort});
+        List<Circuit> circuits =
+                findWhere("WHERE PORT_ID = ?", new Object[]{idPort});
         if (circuits.isEmpty()) {
             return null;
         } else {
@@ -216,15 +221,16 @@ public class CircuitDAO implements ICircuitDAO {
 
     /**
      *
-     * @param idSI
+     * @param idSi
      * @return
      */
-    public List<Circuit> findByServInst(int idSI) {
-        List<Circuit> roles = findWhere("WHERE SERVICE_INSTANCE_ID=?", new Object[]{idSI});
-        if (roles.isEmpty()) {
+    public List<Circuit> findByServInst(int idSi) {
+        List<Circuit> circuits =
+                findWhere("WHERE SERVICE_INSTANCE_ID = ?", new Object[]{idSi});
+        if (circuits.isEmpty()) {
             return null;
         } else {
-            return roles;
+            return circuits;
         }
     }
 }

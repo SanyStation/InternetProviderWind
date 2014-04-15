@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.servlets;
 
 import com.netcracker.wind.test.Order;
@@ -37,20 +32,18 @@ public class ReportController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession httpSession = request.getSession();
-            RequestDispatcher dispatcher = null;
+            RequestDispatcher dispatcher;
             String value = request.getParameter("report");
-            if (value.equals("util")) {
+            if (value == null) {
+                dispatcher = request
+                        .getRequestDispatcher("report.jsp");
+            } else if (value.equals("riUtilNCap")) {
                 List<Router> routers = new ArrayList();
-                routers.add(new Router("Cisco 7606", 60, 10));
-                routers.add(new Router("Cisco 7606", 60, 45));
-                routers.add(new Router("Cisco 7606", 60, 60));
-                routers.add(new Router("Cisco 7606", 60, 0));
-                routers.add(new Router("Cisco 7606", 60, 15));
-                routers.add(new Router("Cisco 7606", 60, 23));
+                
                 httpSession.setAttribute("routers", routers);
                 dispatcher = request
                         .getRequestDispatcher("RiUtilNCap.jsp");
-            } else if (value.equals("new")) {
+            } else if (value.equals("siNewOrders")) {
                 List<Order> orders = new ArrayList();
                 orders.add(new Order(100, "Silver internet", "01.01.2014", 25));
                 orders.add(new Order(101, "Golden internet", "01.01.2014", 40));
@@ -66,6 +59,9 @@ public class ReportController extends HttpServlet {
                 httpSession.setAttribute("orders", orders);
                 dispatcher = request
                         .getRequestDispatcher("SiNewOrders.jsp");
+            } else {
+                dispatcher = request
+                        .getRequestDispatcher("report.jsp");
             }
 
             if (dispatcher != null) {

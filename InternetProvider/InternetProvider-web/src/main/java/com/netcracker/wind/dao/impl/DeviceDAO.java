@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -24,8 +19,8 @@ import java.util.logging.Logger;
  */
 public class DeviceDAO implements IDeviceDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String DELETE = "DELETE FROM DEVICES WHERE ID=?";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String DELETE = "DELETE FROM DEVICES WHERE ID = ?";
     private static final String INSERT = "INSERT INTO DEVICES (ID) VALUES (?)";
     private static final String SELECT = "SELECT * FROM DEVICES ";
     private static final String ID = "ID";
@@ -71,7 +66,7 @@ public class DeviceDAO implements IDeviceDAO {
             stat.setInt(1, idDevice);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
@@ -90,11 +85,11 @@ public class DeviceDAO implements IDeviceDAO {
      * @return
      */
     public Device findByID(int idDevice) {
-        List<Device> roles = findWhere("WHERE ID=?", new Object[]{idDevice});
-        if (roles.isEmpty()) {
+        List<Device> devices = findWhere("WHERE ID=?", new Object[]{idDevice});
+        if (devices.isEmpty()) {
             return null;
         } else {
-            return roles.get(0);
+            return devices.get(0);
         }
     }
 
@@ -144,7 +139,7 @@ public class DeviceDAO implements IDeviceDAO {
      *
      *
      * @param rs result return from database
-     * @return list of founded roles
+     * @return list of founded devices
      *
      */
     private List<Device> parseResult(ResultSet rs) {
@@ -159,7 +154,7 @@ public class DeviceDAO implements IDeviceDAO {
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return devices;

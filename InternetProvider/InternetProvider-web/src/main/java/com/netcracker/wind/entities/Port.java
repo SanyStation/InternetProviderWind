@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -39,7 +33,7 @@ public class Port implements Serializable {
         this.id = id;
     }
 
-    public boolean getFree() {
+    public boolean isFree() {
         return free;
     }
 
@@ -98,7 +92,7 @@ public class Port implements Serializable {
         Port rhs = (Port) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
-        builder.append(free, rhs.getFree());
+        builder.append(free, rhs.isFree());
         builder.append(devices, rhs.getDevices());
         builder.append(circuits, rhs.getCircuits());
         builder.append(cable, rhs.getCable());

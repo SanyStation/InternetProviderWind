@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -24,12 +19,14 @@ import java.util.logging.Logger;
  */
 public class CableDAO implements ICableDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String DELETE = "DELETE FROM CABLES WHERE ID=?";
-    private static final String INSERT = "INSERT INTO CABLES (ID,PORT_ID,SERVICE_LOCATION_ID) VALUES(?,?,?)";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String DELETE = "DELETE FROM CABLES WHERE ID = ?";
+    private static final String INSERT = "INSERT INTO CABLES (ID, PORT_ID, "
+            + "SERVICE_LOCATION_ID) VALUES(?, ?, ?)";
     private static final String SELECT = "SELECT * FROM CABLES ";
     //TODO check this with bd
-    private static final String UPDATE = "UPDATE CABLES SET PORT_ID=?,SERVICE_INSTANCE_ID=? WHERE ID=?";
+    private static final String UPDATE = "UPDATE CABLES SET PORT_ID = ?,"
+            + "SERVICE_INSTANCE_ID = ? WHERE ID = ?";
     private static final String ID = "ID";
     private static final String PORT = "PORT_ID";
     private static final String SIID = "SERVICE_INSTANCE_ID";
@@ -47,7 +44,7 @@ public class CableDAO implements ICableDAO {
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CableDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
@@ -69,7 +66,7 @@ public class CableDAO implements ICableDAO {
             stat.setInt(1, idCable);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CableDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
@@ -101,7 +98,7 @@ public class CableDAO implements ICableDAO {
      *
      * @param where SQL statement where for searching by different parameters
      * @param param parameters by which search will be formed
-     * @return list of found roles
+     * @return list of found cables
      */
     private List<Cable> findWhere(String where, Object[] param) {
         List<Cable> cables = null;
@@ -146,7 +143,7 @@ public class CableDAO implements ICableDAO {
      *
      *
      * @param rs result return from database
-     * @return list of founded roles
+     * @return list of founded cables
      *
      */
     private List<Cable> parseResult(ResultSet rs) {
@@ -155,8 +152,14 @@ public class CableDAO implements ICableDAO {
             while (rs.next()) {
                 Cable cable = new Cable();
                 cable.setId(rs.getInt(ID));
-                cable.setPorts(DAOFactory.createPortDAO().findByID(rs.getInt(PORT)));
-                cable.setServiceLocation(DAOFactory.createServiceLocationDAO().findByID(rs.getInt(SIID)));
+                cable.setPorts(
+                        DAOFactory.createPortDAO().findByID(rs.getInt(PORT))
+                );
+                cable.setServiceLocation(
+                        DAOFactory.createServiceLocationDAO().findByID(
+                                rs.getInt(SIID)
+                        )
+                );
 
                 cables.add(cable);
             }
@@ -195,7 +198,8 @@ public class CableDAO implements ICableDAO {
     }
 
     public List<Cable> findByPort(int idPort) {
-        List<Cable> cables = findWhere("WHERE PORT_ID=?", new Object[]{idPort});
+        List<Cable> cables =
+                findWhere("WHERE PORT_ID = ?",new Object[]{idPort});
         if (cables.isEmpty()) {
             return null;
         } else {
@@ -204,7 +208,8 @@ public class CableDAO implements ICableDAO {
     }
 
     public List<Cable> findByServInst(int idSI) {
-        List<Cable> cables = findWhere("WHERE SERVICE_INSTANCE_ID=?", new Object[]{idSI});
+        List<Cable> cables =
+                findWhere("WHERE SERVICE_INSTANCE_ID = ?", new Object[]{idSI});
         if (cables.isEmpty()) {
             return null;
         } else {

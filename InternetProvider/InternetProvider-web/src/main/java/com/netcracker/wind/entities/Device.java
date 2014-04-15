@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
@@ -42,6 +37,24 @@ public class Device implements Serializable {
 
     public void setPortsList(List<Port> portsCollection) {
         this.portsCollection = portsCollection;
+    }
+    
+    public int getCapacity() {
+        return portsCollection.size();
+    }
+    
+    public int getUtilization() {
+        int busyPorts = 0;
+        for (Port port : portsCollection) {
+            if (!port.isFree()) {
+                ++busyPorts;
+            }
+        }
+        return busyPorts;
+    }
+    
+    public double getUtilizationPercent() {
+        return (double) getUtilization() / getCapacity();
     }
 
     @Override

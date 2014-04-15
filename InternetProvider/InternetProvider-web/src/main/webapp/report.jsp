@@ -7,9 +7,52 @@
         <title>Report generator</title>
     </head>
     <body>
-        <form method="post" action="ReportController">
-            <input type="submit" value="new" name="report" />
-            <input type="submit" value="util" name="report" />
+        <form method="POST" action="ReportController">
+            <table border="0">
+                <tr>
+                    <td>
+                        <input type="radio" name="report" value="riUtilNCap">
+                        Routers utilization and capacity
+                        </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="report" value="riMostProf">
+                        Most profitable router
+                        </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="report" value="siNewOrders">
+                        New orders per period
+                        </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="report" value="siProfByMonth">
+                        Profitability by month
+                        </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="report" value="siDiscOrders">
+                        Disconnected orders per period
+                        </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="report" value="ciaIPT">
+                        Impact Propagation Tree
+                        </input>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Generate">
         </form>
     </body>
 </html>
