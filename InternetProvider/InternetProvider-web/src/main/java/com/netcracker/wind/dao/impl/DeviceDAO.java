@@ -161,7 +161,7 @@ public class DeviceDAO implements IDeviceDAO {
     }
 
     public List<Device> findAll() {
-        return findWhere("", null);
+        return findWhere("", new Object[]{});
     }
 
 }

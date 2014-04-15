@@ -201,7 +201,7 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
     }
 
     public List<ServiceInstance> findAll() {
-        return findWhere("", null);
+        return findWhere("", new Object[]{});
     }
     
 

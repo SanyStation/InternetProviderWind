@@ -235,6 +235,6 @@ public class CircuitDAO implements ICircuitDAO {
     }
 
     public List<Circuit> findAll() {
-        return findWhere("", null);
+        return findWhere("", new Object[]{});
     }
 }

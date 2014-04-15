@@ -210,7 +210,7 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
     }
 
     public List<ServiceOrder> findAll() {
-        return findWhere("", null);
+        return findWhere("", new Object[]{});
     }
 
 }

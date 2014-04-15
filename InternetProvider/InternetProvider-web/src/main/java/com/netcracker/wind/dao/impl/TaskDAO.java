@@ -199,7 +199,7 @@ public class TaskDAO implements ITaskDAO {
     }
 
     public List<Task> findAll() {
-        return findWhere("", null);
+        return findWhere("", new Object[]{});
     }
 
 }

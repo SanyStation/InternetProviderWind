@@ -194,7 +194,7 @@ public class PortDAO implements IPortDAO {
     }
 
     public List<Port> findAll() {
-        return findWhere("", null);
+        return findWhere("", new Object[]{});
     }
 
 }

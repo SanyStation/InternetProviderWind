@@ -187,7 +187,7 @@ public class ServiceDAO implements IServiceDAO {
     }
 
     public List<Service> findAll() {
-        return findWhere("", null);
+        return findWhere("", new Object[]{});
     }
 
 }

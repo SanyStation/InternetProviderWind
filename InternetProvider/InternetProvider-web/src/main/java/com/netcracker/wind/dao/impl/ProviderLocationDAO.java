@@ -188,6 +188,6 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
     }
 
     public List<ProviderLocation> findAll() {
-        return findWhere("", null);
+        return findWhere("", new Object[]{});
     }
 }

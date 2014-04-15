@@ -189,7 +189,7 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
     }
 
     public List<ServiceLocation> findAll() {
-        return findWhere("", null);
+        return findWhere("", new Object[]{});
     }
 
 }

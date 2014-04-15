@@ -221,6 +221,6 @@ public class UserDAO implements IUserDAO {
     }
 
     public List<User> findAll() {
-        return findWhere("", null);
+        return findWhere("", new Object[]{});
     }
 }
