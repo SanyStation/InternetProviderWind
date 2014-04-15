@@ -203,6 +203,7 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
     public List<ServiceInstance> findAll() {
         return findWhere("", null);
     }
+    
 
     public ServiceInstance findByServiceOrderId(int idOrder) {
         List<ServiceInstance> servInsts = findWhere("WHERE SERVICE_ORDER_ID=?", new Object[]{idOrder});
