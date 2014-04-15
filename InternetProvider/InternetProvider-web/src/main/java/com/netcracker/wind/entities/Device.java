@@ -1,5 +1,6 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.DAOFactory;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -38,13 +39,16 @@ public class Device implements Serializable {
     public void setPortsList(List<Port> portsCollection) {
         this.portsCollection = portsCollection;
     }
-    
+
     public int getCapacity() {
         return portsCollection.size();
     }
-    
+
     public int getUtilization() {
         int busyPorts = 0;
+        if (portsCollection.isEmpty()) {
+            portsCollection = DAOFactory.createPortDAO().findByDevice(id);
+        }
         for (Port port : portsCollection) {
             if (!port.isFree()) {
                 ++busyPorts;
@@ -52,7 +56,7 @@ public class Device implements Serializable {
         }
         return busyPorts;
     }
-    
+
     public double getUtilizationPercent() {
         return (double) getUtilization() / getCapacity();
     }
