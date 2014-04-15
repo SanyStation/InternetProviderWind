@@ -15,7 +15,7 @@
         <h1>Error</h1>
         <div id="loginBox">
         <p class="error">Wrong password/login</p>
-        <p>Return back to<strong><a href="login/login.jsp">authorization page</a></strong>.</p>
+        <p>Return back to<strong><a href="profile">authorization page</a></strong>.</p>
         </div>
     </body>
 </html>

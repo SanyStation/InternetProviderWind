@@ -5,7 +5,6 @@
  */
 package com.netcracker.wind.commands;
 
-import com.netcracker.wind.commands.impl.Login;
 import com.netcracker.wind.commands.impl.NameGenerator;
 import com.netcracker.wind.commands.impl.NoCommand;
 
@@ -23,7 +22,6 @@ public class CommandHelper {
 
     private static final String NO_COMMAND = "no_command";
     private static final String TEST_AJAX = "name_generator";
-    private static final String LOGIN = "login";
 
     private final Map<String, ICommand> commands;
 
@@ -31,7 +29,6 @@ public class CommandHelper {
         commands = new HashMap<String, ICommand>();
         commands.put(NO_COMMAND, new NoCommand());
         commands.put(TEST_AJAX, new NameGenerator());
-        commands.put(LOGIN, new Login());
     }
 
     public static CommandHelper getInstance() {

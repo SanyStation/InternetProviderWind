@@ -18,7 +18,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Anatolii
  */
-public class Login implements ICommand {
+@Deprecated
+public class LoginOld implements ICommand {
 
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
@@ -39,7 +40,7 @@ public class Login implements ICommand {
             return ConfigurationManager.getInstance().getProperty(ConfigurationManager.PAGE_LOGIN_ERROR);
         }
 
-        session = request.getSession(true);
+        session = request.getSession();
         session.setAttribute(USER, user);
         String rolePageKey = user.getRoles().getName().toUpperCase();
 

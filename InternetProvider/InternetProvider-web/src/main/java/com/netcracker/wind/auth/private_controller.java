@@ -6,12 +6,7 @@
 package com.netcracker.wind.auth;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Properties;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,14 +38,13 @@ public class private_controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
         response.setContentType("text/html;charset=UTF-8");
         if ("/logout".equals(request.getServletPath())) {
             HttpSession session = request.getSession(false);
             if (session != null) {
                 session.invalidate();
             }
-            response.sendRedirect("/");
+            response.sendRedirect("index.jsp");
         } else {
             if ("/profile".equals(request.getServletPath())) {
                 Properties props = new Properties();
@@ -65,7 +59,7 @@ public class private_controller extends HttpServlet {
                 while ((i < roles.length) && (!founded)) {
                     if (founded = request.isUserInRole(roles[i])) {
                         request.setAttribute("name", request.getUserPrincipal().getName());
-                        request.getRequestDispatcher("WEB-INF/"+roledirs[i]+"/index.jsp").
+                        request.getRequestDispatcher("WEB-INF/" + roledirs[i] + "/index.jsp").
                                 forward(request, response);
                     }
                     i++;

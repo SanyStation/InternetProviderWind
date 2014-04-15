@@ -55,7 +55,11 @@
         </div>
 
         <div>
-            <a href="login2.jsp">Login2</a>
+            <a href="profile">Login</a>
+        </div>
+
+        <div>
+            <a href="logout">Logout</a>
         </div>
 
     </body>
