@@ -22,5 +22,6 @@ public interface IPortDAO {
     public List<Port> findAll();
 
     public void update(Port port);
+
     public List<Port> findByDevice(int idDevice);
 }
