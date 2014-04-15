@@ -198,4 +198,8 @@ public class TaskDAO implements ITaskDAO {
         return tasks;
     }
 
+    public List<Task> findAll() {
+        return findWhere("", null);
+    }
+
 }

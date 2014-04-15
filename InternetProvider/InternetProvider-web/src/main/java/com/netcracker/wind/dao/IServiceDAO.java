@@ -6,6 +6,7 @@
 package com.netcracker.wind.dao;
 
 import com.netcracker.wind.entities.Service;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,7 @@ public interface IServiceDAO {
     public void delete(int idService);
 
     public Service findByID(int idService);
+    public List<Service> findAll();
 
     public void update(Service role);
 }

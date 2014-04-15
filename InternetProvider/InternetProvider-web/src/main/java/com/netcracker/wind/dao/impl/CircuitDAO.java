@@ -227,4 +227,8 @@ public class CircuitDAO implements ICircuitDAO {
             return roles;
         }
     }
+
+    public List<Circuit> findAll() {
+        return findWhere("", null);
+    }
 }

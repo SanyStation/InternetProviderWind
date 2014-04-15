@@ -6,6 +6,7 @@
 package com.netcracker.wind.dao;
 
 import com.netcracker.wind.entities.Role;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,7 @@ public interface IRoleDAO {
     public void delete(int id);
 
     public Role findByID(int role);
+    public List<Role> findAll();
 
     public void update(Role role);
 

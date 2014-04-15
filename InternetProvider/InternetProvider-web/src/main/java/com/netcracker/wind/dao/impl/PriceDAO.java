@@ -227,4 +227,8 @@ public class PriceDAO implements IPriceDAO {
         }
     }
 
+    public List<Price> findAll() {
+        return findWhere("", null);
+    }
+
 }

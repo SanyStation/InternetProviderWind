@@ -6,6 +6,7 @@
 package com.netcracker.wind.dao;
 
 import com.netcracker.wind.entities.Task;
+import java.util.List;
 
 /**
  *
@@ -20,5 +21,6 @@ public interface ITaskDAO {
     public Task findByID(int id);
 
     public void update(Task task);
+    public List<Task> findAll();
 
 }

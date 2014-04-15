@@ -190,4 +190,8 @@ public class RoleDAO implements IRoleDAO {
         }
 
     }
+
+    public List<Role> findAll() {
+        return findWhere("", null);
+    }
 }

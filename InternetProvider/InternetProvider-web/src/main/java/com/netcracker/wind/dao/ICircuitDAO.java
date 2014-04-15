@@ -20,7 +20,8 @@ public interface ICircuitDAO {
 
     public Circuit findByID(int idCircuit);
     public Circuit findByPort(int idPort);
-     public List<Circuit> findByServInst(int idSI);
+    public List<Circuit> findByServInst(int idSI);
+    public List<Circuit> findAll();
 
     public void update(Circuit circuit);
 }

@@ -6,6 +6,7 @@
 package com.netcracker.wind.dao;
 
 import com.netcracker.wind.entities.ServiceLocation;
+import java.util.List;
 
 /**
  *
@@ -20,4 +21,5 @@ public interface IServiceLocationDAO {
     public ServiceLocation findByID(int role);
 
     public void update(ServiceLocation serviceLocation);
+    public List<ServiceLocation> findAll();
 }
