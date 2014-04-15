@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.wind.auth;
+package com.netcracker.wind.servlets;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author oneplayer
  */
-public class private_controller extends HttpServlet {
+public class PrivateController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,7 +31,7 @@ public class private_controller extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     //static final Logger logger = LogManager.getLogger(private_controller.class.getName());
-    private static final Logger logger = Logger.getLogger(private_controller.class.getName());
+    private static final Logger logger = Logger.getLogger(PrivateController.class.getName());
     //static private FileHandler fileTxt;
 
     //static final Logger logger = LogManager.getRootLogger();

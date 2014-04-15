@@ -20,9 +20,9 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-        <servlet>
+    <servlet>
         <servlet-name>private_controller</servlet-name>
-        <servlet-class>com.netcracker.wind.auth.private_controller</servlet-class>
+        <servlet-class>com.netcracker.wind.servlets.PrivateController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>private_controller</servlet-name>

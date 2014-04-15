@@ -16,7 +16,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
 /**
  *
  * @author Oksana and Sashko MailSendler is a class which help sending mails
@@ -24,7 +23,7 @@ import javax.mail.internet.MimeMessage;
 public class MailSendler {
 
     private static final String FROM = "wind@boreas.ml";
- 
+
     @Resource(lookup = "mail/MyMail")
     private Session mailSession;
 
@@ -55,11 +54,11 @@ public class MailSendler {
             message.setText(body);
 
             Transport.send(message);
-          ;
+            
             return true;
 
         } catch (MessagingException ex) {
-             Logger.getLogger(MailSendler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MailSendler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return false;
