@@ -21,6 +21,7 @@ public interface IServiceInstanceDAO {
     public ServiceInstance findByID(int idSI);
     public List<ServiceInstance> findByService(int idService);
     public List<ServiceInstance> findAll();
+    public ServiceInstance findByServiceOrderId(int idOrder);
     
     public void update(ServiceInstance serviceInstance);
 }

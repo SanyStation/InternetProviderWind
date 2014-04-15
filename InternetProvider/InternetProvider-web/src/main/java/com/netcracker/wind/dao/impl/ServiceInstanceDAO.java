@@ -204,4 +204,13 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
         return findWhere("", null);
     }
 
+    public ServiceInstance findByServiceOrderId(int idOrder) {
+        List<ServiceInstance> servInsts = findWhere("WHERE SERVICE_ORDER_ID=?", new Object[]{idOrder});
+        if (servInsts.isEmpty()) {
+            return null;
+        } else {
+            return servInsts.get(0);
+        }
+    }
+
 }
