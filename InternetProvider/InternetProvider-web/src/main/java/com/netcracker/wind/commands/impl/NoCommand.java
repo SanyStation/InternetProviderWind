@@ -6,7 +6,6 @@
 package com.netcracker.wind.commands.impl;
 
 import com.netcracker.wind.commands.ICommand;
-import com.netcracker.wind.dao.factory.DAOFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,8 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class NoCommand implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-         request.setAttribute("depts", DAOFactory.createUserDAO().findByRole(1));
-        return "printUsers.jsp"; 
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

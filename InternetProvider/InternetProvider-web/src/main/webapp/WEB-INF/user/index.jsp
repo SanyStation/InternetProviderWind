@@ -13,5 +13,8 @@
     </head>
     <body>
         <h1>Welcome to user menu, ${name}!</h1>
+        <form action="Controller" method="POST">
+            <input type="submit" name="command" value="fdf"/>
+        </form>
     </body>
 </html>
