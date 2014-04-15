@@ -152,7 +152,7 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
                 provLoc.setPosX(rs.getInt(X));
                 provLoc.setPosY(rs.getInt(Y));
                 provLoc.setAddress(rs.getString(ADDRESS));
-                provLoc.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
+                //provLoc.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
                 provLocs.add(provLoc);
             }
         } catch (SQLException ex) {

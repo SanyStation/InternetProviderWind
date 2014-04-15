@@ -150,8 +150,8 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
                 provLoc.setPosX(rs.getInt(X));
                 provLoc.setPosY(rs.getInt(Y));
                 provLoc.setAddress(rs.getString(ADDRESS));
-                provLoc.setPricesList(DAOFactory.createPriceDAO().findByProviderLoc(id));
-                provLoc.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
+                //provLoc.setPricesList(DAOFactory.createPriceDAO().findByProviderLoc(id));
+                //provLoc.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
                 provLocs.add(provLoc);
             }
         } catch (SQLException ex) {

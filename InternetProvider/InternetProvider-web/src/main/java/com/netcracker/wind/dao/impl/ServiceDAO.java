@@ -148,9 +148,9 @@ public class ServiceDAO implements IServiceDAO {
                 service.setId(id);
                 service.setName(rs.getString(NAME));
                 service.setDescription(rs.getString(DESCR));
-                service.setPricesList(DAOFactory.createPriceDAO().findByService(id));
-                service.setServiceInstancesList(DAOFactory.createServiceInstanceDAO().findByService(id));
-                service.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByService(id));
+                //service.setPricesList(DAOFactory.createPriceDAO().findByService(id));
+                // service.setServiceInstancesList(DAOFactory.createServiceInstanceDAO().findByService(id));
+                // service.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByService(id));
 
                 services.add(service);
             }
