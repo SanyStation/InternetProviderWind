@@ -3,66 +3,67 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.wind.dao.factory;
+package com.netcracker.wind.dao.factory.impl;
 
 import com.netcracker.wind.dao.*;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.impl.*;
 
 /**
  *
  * @author Oksana
  */
-public class DAOFactory {
+public class OracleDAOFactory extends AbstractFactoryDAO {
 
-    public static IUserDAO createUserDAO() {
+    public IUserDAO createUserDAO() {
         return new UserDAO();
     }
 
-    public static IRoleDAO createRoleDAO() {
+    public IRoleDAO createRoleDAO() {
         return new RoleDAO();
     }
 
-    public static ICableDAO createCableDAO() {
+    public ICableDAO createCableDAO() {
         return new CableDAO();
     }
 
-    public static ICircuitDAO createCircuitDAO() {
+    public ICircuitDAO createCircuitDAO() {
         return new CircuitDAO();
     }
 
-    public static IDeviceDAO createDeviceDAO() {
+    public IDeviceDAO createDeviceDAO() {
         return new DeviceDAO();
     }
 
-    public static IPortDAO createPortDAO() {
+    public IPortDAO createPortDAO() {
         return new PortDAO();
     }
 
-    public static IPriceDAO createPriceDAO() {
+    public IPriceDAO createPriceDAO() {
         return new PriceDAO();
     }
 
-    public static IProviderLocationDAO createProviderLocationDAO() {
+    public IProviderLocationDAO createProviderLocationDAO() {
         return new ProviderLocationDAO();
     }
 
-    public static IServiceDAO createServiceDAO() {
+    public IServiceDAO createServiceDAO() {
         return new ServiceDAO();
     }
 
-    public static IServiceInstanceDAO createServiceInstanceDAO() {
+    public IServiceInstanceDAO createServiceInstanceDAO() {
         return new ServiceInstanceDAO();
     }
 
-    public static IServiceLocationDAO createServiceLocationDAO() {
+    public IServiceLocationDAO createServiceLocationDAO() {
         return new ServiceLocationDAO();
     }
 
-    public static IServiceOrderDAO createServiceOrderDAO() {
+    public IServiceOrderDAO createServiceOrderDAO() {
         return new ServiceOrderDAO();
     }
 
-    public static ITaskDAO createTaskDAO() {
+    public ITaskDAO createTaskDAO() {
         return new TaskDAO();
     }
 

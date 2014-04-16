@@ -2,7 +2,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.*;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.Cable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,6 +31,8 @@ public class CableDAO implements ICableDAO {
     private static final String ID = "ID";
     private static final String PORT = "PORT_ID";
     private static final String SIID = "SERVICE_INSTANCE_ID";
+
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     public void add(Cable cable) {
         Connection connection = null;
@@ -153,10 +156,10 @@ public class CableDAO implements ICableDAO {
                 Cable cable = new Cable();
                 cable.setId(rs.getInt(ID));
                 cable.setPorts(
-                        DAOFactory.createPortDAO().findByID(rs.getInt(PORT))
+                        factoryDAO.createPortDAO().findByID(rs.getInt(PORT))
                 );
                 cable.setServiceLocation(
-                        DAOFactory.createServiceLocationDAO().findByID(
+                        factoryDAO.createServiceLocationDAO().findByID(
                                 rs.getInt(SIID)
                         )
                 );
@@ -198,8 +201,8 @@ public class CableDAO implements ICableDAO {
     }
 
     public List<Cable> findByPort(int idPort) {
-        List<Cable> cables =
-                findWhere("WHERE PORT_ID = ?",new Object[]{idPort});
+        List<Cable> cables
+                = findWhere("WHERE PORT_ID = ?", new Object[]{idPort});
         if (cables.isEmpty()) {
             return null;
         } else {
@@ -208,8 +211,8 @@ public class CableDAO implements ICableDAO {
     }
 
     public List<Cable> findByServInst(int idSI) {
-        List<Cable> cables =
-                findWhere("WHERE SERVICE_INSTANCE_ID = ?", new Object[]{idSI});
+        List<Cable> cables
+                = findWhere("WHERE SERVICE_INSTANCE_ID = ?", new Object[]{idSI});
         if (cables.isEmpty()) {
             return null;
         } else {
@@ -218,6 +221,6 @@ public class CableDAO implements ICableDAO {
     }
 
     public List<Cable> findAll() {
-       return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{});
     }
 }

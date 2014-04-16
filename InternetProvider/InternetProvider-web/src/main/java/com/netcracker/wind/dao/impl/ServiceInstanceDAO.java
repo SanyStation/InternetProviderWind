@@ -2,7 +2,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IServiceInstanceDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.ServiceInstance;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 public class ServiceInstanceDAO implements IServiceInstanceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
     private static final String UPDATE = "UPDATE SERVICE_INSTANCES SET "
             + "STATUS = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM SERVICE_INSTANCES WHERE "
@@ -150,16 +152,16 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
                 int id = rs.getInt(ID);
                 servInst.setId(id);
                 servInst.setUsers(
-                        DAOFactory.createUserDAO().findByID(rs.getInt(USER))
+                        factoryDAO.createUserDAO().findByID(rs.getInt(USER))
                 );
                 servInst.setServiceOrders(
-                        DAOFactory.createServiceOrderDAO().findByID(
+                        factoryDAO.createServiceOrderDAO().findByID(
                                 rs.getInt(SO)
                         )
                 );
                 servInst.setStatus(rs.getString(STATUS));
                 servInst.setServices(
-                        DAOFactory.createServiceDAO().findByID(
+                        factoryDAO.createServiceDAO().findByID(
                                 rs.getInt(SERVICE)
                         )
                 );
@@ -167,7 +169,7 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
                 //servInst.setServiceOrders(DAOFactory.createCableDAO().findByServInst(id));
                 //TODO get(0) - ???
                 servInst.setCircuit(
-                        DAOFactory.createCircuitDAO().findByServInst(id).get(0)
+                        factoryDAO.createCircuitDAO().findByServInst(id).get(0)
                 );
                 servInsts.add(servInst);
             }
@@ -216,7 +218,6 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
     public List<ServiceInstance> findAll() {
         return findWhere("", new Object[]{});
     }
-    
 
     public ServiceInstance findByServiceOrderId(int idOrder) {
         List<ServiceInstance> servInsts = findWhere("WHERE SERVICE_ORDER_ID=?", new Object[]{idOrder});

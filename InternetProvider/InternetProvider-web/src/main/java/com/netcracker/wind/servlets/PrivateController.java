@@ -7,6 +7,7 @@ package com.netcracker.wind.servlets;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,45 +31,59 @@ public class PrivateController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    //static final Logger logger = LogManager.getLogger(private_controller.class.getName());
     private static final Logger logger = Logger.getLogger(PrivateController.class.getName());
-    //static private FileHandler fileTxt;
+    private static final String NAME = "name";
+    private static final String WEB_INF = "WEB-INF/";
+    private static final String INDEX = "/index.jsp";
+    private static final String LOGOUT = "/logout";
+    private static final String PROFILE = "/profile";
+    private String roles[];
+    private String roledirs[];
 
     //static final Logger logger = LogManager.getRootLogger();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
-        if ("/logout".equals(request.getServletPath())) {
+        if (LOGOUT.equals(request.getServletPath())) {
             HttpSession session = request.getSession(false);
             if (session != null) {
                 session.invalidate();
             }
             response.sendRedirect("index.jsp");
         } else {
-            if ("/profile".equals(request.getServletPath())) {
-                Properties props = new Properties();
-                //loading properites from properties file
-                props.load(getServletContext().getResourceAsStream("/WEB-INF/classes/roles.properties"));
-                //reading proeprty and split to roles
-                String roles[] = props.getProperty("roles").split(",");
-                String roledirs[] = props.getProperty("roledirs").split(",");
+            if (PROFILE.equals(request.getServletPath())) {
                 //getting nextUrl
                 boolean founded = false;
                 int i = 0;
                 while ((i < roles.length) && (!founded)) {
                     if (founded = request.isUserInRole(roles[i])) {
-                        request.setAttribute("name", request.getUserPrincipal().getName());
-                        request.getRequestDispatcher("WEB-INF/" + roledirs[i] + "/index.jsp").
+                        request.setAttribute(NAME, request.getUserPrincipal().getName());
+                        request.getRequestDispatcher(WEB_INF + roledirs[i] + INDEX).
                                 forward(request, response);
                     }
                     i++;
                 }
             } else {
-                request.setAttribute("name", request.getUserPrincipal().getName());
-                request.getRequestDispatcher("WEB-INF" + request.getServletPath() + "/index.jsp").
+                request.setAttribute(NAME, request.getUserPrincipal().getName());
+                request.getRequestDispatcher("WEB-INF" + request.getServletPath() + INDEX).
                         forward(request, response);
             }
+        }
+    }
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        try {
+            Properties props = new Properties();
+            //loading properites from properties file
+            props.load(getServletContext().getResourceAsStream("/WEB-INF/classes/roles.properties"));
+            //reading proeprty and split to roles
+            roles = props.getProperty("roles").split(",");
+            roledirs = props.getProperty("roledirs").split(",");
+        } catch (IOException ex) {
+            Logger.getLogger(PrivateController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -2,7 +2,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IUserDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 public class UserDAO implements IUserDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
     private static final String DELETE = "DELETE FROM USERS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO USERS (ID, NAME, EMAIL, "
             + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, ?, ?, ?, ?)";
@@ -156,9 +158,8 @@ public class UserDAO implements IUserDAO {
                 user.setPassword(rs.getString(PASSWORD));
                 user.setBlocked(rs.getBoolean(BLOCKED));
                 user.setRoles(
-                        DAOFactory.createRoleDAO().findByID(rs.getInt(ROLE))
+                        factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE))
                 );
-                users.add(user);
             }
         } catch (SQLException ex) {
             //TODO

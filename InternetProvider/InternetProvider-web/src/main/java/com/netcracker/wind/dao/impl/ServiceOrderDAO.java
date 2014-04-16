@@ -2,7 +2,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IServiceOrderDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.ServiceOrder;
 import java.sql.Connection;
 import java.sql.Date;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
 public class ServiceOrderDAO implements IServiceOrderDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
     private static final String UPDATE = "";
     private static final String DELETE = "DELETE FROM SERVICE_ORDERS WHERE "
             + "ID = ?";
@@ -166,24 +168,23 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
                 serviceOrder.setProcesdate(rs.getDate(PROC_D));
                 serviceOrder.setCompletedate(rs.getDate(COMP_D));
                 serviceOrder.setUsers(
-                        DAOFactory.createUserDAO().findByID(rs.getInt(USER))
+                        factoryDAO.createUserDAO().findByID(rs.getInt(USER))
                 );
                 serviceOrder.setServices(
-                        DAOFactory.createServiceDAO().findByID(
+                        factoryDAO.createServiceDAO().findByID(
                                 rs.getInt(SERVICE)
                         )
                 );
                 serviceOrder.setProviderLocations(
-                        DAOFactory.createProviderLocationDAO().findByID(
+                        factoryDAO.createProviderLocationDAO().findByID(
                                 rs.getInt(PLID)
                         )
                 );
                 serviceOrder.setServiceLocations(
-                        DAOFactory.createServiceLocationDAO().findByID(
+                        factoryDAO.createServiceLocationDAO().findByID(
                                 rs.getInt(SLID)
                         )
                 );
-                serviceOrder.setStatus(rs.getString(STATUS));
                 serviceOrder.setScenario(rs.getString(SCENARIO));
                 //TODO
                 //serviceOrder.setServiceInstancesCollection(null);

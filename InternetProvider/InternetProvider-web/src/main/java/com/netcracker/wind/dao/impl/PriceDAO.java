@@ -2,7 +2,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IPriceDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.Price;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,6 +30,8 @@ public class PriceDAO implements IPriceDAO {
     private static final String PLID = "PROVIDER_LOCATION_ID";
     private static final String SERVICE = "SERVICE_ID";
     private static final String PRICE = "PRICE";
+
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     /**
      *
@@ -156,12 +159,12 @@ public class PriceDAO implements IPriceDAO {
                 Price price = new Price();
                 price.setId(rs.getInt(ID));
                 price.setProviderLocations(
-                        DAOFactory.createProviderLocationDAO().findByID(
+                        factoryDAO.createProviderLocationDAO().findByID(
                                 rs.getInt(PLID)
                         )
                 );
                 price.setServices(
-                        DAOFactory.createServiceDAO().findByID(
+                        factoryDAO.createServiceDAO().findByID(
                                 rs.getInt(SERVICE)
                         )
                 );
