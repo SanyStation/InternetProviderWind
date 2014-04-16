@@ -7,7 +7,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IServiceOrderDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.ServiceOrder;
 import java.sql.Connection;
 import java.sql.Date;
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class ServiceOrderDAO implements IServiceOrderDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "";
     private static final String DELETE = "DELETE FROM SERVICE_ORDERS WHERE ID=?";
     private static final String INSERT = "INSERT INTO SERVICE_ORDERS (ID,ENTERDATA,PROCESDATE,"
@@ -43,6 +44,8 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
     private static final String STATUS = "STATUS";
     private static final String SCENARIO = "SCENARIO";
     private static final String SIID = "SERVICE_INSTANCE_ID";
+
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     public void add(ServiceOrder serviceOrder) {
         Connection connection = null;
@@ -168,10 +171,10 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
                 serviceOrder.setEnterdate(rs.getDate(ENT_D));
                 serviceOrder.setProcesdate(rs.getDate(PROC_D));
                 serviceOrder.setCompletedate(rs.getDate(COMP_D));
-                serviceOrder.setUsers(DAOFactory.createUserDAO().findByID(rs.getInt(USER)));
-                serviceOrder.setServices(DAOFactory.createServiceDAO().findByID(rs.getInt(SERVICE)));
-                serviceOrder.setProviderLocations(DAOFactory.createProviderLocationDAO().findByID(rs.getInt(PLID)));
-                serviceOrder.setServiceLocations(DAOFactory.createServiceLocationDAO().findByID(rs.getInt(SLID)));
+                serviceOrder.setUsers(factoryDAO.createUserDAO().findByID(rs.getInt(USER)));
+                serviceOrder.setServices(factoryDAO.createServiceDAO().findByID(rs.getInt(SERVICE)));
+                serviceOrder.setProviderLocations(factoryDAO.createProviderLocationDAO().findByID(rs.getInt(PLID)));
+                serviceOrder.setServiceLocations(factoryDAO.createServiceLocationDAO().findByID(rs.getInt(SLID)));
                 serviceOrder.setStatus(rs.getString(STATUS));
                 serviceOrder.setScenario(rs.getString(SCENARIO));
                 //TODO

@@ -7,7 +7,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IUserDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +36,8 @@ public class UserDAO implements IUserDAO {
     private static final String PASSWORD = "PASSWORD";
     private static final String BLOCKED = "BLOCKED";
     private static final String ROLE = "ROLE_ID";
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     /**
      *
@@ -159,7 +161,7 @@ public class UserDAO implements IUserDAO {
                 user.setEmail(rs.getString(EMAIL));
                 user.setPassword(rs.getString(PASSWORD));
                 user.setBlocked(rs.getBoolean(BLOCKED));
-                user.setRoles(DAOFactory.createRoleDAO().findByID(rs.getInt(ROLE)));
+                user.setRoles(factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE)));
                 users.add(user);
             }
         } catch (SQLException ex) {

@@ -7,7 +7,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IPriceDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.Price;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
  */
 public class PriceDAO implements IPriceDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE PRICES SET PRICE WHERE ID=?";
     private static final String DELETE = "DELETE FROM PRICES WHERE ID=?";
     private static final String INSERT = "INSERT INTO PRICES (ID,PROVIDER_LOCATION_ID,SERVICE_ID,PRICE) VALUES (?,?,?,?)";
@@ -33,6 +34,8 @@ public class PriceDAO implements IPriceDAO {
     private static final String PLID = "PROVIDER_LOCATION_ID";
     private static final String SERVICE = "SERVICE_ID";
     private static final String PRICE = "PRICE";
+
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     /**
      *
@@ -159,8 +162,8 @@ public class PriceDAO implements IPriceDAO {
             while (rs.next()) {
                 Price price = new Price();
                 price.setId(rs.getInt(ID));
-                price.setProviderLocations(DAOFactory.createProviderLocationDAO().findByID(rs.getInt(PLID)));
-                price.setServices(DAOFactory.createServiceDAO().findByID(rs.getInt(SERVICE)));
+                price.setProviderLocations(factoryDAO.createProviderLocationDAO().findByID(rs.getInt(PLID)));
+                price.setServices(factoryDAO.createServiceDAO().findByID(rs.getInt(SERVICE)));
                 price.setPrice(rs.getInt(PRICE));
                 prices.add(price);
             }

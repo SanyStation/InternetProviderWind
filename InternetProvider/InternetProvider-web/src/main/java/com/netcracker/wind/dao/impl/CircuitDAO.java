@@ -2,7 +2,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.ICircuitDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.Circuit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,6 +30,8 @@ public class CircuitDAO implements ICircuitDAO {
     private static final String ID = "ID";
     private static final String SIID = "SERVICE_INSTANCE_ID";
     private static final String PORT = "PORT_ID";
+
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     /**
      *
@@ -91,8 +94,8 @@ public class CircuitDAO implements ICircuitDAO {
      * @return
      */
     public Circuit findByID(int idCircuit) {
-        List<Circuit> circuits =
-                findWhere("WHERE ID = ?", new Object[]{idCircuit});
+        List<Circuit> circuits
+                = findWhere("WHERE ID = ?", new Object[]{idCircuit});
         if (circuits.isEmpty()) {
             return null;
         } else {
@@ -158,12 +161,12 @@ public class CircuitDAO implements ICircuitDAO {
                 Circuit circuit = new Circuit();
                 circuit.setId(rs.getInt(ID));
                 circuit.setServiceInstance(
-                        DAOFactory.createServiceInstanceDAO().findByID(
+                        factoryDAO.createServiceInstanceDAO().findByID(
                                 rs.getInt(SIID)
                         )
                 );
                 circuit.setPorts(
-                        DAOFactory.createPortDAO().findByID(rs.getInt(PORT))
+                        factoryDAO.createPortDAO().findByID(rs.getInt(PORT))
                 );
                 circuits.add(circuit);
             }
@@ -210,8 +213,8 @@ public class CircuitDAO implements ICircuitDAO {
      * @return
      */
     public Circuit findByPort(int idPort) {
-        List<Circuit> circuits =
-                findWhere("WHERE PORT_ID = ?", new Object[]{idPort});
+        List<Circuit> circuits
+                = findWhere("WHERE PORT_ID = ?", new Object[]{idPort});
         if (circuits.isEmpty()) {
             return null;
         } else {
@@ -225,8 +228,8 @@ public class CircuitDAO implements ICircuitDAO {
      * @return
      */
     public List<Circuit> findByServInst(int idSi) {
-        List<Circuit> circuits =
-                findWhere("WHERE SERVICE_INSTANCE_ID = ?", new Object[]{idSi});
+        List<Circuit> circuits
+                = findWhere("WHERE SERVICE_INSTANCE_ID = ?", new Object[]{idSi});
         if (circuits.isEmpty()) {
             return null;
         } else {

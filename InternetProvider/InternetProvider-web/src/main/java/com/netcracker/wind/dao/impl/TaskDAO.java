@@ -7,7 +7,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.ITaskDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.Task;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +36,9 @@ public class TaskDAO implements ITaskDAO {
     private static final String TYPE = "TYPE";
     private static final String SO = "SERVICE_ORDERS_ID";
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     public void add(Task task) {
         Connection connection = null;
@@ -182,10 +185,10 @@ public class TaskDAO implements ITaskDAO {
             while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getInt(ID));
-                task.setUsers(DAOFactory.createUserDAO().findByID(rs.getInt(USER)));
+                task.setUsers(factoryDAO.createUserDAO().findByID(rs.getInt(USER)));
                 task.setType(rs.getString(TYPE));
                 task.setStatus(rs.getString(STATUS));
-                task.setRoles(DAOFactory.createRoleDAO().findByID(rs.getInt(ROLE)));
+                task.setRoles(factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE)));
                 //TODO 
                 //task.setServiceOrders(DAOFactory.createSODAO().findByID());
 

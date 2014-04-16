@@ -7,7 +7,6 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IRoleDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
 import com.netcracker.wind.entities.Role;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class RoleDAO implements IRoleDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM ROLES WHERE ID=?";
     private static final String INSERT = "INSERT INTO ROLES (ID,NAME) VALUES(?,?)";
     private static final String SELECT = "SELECT * FROM ROLES ";

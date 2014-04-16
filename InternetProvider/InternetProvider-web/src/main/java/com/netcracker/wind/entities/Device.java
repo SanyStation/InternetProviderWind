@@ -1,6 +1,6 @@
 package com.netcracker.wind.entities;
 
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -47,7 +47,7 @@ public class Device implements Serializable {
     public int getUtilization() {
         int busyPorts = 0;
         if (portsCollection.isEmpty()) {
-            portsCollection = DAOFactory.createPortDAO().findByDevice(id);
+            portsCollection = new OracleDAOFactory().createPortDAO().findByDevice(id);
         }
         for (Port port : portsCollection) {
             if (!port.isFree()) {
@@ -58,8 +58,8 @@ public class Device implements Serializable {
     }
 
     public double getUtilizationPercent() {
-        return getCapacity() > 0 ? 
-                (double) getUtilization() / getCapacity() : 0;
+        return getCapacity() > 0
+                ? (double) getUtilization() / getCapacity() : 0;
     }
 
     @Override

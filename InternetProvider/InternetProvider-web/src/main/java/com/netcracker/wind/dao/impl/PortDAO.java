@@ -2,7 +2,8 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IPortDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.Port;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,6 +30,8 @@ public class PortDAO implements IPortDAO {
     private static final String ID = "ID";
     private static final String DEVICE = "DEVICE_ID";
     private static final String FREE = "FREE";
+
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     public void add(Port port) {
         Connection connection = null;
@@ -144,12 +147,12 @@ public class PortDAO implements IPortDAO {
                 int id = rs.getInt(ID);
                 port.setId(id);
                 port.setDevices(
-                        DAOFactory.createDeviceDAO().findByID(rs.getInt(DEVICE))
+                        factoryDAO.createDeviceDAO().findByID(rs.getInt(DEVICE))
                 );
                 port.setFree(rs.getBoolean(FREE));
-                port.setCircuits(DAOFactory.createCircuitDAO().findByPort(id));
+                port.setCircuits(factoryDAO.createCircuitDAO().findByPort(id));
                 //TODO get(0) - ???
-                port.setCable(DAOFactory.createCableDAO().findByPort(id).get(0));
+                port.setCable(factoryDAO.createCableDAO().findByPort(id).get(0));
                 ports.add(port);
             }
         } catch (SQLException ex) {
@@ -184,8 +187,8 @@ public class PortDAO implements IPortDAO {
     }
 
     public List<Port> findByDevice(int idDevice) {
-        List<Port> ports =
-                findWhere("WHERE DEVICE_ID = ?", new Object[]{idDevice});
+        List<Port> ports
+                = findWhere("WHERE DEVICE_ID = ?", new Object[]{idDevice});
         if (ports.isEmpty()) {
             return null;
         } else {

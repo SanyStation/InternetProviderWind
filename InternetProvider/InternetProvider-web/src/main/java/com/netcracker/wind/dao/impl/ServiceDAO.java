@@ -7,7 +7,6 @@ package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IServiceDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
 import com.netcracker.wind.entities.Service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class ServiceDAO implements IServiceDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE SERVICES SET NAME=?,DESCRIPTION=? WHERE ID=?";
     private static final String DELETE = "DELETE FROM SERVICES WHERE ID=?";
     private static final String INSERT = "INSERT INTO SERVICES (ID,NAME,DESCRIPTION) VALUES (?,?,?)";

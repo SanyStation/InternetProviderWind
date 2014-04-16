@@ -1,6 +1,6 @@
 package com.netcracker.wind.servlets;
 
-import com.netcracker.wind.dao.factory.DAOFactory;
+import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import com.netcracker.wind.entities.Device;
 import com.netcracker.wind.entities.ServiceOrder;
 import java.io.IOException;
@@ -39,13 +39,13 @@ public class ReportController extends HttpServlet {
                 dispatcher = request
                         .getRequestDispatcher("report.jsp");
             } else if (value.equals("riUtilNCap")) {
-                List<Device> devices = DAOFactory.createDeviceDAO().findAll();
+                List<Device> devices = new OracleDAOFactory().createDeviceDAO().findAll();
                 httpSession.setAttribute("routers", devices);
                 dispatcher = request
                         .getRequestDispatcher("RiUtilNCap.jsp");
             } else if (value.equals("siNewOrders")) {
                 List<ServiceOrder> serviceOrders = new ArrayList();
-                
+
                 httpSession.setAttribute("orders", serviceOrders);
                 dispatcher = request
                         .getRequestDispatcher("SiNewOrders.jsp");
