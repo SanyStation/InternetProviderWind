@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -24,10 +19,11 @@ import java.util.logging.Logger;
  */
 public class PriceDAO implements IPriceDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String UPDATE = "UPDATE PRICES SET PRICE WHERE ID=?";
-    private static final String DELETE = "DELETE FROM PRICES WHERE ID=?";
-    private static final String INSERT = "INSERT INTO PRICES (ID,PROVIDER_LOCATION_ID,SERVICE_ID,PRICE) VALUES (?,?,?,?)";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String UPDATE = "UPDATE PRICES SET PRICE WHERE ID = ?";
+    private static final String DELETE = "DELETE FROM PRICES WHERE ID = ?";
+    private static final String INSERT = "INSERT INTO PRICES (ID, "
+            + "PROVIDER_LOCATION_ID, SERVICE_ID, PRICE) VALUES (?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM PRICES ";
     private static final String ID = "ID";
     private static final String PLID = "PROVIDER_LOCATION_ID";
@@ -96,7 +92,7 @@ public class PriceDAO implements IPriceDAO {
      * @return
      */
     public Price findByID(int idPrice) {
-        List<Price> roles = findWhere("WHERE ID=?", new Object[]{idPrice});
+        List<Price> roles = findWhere("WHERE ID = ?", new Object[]{idPrice});
         if (roles.isEmpty()) {
             return null;
         } else {
@@ -159,8 +155,16 @@ public class PriceDAO implements IPriceDAO {
             while (rs.next()) {
                 Price price = new Price();
                 price.setId(rs.getInt(ID));
-                price.setProviderLocations(DAOFactory.createProviderLocationDAO().findByID(rs.getInt(PLID)));
-                price.setServices(DAOFactory.createServiceDAO().findByID(rs.getInt(SERVICE)));
+                price.setProviderLocations(
+                        DAOFactory.createProviderLocationDAO().findByID(
+                                rs.getInt(PLID)
+                        )
+                );
+                price.setServices(
+                        DAOFactory.createServiceDAO().findByID(
+                                rs.getInt(SERVICE)
+                        )
+                );
                 price.setPrice(rs.getInt(PRICE));
                 prices.add(price);
             }
@@ -205,7 +209,10 @@ public class PriceDAO implements IPriceDAO {
      * @return
      */
     public List<Price> findByProviderLoc(int idPLoc) {
-        List<Price> prices = findWhere("WHERE PROVIDER_LOCATION_ID=?", new Object[]{idPLoc});
+        List<Price> prices = findWhere(
+                "WHERE PROVIDER_LOCATION_ID = ?",
+                new Object[]{idPLoc}
+        );
         if (prices.isEmpty()) {
             return null;
         } else {
@@ -219,7 +226,8 @@ public class PriceDAO implements IPriceDAO {
      * @return
      */
     public List<Price> findByService(int idService) {
-        List<Price> prices = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
+        List<Price> prices =
+                findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
         if (prices.isEmpty()) {
             return null;
         } else {

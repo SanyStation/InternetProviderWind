@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -24,18 +19,19 @@ import java.util.logging.Logger;
  */
 public class TaskDAO implements ITaskDAO {
 
-    private static final String DELETE = "DELETE FROM TASKS WHERE ID=?";
-    private static final String INSERT = "INSERT INTO TASKS (ID,USER_ID,TYPE,STATUS,ROLE_ID,SERVICE_ORDERS_ID) VALUES(?,?,?,?,?,?)";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String DELETE = "DELETE FROM TASKS WHERE ID = ?";
+    private static final String INSERT = "INSERT INTO TASKS (ID, USER_ID, TYPE,"
+            + " STATUS, ROLE_ID, SERVICE_ORDERS_ID) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM TASKS ";
-    private static final String UPDATE = "UPDATE TASKS SET USER_ID=? ,STATUS=? WHERE ID=?";
+    private static final String UPDATE = "UPDATE TASKS SET USER_ID = ?, "
+            + "STATUS = ? WHERE ID = ?";
     private static final String ID = "ID";
     private static final String USER = "USER_ID";
     private static final String STATUS = "STATUS";
     private static final String ROLE = "ROLE_ID";
     private static final String TYPE = "TYPE";
     private static final String SO = "SERVICE_ORDERS_ID";
-
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     public void add(Task task) {
         Connection connection = null;
@@ -88,7 +84,7 @@ public class TaskDAO implements ITaskDAO {
     }
 
     public Task findByID(int id) {
-        List<Task> tasks = findWhere("WHERE ID=?", new Object[]{id});
+        List<Task> tasks = findWhere("WHERE ID = ?", new Object[]{id});
         if (tasks.isEmpty()) {
             return null;
         } else {
@@ -182,10 +178,14 @@ public class TaskDAO implements ITaskDAO {
             while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getInt(ID));
-                task.setUsers(DAOFactory.createUserDAO().findByID(rs.getInt(USER)));
+                task.setUsers(
+                        DAOFactory.createUserDAO().findByID(rs.getInt(USER))
+                );
                 task.setType(rs.getString(TYPE));
                 task.setStatus(rs.getString(STATUS));
-                task.setRoles(DAOFactory.createRoleDAO().findByID(rs.getInt(ROLE)));
+                task.setRoles(
+                        DAOFactory.createRoleDAO().findByID(rs.getInt(ROLE))
+                );
                 //TODO 
                 //task.setServiceOrders(DAOFactory.createSODAO().findByID());
 

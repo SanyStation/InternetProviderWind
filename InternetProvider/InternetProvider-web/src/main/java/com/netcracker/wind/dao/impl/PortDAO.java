@@ -149,7 +149,9 @@ public class PortDAO implements IPortDAO {
                 port.setFree(rs.getBoolean(FREE));
                 port.setCircuits(DAOFactory.createCircuitDAO().findByPort(id));
                 //TODO get(0) - ???
-                port.setCable(DAOFactory.createCableDAO().findByPort(id).get(0));
+                port.setCable(
+                        DAOFactory.createCableDAO().findByPort(id).get(0)
+                );
                 ports.add(port);
             }
         } catch (SQLException ex) {

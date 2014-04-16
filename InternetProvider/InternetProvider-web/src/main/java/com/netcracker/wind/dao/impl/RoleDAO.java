@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IRoleDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
 import com.netcracker.wind.entities.Role;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,11 +18,12 @@ import java.util.logging.Logger;
  */
 public class RoleDAO implements IRoleDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String DELETE = "DELETE FROM ROLES WHERE ID=?";
-    private static final String INSERT = "INSERT INTO ROLES (ID,NAME) VALUES(?,?)";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String DELETE = "DELETE FROM ROLES WHERE ID = ?";
+    private static final String INSERT = "INSERT INTO ROLES (ID, NAME) "
+            + "VALUES(?, ?)";
     private static final String SELECT = "SELECT * FROM ROLES ";
-    private static final String UPDATE = "UPDATE ROLES SET NAME=? WHERE ID=?";
+    private static final String UPDATE = "UPDATE ROLES SET NAME=? WHERE ID = ?";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
 
@@ -92,7 +87,7 @@ public class RoleDAO implements IRoleDAO {
      * @return Role with defined id if that role exists in database
      */
     public Role findByID(int id) {
-        List<Role> roles = findWhere("WHERE ID=?", new Object[]{id});
+        List<Role> roles = findWhere("WHERE ID = ?", new Object[]{id});
         if (roles.isEmpty()) {
             return null;
         } else {

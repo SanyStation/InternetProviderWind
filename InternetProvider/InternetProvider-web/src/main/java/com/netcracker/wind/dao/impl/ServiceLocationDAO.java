@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IServiceLocationDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
 import com.netcracker.wind.entities.ServiceLocation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,10 +19,13 @@ import java.util.logging.Logger;
 public class ServiceLocationDAO implements IServiceLocationDAO {
 
     //Need add one field cable
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String UPDATE = "UPDATE SERVICE_LOCATIONS SET POS_X=?,POS_Y=?,ADDRESS=? WHERE ID=?";
-    private static final String DELETE = "DELETE FROM SERVICE_LOCATIONS WHERE ID=?";
-    private static final String INSERT = "INSERT INTO _LOCATIONS (ID,POS_X,POS_Y,ADDRESS) VALUES (?,?,?,?)";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String UPDATE = "UPDATE SERVICE_LOCATIONS SET "
+            + "POS_X = ?, POS_Y = ?, ADDRESS = ? WHERE ID = ?";
+    private static final String DELETE = "DELETE FROM SERVICE_LOCATIONS WHERE "
+            + "ID = ?";
+    private static final String INSERT = "INSERT INTO _LOCATIONS (ID, POS_X, "
+            + "POS_Y, ADDRESS) VALUES (?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM ROVIDER_LOCATIONS ";
     private static final String ID = "ID";
     private static final String X = "POS_X";
@@ -84,7 +81,8 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
     }
 
     public ServiceLocation findByID(int id) {
-        List<ServiceLocation> serviceLocations = findWhere("WHERE ID=?", new Object[]{id});
+        List<ServiceLocation> serviceLocations =
+                findWhere("WHERE ID = ?", new Object[]{id});
         if (serviceLocations.isEmpty()) {
             return null;
         } else {
@@ -96,7 +94,7 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
      *
      * @param where SQL statement where for searching by different parameters
      * @param param parameters by which search will be formed
-     * @return list of found roles
+     * @return list of found service locations
      */
     private List<ServiceLocation> findWhere(String where, Object[] param) {
         List<ServiceLocation> provLocs = null;
@@ -139,7 +137,7 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
      *
      *
      * @param rs result return from database
-     * @return list of founded roles
+     * @return list of founded service locations
      *
      */
     private List<ServiceLocation> parseResult(ResultSet rs) {

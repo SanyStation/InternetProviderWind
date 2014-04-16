@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -24,10 +19,14 @@ import java.util.logging.Logger;
  */
 public class ServiceInstanceDAO implements IServiceInstanceDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String UPDATE = "UPDATE SERVICE_INSTANCES SET STATUS=? WHERE ID=?";
-    private static final String DELETE = "DELETE FROM SERVICE_INSTANCES WHERE ID=?";
-    private static final String INSERT = "INSERT INTO SERVICE_INSTANCES (ID,USER_ID,SERVICE_ORDER_ID,STATUS,SERVICE_ID) VALUES(?,?,?,?,?)";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String UPDATE = "UPDATE SERVICE_INSTANCES SET "
+            + "STATUS = ? WHERE ID = ?";
+    private static final String DELETE = "DELETE FROM SERVICE_INSTANCES WHERE "
+            + "ID = ?";
+    private static final String INSERT = "INSERT INTO SERVICE_INSTANCES (ID, "
+            + "USER_ID, SERVICE_ORDER_ID, STATUS, SERVICE_ID) "
+            + "VALUES(?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM SERVICE_INSTANCES ";
     private static final String ID = "ID";
     private static final String USER = "USER_ID";
@@ -62,13 +61,13 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
         }
     }
 
-    public void delete(int idSI) {
+    public void delete(int idSi) {
         Connection con = null;
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idSI);
+            stat.setInt(1, idSi);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,7 +84,8 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
     }
 
     public ServiceInstance findByID(int idSI) {
-        List<ServiceInstance> servInsts = findWhere("WHERE ID=?", new Object[]{idSI});
+        List<ServiceInstance> servInsts =
+                findWhere("WHERE ID = ?", new Object[]{idSI});
         if (servInsts.isEmpty()) {
             return null;
         } else {
@@ -97,7 +97,7 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
      *
      * @param where SQL statement where for searching by different parameters
      * @param param parameters by which search will be formed
-     * @return list of found servInsts
+     * @return list of found service instances
      */
     private List<ServiceInstance> findWhere(String where, Object[] param) {
         List<ServiceInstance> servInsts = null;
@@ -139,7 +139,7 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
      *
      *
      * @param rs result return from database
-     * @return list of founded servInsts
+     * @return list of founded service instances
      *
      */
     private List<ServiceInstance> parseResult(ResultSet rs) {
@@ -149,14 +149,26 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
                 ServiceInstance servInst = new ServiceInstance();
                 int id = rs.getInt(ID);
                 servInst.setId(id);
-                servInst.setUsers(DAOFactory.createUserDAO().findByID(rs.getInt(USER)));
-                servInst.setServiceOrders(DAOFactory.createServiceOrderDAO().findByID(rs.getInt(SO)));
+                servInst.setUsers(
+                        DAOFactory.createUserDAO().findByID(rs.getInt(USER))
+                );
+                servInst.setServiceOrders(
+                        DAOFactory.createServiceOrderDAO().findByID(
+                                rs.getInt(SO)
+                        )
+                );
                 servInst.setStatus(rs.getString(STATUS));
-                servInst.setServices(DAOFactory.createServiceDAO().findByID(rs.getInt(SERVICE)));
+                servInst.setServices(
+                        DAOFactory.createServiceDAO().findByID(
+                                rs.getInt(SERVICE)
+                        )
+                );
                 //Need refactor
                 //servInst.setServiceOrders(DAOFactory.createCableDAO().findByServInst(id));
                 //TODO get(0) - ???
-                servInst.setCircuit(DAOFactory.createCircuitDAO().findByServInst(id).get(0));
+                servInst.setCircuit(
+                        DAOFactory.createCircuitDAO().findByServInst(id).get(0)
+                );
                 servInsts.add(servInst);
             }
         } catch (SQLException ex) {
@@ -177,7 +189,7 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
             stat.setInt(2, serviceInstance.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
@@ -192,7 +204,8 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
     }
 
     public List<ServiceInstance> findByService(int idService) {
-        List<ServiceInstance> servInsts = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
+        List<ServiceInstance> servInsts =
+                findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
         if (servInsts.isEmpty()) {
             return null;
         } else {

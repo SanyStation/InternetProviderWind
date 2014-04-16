@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -25,12 +20,14 @@ import java.util.logging.Logger;
  */
 public class ServiceOrderDAO implements IServiceOrderDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "";
-    private static final String DELETE = "DELETE FROM SERVICE_ORDERS WHERE ID=?";
-    private static final String INSERT = "INSERT INTO SERVICE_ORDERS (ID,ENTERDATA,PROCESDATE,"
-            + "COMPLETEDATA,USER_ID,SERVICE_ID,PROVIDER_LOCATION_ID,SERVICE_LOCATION_ID,STATUS"
-            + ",SCENARIO,SERVICE_INSTANCE_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String DELETE = "DELETE FROM SERVICE_ORDERS WHERE "
+            + "ID = ?";
+    private static final String INSERT = "INSERT INTO SERVICE_ORDERS (ID, "
+            + "ENTERDATA, PROCESDATE, COMPLETEDATA, USER_ID, SERVICE_ID, "
+            + "PROVIDER_LOCATION_ID, SERVICE_LOCATION_ID, STATUS, SCENARIO,"
+            + "SERVICE_INSTANCE_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM SERVICE_ORDERS ";
     private static final String ID = "ID";
     private static final String ENT_D = "ENTERDATA";
@@ -65,7 +62,7 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
@@ -87,7 +84,7 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
@@ -100,12 +97,13 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
         }
     }
 
-    public ServiceOrder findByID(int idSO) {
-        List<ServiceOrder> roles = findWhere("WHERE ID=?", new Object[]{idSO});
-        if (roles.isEmpty()) {
+    public ServiceOrder findByID(int idSo) {
+        List<ServiceOrder> serviceOrders =
+                findWhere("WHERE ID = ?", new Object[]{idSo});
+        if (serviceOrders.isEmpty()) {
             return null;
         } else {
-            return roles.get(0);
+            return serviceOrders.get(0);
         }
     }
 
@@ -113,10 +111,10 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
      *
      * @param where SQL statement where for searching by different parameters
      * @param param parameters by which search will be formed
-     * @return list of found roles
+     * @return list of found serviceOrders
      */
     private List<ServiceOrder> findWhere(String where, Object[] param) {
-        List<ServiceOrder> roles = null;
+        List<ServiceOrder> serviceOrders = null;
         Connection con = null;
         ResultSet rs = null;
         PreparedStatement stat = null;
@@ -129,11 +127,10 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
                 }
             }
             rs = stat.executeQuery();
-            roles = parseResult(rs);
+            serviceOrders = parseResult(rs);
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-
             try {
                 rs.close();
             } catch (SQLException ex) {
@@ -149,18 +146,18 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
             }
             connectionPool.close(con);
         }
-        return roles;
+        return serviceOrders;
     }
 
     /**
      *
      *
      * @param rs result return from database
-     * @return list of founded roles
+     * @return list of founded serviceOrders
      *
      */
     private List<ServiceOrder> parseResult(ResultSet rs) {
-        List<ServiceOrder> roles = new ArrayList<ServiceOrder>();
+        List<ServiceOrder> serviceOrders = new ArrayList<ServiceOrder>();
         try {
             while (rs.next()) {
                 ServiceOrder serviceOrder = new ServiceOrder();
@@ -168,44 +165,60 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
                 serviceOrder.setEnterdate(rs.getDate(ENT_D));
                 serviceOrder.setProcesdate(rs.getDate(PROC_D));
                 serviceOrder.setCompletedate(rs.getDate(COMP_D));
-                serviceOrder.setUsers(DAOFactory.createUserDAO().findByID(rs.getInt(USER)));
-                serviceOrder.setServices(DAOFactory.createServiceDAO().findByID(rs.getInt(SERVICE)));
-                serviceOrder.setProviderLocations(DAOFactory.createProviderLocationDAO().findByID(rs.getInt(PLID)));
-                serviceOrder.setServiceLocations(DAOFactory.createServiceLocationDAO().findByID(rs.getInt(SLID)));
+                serviceOrder.setUsers(
+                        DAOFactory.createUserDAO().findByID(rs.getInt(USER))
+                );
+                serviceOrder.setServices(
+                        DAOFactory.createServiceDAO().findByID(
+                                rs.getInt(SERVICE)
+                        )
+                );
+                serviceOrder.setProviderLocations(
+                        DAOFactory.createProviderLocationDAO().findByID(
+                                rs.getInt(PLID)
+                        )
+                );
+                serviceOrder.setServiceLocations(
+                        DAOFactory.createServiceLocationDAO().findByID(
+                                rs.getInt(SLID)
+                        )
+                );
                 serviceOrder.setStatus(rs.getString(STATUS));
                 serviceOrder.setScenario(rs.getString(SCENARIO));
                 //TODO
                 //serviceOrder.setServiceInstancesCollection(null);
 
-                roles.add(serviceOrder);
+                serviceOrders.add(serviceOrder);
             }
         } catch (SQLException ex) {
             //TODO
             Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return roles;
+        return serviceOrders;
     }
 
-    public void update(ServiceOrder role) {
+    public void update(ServiceOrder serviceOrder) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List<ServiceOrder> findByProvLoc(int pLID) {
-        List<ServiceOrder> roles = findWhere("WHERE PROVIDER_LOCATION_ID=?", new Object[]{pLID});
-        if (roles.isEmpty()) {
+    public List<ServiceOrder> findByProvLoc(int plId) {
+        List<ServiceOrder> serviceOrders =
+                findWhere("WHERE PROVIDER_LOCATION_ID = ?", new Object[]{plId});
+        if (serviceOrders.isEmpty()) {
             return null;
         } else {
-            return roles;
+            return serviceOrders;
         }
     }
 
     public List<ServiceOrder> findByService(int idService) {
-        List<ServiceOrder> roles = findWhere("WHERE SERVICE_ID=?", new Object[]{idService});
-        if (roles.isEmpty()) {
+        List<ServiceOrder> serviceOrders =
+                findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
+        if (serviceOrders.isEmpty()) {
             return null;
         } else {
-            return roles;
+            return serviceOrders;
         }
     }
 

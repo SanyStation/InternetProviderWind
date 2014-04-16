@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -24,18 +19,19 @@ import java.util.logging.Logger;
  */
 public class UserDAO implements IUserDAO {
 
-    private static final String DELETE = "DELETE FROM USERS WHERE ID=?";
-
-    private static final String INSERT = "INSERT INTO USERS (ID,NAME,EMAIL,PASSWORD,BLOCKED,ROLE_ID) VALUES(?,?,?,?,?,?)";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String DELETE = "DELETE FROM USERS WHERE ID = ?";
+    private static final String INSERT = "INSERT INTO USERS (ID, NAME, EMAIL, "
+            + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM USERS ";
-    private static final String UPDATE = "UPDATE USERS SET EMAIL=? ,PASSWORD=?,BLOCKED WHERE ID=?";
+    private static final String UPDATE = "UPDATE USERS SET EMAIL = ?, "
+            + "PASSWORD = ?, BLOCKED WHERE ID = ?";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String EMAIL = "EMAIL";
     private static final String PASSWORD = "PASSWORD";
     private static final String BLOCKED = "BLOCKED";
     private static final String ROLE = "ROLE_ID";
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     /**
      *
@@ -75,7 +71,7 @@ public class UserDAO implements IUserDAO {
      */
     public void delete(int id) {
         Connection con = null;
-        PreparedStatement stat = null;
+        PreparedStatement stat;
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(DELETE);
@@ -95,7 +91,7 @@ public class UserDAO implements IUserDAO {
      * wasn't found
      */
     public User findByID(int id) {
-        List<User> users = findWhere("WHERE ID=?", new Object[]{id});
+        List<User> users = findWhere("WHERE ID = ?", new Object[]{id});
         if (users.isEmpty()) {
             return null;
         } else {
@@ -159,7 +155,9 @@ public class UserDAO implements IUserDAO {
                 user.setEmail(rs.getString(EMAIL));
                 user.setPassword(rs.getString(PASSWORD));
                 user.setBlocked(rs.getBoolean(BLOCKED));
-                user.setRoles(DAOFactory.createRoleDAO().findByID(rs.getInt(ROLE)));
+                user.setRoles(
+                        DAOFactory.createRoleDAO().findByID(rs.getInt(ROLE))
+                );
                 users.add(user);
             }
         } catch (SQLException ex) {
@@ -202,7 +200,8 @@ public class UserDAO implements IUserDAO {
     }
 
     public List<User> findByRole(int roleID) {
-        List<User> users = findWhere("WHERE ROLES_ID=?", new Object[]{roleID});
+        List<User> users =
+                findWhere("WHERE ROLES_ID = ?", new Object[]{roleID});
         if (users.isEmpty()) {
             return null;
         } else {
@@ -211,7 +210,10 @@ public class UserDAO implements IUserDAO {
     }
 
     public User findByEmailAndPassword(String email, String password) {
-        List<User> users = findWhere("WHERE email=? AND password=?", new Object[]{email, password});
+        List<User> users = findWhere(
+                "WHERE email = ? AND password = ?",
+                new Object[]{email, password}
+        );
         if (users.isEmpty()) {
             return null;
         } else if (users.size() == 1) {

@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IProviderLocationDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
 import com.netcracker.wind.entities.ProviderLocation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,10 +18,13 @@ import java.util.logging.Logger;
  */
 public class ProviderLocationDAO implements IProviderLocationDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String UPDATE = "UPDATE ROVIDER_LOCATIONS SET POS_X=?,POS_Y=?,ADDRESS=? WHERE ID=?";
-    private static final String DELETE = "DELETE FROM ROVIDER_LOCATIONS WHERE ID=?";
-    private static final String INSERT = "INSERT INTO PROVIDER_LOCATIONS (ID,POS_X,POS_Y,ADDRESS) VALUES (?,?,?,?)";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String UPDATE = "UPDATE ROVIDER_LOCATIONS SET "
+            + "POS_X = ?, POS_Y = ?, ADDRESS = ? WHERE ID = ?";
+    private static final String DELETE = "DELETE FROM ROVIDER_LOCATIONS WHERE "
+            + "ID = ?";
+    private static final String INSERT = "INSERT INTO PROVIDER_LOCATIONS (ID, "
+            + "POS_X, POS_Y, ADDRESS) VALUES (?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM ROVIDER_LOCATIONS ";
     private static final String ID = "ID";
     private static final String X = "POS_X";
@@ -60,13 +57,13 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
         }
     }
 
-    public void delete(int idPL) {
+    public void delete(int idPl) {
         Connection con = null;
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idPL);
+            stat.setInt(1, idPl);
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,8 +79,9 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
         }
     }
 
-    public ProviderLocation findByID(int idPL) {
-        List<ProviderLocation> providerLocations = findWhere("WHERE ID=?", new Object[]{idPL});
+    public ProviderLocation findByID(int idPl) {
+        List<ProviderLocation> providerLocations =
+                findWhere("WHERE ID = ?", new Object[]{idPl});
         if (providerLocations.isEmpty()) {
             return null;
         } else {

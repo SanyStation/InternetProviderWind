@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.IServiceDAO;
-import com.netcracker.wind.dao.factory.DAOFactory;
 import com.netcracker.wind.entities.Service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,10 +18,12 @@ import java.util.logging.Logger;
  */
 public class ServiceDAO implements IServiceDAO {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String UPDATE = "UPDATE SERVICES SET NAME=?,DESCRIPTION=? WHERE ID=?";
-    private static final String DELETE = "DELETE FROM SERVICES WHERE ID=?";
-    private static final String INSERT = "INSERT INTO SERVICES (ID,NAME,DESCRIPTION) VALUES (?,?,?)";
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final String UPDATE = "UPDATE SERVICES SET NAME = ?,"
+            + "DESCRIPTION = ? WHERE ID = ?";
+    private static final String DELETE = "DELETE FROM SERVICES WHERE ID = ?";
+    private static final String INSERT = "INSERT INTO SERVICES (ID, NAME, "
+            + "DESCRIPTION) VALUES (?, ?, ?)";
     private static final String SELECT = "SELECT * FROM SERVICES ";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
@@ -81,7 +77,8 @@ public class ServiceDAO implements IServiceDAO {
     }
 
     public Service findByID(int idService) {
-        List<Service> services = findWhere("WHERE ID=?", new Object[]{idService});
+        List<Service> services =
+                findWhere("WHERE ID = ?", new Object[]{idService});
         if (services.isEmpty()) {
             return null;
         } else {
@@ -151,7 +148,6 @@ public class ServiceDAO implements IServiceDAO {
                 //service.setPricesList(DAOFactory.createPriceDAO().findByService(id));
                 // service.setServiceInstancesList(DAOFactory.createServiceInstanceDAO().findByService(id));
                 // service.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByService(id));
-
                 services.add(service);
             }
         } catch (SQLException ex) {
