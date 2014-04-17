@@ -93,8 +93,8 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
         } else {
             return servInsts.get(0);
         }
-    }
-
+    }  
+    
     /**
      *
      * @param where SQL statement where for searching by different parameters
