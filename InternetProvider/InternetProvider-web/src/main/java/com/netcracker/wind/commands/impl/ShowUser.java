@@ -7,6 +7,7 @@ package com.netcracker.wind.commands.impl;
 
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowUser implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
+        AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         request.setAttribute("depts", factoryDAO.createUserDAO().findByRole(1));
         return "printUsers.jsp";
     }
