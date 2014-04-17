@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.IServiceLocationDAO;
+import com.netcracker.wind.dao.interfaces.IServiceLocationDAO;
 import com.netcracker.wind.entities.ServiceLocation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,9 +24,9 @@ public class ServiceLocationDAO implements IServiceLocationDAO {
             + "POS_X = ?, POS_Y = ?, ADDRESS = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM SERVICE_LOCATIONS WHERE "
             + "ID = ?";
-    private static final String INSERT = "INSERT INTO _LOCATIONS (ID, POS_X, "
-            + "POS_Y, ADDRESS) VALUES (?, ?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM ROVIDER_LOCATIONS ";
+    private static final String INSERT = "INSERT INTO SERVICE_LOCATIONS "
+            + "(ID, POS_X, POS_Y, ADDRESS) VALUES (?, ?, ?, ?)";
+    private static final String SELECT = "SELECT * FROM SERVICE_LOCATIONS ";
     private static final String ID = "ID";
     private static final String X = "POS_X";
     private static final String Y = "POS_Y";

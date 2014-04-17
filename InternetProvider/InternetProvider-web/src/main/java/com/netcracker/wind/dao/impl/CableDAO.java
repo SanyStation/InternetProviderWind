@@ -1,9 +1,9 @@
 package com.netcracker.wind.dao.impl;
 
+import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.*;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.entities.Cable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,6 +1,6 @@
-package com.netcracker.wind.servlets;
+package com.netcracker.wind.controllers;
 
-import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.entities.Device;
 import com.netcracker.wind.entities.ServiceOrder;
 import java.io.IOException;

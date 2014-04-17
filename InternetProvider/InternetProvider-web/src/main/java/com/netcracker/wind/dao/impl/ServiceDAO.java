@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.IServiceDAO;
+import com.netcracker.wind.dao.interfaces.IServiceDAO;
 import com.netcracker.wind.entities.Service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

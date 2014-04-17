@@ -5,19 +5,19 @@
  */
 package com.netcracker.wind.dao.factory;
 
-import com.netcracker.wind.dao.ICableDAO;
-import com.netcracker.wind.dao.ICircuitDAO;
-import com.netcracker.wind.dao.IDeviceDAO;
-import com.netcracker.wind.dao.IPortDAO;
-import com.netcracker.wind.dao.IPriceDAO;
-import com.netcracker.wind.dao.IProviderLocationDAO;
-import com.netcracker.wind.dao.IRoleDAO;
-import com.netcracker.wind.dao.IServiceDAO;
-import com.netcracker.wind.dao.IServiceInstanceDAO;
-import com.netcracker.wind.dao.IServiceLocationDAO;
-import com.netcracker.wind.dao.IServiceOrderDAO;
-import com.netcracker.wind.dao.ITaskDAO;
-import com.netcracker.wind.dao.IUserDAO;
+import com.netcracker.wind.dao.interfaces.ICableDAO;
+import com.netcracker.wind.dao.interfaces.ICircuitDAO;
+import com.netcracker.wind.dao.interfaces.IDeviceDAO;
+import com.netcracker.wind.dao.interfaces.IPortDAO;
+import com.netcracker.wind.dao.interfaces.IPriceDAO;
+import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
+import com.netcracker.wind.dao.interfaces.IRoleDAO;
+import com.netcracker.wind.dao.interfaces.IServiceDAO;
+import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
+import com.netcracker.wind.dao.interfaces.IServiceLocationDAO;
+import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
+import com.netcracker.wind.dao.interfaces.ITaskDAO;
+import com.netcracker.wind.dao.interfaces.IUserDAO;
 
 /**
  *

@@ -3,11 +3,11 @@
     <display-name>InternetProvider-web</display-name>
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>com.netcracker.wind.servlets.Controller</servlet-class>
+        <servlet-class>com.netcracker.wind.controllers.Controller</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReportController</servlet-name>
-        <servlet-class>com.netcracker.wind.servlets.ReportController</servlet-class>
+        <servlet-class>com.netcracker.wind.controllers.ReportController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
@@ -22,7 +22,7 @@
     </welcome-file-list>
     <servlet>
         <servlet-name>private_controller</servlet-name>
-        <servlet-class>com.netcracker.wind.servlets.PrivateController</servlet-class>
+        <servlet-class>com.netcracker.wind.controllers.PrivateController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>private_controller</servlet-name>

@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.netcracker.wind.servlets;
+package com.netcracker.wind.controllers;
 
 import com.netcracker.wind.commands.CommandHelper;
 import com.netcracker.wind.commands.ICommand;

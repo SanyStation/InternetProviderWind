@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.wind.dao;
+package com.netcracker.wind.dao.interfaces;
 
 import com.netcracker.wind.entities.Cable;
 import java.util.List;

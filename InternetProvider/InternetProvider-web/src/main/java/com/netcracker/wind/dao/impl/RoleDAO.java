@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.IRoleDAO;
+import com.netcracker.wind.dao.interfaces.IRoleDAO;
 import com.netcracker.wind.entities.Role;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +23,8 @@ public class RoleDAO implements IRoleDAO {
     private static final String INSERT = "INSERT INTO ROLES (ID, NAME) "
             + "VALUES(?, ?)";
     private static final String SELECT = "SELECT * FROM ROLES ";
-    private static final String UPDATE = "UPDATE ROLES SET NAME=? WHERE ID = ?";
+    private static final String UPDATE = "UPDATE ROLES SET NAME = ? WHERE "
+            + "ID = ?";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
 

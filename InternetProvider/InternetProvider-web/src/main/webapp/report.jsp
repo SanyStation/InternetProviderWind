@@ -7,7 +7,7 @@
         <title>Report generator</title>
     </head>
     <body>
-        <form method="POST" action="ReportController">
+        <form method="GET" action="ReportController">
             <table border="0">
                 <tr>
                     <td>

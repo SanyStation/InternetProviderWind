@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.wind.commands.impl.order;
+package com.netcracker.wind.commands.implementations.order;
 
 import com.netcracker.wind.commands.ICommand;
 import javax.servlet.http.HttpServletRequest;

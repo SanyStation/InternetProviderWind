@@ -12,7 +12,7 @@
         datasource-classname="oracle.jdbc.pool.OracleDataSource" 
         fail-all-connections="false" idle-timeout-in-seconds="300" 
         is-connection-validation-required="false" 
-        transaction-isolation-level="repeatable-read"
+        transaction-isolation-level="read-committed"
         is-isolation-level-guaranteed="true" 
         lazy-connection-association="false" 
         lazy-connection-enlistment="false" 

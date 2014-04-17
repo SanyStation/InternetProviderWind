@@ -8,7 +8,7 @@ package com.netcracker.wind.commands.impl;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
-import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

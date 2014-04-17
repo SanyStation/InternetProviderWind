@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.IProviderLocationDAO;
+import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
 import com.netcracker.wind.entities.ProviderLocation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,13 +19,13 @@ import java.util.logging.Logger;
 public class ProviderLocationDAO implements IProviderLocationDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String UPDATE = "UPDATE ROVIDER_LOCATIONS SET "
+    private static final String UPDATE = "UPDATE PROVIDER_LOCATIONS SET "
             + "POS_X = ?, POS_Y = ?, ADDRESS = ? WHERE ID = ?";
-    private static final String DELETE = "DELETE FROM ROVIDER_LOCATIONS WHERE "
+    private static final String DELETE = "DELETE FROM PROVIDER_LOCATIONS WHERE "
             + "ID = ?";
     private static final String INSERT = "INSERT INTO PROVIDER_LOCATIONS (ID, "
             + "POS_X, POS_Y, ADDRESS) VALUES (?, ?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM ROVIDER_LOCATIONS ";
+    private static final String SELECT = "SELECT * FROM PROVIDER_LOCATIONS ";
     private static final String ID = "ID";
     private static final String X = "POS_X";
     private static final String Y = "POS_Y";

@@ -15,7 +15,7 @@
 
         <display:table name="sessionScope.routers" pagesize="20"
                        export="true" sort="list">
-            <display:column property="model" title="Model"
+            <display:column property="id" title="Id"
                             sortable="true" headerClass="sortable" />
             <display:column property="capacity" title="Capacity, ports"
                             sortable="true" headerClass="sortable" />

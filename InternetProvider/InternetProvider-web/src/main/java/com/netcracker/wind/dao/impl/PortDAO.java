@@ -1,9 +1,9 @@
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.IPortDAO;
+import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.entities.Port;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -150,11 +150,11 @@ public class PortDAO implements IPortDAO {
                         factoryDAO.createDeviceDAO().findByID(rs.getInt(DEVICE))
                 );
                 port.setFree(rs.getBoolean(FREE));
-                port.setCircuits(factoryDAO.createCircuitDAO().findByPort(id));
+//                port.setCircuits(factoryDAO.createCircuitDAO().findByPort(id));
                 //TODO get(0) - ???
-                port.setCable(
-                        factoryDAO.createCableDAO().findByPort(id).get(0)
-                );
+//                port.setCable(
+//                        factoryDAO.createCableDAO().findByPort(id).get(0)
+//                );
                 ports.add(port);
             }
         } catch (SQLException ex) {

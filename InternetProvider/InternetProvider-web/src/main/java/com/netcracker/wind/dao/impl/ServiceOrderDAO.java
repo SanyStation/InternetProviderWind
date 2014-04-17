@@ -1,9 +1,9 @@
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.IServiceOrderDAO;
+import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.entities.ServiceOrder;
 import java.sql.Connection;
 import java.sql.Date;
@@ -27,14 +27,14 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
     private static final String DELETE = "DELETE FROM SERVICE_ORDERS WHERE "
             + "ID = ?";
     private static final String INSERT = "INSERT INTO SERVICE_ORDERS (ID, "
-            + "ENTERDATA, PROCESDATE, COMPLETEDATA, USER_ID, SERVICE_ID, "
+            + "ENTERDATE, PROCESDATE, COMPLETEDATE, USER_ID, SERVICE_ID, "
             + "PROVIDER_LOCATION_ID, SERVICE_LOCATION_ID, STATUS, SCENARIO,"
             + "SERVICE_INSTANCE_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM SERVICE_ORDERS ";
     private static final String ID = "ID";
-    private static final String ENT_D = "ENTERDATA";
+    private static final String ENT_D = "ENTERDATE";
     private static final String PROC_D = "PROCESDATE";
-    private static final String COMP_D = "COMPLETEDATA";
+    private static final String COMP_D = "COMPLETEDATE";
     private static final String USER = "USER_ID";
     private static final String SERVICE = "SERVICE_ID";
     private static final String PLID = "PROVIDER_LOCATION_ID";

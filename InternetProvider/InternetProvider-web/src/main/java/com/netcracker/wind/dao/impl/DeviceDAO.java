@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.impl;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.IDeviceDAO;
+import com.netcracker.wind.dao.interfaces.IDeviceDAO;
 import com.netcracker.wind.entities.Device;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -147,7 +147,7 @@ public class DeviceDAO implements IDeviceDAO {
             while (rs.next()) {
                 Device device = new Device();
                 int id = rs.getInt(ID);
-                device.setId(id);   
+                device.setId(id);
                 //device.setPortsList(DAOFactory.createPortDAO().findByDevice(id));
                 devices.add(device);
             }

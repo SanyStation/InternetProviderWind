@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.wind.servlets;
+package com.netcracker.wind.controllers;
 
 import java.io.IOException;
 import java.util.Properties;

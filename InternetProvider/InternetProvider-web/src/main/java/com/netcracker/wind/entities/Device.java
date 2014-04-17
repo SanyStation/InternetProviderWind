@@ -1,6 +1,6 @@
 package com.netcracker.wind.entities;
 
-import com.netcracker.wind.dao.factory.impl.OracleDAOFactory;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -33,22 +33,27 @@ public class Device implements Serializable {
     }
 
     public List<Port> getPortsList() {
+        if (portsCollection == null) fillPortsCollection();
         return portsCollection;
     }
 
     public void setPortsList(List<Port> portsCollection) {
         this.portsCollection = portsCollection;
     }
+    
+    private void fillPortsCollection() {
+        portsCollection =
+                    new OracleDAOFactory().createPortDAO().findByDevice(id);
+    }
 
     public int getCapacity() {
+        if (portsCollection == null) fillPortsCollection();
         return portsCollection.size();
     }
 
     public int getUtilization() {
         int busyPorts = 0;
-        if (portsCollection.isEmpty()) {
-            portsCollection = new OracleDAOFactory().createPortDAO().findByDevice(id);
-        }
+        if (portsCollection == null) fillPortsCollection();
         for (Port port : portsCollection) {
             if (!port.isFree()) {
                 ++busyPorts;
