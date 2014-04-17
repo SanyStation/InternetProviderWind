@@ -5,8 +5,8 @@
  */
 package com.netcracker.wind.commands;
 
-import com.netcracker.wind.commands.impl.NameGenerator;
-import com.netcracker.wind.commands.impl.NoCommand;
+import com.netcracker.wind.commands.implementations.NameGenerator;
+import com.netcracker.wind.commands.implementations.NoCommand;
 
 import java.util.HashMap;
 import java.util.Map;

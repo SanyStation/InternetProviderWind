@@ -1,4 +1,4 @@
-package com.netcracker.wind.dao.impl;
+package com.netcracker.wind.dao.implementations;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
