@@ -45,6 +45,12 @@ BEGIN
   insert into users
  (name, email, password, role_id)
   values('supporter', concat('supporter', '@i.ua'), 'pass', 4);
+  insert into users
+ (name, email, password, role_id)
+  values('iengineer', concat('iengineer', '@i.ua'), 'pass', 3);
+  insert into users
+ (name, email, password, role_id)
+  values('admin', concat('admin', '@i.ua'), 'pass', 1);
 
   insert into provider_locations
   (pos_x, pos_y)
@@ -223,11 +229,10 @@ BEGIN
   
   for a in 1..17 loop
     insert into devices (id)
-    values (a);
+    values (dev_id_seq.nextval);
     for b in 1..60 loop
-      c := (a * 60) - (60 - b);
-      insert into ports (id, device_id)
-      values (c, a);
+      insert into ports (device_id)
+      values (a);
     end loop;
   end loop;
 
@@ -651,4 +656,5 @@ BEGIN
 		update ports
 		set free = 0 where id = a;
   END LOOP;
+  commit;
 END;
