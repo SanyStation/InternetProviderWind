@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands;
 
+import com.netcracker.wind.commands.implementations.RiUtilNCapReportGenerator;
 import com.netcracker.wind.commands.implementations.NameGenerator;
 import com.netcracker.wind.commands.implementations.NoCommand;
 
@@ -22,6 +18,8 @@ public class CommandHelper {
 
     private static final String NO_COMMAND = "no_command";
     private static final String TEST_AJAX = "name_generator";
+    private static final String RI_UTIL_N_CAP = "riUtilNCap";
+    private static final String SI_NEW_ORDERS = "siNewOrders";
 
     private final Map<String, ICommand> commands;
 
@@ -29,6 +27,7 @@ public class CommandHelper {
         commands = new HashMap<String, ICommand>();
         commands.put(NO_COMMAND, new NoCommand());
         commands.put(TEST_AJAX, new NameGenerator());
+        commands.put(RI_UTIL_N_CAP, new RiUtilNCapReportGenerator());
     }
 
     public static CommandHelper getInstance() {
@@ -39,7 +38,7 @@ public class CommandHelper {
     }
 
     public ICommand getCommand(HttpServletRequest request) {
-        ICommand command = null;
+        ICommand command;
         String key = request.getParameter("command");
         if (commands.containsKey(key)) {
             command = commands.get(key);

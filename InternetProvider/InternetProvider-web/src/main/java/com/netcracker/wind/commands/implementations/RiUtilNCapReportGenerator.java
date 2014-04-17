@@ -3,14 +3,17 @@ package com.netcracker.wind.commands.implementations;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
+import com.netcracker.wind.entities.Device;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Oksana
+ * @author Alexander Kovriga
  */
-public class ShowUser implements ICommand {
+public class RiUtilNCapReportGenerator implements ICommand {
 
     public String execute(
             HttpServletRequest request,
@@ -18,8 +21,10 @@ public class ShowUser implements ICommand {
     ) {
         AbstractFactoryDAO factoryDAO =
                 FactoryCreator.getInstance().getFactory();
-        request.setAttribute("depts", factoryDAO.createUserDAO().findByRole(1));
-        return "printUsers.jsp";
+        List<Device> devices = factoryDAO.createDeviceDAO().findAll();
+        HttpSession httpSession = request.getSession(false);
+        httpSession.setAttribute("devices", devices);
+        return "/RiUtilNCap.jsp";
     }
-
+    
 }

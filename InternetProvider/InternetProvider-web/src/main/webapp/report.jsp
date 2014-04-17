@@ -7,46 +7,46 @@
         <title>Report generator</title>
     </head>
     <body>
-        <form method="GET" action="ReportController">
+        <form method="GET" action="Controller">
             <table border="0">
                 <tr>
                     <td>
-                        <input type="radio" name="report" value="riUtilNCap">
+                        <input type="radio" name="command" value="riUtilNCap">
                         Routers utilization and capacity
                         </input>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="radio" name="report" value="riMostProf">
+                        <input type="radio" name="command" value="riMostProf">
                         Most profitable router
                         </input>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="radio" name="report" value="siNewOrders">
+                        <input type="radio" name="command" value="siNewOrders">
                         New orders per period
                         </input>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="radio" name="report" value="siProfByMonth">
+                        <input type="radio" name="command" value="siProfByMonth">
                         Profitability by month
                         </input>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="radio" name="report" value="siDiscOrders">
+                        <input type="radio" name="command" value="siDiscOrders">
                         Disconnected orders per period
                         </input>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="radio" name="report" value="ciaIPT">
+                        <input type="radio" name="command" value="ciaIPT">
                         Impact Propagation Tree
                         </input>
                     </td>

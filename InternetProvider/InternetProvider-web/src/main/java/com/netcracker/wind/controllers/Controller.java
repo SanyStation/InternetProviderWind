@@ -29,18 +29,20 @@ public class Controller extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String page = null;
+            String page;
             ICommand command = helper.getCommand(request);
             page = command.execute(request, response);
-
             if (AJAX_REQUEST_HEADER.equals(request.getHeader(HEADER))) {
                 response.getWriter().write(page);
             } else {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+                RequestDispatcher dispatcher =
+                        getServletContext().getRequestDispatcher(page);
                 dispatcher.forward(request, response);
             }
         } catch (ServletException se) {

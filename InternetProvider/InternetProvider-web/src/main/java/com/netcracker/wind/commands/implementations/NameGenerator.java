@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations;
 
 import com.netcracker.wind.commands.ICommand;
-import com.netcracker.wind.connection.ConnectionPool;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -44,7 +37,10 @@ public class NameGenerator implements ICommand {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
         JSONObject jsono = new JSONObject();
         try {
             jsono.put(KEY, names.get(r.nextInt(12)));
