@@ -1,7 +1,7 @@
-package com.netcracker.wind.dao.reports.implementations.oracle;
+package com.netcracker.wind.dao.implementations.oracle.reports;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.reports.interfaces.IRiRoutersUtilNCapDAO;
+import com.netcracker.wind.dao.interfaces.reports.IRiRoutersUtilNCapDAO;
 import com.netcracker.wind.entities.reports.RiRoutersUtilNCap;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,10 +1,20 @@
 package com.netcracker.wind.dao.factory.implementations;
 
+import com.netcracker.wind.dao.interfaces.reports.ISiProfByMonthDAO;
+import com.netcracker.wind.dao.interfaces.reports.IRiRoutersUtilNCapDAO;
+import com.netcracker.wind.dao.interfaces.reports.ISiNewOrdersDAO;
+import com.netcracker.wind.dao.interfaces.reports.ICiaIptDAO;
+import com.netcracker.wind.dao.interfaces.reports.ISiDisconnOrdersDAO;
+import com.netcracker.wind.dao.interfaces.reports.IRiMostProfRouterDAO;
+import com.netcracker.wind.dao.implementations.oracle.reports.OracleSiDisconnOrdersDAO;
+import com.netcracker.wind.dao.implementations.oracle.reports.OracleCiaIptDAO;
+import com.netcracker.wind.dao.implementations.oracle.reports.OracleRiMostProfRouterDAO;
+import com.netcracker.wind.dao.implementations.oracle.reports.OracleRiRoutersUtilNCapDAO;
+import com.netcracker.wind.dao.implementations.oracle.reports.OracleSiNewOrdersDAO;
+import com.netcracker.wind.dao.implementations.oracle.reports.OracleSiProfByMonthDAO;
 import com.netcracker.wind.dao.interfaces.*;
 import com.netcracker.wind.dao.implementations.oracle.*;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.reports.implementations.oracle.*;
-import com.netcracker.wind.dao.reports.interfaces.*;
 
 /**
  *
