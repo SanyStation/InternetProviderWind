@@ -1,14 +1,14 @@
 package com.netcracker.wind.dao.reports.interfaces;
 
-import com.netcracker.wind.entities.Device;
+import com.netcracker.wind.entities.ServiceOrder;
 import java.util.List;
 
 /**
  *
  * @author Alexander Kovriga
  */
-public interface IMostProfDeviceDAO {
+public interface ISiNewOrdersDAO {
     
-    public List<Device> find();
+    public List<ServiceOrder> find();
     
 }

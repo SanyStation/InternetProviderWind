@@ -1,6 +1,6 @@
 package com.netcracker.wind.commands;
 
-import com.netcracker.wind.commands.implementations.RiUtilNCapReportGenerator;
+import com.netcracker.wind.commands.implementations.RiRoutersUtilNCapReportGenerator;
 import com.netcracker.wind.commands.implementations.NameGenerator;
 import com.netcracker.wind.commands.implementations.NoCommand;
 
@@ -27,7 +27,7 @@ public class CommandHelper {
         commands = new HashMap<String, ICommand>();
         commands.put(NO_COMMAND, new NoCommand());
         commands.put(TEST_AJAX, new NameGenerator());
-        commands.put(RI_UTIL_N_CAP, new RiUtilNCapReportGenerator());
+        commands.put(RI_UTIL_N_CAP, new RiRoutersUtilNCapReportGenerator());
     }
 
     public static CommandHelper getInstance() {

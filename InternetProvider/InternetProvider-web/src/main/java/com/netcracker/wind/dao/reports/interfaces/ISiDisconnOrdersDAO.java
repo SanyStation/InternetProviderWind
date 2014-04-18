@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Alexander Kovriga
  */
-public interface INewOrdersDAO {
+public interface ISiDisconnOrdersDAO {
     
     public List<ServiceOrder> find();
     

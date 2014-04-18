@@ -1,6 +1,7 @@
 package com.netcracker.wind.dao.factory;
 
 import com.netcracker.wind.dao.interfaces.*;
+import com.netcracker.wind.dao.reports.interfaces.*;
 
 /**
  *
@@ -21,4 +22,11 @@ public abstract class AbstractFactoryDAO {
     public abstract IServiceLocationDAO createServiceLocationDAO();
     public abstract IServiceOrderDAO createServiceOrderDAO();
     public abstract ITaskDAO createTaskDAO();
+    public abstract ICiaIptDAO createCiaIptDAO();
+    public abstract IRiMostProfRouterDAO createRiMostProfRouterDAO();
+    public abstract IRiRoutersUtilNCapDAO createRiRoutersUtilNCapDAO();
+    public abstract ISiDisconnOrdersDAO createSiDisconnOrdersDAO();
+    public abstract ISiNewOrdersDAO createSiNewOrdersDAO();
+    public abstract ISiProfByMonthDAO createSiProfByMonthDAO();
+    
 }

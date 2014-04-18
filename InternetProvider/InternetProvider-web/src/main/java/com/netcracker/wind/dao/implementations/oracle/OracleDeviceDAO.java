@@ -124,7 +124,9 @@ public class OracleDeviceDAO implements IDeviceDAO {
                 Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                rs.close();
+                if (rs != null) {
+                    rs.close();
+                }
             } catch (SQLException ex) {
                 //TODO
                 Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);

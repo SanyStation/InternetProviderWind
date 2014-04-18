@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Alexander Kovriga
  */
-public interface IProfByMonthDAO {
+public interface IRiMostProfRouterDAO {
     
     public List<Device> find();
     

@@ -1,32 +1,10 @@
 package com.netcracker.wind.dao.factory.implementations;
 
-import com.netcracker.wind.dao.interfaces.IPortDAO;
-import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
-import com.netcracker.wind.dao.interfaces.IServiceDAO;
-import com.netcracker.wind.dao.interfaces.IRoleDAO;
-import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
-import com.netcracker.wind.dao.interfaces.ITaskDAO;
-import com.netcracker.wind.dao.interfaces.IServiceLocationDAO;
-import com.netcracker.wind.dao.interfaces.IDeviceDAO;
-import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
-import com.netcracker.wind.dao.interfaces.ICircuitDAO;
-import com.netcracker.wind.dao.interfaces.IUserDAO;
-import com.netcracker.wind.dao.interfaces.IPriceDAO;
-import com.netcracker.wind.dao.interfaces.ICableDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleTaskDAO;
-import com.netcracker.wind.dao.implementations.oracle.OraclePortDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleProviderLocationDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleCableDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleServiceInstanceDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleServiceDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleCircuitDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleUserDAO;
-import com.netcracker.wind.dao.implementations.oracle.OraclePriceDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleServiceLocationDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleDeviceDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleRoleDAO;
-import com.netcracker.wind.dao.implementations.oracle.OracleServiceOrderDAO;
+import com.netcracker.wind.dao.interfaces.*;
+import com.netcracker.wind.dao.implementations.oracle.*;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.reports.implementations.oracle.*;
+import com.netcracker.wind.dao.reports.interfaces.*;
 
 /**
  *
@@ -34,56 +12,99 @@ import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
  */
 public class OracleDAOFactory extends AbstractFactoryDAO {
 
+    @Override
     public IUserDAO createUserDAO() {
         return new OracleUserDAO();
     }
 
+    @Override
     public IRoleDAO createRoleDAO() {
         return new OracleRoleDAO();
     }
 
+    @Override
     public ICableDAO createCableDAO() {
         return new OracleCableDAO();
     }
 
+    @Override
     public ICircuitDAO createCircuitDAO() {
         return new OracleCircuitDAO();
     }
 
+    @Override
     public IDeviceDAO createDeviceDAO() {
         return new OracleDeviceDAO();
     }
 
+    @Override
     public IPortDAO createPortDAO() {
         return new OraclePortDAO();
     }
 
+    @Override
     public IPriceDAO createPriceDAO() {
         return new OraclePriceDAO();
     }
 
+    @Override
     public IProviderLocationDAO createProviderLocationDAO() {
         return new OracleProviderLocationDAO();
     }
 
+    @Override
     public IServiceDAO createServiceDAO() {
         return new OracleServiceDAO();
     }
 
+    @Override
     public IServiceInstanceDAO createServiceInstanceDAO() {
         return new OracleServiceInstanceDAO();
     }
 
+    @Override
     public IServiceLocationDAO createServiceLocationDAO() {
         return new OracleServiceLocationDAO();
     }
 
+    @Override
     public IServiceOrderDAO createServiceOrderDAO() {
         return new OracleServiceOrderDAO();
     }
 
+    @Override
     public ITaskDAO createTaskDAO() {
         return new OracleTaskDAO();
+    }
+    
+    @Override
+    public ICiaIptDAO createCiaIptDAO() {
+        return new OracleCiaIptDAO();
+    }
+    
+    @Override
+    public IRiMostProfRouterDAO createRiMostProfRouterDAO() {
+        return new OracleRiMostProfRouterDAO();
+    }
+    
+    @Override
+    public IRiRoutersUtilNCapDAO createRiRoutersUtilNCapDAO() {
+        return new OracleRiRoutersUtilNCapDAO();
+    }
+    
+    @Override
+    public ISiDisconnOrdersDAO createSiDisconnOrdersDAO() {
+        return new OracleSiDisconnOrdersDAO();
+    }
+    
+    @Override
+    public ISiNewOrdersDAO createSiNewOrdersDAO() {
+        return new OracleSiNewOrdersDAO();
+    }
+    
+    @Override
+    public ISiProfByMonthDAO createSiProfByMonthDAO() {
+        return new OracleSiProfByMonthDAO();
     }
 
 }

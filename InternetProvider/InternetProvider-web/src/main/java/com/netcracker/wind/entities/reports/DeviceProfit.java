@@ -1,4 +1,4 @@
-package com.netcracker.wind.entities;
+package com.netcracker.wind.entities.reports;
 
 import java.io.Serializable;
 import org.apache.commons.lang.builder.EqualsBuilder;
