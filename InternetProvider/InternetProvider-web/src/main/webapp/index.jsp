@@ -19,11 +19,13 @@
                         url: 'Controller',
                         dataType: 'text',
                         data: {
-                            'command': command
+                            'command': command,
+                            'x': 50.526232,
+                            'y': 30.6020479
                         },
                         success: function(data) {
-                            var element = $.parseJSON(data);//JSON.parse(data);
-                            $("#dynamic").html(element.name);
+//                            var element = $.parseJSON(data);//JSON.parse(data);
+                            $("#dynamic").html(data);
                         },
                         error: function() {
                             alert("AJAX error");
@@ -49,7 +51,7 @@
 
         <h1 align="center">Name generator</h1>
         <div align="center">
-            <input type="submit" value="Generate" onclick="getName('name_generator')"/>
+            <input type="submit" value="Get Services" onclick="getName('refresh_service')"/>
             <div id="dynamic" >
             </div>
         </div>
