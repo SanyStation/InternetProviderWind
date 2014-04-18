@@ -1,4 +1,4 @@
-package com.netcracker.wind.dao.implementations;
+package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IPriceDAO;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class PriceDAO implements IPriceDAO {
+public class OraclePriceDAO implements IPriceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE PRICES SET PRICE WHERE ID = ?";
@@ -50,14 +50,14 @@ public class PriceDAO implements IPriceDAO {
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(connection);
         }
@@ -76,14 +76,14 @@ public class PriceDAO implements IPriceDAO {
             stat.setInt(1, idPrice);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -125,20 +125,20 @@ public class PriceDAO implements IPriceDAO {
             rs = stat.executeQuery();
             prices = parseResult(rs);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
-                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -173,7 +173,7 @@ public class PriceDAO implements IPriceDAO {
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return prices;
@@ -193,14 +193,14 @@ public class PriceDAO implements IPriceDAO {
             stat.setInt(2, price.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(PriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }

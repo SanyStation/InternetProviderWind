@@ -1,4 +1,4 @@
-package com.netcracker.wind.dao.implementations;
+package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IRoleDAO;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class RoleDAO implements IRoleDAO {
+public class OracleRoleDAO implements IRoleDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM ROLES WHERE ID = ?";
@@ -43,14 +43,14 @@ public class RoleDAO implements IRoleDAO {
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(connection);
         }
@@ -69,14 +69,14 @@ public class RoleDAO implements IRoleDAO {
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -118,20 +118,20 @@ public class RoleDAO implements IRoleDAO {
             rs = stat.executeQuery();
             roles = parseResult(rs);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
-                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -157,7 +157,7 @@ public class RoleDAO implements IRoleDAO {
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return roles;
@@ -173,14 +173,14 @@ public class RoleDAO implements IRoleDAO {
             stat.setInt(2, role.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(RoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }

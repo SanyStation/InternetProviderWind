@@ -1,4 +1,4 @@
-package com.netcracker.wind.dao.implementations;
+package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class ServiceInstanceDAO implements IServiceInstanceDAO {
+public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
@@ -50,14 +50,14 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(connection);
         }
@@ -72,14 +72,14 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
             stat.setInt(1, idSi);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -117,20 +117,20 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
             rs = stat.executeQuery();
             servInsts = parseResult(rs);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
-                Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -175,7 +175,7 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return servInsts;
@@ -191,14 +191,14 @@ public class ServiceInstanceDAO implements IServiceInstanceDAO {
             stat.setInt(2, serviceInstance.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }

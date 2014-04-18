@@ -1,4 +1,4 @@
-package com.netcracker.wind.dao.implementations;
+package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IDeviceDAO;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class DeviceDAO implements IDeviceDAO {
+public class OracleDeviceDAO implements IDeviceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM DEVICES WHERE ID = ?";
@@ -39,14 +39,14 @@ public class DeviceDAO implements IDeviceDAO {
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(connection);
         }
@@ -65,14 +65,14 @@ public class DeviceDAO implements IDeviceDAO {
             stat.setInt(1, idDevice);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -114,20 +114,20 @@ public class DeviceDAO implements IDeviceDAO {
             rs = stat.executeQuery();
             devices = parseResult(rs);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
-                Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -153,7 +153,7 @@ public class DeviceDAO implements IDeviceDAO {
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(DeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return devices;

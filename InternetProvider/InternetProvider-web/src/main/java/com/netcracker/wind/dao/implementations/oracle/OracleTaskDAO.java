@@ -1,4 +1,4 @@
-package com.netcracker.wind.dao.implementations;
+package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class TaskDAO implements ITaskDAO {
+public class OracleTaskDAO implements ITaskDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
@@ -50,14 +50,14 @@ public class TaskDAO implements ITaskDAO {
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(connection);
         }
@@ -72,14 +72,14 @@ public class TaskDAO implements ITaskDAO {
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -111,14 +111,14 @@ public class TaskDAO implements ITaskDAO {
 
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -147,21 +147,21 @@ public class TaskDAO implements ITaskDAO {
             tasks = parseResult(rs);
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
 
             try {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
-                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(TaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -194,7 +194,7 @@ public class TaskDAO implements ITaskDAO {
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return tasks;

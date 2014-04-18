@@ -1,4 +1,4 @@
-package com.netcracker.wind.dao.implementations;
+package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class ProviderLocationDAO implements IProviderLocationDAO {
+public class OracleProviderLocationDAO implements IProviderLocationDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE PROVIDER_LOCATIONS SET "
@@ -44,14 +44,14 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(connection);
         }
@@ -66,14 +66,14 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
             stat.setInt(1, idPl);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -111,20 +111,20 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
             rs = stat.executeQuery();
             provLocs = parseResult(rs);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
-                Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -154,7 +154,7 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return provLocs;
@@ -172,14 +172,14 @@ public class ProviderLocationDAO implements IProviderLocationDAO {
             stat.setInt(4, providerLocation.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }

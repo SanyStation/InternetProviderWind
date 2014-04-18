@@ -1,4 +1,4 @@
-package com.netcracker.wind.dao.implementations;
+package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class ServiceOrderDAO implements IServiceOrderDAO {
+public class OracleServiceOrderDAO implements IServiceOrderDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
@@ -64,14 +64,14 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(connection);
         }
@@ -86,14 +86,14 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -131,20 +131,20 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
             rs = stat.executeQuery();
             serviceOrders = parseResult(rs);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
-                Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -193,7 +193,7 @@ public class ServiceOrderDAO implements IServiceOrderDAO {
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(ServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return serviceOrders;

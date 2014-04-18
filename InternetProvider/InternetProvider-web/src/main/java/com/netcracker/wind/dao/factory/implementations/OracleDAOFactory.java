@@ -13,19 +13,19 @@ import com.netcracker.wind.dao.interfaces.ICircuitDAO;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.dao.interfaces.IPriceDAO;
 import com.netcracker.wind.dao.interfaces.ICableDAO;
-import com.netcracker.wind.dao.implementations.TaskDAO;
-import com.netcracker.wind.dao.implementations.PortDAO;
-import com.netcracker.wind.dao.implementations.ProviderLocationDAO;
-import com.netcracker.wind.dao.implementations.CableDAO;
-import com.netcracker.wind.dao.implementations.ServiceInstanceDAO;
-import com.netcracker.wind.dao.implementations.ServiceDAO;
-import com.netcracker.wind.dao.implementations.CircuitDAO;
-import com.netcracker.wind.dao.implementations.UserDAO;
-import com.netcracker.wind.dao.implementations.PriceDAO;
-import com.netcracker.wind.dao.implementations.ServiceLocationDAO;
-import com.netcracker.wind.dao.implementations.DeviceDAO;
-import com.netcracker.wind.dao.implementations.RoleDAO;
-import com.netcracker.wind.dao.implementations.ServiceOrderDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleTaskDAO;
+import com.netcracker.wind.dao.implementations.oracle.OraclePortDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleProviderLocationDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleCableDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleServiceInstanceDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleServiceDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleCircuitDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleUserDAO;
+import com.netcracker.wind.dao.implementations.oracle.OraclePriceDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleServiceLocationDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleDeviceDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleRoleDAO;
+import com.netcracker.wind.dao.implementations.oracle.OracleServiceOrderDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 
 /**
@@ -35,55 +35,55 @@ import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 public class OracleDAOFactory extends AbstractFactoryDAO {
 
     public IUserDAO createUserDAO() {
-        return new UserDAO();
+        return new OracleUserDAO();
     }
 
     public IRoleDAO createRoleDAO() {
-        return new RoleDAO();
+        return new OracleRoleDAO();
     }
 
     public ICableDAO createCableDAO() {
-        return new CableDAO();
+        return new OracleCableDAO();
     }
 
     public ICircuitDAO createCircuitDAO() {
-        return new CircuitDAO();
+        return new OracleCircuitDAO();
     }
 
     public IDeviceDAO createDeviceDAO() {
-        return new DeviceDAO();
+        return new OracleDeviceDAO();
     }
 
     public IPortDAO createPortDAO() {
-        return new PortDAO();
+        return new OraclePortDAO();
     }
 
     public IPriceDAO createPriceDAO() {
-        return new PriceDAO();
+        return new OraclePriceDAO();
     }
 
     public IProviderLocationDAO createProviderLocationDAO() {
-        return new ProviderLocationDAO();
+        return new OracleProviderLocationDAO();
     }
 
     public IServiceDAO createServiceDAO() {
-        return new ServiceDAO();
+        return new OracleServiceDAO();
     }
 
     public IServiceInstanceDAO createServiceInstanceDAO() {
-        return new ServiceInstanceDAO();
+        return new OracleServiceInstanceDAO();
     }
 
     public IServiceLocationDAO createServiceLocationDAO() {
-        return new ServiceLocationDAO();
+        return new OracleServiceLocationDAO();
     }
 
     public IServiceOrderDAO createServiceOrderDAO() {
-        return new ServiceOrderDAO();
+        return new OracleServiceOrderDAO();
     }
 
     public ITaskDAO createTaskDAO() {
-        return new TaskDAO();
+        return new OracleTaskDAO();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.netcracker.wind.dao.implementations;
+package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class PortDAO implements IPortDAO {
+public class OraclePortDAO implements IPortDAO {
     
     private static final String UPDATE = "UPDATE PORTS SET FREE = ? WHERE "
             + "ID = ?";
@@ -45,14 +45,14 @@ public class PortDAO implements IPortDAO {
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(connection);
         }
@@ -67,14 +67,14 @@ public class PortDAO implements IPortDAO {
             stat.setInt(1, idPort);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -111,21 +111,21 @@ public class PortDAO implements IPortDAO {
             rs = stat.executeQuery();
             ports = parseResult(rs);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             try {
                 rs.close();
             } catch (SQLException ex) {
                 //TODO
-                Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -159,7 +159,7 @@ public class PortDAO implements IPortDAO {
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return ports;
@@ -175,14 +175,14 @@ public class PortDAO implements IPortDAO {
             stat.setInt(2, port.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(PortDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }

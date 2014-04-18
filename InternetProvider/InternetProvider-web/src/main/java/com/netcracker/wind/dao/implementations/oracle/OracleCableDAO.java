@@ -1,10 +1,10 @@
-package com.netcracker.wind.dao.implementations;
+package com.netcracker.wind.dao.implementations.oracle;
 
+import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.interfaces.ICircuitDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.entities.Circuit;
+import com.netcracker.wind.entities.Cable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,71 +18,65 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class CircuitDAO implements ICircuitDAO {
+public class OracleCableDAO implements ICableDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private static final String DELETE = "DELETE FROM CIRCUITS WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO CIRCUITS (ID, "
-            + "SERVICE_INSTANCE_ID, PORT_ID) VALUES(?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM CIRCUITS ";
-    private static final String UPDATE = "UPDATE CIRCUITS SET "
-            + "SERVICE_INSTANCE_ID = ?, PORT_ID = ? WHERE ID = ?";
+    private static final String DELETE = "DELETE FROM CABLES WHERE ID = ?";
+    private static final String INSERT = "INSERT INTO CABLES (ID, PORT_ID, "
+            + "SERVICE_LOCATION_ID) VALUES(?, ?, ?)";
+    private static final String SELECT = "SELECT * FROM CABLES ";
+    //TODO check this with bd
+    private static final String UPDATE = "UPDATE CABLES SET PORT_ID = ?,"
+            + "SERVICE_INSTANCE_ID = ? WHERE ID = ?";
     private static final String ID = "ID";
-    private static final String SIID = "SERVICE_INSTANCE_ID";
     private static final String PORT = "PORT_ID";
+    private static final String SIID = "SERVICE_INSTANCE_ID";
 
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
-    /**
-     *
-     * @param circuit
-     */
-    public void add(Circuit circuit) {
+    public void add(Cable cable) {
         Connection connection = null;
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, circuit.getId());
-            stat.setInt(2, circuit.getServiceInstance().getId());
-            stat.setInt(3, circuit.getPorts().getId());
+            stat.setInt(1, cable.getId());
+            stat.setInt(2, cable.getPorts().getId());
+            // do we need to add to the tables
+            stat.setInt(3, cable.getServiceLocation().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
-            Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(connection);
         }
     }
 
-    /**
-     *
-     * @param idCircuit
-     */
-    public void delete(int idCircuit) {
+    public void delete(int idCable) {
         Connection con = null;
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idCircuit);
+            stat.setInt(1, idCable);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
@@ -90,16 +84,16 @@ public class CircuitDAO implements ICircuitDAO {
 
     /**
      *
-     * @param idCircuit
-     * @return
+     * @param idCable the id of cable by which search will be done
+     * @return entities with idCable if it exists in database, and null -
+     * otherwise
      */
-    public Circuit findByID(int idCircuit) {
-        List<Circuit> circuits
-                = findWhere("WHERE ID = ?", new Object[]{idCircuit});
-        if (circuits.isEmpty()) {
+    public Cable findByID(int idCable) {
+        List<Cable> cables = findWhere("WHERE ID=?", new Object[]{idCable});
+        if (cables.isEmpty()) {
             return null;
         } else {
-            return circuits.get(0);
+            return cables.get(0);
         }
     }
 
@@ -107,10 +101,10 @@ public class CircuitDAO implements ICircuitDAO {
      *
      * @param where SQL statement where for searching by different parameters
      * @param param parameters by which search will be formed
-     * @return list of found circuits
+     * @return list of found cables
      */
-    private List<Circuit> findWhere(String where, Object[] param) {
-        List<Circuit> circuits = null;
+    private List<Cable> findWhere(String where, Object[] param) {
+        List<Cable> cables = null;
         Connection con = null;
         ResultSet rs = null;
         PreparedStatement stat = null;
@@ -118,126 +112,115 @@ public class CircuitDAO implements ICircuitDAO {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(SELECT + where);
             if (param != null) {
-                for (int i = 0; i < param.length; ++i) {
+                for (int i = 0; i < param.length; i++) {
                     stat.setObject(i + 1, param[i]);
                 }
             }
             rs = stat.executeQuery();
-            circuits = parseResult(rs);
+            cables = parseResult(rs);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+
             try {
                 if (rs != null) {
                     rs.close();
                 }
             } catch (SQLException ex) {
                 //TODO
-                Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
-        return circuits;
+        return cables;
     }
 
     /**
      *
      *
      * @param rs result return from database
-     * @return list of founded circuits
+     * @return list of founded cables
      *
      */
-    private List<Circuit> parseResult(ResultSet rs) {
-        List<Circuit> circuits = new ArrayList<Circuit>();
+    private List<Cable> parseResult(ResultSet rs) {
+        List<Cable> cables = new ArrayList<Cable>();
         try {
             while (rs.next()) {
-                Circuit circuit = new Circuit();
-                circuit.setId(rs.getInt(ID));
-                circuit.setServiceInstance(
-                        factoryDAO.createServiceInstanceDAO().findByID(
+                Cable cable = new Cable();
+                cable.setId(rs.getInt(ID));
+                cable.setPorts(
+                        factoryDAO.createPortDAO().findByID(rs.getInt(PORT))
+                );
+                cable.setServiceLocation(
+                        factoryDAO.createServiceLocationDAO().findByID(
                                 rs.getInt(SIID)
                         )
                 );
-                circuit.setPorts(
-                        factoryDAO.createPortDAO().findByID(rs.getInt(PORT))
-                );
-                circuits.add(circuit);
+
+                cables.add(cable);
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return circuits;
+        return cables;
     }
 
-    /**
-     *
-     * @param circuit
-     */
-    public void update(Circuit circuit) {
+    public void update(Cable cable) {
         Connection con = null;
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, circuit.getServiceInstance().getId());
-            stat.setInt(2, circuit.getPorts().getId());
-            stat.setInt(3, circuit.getId());
+            stat.setInt(1, cable.getPorts().getId());
+            stat.setInt(2, cable.getServiceLocation().getId());
+            stat.setInt(3, cable.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(CircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             connectionPool.close(con);
         }
 
     }
 
-    /**
-     *
-     * @param idPort
-     * @return
-     */
-    public Circuit findByPort(int idPort) {
-        List<Circuit> circuits
+    public List<Cable> findByPort(int idPort) {
+        List<Cable> cables
                 = findWhere("WHERE PORT_ID = ?", new Object[]{idPort});
-        if (circuits.isEmpty()) {
+        if (cables.isEmpty()) {
             return null;
         } else {
-            return circuits.get(0);
+            return cables;
         }
     }
 
-    /**
-     *
-     * @param idSi
-     * @return
-     */
-    public List<Circuit> findByServInst(int idSi) {
-        List<Circuit> circuits
-                = findWhere("WHERE SERVICE_INSTANCE_ID = ?", new Object[]{idSi});
-        if (circuits.isEmpty()) {
+    public List<Cable> findByServInst(int idSI) {
+        List<Cable> cables
+                = findWhere("WHERE SERVICE_INSTANCE_ID = ?", new Object[]{idSI});
+        if (cables.isEmpty()) {
             return null;
         } else {
-            return circuits;
+            return cables;
         }
     }
 
-    public List<Circuit> findAll() {
+    public List<Cable> findAll() {
         return findWhere("", new Object[]{});
     }
 }
