@@ -1,4 +1,4 @@
-package com.netcracker.wind.dao.reports.interfaces;
+package com.netcracker.wind.dao.interfaces.reports;
 
 /**
  *

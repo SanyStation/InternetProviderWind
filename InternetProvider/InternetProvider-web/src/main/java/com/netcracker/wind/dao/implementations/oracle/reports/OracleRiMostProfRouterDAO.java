@@ -1,6 +1,6 @@
-package com.netcracker.wind.dao.reports.implementations.oracle;
+package com.netcracker.wind.dao.implementations.oracle.reports;
 
-import com.netcracker.wind.dao.reports.interfaces.ISiProfByMonthDAO;
+import com.netcracker.wind.dao.interfaces.reports.IRiMostProfRouterDAO;
 import com.netcracker.wind.entities.Device;
 import java.util.List;
 
@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Alexander Kovriga
  */
-public class OracleSiProfByMonthDAO implements ISiProfByMonthDAO {
+public class OracleRiMostProfRouterDAO implements IRiMostProfRouterDAO {
 
     public List<Device> find() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
