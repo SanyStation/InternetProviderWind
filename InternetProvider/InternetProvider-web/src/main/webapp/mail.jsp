@@ -13,15 +13,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <form  action="sentMail.jsp" method="POST">
+        <form  action="Controller" method="POST">
             <table border="0">
                 <thead>
                   SentEmail
                 </thead>
                  <tbody>
                     <tr>
-                        <td>email</td>
-                        <td><input type="text" name="email" value="" /></td>
+                        <td>User id </td>
+                        <td><input type="text" name="user_id" value="" /></td>
                         <td></td>
                     </tr>
                
@@ -29,12 +29,6 @@
                     <tr>
                         <td>subject</td>
                         <td><input type="text" name="subject" value="" /></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>message</td>
-                        <td><textarea name="message" rows="4" cols="20">
-                            </textarea></td>
                         <td></td>
                     </tr>
                     <tr>
