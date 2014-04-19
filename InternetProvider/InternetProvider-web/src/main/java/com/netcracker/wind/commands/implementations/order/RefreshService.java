@@ -39,7 +39,6 @@ public class RefreshService implements ICommand {
         } else {
             actualX = Double.parseDouble(sX);
             actualY = Double.parseDouble(sY);
-            System.out.println(actualX + " " + actualY);
 
             //Get FactoryDAO
             AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
@@ -49,20 +48,27 @@ public class RefreshService implements ICommand {
 
             //Find nearest ProviderLocation
             List<ProviderLocation> providerLocations = providerLocationDAO.findAll();
-            ProviderLocation nearestProviderLocation = providerLocations.get(0);
-            double minDist = getDistance(actualX, actualY,
-                    nearestProviderLocation.getPosX(),
-                    nearestProviderLocation.getPosY());
-            for (int i = 1; i < providerLocations.size(); i++) {
-                ProviderLocation providerLocation = providerLocations.get(i);
+            ProviderLocation nearestProviderLocation = null;
+            double minDist = Double.MAX_VALUE;
+            for (ProviderLocation pl : providerLocations) {
                 double dist = getDistance(actualX, actualY,
-                        providerLocation.getPosX(),
-                        providerLocation.getPosY());
+                        pl.getPosX(),
+                        pl.getPosY());
                 if (dist < minDist) {
                     minDist = dist;
-                    nearestProviderLocation = providerLocation;
+                    nearestProviderLocation = pl;
                 }
             }
+
+            if (nearestProviderLocation == null) {
+                try {
+                    jsono.put("status", "error");
+                } catch (JSONException ex) {
+                    Logger.getLogger(RefreshService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return jsono.toString();
+            }
+
             //Find available Services and Prices
             List<Price> prices = priceDAO.findByProviderLoc(nearestProviderLocation.getId());
 
@@ -88,7 +94,6 @@ public class RefreshService implements ICommand {
                 Logger.getLogger(RefreshService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        System.out.println(jsono.toString());
         return jsono.toString();
     }
 
