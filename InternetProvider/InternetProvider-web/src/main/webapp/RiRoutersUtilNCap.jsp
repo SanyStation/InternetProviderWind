@@ -13,7 +13,7 @@
     </head>
     <body>
 
-        <display:table name="sessionScope.devices" pagesize="20"
+        <display:table name="sessionScope.devices" pagesize="0"
                        export="true" sort="list">
             <display:column property="id" title="Id"
                             sortable="true" headerClass="sortable" />

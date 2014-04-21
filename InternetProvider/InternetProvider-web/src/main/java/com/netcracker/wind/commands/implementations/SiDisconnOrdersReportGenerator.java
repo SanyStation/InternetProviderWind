@@ -13,19 +13,19 @@ import javax.servlet.http.HttpSession;
  *
  * @author Alexander Kovriga
  */
-public class SiNewOrdersReportGenerator implements ICommand {
+public class SiDisconnOrdersReportGenerator implements ICommand {
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
         HttpSession hs = request.getSession(false);
         AbstractFactoryDAO factoryDAO =
                 FactoryCreator.getInstance().getFactory();
-        String dateFrom = request.getParameter("validDp1");
-        String dateTo = request.getParameter("validDp2");
-        List<SiOrder> orders = factoryDAO.createSiNewOrdersDAO().
+        String dateFrom = request.getParameter("validDp3");
+        String dateTo = request.getParameter("validDp4");
+        List<SiOrder> orders = factoryDAO.createSiDisconnOrdersDAO().
                 findDateFromTo(dateFrom, dateTo);
-        hs.setAttribute("title", "New orders per period: " + dateFrom + " - "
-                + dateTo);
+        hs.setAttribute("title", "Disconnected orders per period: " + dateFrom
+                + " - " + dateTo);
         hs.setAttribute("orders", orders);
         return "/SiOrders.jsp";
     }
