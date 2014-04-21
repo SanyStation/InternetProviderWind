@@ -36,7 +36,6 @@ body
     box-shadow: 0 2px 1px #9c9c9c;
 }
 
-
 #menu li
 {
     float: left;
@@ -56,6 +55,7 @@ body
     text-decoration: none;
     text-shadow: 0 1px 0 #000;
 }
+
 #menu input
 {
     float: left;
@@ -72,14 +72,17 @@ body
 {
     color: #fafafa;
 }
+
 #menu li:hover > input
 {
     color: #fafafa;
 }
+
 *html #menu li a:hover /* IE6 */
 {
     color: #fafafa;
 }
+
 *html #menu li input:hover /* IE6 */
 {
     color: #fafafa;
@@ -114,6 +117,32 @@ body
     box-shadow: 0 0 2px rgba(255,255,255,.5);	
     -moz-border-radius: 5px;
     border-radius: 5px;
+}
+
+input.buttonstyle{
+
+    text-align:left;
+
+    color: #999;
+    font: bold 12px/25px Arial, Helvetica;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #000;
+    user-select: none;
+    outline: none;
+    background: #444;
+    background: -moz-linear-gradient(#444, #111); 
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #111),color-stop(1, #444));	
+    background: -webkit-linear-gradient(#444, #111);	
+    background: -o-linear-gradient(#444, #111);
+    background: -ms-linear-gradient(#444, #111);
+    background: linear-gradient(#444, #111);
+    -moz-box-shadow: 0 0 2px rgba(255,255,255,.5);
+    -webkit-box-shadow: 0 0 2px rgba(255,255,255,.5);
+    box-shadow: 0 0 2px rgba(255,255,255,.5);	
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border:none;
+
 }
 
 #menu ul ul
@@ -152,6 +181,7 @@ body
     float: none;
     text-transform: none;
 }
+
 #menu ul input
 {    
     padding: 10px;
@@ -164,6 +194,7 @@ body
     float: none;
     text-transform: none;
 }
+
 #menu ul li input
 {    
     padding: 10px;
@@ -186,15 +217,16 @@ body
 {    
     height: 10px;
 }
+
 *:first-child+html #menu ul a /* IE7 */
 {    
     height: 10px;
 }
+
 *:first-child+html #menu ul input /* IE7 */
 {    
     height: 10px;
 }
-
 
 #menu ul a:hover
 {
@@ -206,6 +238,7 @@ body
     background: -ms-linear-gradient(#04acec,  #0186ba);
     background: linear-gradient(#04acec,  #0186ba);
 }
+
 #menu ul input:hover
 {
     background: #0186ba;
@@ -216,16 +249,19 @@ body
     background: -ms-linear-gradient(#04acec,  #0186ba);
     background: linear-gradient(#04acec,  #0186ba);
 }
+
 #menu ul li:first-child > a
 {
     -moz-border-radius: 5px 5px 0 0;
     border-radius: 5px 5px 0 0;
 }
+
 #menu ul li:first-child > input
 {
     -moz-border-radius: 5px 5px 0 0;
     border-radius: 5px 5px 0 0;
 }
+
 #menu ul li:first-child > a:after
 {
     content: '';
@@ -238,6 +274,7 @@ body
     border-right: 5px solid transparent;
     border-bottom: 8px solid #444;
 }
+
 #menu ul li:first-child > input:after
 {
     content: '';
@@ -262,6 +299,7 @@ body
     border-top: 5px solid transparent;
     border-right: 8px solid #444;
 }
+
 #menu ul ul li:first-child input:after
 {
     left: -8px;
@@ -273,10 +311,12 @@ body
     border-top: 5px solid transparent;
     border-right: 8px solid #444;
 }
+
 #menu ul li:first-child a:hover:after
 {
     border-bottom-color: #04acec; 
 }
+
 #menu ul li:first-child input:hover:after
 {
     border-bottom-color: #04acec; 
@@ -287,18 +327,19 @@ body
     border-right-color: #04acec; 
     border-bottom-color: transparent; 	
 }
+
 #menu ul ul li:first-child input:hover:after
 {
     border-right-color: #04acec; 
     border-bottom-color: transparent; 	
 }
 
-
 #menu ul li:last-child > a
 {
     -moz-border-radius: 0 0 5px 5px;
     border-radius: 0 0 5px 5px;
 }
+
 #menu ul li:last-child > input
 {
     -moz-border-radius: 0 0 5px 5px;
@@ -306,6 +347,7 @@ body
 }
 
 /* Clear floated elements */
+
 #menu:after 
 {
     visibility: hidden;
