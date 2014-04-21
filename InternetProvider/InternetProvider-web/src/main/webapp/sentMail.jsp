@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="com.netcracker.wind.mail.MailSendler"%>
+<%@page import="com.netcracker.wind.mail.FormatedMail"%>
 <%@page contentType="text/html" pageEncoding="windows-1251"%>
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,7 @@
         %>
         <h1>Sending...</h1>
 
-        <%=send.sendEmail(email, subject, message)%>
+       
 
         <form action="index.jsp" method="POST">
             <input type="submit" value="back"  />

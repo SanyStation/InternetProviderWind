@@ -38,8 +38,8 @@ public class OracleProviderLocationDAO implements IProviderLocationDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, providerLocation.getId());
-            stat.setInt(2, providerLocation.getPosX());
-            stat.setInt(3, providerLocation.getPosY());
+            stat.setDouble(2, providerLocation.getPosX());
+            stat.setDouble(3, providerLocation.getPosY());
             stat.setString(4, providerLocation.getAddress());
             stat.executeUpdate();
         } catch (SQLException ex) {
@@ -80,8 +80,8 @@ public class OracleProviderLocationDAO implements IProviderLocationDAO {
     }
 
     public ProviderLocation findByID(int idPl) {
-        List<ProviderLocation> providerLocations =
-                findWhere("WHERE ID = ?", new Object[]{idPl});
+        List<ProviderLocation> providerLocations
+                = findWhere("WHERE ID = ?", new Object[]{idPl});
         if (providerLocations.isEmpty()) {
             return null;
         } else {
@@ -145,8 +145,8 @@ public class OracleProviderLocationDAO implements IProviderLocationDAO {
                 ProviderLocation provLoc = new ProviderLocation();
                 int id = rs.getInt(ID);
                 provLoc.setId(id);
-                provLoc.setPosX(rs.getInt(X));
-                provLoc.setPosY(rs.getInt(Y));
+                provLoc.setPosX(rs.getDouble(X));
+                provLoc.setPosY(rs.getDouble(Y));
                 provLoc.setAddress(rs.getString(ADDRESS));
                 //provLoc.setPricesList(DAOFactory.createPriceDAO().findByProviderLoc(id));
                 //provLoc.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
@@ -166,8 +166,8 @@ public class OracleProviderLocationDAO implements IProviderLocationDAO {
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, providerLocation.getPosX());
-            stat.setInt(2, providerLocation.getPosY());
+            stat.setDouble(1, providerLocation.getPosX());
+            stat.setDouble(2, providerLocation.getPosY());
             stat.setString(3, providerLocation.getAddress());
             stat.setInt(4, providerLocation.getId());
             stat.executeUpdate();

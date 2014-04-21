@@ -14,8 +14,8 @@ public class ProviderLocation implements Serializable {
     private static final long serialVersionUID = -189052472651534830L;
 
     private Integer id;
-    private Integer posX;
-    private Integer posY;
+    private Double posX;
+    private Double posY;
     private String address;
     private List<Price> pricesList;
     private List<ServiceOrder> serviceOrdersList;
@@ -27,7 +27,7 @@ public class ProviderLocation implements Serializable {
         this.id = id;
     }
 
-    public ProviderLocation(Integer id, Integer posX, Integer posY) {
+    public ProviderLocation(Integer id, Double posX, Double posY) {
         this.id = id;
         this.posX = posX;
         this.posY = posY;
@@ -41,19 +41,19 @@ public class ProviderLocation implements Serializable {
         this.id = id;
     }
 
-    public Integer getPosX() {
+    public Double getPosX() {
         return posX;
     }
 
-    public void setPosX(Integer posX) {
+    public void setPosX(Double posX) {
         this.posX = posX;
     }
 
-    public Integer getPosY() {
+    public Double getPosY() {
         return posY;
     }
 
-    public void setPosY(Integer posY) {
+    public void setPosY(Double posY) {
         this.posY = posY;
     }
 

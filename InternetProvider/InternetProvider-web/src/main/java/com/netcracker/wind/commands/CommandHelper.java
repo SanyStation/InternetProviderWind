@@ -1,7 +1,7 @@
 package com.netcracker.wind.commands;
 
 import com.netcracker.wind.commands.implementations.*;
-
+import com.netcracker.wind.commands.implementations.order.RefreshService;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -22,18 +22,22 @@ public class CommandHelper {
     private static final String SI_PROF_BY_MONTH = "si_prof_by_month";
     private static final String SI_DISCONN_ORDERS = "si_disconn_orders";
     private static final String CIA_IPT = "cia_ipt";
+    private static final String REFRESH_SERVICE = "refresh_service";
+    private static final String SENT_MAIL="sent_mail";
 
     private final Map<String, ICommand> commands;
 
     private CommandHelper() {
         commands = new HashMap<String, ICommand>();
         commands.put(NO_COMMAND, new NoCommand());
+        commands.put(REFRESH_SERVICE, new RefreshService());
         commands.put(TEST_AJAX, new NameGenerator());
         commands.put(RI_UTIL_N_CAP, new RiRoutersUtilNCapReportGenerator());
         commands.put(RI_MOST_PROF, new RiMostProfRouterReportGenerator());
         commands.put(SI_NEW_ORDERS, new SiNewOrdersReportGenerator());
         commands.put(SI_DISCONN_ORDERS, new SiDisconnOrdersReportGenerator());
         commands.put(SI_PROF_BY_MONTH, new SiProfByMonthReportGenerator());
+        commands.put(SENT_MAIL, new SentMail());
     }
 
     public static CommandHelper getInstance() {

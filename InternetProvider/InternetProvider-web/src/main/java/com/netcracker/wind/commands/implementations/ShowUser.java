@@ -12,12 +12,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ShowUser implements ICommand {
 
-    public String execute(
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) {
-        AbstractFactoryDAO factoryDAO =
-                FactoryCreator.getInstance().getFactory();
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        AbstractFactoryDAO factoryDAO
+                = FactoryCreator.getInstance().getFactory();
         request.setAttribute("depts", factoryDAO.createUserDAO().findByRole(1));
         return "printUsers.jsp";
     }

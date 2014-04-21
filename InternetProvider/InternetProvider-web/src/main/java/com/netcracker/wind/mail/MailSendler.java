@@ -5,7 +5,9 @@
  */
 package com.netcracker.wind.mail;
 
+import com.netcracker.wind.entities.User;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -35,7 +37,7 @@ public class MailSendler {
      * @return true when massage has been sent; - false - when
      * MessagingException or other exceptions have happened
      */
-    public boolean sendEmail(String[] to, String subject, String body) {
+    public boolean sendEmail(List<User> users, String subject, String body) {
 
         try {
 
@@ -43,14 +45,13 @@ public class MailSendler {
 
             message.setFrom(new InternetAddress(FROM));
 
-            for (int i = 0; i < to.length; i++) {
+            for(User user:users){
 
-                message.setRecipients(Message.RecipientType.TO, to[i]);
+                message.setRecipients(Message.RecipientType.TO,user.getEmail());
             }
             message.setSubject(subject);
 
             message.setSentDate(new Date());
-
             message.setText(body);
 
             Transport.send(message);
