@@ -1,5 +1,6 @@
 package com.netcracker.wind.commands;
 
+import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
 import com.netcracker.wind.commands.implementations.NameGenerator;
 import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.RiRoutersUtilNCapReportGenerator;
@@ -23,6 +24,7 @@ public class CommandHelper {
     private static final String RI_UTIL_N_CAP = "riUtilNCap";
     private static final String SI_NEW_ORDERS = "siNewOrders";
     private static final String SENT_MAIL="sent_mail";
+    private static final String CSE_GROUP_TASK="cse_group_task";
 
     private final Map<String, ICommand> commands;
 
@@ -33,6 +35,7 @@ public class CommandHelper {
         commands.put(TEST_AJAX, new NameGenerator());
         commands.put(RI_UTIL_N_CAP, new RiRoutersUtilNCapReportGenerator());
         commands.put(SENT_MAIL, new SentMail());
+        commands.put(CSE_GROUP_TASK, new CSEGetGroupTasks());
     }
 
     public static CommandHelper getInstance() {

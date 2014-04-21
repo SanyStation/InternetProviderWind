@@ -9,9 +9,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title> Dashboard CSE menu</title>
-        <link rel="stylesheet" href="/src/main/webapp/css/csemenu.css" type="text/css">
-            <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-            <script type="text/javascript" src="/src/main/webapp/js/csemenu.js"></script>
+        <link rel="stylesheet" href="css/csemenu.css" type="text/css">
+            <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+            <script type="text/javascript" src="js/csemenu.js"></script>
+            <script>
+                function getCommand(command) {
+                    $(document).ready(function() {
+//                    $('input[type=submit]').click(function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'Controller',
+                            dataType: 'text',
+                            data: {
+                                'command': command,
+                            },
+                            success: function(data) {
+                                var tbl = $("<table/>").attr("id", "mytable");
+                                tbl.attr("border",1)
+                                 var element = $.parseJSON(data);
+                                $("#div1").append(tbl);
+                                for (var i = 0; i < 20; i++)
+                                {
+                                    var tr = "<tr>";
+                                    var td1 = "<td>" + element[i]["id"] + "</td>";
+                                    var td2 = "<td>" + element[i]["type"] + "</td>";
+                                    var td3 = "<td>" + element[i]["status"] + "</td></tr>";
+
+                                    $("#mytable").append(tr + td1 + td2 + td3);
+
+                                }
+                            },
+                            error: function() {
+                                alert("AJAX error");
+                            }
+                        });
+                    });
+//                });
+                }
+            </script>
 
     </head>
     <body>
@@ -22,9 +57,10 @@
                 <a href="#">Tasks</a>
                 <ul>
                     <li>
-                        
-                        <input type="submit" value="CSE Group Tasks">
-                            <a href="#"></a>
+                          <
+                          <a href="#" onclick="getCommand('cse_group_task')">CSE Group Tasks</a>
+                      <!--  <input type="submit" value="CSE Group Tasks" onclick="getCommand('cse_group_task')">-->
+
                     </li>
                     <li>
                         <a href="#">My Tasks</a>				
@@ -104,5 +140,7 @@
                 <a href="#"> Review customer account </a>	
             </li>
         </ul>
+
+        <div id="div1"></div>
     </body>
 </html>
