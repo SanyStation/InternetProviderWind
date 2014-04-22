@@ -15,7 +15,6 @@
 
     </head>
     <body>
-
         <ul id="menu">
             <li><a href="#">Main</a></li>
             <li>
@@ -35,11 +34,9 @@
                     </li>
                 </ul>
             </li>
-
             <li>
                 <a href="#"> Review SI </a>
                 <ul>
-
                     <li>
                         <a href="#">List of Customer Accounts</a>		
                     </li>
@@ -66,10 +63,8 @@
                 </ul>
             </li>
             <li>
-
                 <a href="#"> Review SO </a>
                 <ul>
-
                     <li>
                         <a href="#">List of Customer Accounts</a>
                     </li>
@@ -95,7 +90,6 @@
                     </li>
                 </ul>
             </li>
-
             <li>
                 <a href="#"> Add new customer</a>	
             </li>
