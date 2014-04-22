@@ -48,7 +48,6 @@
             <input type="submit" value="Go to reports" name="report" />
         </form>
 
-
         <h1 align="center">Name generator</h1>
         <div align="center">
             <input type="submit" value="Get Services" onclick="getName('refresh_service')"/>

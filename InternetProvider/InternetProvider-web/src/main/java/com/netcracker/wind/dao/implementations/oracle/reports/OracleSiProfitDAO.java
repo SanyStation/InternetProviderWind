@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,71 +19,39 @@ import java.util.logging.Logger;
 public class OracleSiProfitDAO extends AbstractOracleDAO
         implements ISiProfitDAO {
 
+    public static final String DATE_FORMAT = "YYYY-MM-DD";
     public static final String PROVIDER_LOCATION_ID = "provider_location_id";
     public static final String SERVICE_ID = "service_id";
-    public static final String COMPLETE_DATE = "completedate";
-    public static final String DATE_FORMAT = "YYYY-MM-DD";
     public static final String SUM = "sum";
 
-    public static final String SELECT
-            = "SELECT so." + PROVIDER_LOCATION_ID + ", so." + SERVICE_ID
-            + ", SUM(p.price) AS " + SUM + " "
-            + "FROM service_orders so "
-            + "INNER JOIN prices p ON so.service_id = p.service_id "
-            + "AND so.provider_location_id = p.provider_location_id";
-
-    public static final String WHERE_FROM
-            = "WHERE " + COMPLETE_DATE + " >= TO_DATE(?, '"
-            + DATE_FORMAT + "')";
-
-    public static final String WHERE_TO
-            = "WHERE " + COMPLETE_DATE + " <= TO_DATE(?, '"
-            + DATE_FORMAT + "')";
-
-    public static final String WHERE_FULL
-            = "WHERE completedate BETWEEN TO_DATE(?, 'YYYY-MM-DD') "
-            + "AND TO_DATE(?, 'YYYY-MM-DD')";
-
-    public static final String GROUP_ORDER
-            = "GROUP BY so.provider_location_id, so.service_id "
+    public static final String QUERY
+            = "SELECT so." + PROVIDER_LOCATION_ID + ", so." + SERVICE_ID + ", "
+            + "SUM(p.price) AS " + SUM + " "
+            + "FROM service_orders so INNER JOIN service_instances si ON "
+            + "si.service_order_id = so.id INNER JOIN prices p ON "
+            + "so.provider_location_id = p.provider_location_id "
+            + "AND so.service_id = p.service_id "
+            + "WHERE completedate <= TO_DATE(?, 'YYYY-MM-DD') "
+            + "AND si.status = 'active' "
+            + "GROUP BY so.provider_location_id, so.service_id "
             + "ORDER BY sum DESC";
 
-    public List<SiProfit> findByMonth(int month, int year) {
-        return null;
-    }
-
-    public List<SiProfit> findByDateFromTo(String dateFrom, String dateTo) {
+    public List<SiProfit> findByDateTo(String dateTo) {
         List<SiProfit> orders = null;
-        String where;
         List<String> param = new ArrayList<String>();
-        if (dateFrom.isEmpty() && dateTo.isEmpty()) {
-            where = "";
-        } else if (!dateFrom.isEmpty() && !dateTo.isEmpty()) {
-            where = WHERE_FULL;
-            param.add(dateFrom);
-            param.add(dateTo);
-        } else if (dateTo.isEmpty()) {
-            where = WHERE_FROM;
-            param.add(dateFrom);
-        } else {
-            where = WHERE_TO;
-            param.add(dateTo);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        if (dateTo.isEmpty()) {
+            dateTo = sdf.format(Calendar.getInstance().getTime());
         }
+        dateTo += "-01";
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            for (int i = 1; i < param.size(); ++i) {
-                sdf.parse(param.get(i));
-            }
-            orders = super.findWhere(SELECT + " " + where + " " + GROUP_ORDER,
-                    param);
+            sdf.parse(dateTo);
+            param.add(dateTo);
+            orders = super.findWhere(QUERY, param);
         } catch (ParseException ex) {
             Logger.getLogger(AbstractOracleSiDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return orders;
-    }
-
-    public List<SiProfit> findAll() {
-        return super.findWhere(SELECT + " " + GROUP_ORDER, new ArrayList());
     }
 
     @Override

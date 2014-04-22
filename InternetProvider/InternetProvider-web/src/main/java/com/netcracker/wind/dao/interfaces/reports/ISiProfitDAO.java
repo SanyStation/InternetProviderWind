@@ -9,8 +9,6 @@ import java.util.List;
  */
 public interface ISiProfitDAO {
     
-    public List<SiProfit> findByMonth(int month, int year);
-    public List<SiProfit> findByDateFromTo(String dateFrom, String dateTo);
-    public List<SiProfit> findAll();
+    public List<SiProfit> findByDateTo(String dateTo);
     
 }

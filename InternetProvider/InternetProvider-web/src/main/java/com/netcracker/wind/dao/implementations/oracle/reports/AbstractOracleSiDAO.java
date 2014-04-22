@@ -30,9 +30,8 @@ public abstract class AbstractOracleSiDAO
     public static final String SELECT
             = "SELECT " + ID + ", " + COMPLETE_DATE + ", "
             + PROVIDER_LOCATION_ID + ", " + SERVICE_LOCATION_ID + ", "
-            + SERVICE_ID + ", " + STATUS;
-    
-    public static final String FROM = "FROM service_orders";
+            + SERVICE_ID + ", " + STATUS + " "
+            + "FROM service_orders";
     
     public static final String WHERE = "WHERE scenario LIKE ?";
     
@@ -43,8 +42,8 @@ public abstract class AbstractOracleSiDAO
             = COMPLETE_DATE + " <= TO_DATE(?, '" + DATE_FORMAT + "')";
     
     public static final String WHERE_FULL
-            = COMPLETE_DATE + " >= TO_DATE(?, '" + DATE_FORMAT + "') "
-            + "AND " + COMPLETE_DATE + " <= TO_DATE(?, '" + DATE_FORMAT + "')";
+            = COMPLETE_DATE + " BETWEEN TO_DATE(?, '" + DATE_FORMAT + "') AND "
+            + " TO_DATE(?, '" + DATE_FORMAT + "')";
     
     private final ISiOrdersDAO.Scenario scenario;
 
@@ -57,7 +56,9 @@ public abstract class AbstractOracleSiDAO
         List<SiOrder> orders = null;
         List<String> param = new ArrayList<String>();
         String where = WHERE;
-        if (!dateFrom.isEmpty() && !dateTo.isEmpty()) {
+        param.add(scenario.toString());
+        if (dateFrom.isEmpty() && dateTo.isEmpty()) {
+        } else if (!dateFrom.isEmpty() && !dateTo.isEmpty()) {
             where += " AND " + WHERE_FULL;
             param.add(dateFrom);
             param.add(dateTo);
@@ -70,10 +71,9 @@ public abstract class AbstractOracleSiDAO
         }
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            for (int i = 0; i < param.size(); ++i) {
+            for (int i = 1; i < param.size(); ++i) {
                 sdf.parse(param.get(i));
             }
-            param.add(0, scenario.toString());
             orders = super.findWhere(select + " " + where, param);
         } catch (ParseException ex) {
             Logger.getLogger(AbstractOracleSiDAO.class.getName()).log(Level.SEVERE, null, ex);

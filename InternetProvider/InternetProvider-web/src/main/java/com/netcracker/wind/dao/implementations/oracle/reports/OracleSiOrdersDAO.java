@@ -15,8 +15,8 @@ public class OracleSiOrdersDAO extends AbstractOracleSiDAO {
     }
     
     public List<SiOrder> findDateFromTo(String dateFrom, String dateTo) {
-        return super.findDateFromTo(AbstractOracleSiDAO.SELECT + " "
-                + AbstractOracleSiDAO.FROM, dateFrom, dateTo);
+        return super.findDateFromTo(AbstractOracleSiDAO.SELECT, dateFrom,
+                dateTo);
     }
     
     public List<SiOrder> findAll() {

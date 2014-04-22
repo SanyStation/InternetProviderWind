@@ -18,7 +18,7 @@ public class Controller extends HttpServlet {
     private static final String AJAX_REQUEST_HEADER = "XMLHttpRequest";
     private static final String HEADER = "X-Requested-With";
 
-    private CommandHelper helper = CommandHelper.getInstance();
+    private final CommandHelper helper = CommandHelper.getInstance();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,10 +29,9 @@ public class Controller extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, 
+            HttpServletResponse response )
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
             String page;

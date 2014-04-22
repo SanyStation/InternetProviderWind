@@ -1,4 +1,4 @@
-package com.netcracker.wind.commands.implementations;
+package com.netcracker.wind.commands.implementations.reports;
 
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
@@ -20,14 +20,14 @@ public class SiDisconnOrdersReportGenerator implements ICommand {
         HttpSession hs = request.getSession(false);
         AbstractFactoryDAO factoryDAO =
                 FactoryCreator.getInstance().getFactory();
-        String dateFrom = request.getParameter("validDp3");
-        String dateTo = request.getParameter("validDp4");
+        String dateFrom = request.getParameter("vdDiscFrom");
+        String dateTo = request.getParameter("vdDiscTo");
         List<SiOrder> orders = factoryDAO.createSiDisconnOrdersDAO().
                 findDateFromTo(dateFrom, dateTo);
         hs.setAttribute("title", "Disconnected orders per period: " + dateFrom
                 + " - " + dateTo);
         hs.setAttribute("orders", orders);
-        return "/SiOrders.jsp";
+        return "/reports/SiOrders.jsp";
     }
     
 }
