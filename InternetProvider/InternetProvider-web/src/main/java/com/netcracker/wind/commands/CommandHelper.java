@@ -2,6 +2,7 @@ package com.netcracker.wind.commands;
 
 import com.netcracker.wind.commands.implementations.reports.*;
 import com.netcracker.wind.commands.implementations.*;
+import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class CommandHelper {
     private static final String CIA_IPT = "cia_ipt";
     private static final String REFRESH_SERVICE = "refresh_service";
     private static final String SENT_MAIL="sent_mail";
+    private static final String CSE_GROUP_TASK="cse_group_task";
 
     private final Map<String, ICommand> commands;
 
@@ -39,6 +41,7 @@ public class CommandHelper {
         commands.put(SI_DISCONN_ORDERS, new SiDisconnOrdersReportGenerator());
         commands.put(SI_PROF_BY_MONTH, new SiProfitReportGenerator());
         commands.put(SENT_MAIL, new SentMail());
+        commands.put(CSE_GROUP_TASK, new CSEGetGroupTasks());
     }
 
     public static CommandHelper getInstance() {
