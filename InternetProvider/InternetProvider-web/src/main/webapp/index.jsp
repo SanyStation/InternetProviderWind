@@ -38,6 +38,9 @@
         <title>NameGenerator</title>
     </head>
     <body>
+        <form action="CSEdashboard.jsp" method="POST">
+            <input type="submit" value="CSE dashboard"  />
+        </form>
 
         <form action="mail.jsp" method="POST">
             <input type="submit" value="show_sentmail"  />
@@ -47,7 +50,6 @@
         <form action="report.jsp" method="POST">
             <input type="submit" value="Go to reports" name="report" />
         </form>
-
 
         <h1 align="center">Name generator</h1>
         <div align="center">

@@ -1,6 +1,6 @@
 package com.netcracker.wind.dao.interfaces.reports;
 
-import com.netcracker.wind.entities.Device;
+import com.netcracker.wind.entities.reports.RiMostProfRouter;
 import java.util.List;
 
 /**
@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface IRiMostProfRouterDAO {
     
-    public List<Device> find();
+    public List<RiMostProfRouter> findAll();
     
 }

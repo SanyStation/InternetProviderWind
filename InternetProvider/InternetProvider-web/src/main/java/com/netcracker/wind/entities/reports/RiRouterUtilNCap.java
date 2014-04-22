@@ -4,16 +4,16 @@ package com.netcracker.wind.entities.reports;
  *
  * @author Alexander Kovriga
  */
-public class RiRoutersUtilNCap {
+public class RiRouterUtilNCap {
 
     private int id;
     private int capacity;
     private int utilization;
     
-    public RiRoutersUtilNCap() {
+    public RiRouterUtilNCap() {
     }
 
-    public RiRoutersUtilNCap(int id) {
+    public RiRouterUtilNCap(int id) {
         this.id = id;
     }
 

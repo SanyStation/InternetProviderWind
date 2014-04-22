@@ -190,6 +190,7 @@ public class OracleTaskDAO implements ITaskDAO {
                 );
                 //TODO 
                 //task.setServiceOrders(DAOFactory.createSODAO().findByID());
+                tasks.add(task);
 
             }
         } catch (SQLException ex) {
@@ -202,6 +203,13 @@ public class OracleTaskDAO implements ITaskDAO {
 
     public List<Task> findAll() {
         return findWhere("", new Object[]{});
+    }
+
+    public List<Task> findByGroup(int idGroup) {
+          List<Task> tasks = findWhere("WHERE ROLE_ID = ?", new Object[]{idGroup});
+     
+            return tasks;
+        
     }
 
 }

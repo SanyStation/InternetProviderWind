@@ -1,6 +1,6 @@
 package com.netcracker.wind.dao.interfaces.reports;
 
-import com.netcracker.wind.entities.reports.RiRoutersUtilNCap;
+import com.netcracker.wind.entities.reports.RiRouterUtilNCap;
 import java.util.List;
 
 /**
@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface IRiRoutersUtilNCapDAO {
     
-    public List<RiRoutersUtilNCap> find();
+    public List<RiRouterUtilNCap> findAll();
     
 }

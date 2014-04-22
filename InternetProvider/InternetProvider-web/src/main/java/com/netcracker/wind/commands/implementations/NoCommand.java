@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class NoCommand implements ICommand {
 
-    public String execute(
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) {
+    public String execute(HttpServletRequest request,
+            HttpServletResponse response) {
         return "/index.jsp";
     }
 
