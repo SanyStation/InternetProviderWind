@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="reports/css/site.css" type="text/css">
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Routers utilization and capacity</title>
+        <title>Routers utilization and capacity %</title>
     </head>
     <body>
 
