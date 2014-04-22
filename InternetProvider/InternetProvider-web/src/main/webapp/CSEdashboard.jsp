@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title> Dashboard CSE menu</title>
-        <link rel="stylesheet" href="css/csemenu.css" type="text/css">
+        <link rel="stylesheet" href="css/menu.css" type="text/css">
             <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
             <script type="text/javascript" src="js/csemenu.js"></script>
             <script>
