@@ -52,8 +52,8 @@ public class RefreshService implements ICommand {
             double minDist = Double.MAX_VALUE;
             for (ProviderLocation pl : providerLocations) {
                 double dist = getDistance(actualX, actualY,
-                        pl.getPosX(),
-                        pl.getPosY());
+                        pl.getPosY(),
+                        pl.getPosX());
                 if (dist < minDist) {
                     minDist = dist;
                     nearestProviderLocation = pl;
