@@ -19,10 +19,12 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <title>Service Location select</title>
-        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'>
+        <!--script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'>
+        </script-->
+        <script type='text/javascript' src='js/jquery.1.7.2.min.js'>
         </script>
-        <link rel="stylesheet" type="text/css" href="/css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+        <!--link rel="stylesheet" type="text/css" href="/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="/css/result-light.css"-->
         <script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&libraries=places">
         </script>
         <style type='text/css'>
@@ -130,6 +132,31 @@
                 font-size: 13px;
                 font-weight: 300;
             }
+            #side > form > input[type="submit"] {
+                font-size: 40px;
+                padding: 10px 30px;
+                display: block;
+                box-shadow: rgb(50, 122, 220) 0px 0px 10px -1px;
+                margin: 30px auto;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 260px;
+            }
+            #side > form > input[type="submit"]:hover {
+                box-shadow: rgb(50, 122, 220) 0px 0px 10px 1px;
+            }
+            #side > form > label {
+                display: block;
+            }
+            #side > form > input[disabled] {
+                box-shadow: rgb(159, 159, 159) 0px 0px 10px -1px;
+            }
+            #side > form > input[disabled]:hover {
+                box-shadow: rgb(159, 159, 159) 0px 0px 10px -2px;
+                opacity: 0.6;
+            }
         </style>
         <script type='text/javascript'>
             //<![CDATA[
@@ -192,7 +219,10 @@
 
                     google.maps.event.addListener(marker, 'dragend', function(e) {
                         console.log(e);
-                        $("#side form").empty();
+                        $("#side form label").remove();
+                        $("#side form input[type=submit]").attr('disabled');
+                        $("#side form input[name=x]").attr('value', '');
+                        $("#side form input[name=y]").attr('value', '');
                         $.ajax({
                             type: 'POST',
                             url: 'Controller',
@@ -247,11 +277,16 @@
                                             }, 2000);
                                         }
                                     }
+                                    var first = 'checked';
                                     data.providerLocation.services.forEach(function(elem) {
                                         $("#side form").append(
                                                 '<label><input type="radio" name="service" value="'
-                                                + elem.id + '">' + elem.name + ', <span>' + elem.price + '</span></label></br>');
+                                                + elem.id + '"' + first + '>' + elem.name + ', <span>' + elem.price + '</span></label>');
+                                        first = '';
                                     });
+                                    $("#side form input[name=x]").attr('value', e.latLng.A);
+                                    $("#side form input[name=y]").attr('value', e.latLng.k);
+                                    $("#side form input[type=submit]").removeAttr('disabled');
                                 }
 
                             },
@@ -297,8 +332,12 @@
         <div id="popup">Drag the marker<span id="coord"></span></div>
         <div id="side">
             <h1>Choose desired service:</h1>
-            <form action="">
-                <span style="font-size: 20px;">select your position first...</span>
+            <form action="Controller" method="POST">
+                <label style="font-size: 20px;">select your position first...</label>
+                <input type="submit" name="send_order" value="Send order" disabled=""/>
+                <input type="hidden" name="command" value="ProceedToOrder"/>
+                <input type="hidden" name="x" value="ProceedToOrder"/>
+                <input type="hidden" name="y" value="ProceedToOrder"/>
             </form></div></div>
 
 </body>
