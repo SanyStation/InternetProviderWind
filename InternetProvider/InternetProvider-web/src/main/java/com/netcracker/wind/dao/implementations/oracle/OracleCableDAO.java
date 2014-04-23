@@ -1,9 +1,10 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
-import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.entities.Cable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -61,25 +62,7 @@ public class OracleCableDAO implements ICableDAO {
     }
 
     public void delete(int idCable) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idCable);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+        new DAOHelper().delete(DELETE, idCable);              
     }
 
     /**

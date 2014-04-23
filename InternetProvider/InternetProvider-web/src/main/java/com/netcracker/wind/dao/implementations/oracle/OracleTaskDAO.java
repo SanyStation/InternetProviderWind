@@ -4,6 +4,7 @@ import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.entities.Task;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -63,26 +64,8 @@ public class OracleTaskDAO implements ITaskDAO {
         }
     }
 
-    public void delete(int id) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, id);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+    public void delete(int idTask) {
+         new DAOHelper().delete(DELETE, idTask);
     }
 
     public Task findByID(int id) {

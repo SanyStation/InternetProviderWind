@@ -4,6 +4,7 @@ import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.ICircuitDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.entities.Circuit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -67,25 +68,7 @@ public class OracleCircuitDAO implements ICircuitDAO {
      * @param idCircuit
      */
     public void delete(int idCircuit) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idCircuit);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleCircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleCircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+       new DAOHelper().delete(DELETE, idCircuit);      
     }
 
     /**

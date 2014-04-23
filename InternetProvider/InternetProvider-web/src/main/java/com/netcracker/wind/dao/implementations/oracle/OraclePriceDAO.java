@@ -4,6 +4,7 @@ import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IPriceDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.entities.Price;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -68,25 +69,7 @@ public class OraclePriceDAO implements IPriceDAO {
      * @param idPrice
      */
     public void delete(int idPrice) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idPrice);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+         new DAOHelper().delete(DELETE, idPrice);
     }
 
     /**
