@@ -39,8 +39,8 @@ public class OracleServiceLocationDAO implements IServiceLocationDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, serviceLocation.getId());
-            stat.setInt(2, serviceLocation.getPosX());
-            stat.setInt(3, serviceLocation.getPosY());
+            stat.setDouble(2, serviceLocation.getPosX());
+            stat.setDouble(3, serviceLocation.getPosY());
             stat.setString(4, serviceLocation.getAddress());
             stat.executeUpdate();
         } catch (SQLException ex) {
@@ -167,8 +167,8 @@ public class OracleServiceLocationDAO implements IServiceLocationDAO {
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, serviceLocation.getPosX());
-            stat.setInt(2, serviceLocation.getPosY());
+            stat.setDouble(1, serviceLocation.getPosX());
+            stat.setDouble(2, serviceLocation.getPosY());
             stat.setString(3, serviceLocation.getAddress());
             stat.setInt(4, serviceLocation.getId());
             stat.executeUpdate();
