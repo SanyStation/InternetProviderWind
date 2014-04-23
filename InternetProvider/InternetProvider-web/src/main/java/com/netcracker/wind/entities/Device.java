@@ -16,6 +16,7 @@ public class Device implements Serializable {
 
     private Integer id;
     private List<Port> portsCollection;
+    private String name;
 
     public Device() {
     }
@@ -33,27 +34,41 @@ public class Device implements Serializable {
     }
 
     public List<Port> getPortsList() {
-        if (portsCollection == null) fillPortsCollection();
+        if (portsCollection == null) {
+            fillPortsCollection();
+        }
         return portsCollection;
     }
 
     public void setPortsList(List<Port> portsCollection) {
         this.portsCollection = portsCollection;
     }
-    
+
     private void fillPortsCollection() {
-        portsCollection =
-                    new OracleDAOFactory().createPortDAO().findByDevice(id);
+        portsCollection
+                = new OracleDAOFactory().createPortDAO().findByDevice(id);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCapacity() {
-        if (portsCollection == null) fillPortsCollection();
+        if (portsCollection == null) {
+            fillPortsCollection();
+        }
         return portsCollection.size();
     }
 
     public int getUtilization() {
         int busyPorts = 0;
-        if (portsCollection == null) fillPortsCollection();
+        if (portsCollection == null) {
+            fillPortsCollection();
+        }
         for (Port port : portsCollection) {
             if (!port.isFree()) {
                 ++busyPorts;
@@ -72,6 +87,7 @@ public class Device implements Serializable {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(portsCollection);
+        builder.append(name);
 
         return builder.toHashCode();
     }
@@ -91,6 +107,7 @@ public class Device implements Serializable {
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
         builder.append(portsCollection, rhs.getPortsList());
+        builder.append(name, rhs.getName());
 
         return builder.isEquals();
     }

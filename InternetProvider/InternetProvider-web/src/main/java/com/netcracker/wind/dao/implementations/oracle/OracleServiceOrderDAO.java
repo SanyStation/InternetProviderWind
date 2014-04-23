@@ -7,7 +7,6 @@ import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.entities.ServiceOrder;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,7 +50,6 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-//            stat.setDate(1, serviceOrder.getEnterdate());
             stat.setObject(1, new Timestamp(System.currentTimeMillis()));
             stat.setDate(2, serviceOrder.getProcesdate());
             stat.setDate(3, serviceOrder.getCompletedate());

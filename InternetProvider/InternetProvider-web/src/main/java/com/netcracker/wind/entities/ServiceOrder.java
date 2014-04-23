@@ -22,8 +22,7 @@ public class ServiceOrder implements Serializable {
     private Date completedate;
     private String status;
     private String scenario;
-    //one order - one istance ???
-    private Collection<ServiceInstance> serviceInstancesCollection;
+    private ServiceInstance serviceInstance;
     private Collection<Task> tasksCollection;
     private User users;
     private ServiceLocation serviceLocations;
@@ -90,12 +89,12 @@ public class ServiceOrder implements Serializable {
         this.scenario = scenario;
     }
 
-    public Collection<ServiceInstance> getServiceInstancesCollection() {
-        return serviceInstancesCollection;
+    public ServiceInstance getServiceInstancesCollection() {
+        return serviceInstance;
     }
 
-    public void setServiceInstancesCollection(Collection<ServiceInstance> serviceInstancesCollection) {
-        this.serviceInstancesCollection = serviceInstancesCollection;
+    public void setServiceInstancesCollection(ServiceInstance serviceInstancesCollection) {
+        this.serviceInstance = serviceInstancesCollection;
     }
 
     public Collection<Task> getTasksCollection() {
@@ -148,7 +147,7 @@ public class ServiceOrder implements Serializable {
         builder.append(completedate);
         builder.append(status);
         builder.append(scenario);
-        builder.append(serviceInstancesCollection);
+        builder.append(serviceInstance);
         builder.append(tasksCollection);
         builder.append(users);
         builder.append(serviceLocations);
@@ -178,7 +177,7 @@ public class ServiceOrder implements Serializable {
         builder.append(completedate, rhs.getCompletedate());
         builder.append(status, rhs.getStatus());
         builder.append(scenario, rhs.getScenario());
-        builder.append(serviceInstancesCollection, rhs.getServiceInstancesCollection());
+        builder.append(serviceInstance, rhs.getServiceInstancesCollection());
         builder.append(tasksCollection, rhs.getTasksCollection());
         builder.append(users, rhs.getUsers());
         builder.append(serviceLocations, rhs.getServiceLocations());

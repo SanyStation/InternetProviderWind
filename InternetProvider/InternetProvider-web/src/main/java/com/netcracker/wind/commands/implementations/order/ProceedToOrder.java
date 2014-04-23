@@ -47,6 +47,7 @@ public class ProceedToOrder implements ICommand {
         String sX = request.getParameter("x");
         String sY = request.getParameter("y");
         String sID = request.getParameter("serviceId");
+        String address = request.getParameter("address");
 //        String plID = request.getParameter("providerLovationID");
         //TODO check valid parameter
         double actualX = Double.parseDouble(sX);
@@ -83,6 +84,7 @@ public class ProceedToOrder implements ICommand {
         ServiceLocation serviceLocation = new ServiceLocation();
         serviceLocation.setPosX(actualX);
         serviceLocation.setPosY(actualY);
+        serviceLocation.setAddress(address);
         serviceLocationDAO.add(serviceLocation);
         //TODO configure servise location
         order.setServiceLocations(serviceLocation);

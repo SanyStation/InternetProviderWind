@@ -21,9 +21,10 @@ public class OracleDeviceDAO implements IDeviceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM DEVICES WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO DEVICES (ID) VALUES (?)";
+    private static final String INSERT = "INSERT INTO DEVICES (name) VALUES (?)";
     private static final String SELECT = "SELECT * FROM DEVICES ";
     private static final String ID = "ID";
+    private static final String NAME = "NAME";
     // private static final String UPDATE = "";
 
     /**
@@ -36,10 +37,9 @@ public class OracleDeviceDAO implements IDeviceDAO {
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, device.getId());
+            stat.setString(1, device.getName());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            //TODO changer logger
             Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
@@ -133,6 +133,8 @@ public class OracleDeviceDAO implements IDeviceDAO {
                 Device device = new Device();
                 int id = rs.getInt(ID);
                 device.setId(id);
+
+                device.setName(rs.getString(NAME));
                 //device.setPortsList(DAOFactory.createPortDAO().findByDevice(id));
                 devices.add(device);
             }

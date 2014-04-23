@@ -21,16 +21,17 @@ public class OracleProviderLocationDAO implements IProviderLocationDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE PROVIDER_LOCATIONS SET "
-            + "POS_X = ?, POS_Y = ?, ADDRESS = ? WHERE ID = ?";
+            + "POS_X = ?, POS_Y = ?, ADDRESS = ?, NAME = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM PROVIDER_LOCATIONS WHERE "
             + "ID = ?";
     private static final String INSERT = "INSERT INTO PROVIDER_LOCATIONS (ID, "
-            + "POS_X, POS_Y, ADDRESS) VALUES (?, ?, ?, ?)";
+            + "POS_X, POS_Y, ADDRESS, NAME) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM PROVIDER_LOCATIONS ";
     private static final String ID = "ID";
     private static final String X = "POS_X";
     private static final String Y = "POS_Y";
     private static final String ADDRESS = "ADDRESS";
+    private static final String NAME = "NAME";
 
     public void add(ProviderLocation providerLocation) {
         Connection connection = null;
@@ -42,6 +43,7 @@ public class OracleProviderLocationDAO implements IProviderLocationDAO {
             stat.setDouble(2, providerLocation.getPosX());
             stat.setDouble(3, providerLocation.getPosY());
             stat.setString(4, providerLocation.getAddress());
+            stat.setString(5, providerLocation.getName());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
@@ -59,7 +61,7 @@ public class OracleProviderLocationDAO implements IProviderLocationDAO {
     }
 
     public void delete(int idPl) {
-         new DAOHelper().delete(DELETE, idPl);
+        new DAOHelper().delete(DELETE, idPl);
     }
 
     public ProviderLocation findByID(int idPl) {
@@ -131,12 +133,10 @@ public class OracleProviderLocationDAO implements IProviderLocationDAO {
                 provLoc.setPosX(rs.getDouble(X));
                 provLoc.setPosY(rs.getDouble(Y));
                 provLoc.setAddress(rs.getString(ADDRESS));
-                //provLoc.setPricesList(DAOFactory.createPriceDAO().findByProviderLoc(id));
-                //provLoc.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
+                provLoc.setName(rs.getString(NAME));
                 provLocs.add(provLoc);
             }
         } catch (SQLException ex) {
-            //TODO
             Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -152,7 +152,8 @@ public class OracleProviderLocationDAO implements IProviderLocationDAO {
             stat.setDouble(1, providerLocation.getPosX());
             stat.setDouble(2, providerLocation.getPosY());
             stat.setString(3, providerLocation.getAddress());
-            stat.setInt(4, providerLocation.getId());
+            stat.setString(4, providerLocation.getName());
+            stat.setInt(5, providerLocation.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
