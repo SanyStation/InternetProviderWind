@@ -201,8 +201,8 @@ public class OracleUserDAO implements IUserDAO {
     }
 
     public List<User> findByRole(int roleID) {
-        List<User> users =
-                findWhere("WHERE ROLES_ID = ?", new Object[]{roleID});
+        List<User> users
+                = findWhere("WHERE ROLES_ID = ?", new Object[]{roleID});
         if (users.isEmpty()) {
             return null;
         } else {
@@ -210,10 +210,11 @@ public class OracleUserDAO implements IUserDAO {
         }
     }
 
-    public User findByEmailAndPassword(String email, String password) {
+    @Override
+    public User findByEmail(String email) {
         List<User> users = findWhere(
-                "WHERE email = ? AND password = ?",
-                new Object[]{email, password}
+                "WHERE email = ?",
+                new Object[]{email}
         );
         if (users.isEmpty()) {
             return null;

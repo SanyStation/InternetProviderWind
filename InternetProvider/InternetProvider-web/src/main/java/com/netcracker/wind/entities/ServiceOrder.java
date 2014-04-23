@@ -14,6 +14,8 @@ public class ServiceOrder implements Serializable {
 
     private static final long serialVersionUID = 2972707714220134975L;
 
+    public static final String ENTERING = "Entering";
+
     private Integer id;
     private Date enterdate;
     private Date procesdate;
