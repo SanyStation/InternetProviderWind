@@ -294,7 +294,7 @@
     <body>
         <input id="pac-input" class="controls" type="text" placeholder="Enter your address">
         <div id="map_canvas" ></div>
-        <div id="popup">Перетащи маркер<span id="coord"></span></div>
+        <div id="popup">Drag the marker<span id="coord"></span></div>
         <div id="side">
             <h1>Choose desired service:</h1>
             <form action="">

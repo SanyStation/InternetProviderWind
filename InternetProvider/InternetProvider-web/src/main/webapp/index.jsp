@@ -50,6 +50,10 @@
         <form action="report.jsp" method="POST">
             <input type="submit" value="Go to reports" name="report" />
         </form>
+        <br>
+        <form action="map.jsp" method="POST">
+            <input type="submit" value="map"  />
+        </form>
 
         <h1 align="center">Name generator</h1>
         <div align="center">
