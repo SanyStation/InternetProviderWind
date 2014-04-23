@@ -280,7 +280,7 @@
                                     var first = 'checked';
                                     data.providerLocation.services.forEach(function(elem) {
                                         $("#side form").append(
-                                                '<label><input type="radio" name="service" value="'
+                                                '<label><input type="radio" name="serviceId" value="'
                                                 + elem.id + '"' + first + '>' + elem.name + ', <span>' + elem.price + '</span></label>');
                                         first = '';
                                     });
@@ -335,7 +335,7 @@
             <form action="Controller" method="POST">
                 <label style="font-size: 20px;">select your position first...</label>
                 <input type="submit" name="send_order" value="Send order" disabled=""/>
-                <input type="hidden" name="command" value="ProceedToOrder"/>
+                <input type="hidden" name="command" value="proceed_to_order"/>
                 <input type="hidden" name="x" value="ProceedToOrder"/>
                 <input type="hidden" name="y" value="ProceedToOrder"/>
             </form></div></div>

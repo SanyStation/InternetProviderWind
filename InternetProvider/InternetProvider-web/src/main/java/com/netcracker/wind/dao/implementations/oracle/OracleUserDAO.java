@@ -150,6 +150,7 @@ public class OracleUserDAO implements IUserDAO {
                 user.setRoles(
                         factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE))
                 );
+                users.add(user);
             }
         } catch (SQLException ex) {
             //TODO
