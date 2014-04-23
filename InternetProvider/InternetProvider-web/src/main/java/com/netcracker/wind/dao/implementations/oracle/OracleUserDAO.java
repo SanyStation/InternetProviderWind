@@ -4,6 +4,7 @@ import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.entities.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -71,19 +72,8 @@ public class OracleUserDAO implements IUserDAO {
      *
      * @param id primary key of User for deleting
      */
-    public void delete(int id) {
-        Connection con = null;
-        PreparedStatement stat;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, id);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            connectionPool.close(con);
-        }
+    public void delete(int idUser) {
+        new DAOHelper().delete(DELETE, idUser);
     }
 
     /**

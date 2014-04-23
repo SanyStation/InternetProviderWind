@@ -1,6 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.dao.interfaces.IServiceDAO;
 import com.netcracker.wind.entities.Service;
 import java.sql.Connection;
@@ -55,25 +56,7 @@ public class OracleServiceDAO implements IServiceDAO {
     }
 
     public void delete(int idService) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idService);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+        new DAOHelper().delete(DELETE, idService);
     }
 
     public Service findByID(int idService) {

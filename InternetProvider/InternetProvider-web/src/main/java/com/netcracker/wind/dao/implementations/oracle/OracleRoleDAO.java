@@ -1,6 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.dao.interfaces.IRoleDAO;
 import com.netcracker.wind.entities.Role;
 import java.sql.Connection;
@@ -60,26 +61,8 @@ public class OracleRoleDAO implements IRoleDAO {
      *
      * @param id primary key by which object will be deleted
      */
-    public void delete(int id) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, id);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+    public void delete(int idRole) {
+        new DAOHelper().delete(DELETE, idRole);
     }
 
     /**

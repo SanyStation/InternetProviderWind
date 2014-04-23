@@ -1,6 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
 import com.netcracker.wind.entities.ProviderLocation;
 import java.sql.Connection;
@@ -58,25 +59,7 @@ public class OracleProviderLocationDAO implements IProviderLocationDAO {
     }
 
     public void delete(int idPl) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idPl);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+         new DAOHelper().delete(DELETE, idPl);
     }
 
     public ProviderLocation findByID(int idPl) {
