@@ -223,6 +223,7 @@
                         $("#side form input[type=submit]").attr('disabled');
                         $("#side form input[name=x]").attr('value', '');
                         $("#side form input[name=y]").attr('value', '');
+                        $("#side form input[name=address]").attr('value', '');
                         $.ajax({
                             type: 'POST',
                             url: 'Controller',
@@ -308,8 +309,9 @@
                             if (status == google.maps.GeocoderStatus.OK) {
                                 if (results[1]) {
                                     $('#coord').append('<br>' + results[0].formatted_address);
+                                    $("#side form input[name=address]").attr('value', results[0].formatted_address);
                                 } else {
-                                    alert('No results found');
+                                    //alert('No results found');
                                 }
                             } else {
                                 alert('Geocoder failed due to: ' + status);
@@ -338,6 +340,7 @@
                 <input type="hidden" name="command" value="proceed_to_order"/>
                 <input type="hidden" name="x" value="ProceedToOrder"/>
                 <input type="hidden" name="y" value="ProceedToOrder"/>
+                <input type="hidden" name="address" value=""/>
             </form></div></div>
 
 </body>
