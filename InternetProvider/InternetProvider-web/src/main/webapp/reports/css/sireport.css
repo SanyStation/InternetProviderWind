@@ -1,0 +1,13 @@
+@import url("report.css");
+
+thead tr {
+    background-color: #fc0;
+}
+
+th.sorted {
+    background-color: orange;
+}
+
+tr.tableRowEven,tr.even {
+    background-color: #fea
+}
