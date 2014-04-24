@@ -5,6 +5,8 @@ import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
+import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
+import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.reports.RiMostProfRouterReportGenerator;
