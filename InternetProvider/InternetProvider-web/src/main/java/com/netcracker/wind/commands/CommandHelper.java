@@ -3,8 +3,11 @@ package com.netcracker.wind.commands;
 import com.netcracker.wind.commands.implementations.NameGenerator;
 import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.SentMail;
+<<<<<<< HEAD
 import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
+=======
+>>>>>>> 1946158fa84c2956a6e6a34a9aaa2ec17ee0747e
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.reports.RiMostProfRouterReportGenerator;
@@ -36,9 +39,12 @@ public class CommandHelper {
     private static final String REFRESH_SERVICE = "refresh_service";
     private static final String SENT_MAIL = "sent_mail";
     private static final String CSE_GROUP_TASK = "cse_group_task";
+<<<<<<< HEAD
     private static final String CUSTOMERS_LIST = "customers_list";
     private static final String CSE_GET_ELEMENTS_COUNT = "cse_get_elements_count";
     private static final String CSE_GET_ELEMENTS_FROM_OFFSET = "cse_get_elements_from_offset";
+=======
+>>>>>>> 1946158fa84c2956a6e6a34a9aaa2ec17ee0747e
 
     private final Map<String, ICommand> commands;
 
@@ -55,7 +61,10 @@ public class CommandHelper {
         commands.put(SENT_MAIL, new SentMail());
         commands.put(CSE_GROUP_TASK, new CSEGetGroupTasks());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
+<<<<<<< HEAD
         commands.put(CUSTOMERS_LIST, (ICommand) new CustomersList());
+=======
+>>>>>>> 1946158fa84c2956a6e6a34a9aaa2ec17ee0747e
     }
 
     public static CommandHelper getInstance() {

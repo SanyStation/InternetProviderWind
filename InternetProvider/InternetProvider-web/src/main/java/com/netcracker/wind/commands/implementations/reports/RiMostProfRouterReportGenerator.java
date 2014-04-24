@@ -25,6 +25,10 @@ public class RiMostProfRouterReportGenerator implements ICommand {
         HttpSession httpSession = request.getSession(false);
         httpSession.setAttribute("devices", devices);
         return ConfigurationManager.getInstance().getProperty(ConfigurationManager.REPORT_RIM);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1946158fa84c2956a6e6a34a9aaa2ec17ee0747e
     }
 
 }

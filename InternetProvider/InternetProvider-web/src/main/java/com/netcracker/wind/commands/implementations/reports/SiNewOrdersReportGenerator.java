@@ -27,7 +27,7 @@ public class SiNewOrdersReportGenerator implements ICommand {
         hs.setAttribute("title", "New orders per period: " + dateFrom + " - "
                 + dateTo);
         hs.setAttribute("orders", orders);
-        return "/reports/SiOrders.jsp";
+        return "/SiOrders.jsp";
     }
     
 }

@@ -27,7 +27,7 @@ public class SiDisconnOrdersReportGenerator implements ICommand {
         hs.setAttribute("title", "Disconnected orders per period: " + dateFrom
                 + " - " + dateTo);
         hs.setAttribute("orders", orders);
-        return "/reports/SiOrders.jsp";
+        return "/SiOrders.jsp";
     }
     
 }

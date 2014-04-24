@@ -25,7 +25,7 @@ public class SiProfitReportGenerator implements ICommand {
                 factoryDAO.createSiProfByMonthDAO().findByDateTo(dateTo);
         hs.setAttribute("title", "Profit on " + dateTo);
         hs.setAttribute("profits", orders);
-        return "/reports/SiProfit.jsp";
+        return "/SiProfit.jsp";
     }
     
 }
