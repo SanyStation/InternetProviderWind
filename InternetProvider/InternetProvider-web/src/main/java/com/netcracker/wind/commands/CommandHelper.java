@@ -1,9 +1,11 @@
 package com.netcracker.wind.commands;
 
-import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
 import com.netcracker.wind.commands.implementations.NameGenerator;
 import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.SentMail;
+import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
+import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
+import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.reports.RiMostProfRouterReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.RiRoutersUtilNCapReportGenerator;
@@ -24,6 +26,7 @@ public class CommandHelper {
 
     private static final String NO_COMMAND = "no_command";
     private static final String TEST_AJAX = "name_generator";
+    private static final String PROCEED_TO_ORDER = "proceed_to_order";
     private static final String RI_UTIL_N_CAP = "ri_util_n_cap";
     private static final String RI_MOST_PROF = "ri_most_prof";
     private static final String SI_NEW_ORDERS = "si_new_orders";
@@ -31,8 +34,11 @@ public class CommandHelper {
     private static final String SI_DISCONN_ORDERS = "si_disc_orders";
     private static final String CIA_IPT = "cia_ipt";
     private static final String REFRESH_SERVICE = "refresh_service";
-    private static final String SENT_MAIL="sent_mail";
-    private static final String CSE_GROUP_TASK="cse_group_task";
+    private static final String SENT_MAIL = "sent_mail";
+    private static final String CSE_GROUP_TASK = "cse_group_task";
+    private static final String CUSTOMERS_LIST = "customers_list";
+    private static final String CSE_GET_ELEMENTS_COUNT = "cse_get_elements_count";
+    private static final String CSE_GET_ELEMENTS_FROM_OFFSET = "cse_get_elements_from_offset";
 
     private final Map<String, ICommand> commands;
 
@@ -48,6 +54,8 @@ public class CommandHelper {
         commands.put(SI_PROF_BY_MONTH, new SiProfitReportGenerator());
         commands.put(SENT_MAIL, new SentMail());
         commands.put(CSE_GROUP_TASK, new CSEGetGroupTasks());
+        commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
+        commands.put(CUSTOMERS_LIST, (ICommand) new CustomersList());
     }
 
     public static CommandHelper getInstance() {

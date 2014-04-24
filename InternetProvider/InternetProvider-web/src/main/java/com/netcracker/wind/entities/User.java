@@ -20,7 +20,7 @@ public class User implements Serializable {
     private boolean blocked;
     private List<ServiceInstance> serviceInstancesList;
     private List<Task> tasksList;
-    private Role roles;
+    private Role role;
     private List<ServiceOrder> serviceOrdersList;
 
     public User() {
@@ -91,12 +91,12 @@ public class User implements Serializable {
         this.tasksList = tasksList;
     }
 
-    public Role getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Role roles) {
-        this.roles = roles;
+    public void setRole(Role roles) {
+        this.role = roles;
     }
 
     public List<ServiceOrder> getServiceOrdersList() {
@@ -118,7 +118,7 @@ public class User implements Serializable {
         builder.append(blocked);
         builder.append(serviceOrdersList);
         builder.append(tasksList);
-        builder.append(roles);
+        builder.append(role);
         builder.append(serviceOrdersList);
 
         return builder.toHashCode();
@@ -145,7 +145,7 @@ public class User implements Serializable {
         builder.append(blocked, rhs.getBlocked());
         builder.append(serviceInstancesList, rhs.getServiceInstancesList());
         builder.append(tasksList, rhs.getTasksList());
-        builder.append(roles, rhs.getRoles());
+        builder.append(role, rhs.getRole());
         builder.append(serviceOrdersList, rhs.getServiceOrdersList());
 
         return builder.isEquals();

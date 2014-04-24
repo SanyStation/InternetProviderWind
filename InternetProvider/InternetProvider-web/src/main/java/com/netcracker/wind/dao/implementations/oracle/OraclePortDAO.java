@@ -4,6 +4,7 @@ import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.entities.Port;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  * @author Oksana
  */
 public class OraclePortDAO implements IPortDAO {
-    
+
     private static final String UPDATE = "UPDATE PORTS SET FREE = ? WHERE "
             + "ID = ?";
     private static final String DELETE = "DELETE FROM PORTS WHERE ID = ?";
@@ -40,7 +41,7 @@ public class OraclePortDAO implements IPortDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, port.getId());
-            stat.setInt(2, port.getDevices().getId());
+            stat.setInt(2, port.getDevice().getId());
             stat.setBoolean(3, port.isFree());
             stat.executeUpdate();
         } catch (SQLException ex) {
@@ -59,25 +60,7 @@ public class OraclePortDAO implements IPortDAO {
     }
 
     public void delete(int idPort) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idPort);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+        new DAOHelper().delete(DELETE, idPort);
     }
 
     public Port findByID(int idPort) {
@@ -146,7 +129,7 @@ public class OraclePortDAO implements IPortDAO {
                 Port port = new Port();
                 int id = rs.getInt(ID);
                 port.setId(id);
-                port.setDevices(
+                port.setDevice(
                         factoryDAO.createDeviceDAO().findByID(rs.getInt(DEVICE))
                 );
                 port.setFree(rs.getBoolean(FREE));

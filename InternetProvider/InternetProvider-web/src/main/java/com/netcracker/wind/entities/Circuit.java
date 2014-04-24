@@ -39,11 +39,11 @@ public class Circuit implements Serializable {
         this.serviceInstance = serviceInstances;
     }
 
-    public Port getPorts() {
+    public Port getPort() {
         return port;
     }
 
-    public void setPorts(Port ports) {
+    public void setPort(Port ports) {
         this.port = ports;
     }
 
@@ -72,7 +72,7 @@ public class Circuit implements Serializable {
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
         builder.append(serviceInstance, rhs.getServiceInstance());
-        builder.append(port, rhs.getPorts());
+        builder.append(port, rhs.getPort());
 
         return builder.isEquals();
     }

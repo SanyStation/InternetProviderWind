@@ -1,9 +1,10 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
-import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.entities.Cable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,7 +42,7 @@ public class OracleCableDAO implements ICableDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, cable.getId());
-            stat.setInt(2, cable.getPorts().getId());
+            stat.setInt(2, cable.getPort().getId());
             // do we need to add to the tables
             stat.setInt(3, cable.getServiceLocation().getId());
             stat.executeUpdate();
@@ -61,25 +62,7 @@ public class OracleCableDAO implements ICableDAO {
     }
 
     public void delete(int idCable) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idCable);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+        new DAOHelper().delete(DELETE, idCable);              
     }
 
     /**
@@ -155,7 +138,7 @@ public class OracleCableDAO implements ICableDAO {
             while (rs.next()) {
                 Cable cable = new Cable();
                 cable.setId(rs.getInt(ID));
-                cable.setPorts(
+                cable.setPort(
                         factoryDAO.createPortDAO().findByID(rs.getInt(PORT))
                 );
                 cable.setServiceLocation(
@@ -180,7 +163,7 @@ public class OracleCableDAO implements ICableDAO {
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, cable.getPorts().getId());
+            stat.setInt(1, cable.getPort().getId());
             stat.setInt(2, cable.getServiceLocation().getId());
             stat.setInt(3, cable.getId());
             stat.executeUpdate();

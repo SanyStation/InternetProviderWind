@@ -13,39 +13,89 @@
             <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
             <script type="text/javascript" src="js/csemenu.js"></script>
             <script>
-                function getCommand(command) {
-                    $(document).ready(function() {
-//                    $('input[type=submit]').click(function() {
-                        $.ajax({
-                            type: 'POST',
-                            url: 'Controller',
-                            dataType: 'text',
-                            data: {
-                                'command': command,
-                            },
-                            success: function(data) {
-                                var tbl = $("<table/>").attr("id", "mytable");
-                                tbl.attr("border",1)
-                                 var element = $.parseJSON(data);
-                                $("#div1").append(tbl);
-                                for (var i = 0; i < 20; i++)
-                                {
-                                    var tr = "<tr>";
-                                    var td1 = "<td>" + element[i]["id"] + "</td>";
-                                    var td2 = "<td>" + element[i]["type"] + "</td>";
-                                    var td3 = "<td>" + element[i]["status"] + "</td></tr>";
-
-                                    $("#mytable").append(tr + td1 + td2 + td3);
-
-                                }
-                            },
-                            error: function() {
-                                alert("AJAX error");
-                            }
-                        });
-                    });
-//                });
+                function Storage() {
+                    this.data = {};
+                    this.elementCount=0;
                 }
+                Storage.prototype.setData(data){
+                    this.data = data;
+                }
+                Storage.prototype.setElementsCount(elementCount){
+                    this.elementCount=elementCount;
+                }
+                Storage.prototype.drawPaginationTable(){
+                    
+                }
+                Srorage.prototype.setPaginationHandlers(){
+                    
+                }
+                Storage.prototype.drawTable(offset,count){
+                    var tbl = $("<table/>").attr("id", "mytable");
+                    tbl.attr("border", 1)
+                    var element = $.parseJSON(data);
+                    $("#div1").append(tbl);
+                    for (var i = 0; i < count; i++)
+                    {
+                        var tr = "<tr>";
+                        var td1 = "<td>" + element[i+offset]["id"] + "</td>";
+                        var td2 = "<td>" + element[i+offset]["type"] + "</td>";
+                        var td3 = "<td>" + element[i+offset]["status"] + "</td></tr>";
+                       $("#mytable").append(tr + td1 + td2 + td3);
+                    }
+                }
+                function getElementsCount(){
+                  $.ajax({
+                        type: 'POST',
+                        url: 'Controller',
+                        dataType: 'text',
+                        data: {
+                            'command': 'cse_get_elements_count',
+                        },
+                        success: function(data){
+                            storage.setElementsCount(data)
+                        }, 
+                        error: function() {
+                            alert("AJAX error");
+                        }
+                    });
+                }
+                function getElementsFromOffset(count,offset){
+                   $.ajax({
+                        type: 'POST',
+                        url: 'Controller',
+                        dataType: 'text',
+                        data: {
+                            'command': 'cse_get_elements_from_offset',
+                            'count': count,
+                            'offset': offset,
+                        },
+                        success: function(data){
+                            storage.setData(data)
+                        }, 
+                        error: function() {
+                            alert("AJAX error");
+                        }
+                    });
+                }
+              /*  function getCommand(command,callback,offset,count) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Controller',
+                        dataType: 'text',
+                        data: {
+                            'command': command,
+                        },
+                        success: callback(data), 
+                        error: function() {
+                            alert("AJAX error");
+                        }
+                    });
+                } */
+                $(document).ready(function(){
+                    storage = new Storage();
+                })
+                
+                
             </script>
 
     </head>
@@ -57,9 +107,9 @@
                 <a href="#">Tasks</a>
                 <ul>
                     <li>
-                          <
-                          <a href="#" onclick="getCommand('cse_group_task')">CSE Group Tasks</a>
-                      <!--  <input type="submit" value="CSE Group Tasks" onclick="getCommand('cse_group_task')">-->
+                        <
+                        <a href="#" onclick="getCommand('cse_group_task')">CSE Group Tasks</a>
+                        <!--  <input type="submit" value="CSE Group Tasks" onclick="getCommand('cse_group_task')">-->
 
                     </li>
                     <li>

@@ -1,6 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.dao.interfaces.IDeviceDAO;
 import com.netcracker.wind.entities.Device;
 import java.sql.Connection;
@@ -20,9 +21,10 @@ public class OracleDeviceDAO implements IDeviceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM DEVICES WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO DEVICES (ID) VALUES (?)";
+    private static final String INSERT = "INSERT INTO DEVICES (name) VALUES (?)";
     private static final String SELECT = "SELECT * FROM DEVICES ";
     private static final String ID = "ID";
+    private static final String NAME = "NAME";
     // private static final String UPDATE = "";
 
     /**
@@ -35,10 +37,9 @@ public class OracleDeviceDAO implements IDeviceDAO {
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, device.getId());
+            stat.setString(1, device.getName());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            //TODO changer logger
             Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
@@ -57,25 +58,7 @@ public class OracleDeviceDAO implements IDeviceDAO {
      * @param idDevice
      */
     public void delete(int idDevice) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idDevice);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+        new DAOHelper().delete(DELETE, idDevice);
     }
 
     /**
@@ -150,6 +133,8 @@ public class OracleDeviceDAO implements IDeviceDAO {
                 Device device = new Device();
                 int id = rs.getInt(ID);
                 device.setId(id);
+
+                device.setName(rs.getString(NAME));
                 //device.setPortsList(DAOFactory.createPortDAO().findByDevice(id));
                 devices.add(device);
             }

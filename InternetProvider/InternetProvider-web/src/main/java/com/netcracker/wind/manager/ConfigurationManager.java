@@ -16,6 +16,7 @@ public class ConfigurationManager {
     private static final String FILE_PROPERTIES = "configuration";
 
     public static final String PAGE_LOGIN_ERROR = "PAGE_LOGIN_ERROR";
+    public static final String REPORT_RIM = "REPORT_RIM";
 
     private static final ConfigurationManager configurationManager = new ConfigurationManager();
     private final ResourceBundle bundle;

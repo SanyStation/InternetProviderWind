@@ -59,6 +59,7 @@ public class PrivateController extends HttpServlet {
                 while ((i < roles.length) && (!founded)) {
                     if (founded = request.isUserInRole(roles[i])) {
                         request.setAttribute(NAME, request.getUserPrincipal().getName());
+                        request.getSession().setAttribute(NAME, request.getUserPrincipal().getName());
                         request.getRequestDispatcher(WEB_INF + roledirs[i] + INDEX).
                                 forward(request, response);
                     }
