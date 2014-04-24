@@ -42,7 +42,7 @@ public class CreateCircuit implements ICommand {
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
 
         Circuit circuit = new Circuit();
-        circuit.setPorts(portDAO.findByID(portID));
+        circuit.setPort(portDAO.findByID(portID));
         circuit.setServiceInstance(serviceInstanceDAO.findByID(serviceInstanceID));
         circuitDAO.add(circuit);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -15,9 +15,9 @@ public class Task implements Serializable {
     private Integer id;
     private String type;
     private String status;
-    private User users;
-    private ServiceOrder serviceOrders;
-    private Role roles;
+    private User user;
+    private ServiceOrder serviceOrder;
+    private Role role;
 
     public Task() {
     }
@@ -50,28 +50,28 @@ public class Task implements Serializable {
         this.status = status;
     }
 
-    public User getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setUser(User users) {
+        this.user = users;
     }
 
-    public ServiceOrder getServiceOrders() {
-        return serviceOrders;
+    public ServiceOrder getServiceOrder() {
+        return serviceOrder;
     }
 
-    public void setServiceOrders(ServiceOrder serviceOrders) {
-        this.serviceOrders = serviceOrders;
+    public void setServiceOrder(ServiceOrder serviceOrders) {
+        this.serviceOrder = serviceOrders;
     }
 
-    public Role getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Role roles) {
-        this.roles = roles;
+    public void setRole(Role roles) {
+        this.role = roles;
     }
 
     @Override
@@ -81,9 +81,9 @@ public class Task implements Serializable {
         builder.append(id);
         builder.append(type);
         builder.append(status);
-        builder.append(users);
-        builder.append(serviceOrders);
-        builder.append(roles);
+        builder.append(user);
+        builder.append(serviceOrder);
+        builder.append(role);
 
         return builder.toHashCode();
     }
@@ -105,9 +105,9 @@ public class Task implements Serializable {
         builder.append(id, rhs.getId());
         builder.append(status, rhs.getStatus());
         builder.append(type, rhs.getType());
-        builder.append(users, rhs.getUsers());
-        builder.append(serviceOrders, rhs.getServiceOrders());
-        builder.append(roles, rhs.getRoles());
+        builder.append(user, rhs.getUser());
+        builder.append(serviceOrder, rhs.getServiceOrder());
+        builder.append(role, rhs.getRole());
 
         return builder.isEquals();
     }

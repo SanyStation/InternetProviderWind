@@ -78,16 +78,16 @@ public class ProceedToOrder implements ICommand {
 //        }
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Date(System.currentTimeMillis()));
-        order.setUsers(user);
-        order.setServices(new Service(serviceID));
-        order.setProviderLocations(nearestProviderLocation);
+        order.setUser(user);
+        order.setService(new Service(serviceID));
+        order.setProviderLocation(nearestProviderLocation);
         ServiceLocation serviceLocation = new ServiceLocation();
         serviceLocation.setPosX(actualX);
         serviceLocation.setPosY(actualY);
         serviceLocation.setAddress(address);
         serviceLocationDAO.add(serviceLocation);
         //TODO configure servise location
-        order.setServiceLocations(serviceLocation);
+        order.setServiceLocation(serviceLocation);
         order.setStatus(ServiceOrder.ENTERING);
         order.setScenario("new");
         orderDAO.add(order);

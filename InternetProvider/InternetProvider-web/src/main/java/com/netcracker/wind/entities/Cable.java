@@ -39,11 +39,11 @@ public class Cable implements Serializable {
         this.serviceLocation = serviceLocation;
     }
 
-    public Port getPorts() {
+    public Port getPort() {
         return port;
     }
 
-    public void setPorts(Port ports) {
+    public void setPort(Port ports) {
         this.port = ports;
     }
 
@@ -72,7 +72,7 @@ public class Cable implements Serializable {
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
         builder.append(serviceLocation, rhs.getServiceLocation());
-        builder.append(port, rhs.getPorts());
+        builder.append(port, rhs.getPort());
 
         return builder.isEquals();
     }

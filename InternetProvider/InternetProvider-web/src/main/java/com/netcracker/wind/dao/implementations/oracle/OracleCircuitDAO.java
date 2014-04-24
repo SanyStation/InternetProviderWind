@@ -46,7 +46,7 @@ public class OracleCircuitDAO implements ICircuitDAO {
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, circuit.getId());
             stat.setInt(2, circuit.getServiceInstance().getId());
-            stat.setInt(3, circuit.getPorts().getId());
+            stat.setInt(3, circuit.getPort().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
@@ -148,7 +148,7 @@ public class OracleCircuitDAO implements ICircuitDAO {
                                 rs.getInt(SIID)
                         )
                 );
-                circuit.setPorts(
+                circuit.setPort(
                         factoryDAO.createPortDAO().findByID(rs.getInt(PORT))
                 );
                 circuits.add(circuit);
@@ -172,7 +172,7 @@ public class OracleCircuitDAO implements ICircuitDAO {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
             stat.setInt(1, circuit.getServiceInstance().getId());
-            stat.setInt(2, circuit.getPorts().getId());
+            stat.setInt(2, circuit.getPort().getId());
             stat.setInt(3, circuit.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {

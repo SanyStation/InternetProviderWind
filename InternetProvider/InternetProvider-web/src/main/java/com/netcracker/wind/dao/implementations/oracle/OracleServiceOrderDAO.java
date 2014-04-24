@@ -53,10 +53,10 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
             stat.setObject(1, new Timestamp(System.currentTimeMillis()));
             stat.setDate(2, serviceOrder.getProcesdate());
             stat.setDate(3, serviceOrder.getCompletedate());
-            stat.setInt(4, serviceOrder.getUsers().getId());
-            stat.setInt(5, serviceOrder.getServices().getId());
-            stat.setInt(6, serviceOrder.getProviderLocations().getId());
-            stat.setInt(7, serviceOrder.getServiceLocations().getId());
+            stat.setInt(4, serviceOrder.getUser().getId());
+            stat.setInt(5, serviceOrder.getService().getId());
+            stat.setInt(6, serviceOrder.getProviderLocation().getId());
+            stat.setInt(7, serviceOrder.getServiceLocation().getId());
             stat.setString(8, serviceOrder.getStatus());
             stat.setString(9, serviceOrder.getScenario());
             System.out.println(stat.toString());
@@ -148,20 +148,20 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
                 serviceOrder.setEnterdate(rs.getDate(ENT_D));
                 serviceOrder.setProcesdate(rs.getDate(PROC_D));
                 serviceOrder.setCompletedate(rs.getDate(COMP_D));
-                serviceOrder.setUsers(
+                serviceOrder.setUser(
                         factoryDAO.createUserDAO().findByID(rs.getInt(USER))
                 );
-                serviceOrder.setServices(
+                serviceOrder.setService(
                         factoryDAO.createServiceDAO().findByID(
                                 rs.getInt(SERVICE)
                         )
                 );
-                serviceOrder.setProviderLocations(
+                serviceOrder.setProviderLocation(
                         factoryDAO.createProviderLocationDAO().findByID(
                                 rs.getInt(PLID)
                         )
                 );
-                serviceOrder.setServiceLocations(
+                serviceOrder.setServiceLocation(
                         factoryDAO.createServiceLocationDAO().findByID(
                                 rs.getInt(SLID)
                         )

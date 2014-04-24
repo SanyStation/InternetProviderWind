@@ -14,8 +14,8 @@ public class Port implements Serializable {
 
     private Integer id;
     private boolean free;
-    private Device devices;
-    private Circuit circuits;
+    private Device device;
+    private Circuit circuit;
     private Cable cable;
 
     public Port() {
@@ -41,20 +41,20 @@ public class Port implements Serializable {
         this.free = free;
     }
 
-    public Device getDevices() {
-        return devices;
+    public Device getDevice() {
+        return device;
     }
 
-    public void setDevices(Device devices) {
-        this.devices = devices;
+    public void setDevice(Device devices) {
+        this.device = devices;
     }
 
-    public Circuit getCircuits() {
-        return circuits;
+    public Circuit getCircuit() {
+        return circuit;
     }
 
-    public void setCircuits(Circuit circuits) {
-        this.circuits = circuits;
+    public void setCircuit(Circuit circuits) {
+        this.circuit = circuits;
     }
 
     public Cable getCable() {
@@ -71,7 +71,7 @@ public class Port implements Serializable {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(free);
-        builder.append(circuits);
+        builder.append(circuit);
         builder.append(cable);
 
         return builder.toHashCode();
@@ -93,8 +93,8 @@ public class Port implements Serializable {
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
         builder.append(free, rhs.isFree());
-        builder.append(devices, rhs.getDevices());
-        builder.append(circuits, rhs.getCircuits());
+        builder.append(device, rhs.getDevice());
+        builder.append(circuit, rhs.getCircuit());
         builder.append(cable, rhs.getCable());
 
         return builder.isEquals();

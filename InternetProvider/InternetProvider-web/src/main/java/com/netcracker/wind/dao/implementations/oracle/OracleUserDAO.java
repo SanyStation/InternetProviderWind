@@ -51,7 +51,7 @@ public class OracleUserDAO implements IUserDAO {
             stat.setString(3, user.getEmail());
             stat.setString(4, user.getPassword());
             stat.setBoolean(5, user.getBlocked());
-            stat.setInt(6, user.getRoles().getId());
+            stat.setInt(6, user.getRole().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
@@ -147,7 +147,7 @@ public class OracleUserDAO implements IUserDAO {
                 user.setEmail(rs.getString(EMAIL));
                 user.setPassword(rs.getString(PASSWORD));
                 user.setBlocked(rs.getBoolean(BLOCKED));
-                user.setRoles(
+                user.setRole(
                         factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE))
                 );
                 users.add(user);

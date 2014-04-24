@@ -44,10 +44,10 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, serviceInstance.getId());
-            stat.setInt(2, serviceInstance.getUsers().getId());
-            stat.setInt(3, serviceInstance.getServiceOrders().getId());
+            stat.setInt(2, serviceInstance.getUser().getId());
+            stat.setInt(3, serviceInstance.getServiceOrder().getId());
             stat.setString(4, serviceInstance.getStatus());
-            stat.setInt(5, serviceInstance.getServices().getId());
+            stat.setInt(5, serviceInstance.getService().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
@@ -134,16 +134,16 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
                 ServiceInstance servInst = new ServiceInstance();
                 int id = rs.getInt(ID);
                 servInst.setId(id);
-                servInst.setUsers(
+                servInst.setUser(
                         factoryDAO.createUserDAO().findByID(rs.getInt(USER))
                 );
-                servInst.setServiceOrders(
+                servInst.setServiceOrder(
                         factoryDAO.createServiceOrderDAO().findByID(
                                 rs.getInt(SO)
                         )
                 );
                 servInst.setStatus(rs.getString(STATUS));
-                servInst.setServices(
+                servInst.setService(
                         factoryDAO.createServiceDAO().findByID(
                                 rs.getInt(SERVICE)
                         )

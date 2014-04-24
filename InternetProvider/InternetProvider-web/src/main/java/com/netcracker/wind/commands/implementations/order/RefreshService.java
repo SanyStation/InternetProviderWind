@@ -68,7 +68,7 @@ public class RefreshService implements ICommand {
                 JSONObject providerLocationJSON = new JSONObject();
                 JSONArray servicesJSONArray = new JSONArray();
                 for (Price price : prices) {
-                    Service service = price.getServices();
+                    Service service = price.getService();
                     JSONObject serviceJSONObject = new JSONObject();
                     serviceJSONObject.put("id", service.getId());
                     serviceJSONObject.put("name", service.getName());

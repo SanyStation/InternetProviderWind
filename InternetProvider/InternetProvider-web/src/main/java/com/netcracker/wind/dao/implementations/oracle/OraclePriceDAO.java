@@ -45,8 +45,8 @@ public class OraclePriceDAO implements IPriceDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, price.getId());
-            stat.setInt(2, price.getProviderLocations().getId());
-            stat.setInt(3, price.getServices().getId());
+            stat.setInt(2, price.getProviderLocation().getId());
+            stat.setInt(3, price.getService().getId());
             stat.setInt(4, price.getPrice());
             stat.executeUpdate();
         } catch (SQLException ex) {
@@ -141,12 +141,12 @@ public class OraclePriceDAO implements IPriceDAO {
             while (rs.next()) {
                 Price price = new Price();
                 price.setId(rs.getInt(ID));
-                price.setProviderLocations(
+                price.setProviderLocation(
                         factoryDAO.createProviderLocationDAO().findByID(
                                 rs.getInt(PLID)
                         )
                 );
-                price.setServices(
+                price.setService(
                         factoryDAO.createServiceDAO().findByID(
                                 rs.getInt(SERVICE)
                         )

@@ -41,7 +41,7 @@ public class OraclePortDAO implements IPortDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, port.getId());
-            stat.setInt(2, port.getDevices().getId());
+            stat.setInt(2, port.getDevice().getId());
             stat.setBoolean(3, port.isFree());
             stat.executeUpdate();
         } catch (SQLException ex) {
@@ -129,7 +129,7 @@ public class OraclePortDAO implements IPortDAO {
                 Port port = new Port();
                 int id = rs.getInt(ID);
                 port.setId(id);
-                port.setDevices(
+                port.setDevice(
                         factoryDAO.createDeviceDAO().findByID(rs.getInt(DEVICE))
                 );
                 port.setFree(rs.getBoolean(FREE));
