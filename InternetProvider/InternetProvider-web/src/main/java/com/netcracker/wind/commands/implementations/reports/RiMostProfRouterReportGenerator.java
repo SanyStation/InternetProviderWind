@@ -26,7 +26,6 @@ public class RiMostProfRouterReportGenerator implements ICommand {
         httpSession.setAttribute("devices", devices);
         return ConfigurationManager.getInstance().
                 getProperty(ConfigurationManager.REPORT_RI_MPR);
-
     }
 
 }
