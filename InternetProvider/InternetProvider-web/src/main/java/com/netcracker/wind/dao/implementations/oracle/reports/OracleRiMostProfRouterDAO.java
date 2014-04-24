@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -39,8 +39,14 @@ public class OracleRiMostProfRouterDAO extends AbstractOracleDAO
                 device.setProfit(profit);
                 devices.add(device);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleRiMostProfRouterDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("### DEBUG: devices.size() = " + devices.size());
+            if (devices.size() > 0) {
+                throw new Exception("Fucking error");
+            }
+        } catch (SQLException sqlex) {
+            Logger.getLogger(OracleRiMostProfRouterDAO.class.getName()).log(Level.ALL, null, sqlex);
+        } catch (Exception ex) {
+            Logger.getLogger(OracleRiMostProfRouterDAO.class.getName()).log(Level.ALL, null, ex);
         }
         return devices;
     }

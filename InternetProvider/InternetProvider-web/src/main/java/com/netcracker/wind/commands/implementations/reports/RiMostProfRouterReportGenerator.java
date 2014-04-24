@@ -23,7 +23,7 @@ public class RiMostProfRouterReportGenerator implements ICommand {
                 factoryDAO.createRiMostProfRouterDAO().findAll();
         HttpSession httpSession = request.getSession(false);
         httpSession.setAttribute("devices", devices);
-        return "/reports/RiMostProfRouter.jsp";
+        return "/RiMostProfRouter.jsp";
     }
     
 }
