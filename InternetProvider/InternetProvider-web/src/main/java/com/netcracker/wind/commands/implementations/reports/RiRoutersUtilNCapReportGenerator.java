@@ -23,7 +23,7 @@ public class RiRoutersUtilNCapReportGenerator implements ICommand {
                 factoryDAO.createRiRoutersUtilNCapDAO().findAll();
         HttpSession httpSession = request.getSession(false);
         httpSession.setAttribute("devices", devices);
-        return "/reports/RiRoutersUtilNCap.jsp";
+        return "/RiRoutersUtilNCap.jsp";
     }
     
 }
