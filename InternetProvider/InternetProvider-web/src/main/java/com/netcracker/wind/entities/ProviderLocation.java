@@ -19,6 +19,7 @@ public class ProviderLocation implements Serializable {
     private String address;
     private List<Price> pricesList;
     private List<ServiceOrder> serviceOrdersList;
+    private String name;
 
     public ProviderLocation() {
     }
@@ -81,6 +82,14 @@ public class ProviderLocation implements Serializable {
         this.serviceOrdersList = serviceOrdersList;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public int hashCode() {
 
@@ -91,6 +100,7 @@ public class ProviderLocation implements Serializable {
         builder.append(address);
         builder.append(pricesList);
         builder.append(serviceOrdersList);
+        builder.append(name);
 
         return builder.toHashCode();
     }
@@ -115,6 +125,7 @@ public class ProviderLocation implements Serializable {
         builder.append(address, rhs.getAddress());
         builder.append(pricesList, rhs.getPricesList());
         builder.append(serviceOrdersList, rhs.getServiceOrdersList());
+        builder.append(name, rhs.getName());
 
         return builder.isEquals();
     }

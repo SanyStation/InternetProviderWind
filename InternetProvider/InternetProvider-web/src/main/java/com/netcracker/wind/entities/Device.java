@@ -15,7 +15,8 @@ public class Device implements Serializable {
     private static final long serialVersionUID = -2152609240262921250L;
 
     private Integer id;
-    private List<Port> portsCollection;
+    private List<Port> ports;
+    private String name;
 
     public Device() {
     }
@@ -33,28 +34,41 @@ public class Device implements Serializable {
     }
 
     public List<Port> getPortsList() {
-        if (portsCollection == null) fillPortsCollection();
-        return portsCollection;
+        if (ports == null) {
+            fillPortsCollection();
+        }
+        return ports;
     }
 
     public void setPortsList(List<Port> portsCollection) {
-        this.portsCollection = portsCollection;
+        this.ports = portsCollection;
     }
-    
+
     private void fillPortsCollection() {
-        portsCollection =
-                    new OracleDAOFactory().createPortDAO().findByDevice(id);
+        ports = new OracleDAOFactory().createPortDAO().findByDevice(id);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCapacity() {
-        if (portsCollection == null) fillPortsCollection();
-        return portsCollection.size();
+        if (ports == null) {
+            fillPortsCollection();
+        }
+        return ports.size();
     }
 
     public int getUtilization() {
         int busyPorts = 0;
-        if (portsCollection == null) fillPortsCollection();
-        for (Port port : portsCollection) {
+        if (ports == null) {
+            fillPortsCollection();
+        }
+        for (Port port : ports) {
             if (!port.isFree()) {
                 ++busyPorts;
             }
@@ -71,7 +85,8 @@ public class Device implements Serializable {
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
-        builder.append(portsCollection);
+        builder.append(ports);
+        builder.append(name);
 
         return builder.toHashCode();
     }
@@ -90,7 +105,8 @@ public class Device implements Serializable {
         Device rhs = (Device) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
-        builder.append(portsCollection, rhs.getPortsList());
+        builder.append(ports, rhs.getPortsList());
+        builder.append(name, rhs.getName());
 
         return builder.isEquals();
     }

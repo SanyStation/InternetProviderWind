@@ -7,7 +7,7 @@ import com.netcracker.wind.entities.User;
 
 /**
  *
- * @author Oksana
+ * @author Oksana and Sashko
  */
 public class FormatedMail {
     private final String HELLO = "Welcome to Boreas Internet Provider!\n\n";
@@ -34,48 +34,78 @@ public class FormatedMail {
             + "Your login is : ";
     private final String HOPE_PLEASED="\n\t We hope that you will be pleased with our service!";
     private final String END_OF_MASSAGE="\nSincerely,\n\tboreas staff.";
-    public String getUserRegistrationMassage(User user){
-        return HELLO+CONGRATULATION+user.getName()+OK+MESSAGE_REGISTRATION
-                +user.getEmail()+HOPE_PLEASED+END_OF_MASSAGE;
+    public String getUserRegistrationMassage(User user) {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(HELLO).append(CONGRATULATION).append(user.getName()).append(OK)
+                .append(MESSAGE_REGISTRATION).append(user.getEmail())
+                .append(HOPE_PLEASED).append(END_OF_MASSAGE);
+        return stringBuffer.toString();
     }
     
     public String getBlockedAccountMessage(User user){
-        return DEAR+user.getName()+OK+MESSAGE_BLOCKING_ACCOUNT
-                +CONTACT_US+END_OF_MASSAGE;
+         StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(DEAR).append(user.getName()).append(OK).append(MESSAGE_BLOCKING_ACCOUNT)
+                .append(CONTACT_US).append(END_OF_MASSAGE);
+        return stringBuffer.toString();
     }
     
     public String getInformGroupAboutTaskMessage(Task task){
-        return MESSAGE_ABOUT_TASK+TASK_INFORMATION+task.getType()+TASK_TAKE+END_OF_MASSAGE;
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(MESSAGE_ABOUT_TASK).append(TASK_INFORMATION).append(task.getType())
+                .append(TASK_TAKE).append(END_OF_MASSAGE);
+        return stringBuffer.toString();
     }
     
     public String getNewSOComplMassage (ServiceOrder order, Service service, User user) {
-        return DEAR + user.getName() + OK + ORDER + order.getId() + COMPLETED +
-                SERVICE + service.getName() + INSTALLED + END_OF_MASSAGE;
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(DEAR).append(user.getName()).append(OK).append(ORDER)
+                .append(order.getId()).append(COMPLETED).append(SERVICE)
+                .append(service.getName()).append(INSTALLED).append(END_OF_MASSAGE);
+        return stringBuffer.toString();
     }
     
     public String getNewSOTakeMassage (ServiceOrder order, Service service, User user) {
-        return DEAR + user.getName() + OK + ORDER + order.getId() + RECEIVED +
-                SERVICE + service.getName() + WILLINST + END_OF_MASSAGE;
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(DEAR).append(user.getName()).append(OK)
+                .append(ORDER).append(order.getId()).append(RECEIVED)
+                .append(SERVICE).append(service.getName()).append(WILLINST)
+                .append(END_OF_MASSAGE);
+        return stringBuffer.toString();
     }
     
     public String getModifySOComplMassage (ServiceOrder order, Service service, User user) {
-        return DEAR + user.getName() + OK + ORDER + order.getId() + COMPLETED +
-                SERVICEMOD + service.getName() + DORT + END_OF_MASSAGE;
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(DEAR).append(user.getName()).append(OK)
+                .append(ORDER).append(order.getId()).append(COMPLETED)
+                .append(SERVICEMOD).append(service.getName()).append(DORT)
+                .append(END_OF_MASSAGE);
+        return stringBuffer.toString();
     }
     
     public String getModifySOTakeMassage (ServiceOrder order, Service service, User user) {
-        return DEAR + user.getName() + OK + ORDER + order.getId() + RECEIVED +
-                SERVWILLM + service.getName() + DORT + END_OF_MASSAGE;
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(DEAR).append(user.getName()).append(OK)
+                .append(ORDER).append(order.getId()).append(RECEIVED)
+                .append(SERVWILLM).append(service.getName()).append(DORT)
+                .append(END_OF_MASSAGE);
+        return stringBuffer.toString();
     }
     
     public String getDiscSOComplMassage (ServiceOrder order, Service service, User user) {
-        return DEAR + user.getName() + OK + ORDER + order.getId() + COMPLETED +
-                SERVICE + service.getName() + DISCONNECT  + END_OF_MASSAGE;
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(DEAR).append(user.getName()).append(OK)
+                .append(ORDER).append(order.getId()).append(COMPLETED)
+                .append(SERVICE).append(service.getName()).append(DISCONNECT)
+                .append(END_OF_MASSAGE);
+        return stringBuffer.toString();
     }
     
     public String getDiscSOTakeMassage (ServiceOrder order, Service service, User user) {
-        return DEAR + user.getName() + OK + ORDER + order.getId() + RECEIVED +
-                SERVICE + service.getName() + WILLDISCONNECT + END_OF_MASSAGE;
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(DEAR).append(user.getName()).append(OK).append(ORDER)
+                .append(order.getId()).append(RECEIVED).append(SERVICE)
+                .append(service.getName()).append(WILLDISCONNECT).append(END_OF_MASSAGE);
+        return stringBuffer.toString();
     }
 }
     

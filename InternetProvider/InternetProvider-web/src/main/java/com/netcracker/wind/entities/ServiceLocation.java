@@ -14,8 +14,8 @@ public class ServiceLocation implements Serializable {
     private static final long serialVersionUID = -4939536133882667333L;
 
     private Integer id;
-    private Integer posX;
-    private Integer posY;
+    private double posX;
+    private double posY;
     private String address;
     private Cable cable;
 
@@ -42,19 +42,19 @@ public class ServiceLocation implements Serializable {
         this.id = id;
     }
 
-    public Integer getPosX() {
+    public double getPosX() {
         return posX;
     }
 
-    public void setPosX(Integer posX) {
+    public void setPosX(double posX) {
         this.posX = posX;
     }
 
-    public Integer getPosY() {
+    public double getPosY() {
         return posY;
     }
 
-    public void setPosY(Integer posY) {
+    public void setPosY(double posY) {
         this.posY = posY;
     }
 

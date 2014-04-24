@@ -4,6 +4,7 @@ import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.entities.Task;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,11 +43,11 @@ public class OracleTaskDAO implements ITaskDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, task.getId());
-            stat.setInt(2, task.getUsers().getId());
+            stat.setInt(2, task.getUser().getId());
             stat.setString(3, task.getType());
             stat.setString(4, task.getStatus());
-            stat.setInt(5, task.getRoles().getId());
-            stat.setInt(6, task.getServiceOrders().getId());
+            stat.setInt(5, task.getRole().getId());
+            stat.setInt(6, task.getServiceOrder().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
@@ -63,26 +64,8 @@ public class OracleTaskDAO implements ITaskDAO {
         }
     }
 
-    public void delete(int id) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, id);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+    public void delete(int idTask) {
+         new DAOHelper().delete(DELETE, idTask);
     }
 
     public Task findByID(int id) {
@@ -105,7 +88,7 @@ public class OracleTaskDAO implements ITaskDAO {
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, task.getUsers().getId());
+            stat.setInt(1, task.getUser().getId());
             stat.setString(2, task.getStatus());
             stat.setInt(3, task.getId());
 
@@ -180,12 +163,12 @@ public class OracleTaskDAO implements ITaskDAO {
             while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getInt(ID));
-                task.setUsers(
+                task.setUser(
                         factoryDAO.createUserDAO().findByID(rs.getInt(USER))
                 );
                 task.setType(rs.getString(TYPE));
                 task.setStatus(rs.getString(STATUS));
-                task.setRoles(
+                task.setRole(
                         factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE))
                 );
                 //TODO 

@@ -48,17 +48,8 @@ public class RefreshService implements ICommand {
 
             //Find nearest ProviderLocation
             List<ProviderLocation> providerLocations = providerLocationDAO.findAll();
-            ProviderLocation nearestProviderLocation = null;
-            double minDist = Double.MAX_VALUE;
-            for (ProviderLocation pl : providerLocations) {
-                double dist = getDistance(actualX, actualY,
-                        pl.getPosX(),
-                        pl.getPosY());
-                if (dist < minDist) {
-                    minDist = dist;
-                    nearestProviderLocation = pl;
-                }
-            }
+            ProviderLocation nearestProviderLocation = OrderUtilities.findNearestProviderLocation(
+                    providerLocations, actualX, actualY);
 
             if (nearestProviderLocation == null) {
                 try {
@@ -77,7 +68,7 @@ public class RefreshService implements ICommand {
                 JSONObject providerLocationJSON = new JSONObject();
                 JSONArray servicesJSONArray = new JSONArray();
                 for (Price price : prices) {
-                    Service service = price.getServices();
+                    Service service = price.getService();
                     JSONObject serviceJSONObject = new JSONObject();
                     serviceJSONObject.put("id", service.getId());
                     serviceJSONObject.put("name", service.getName());
@@ -95,13 +86,6 @@ public class RefreshService implements ICommand {
             }
         }
         return jsono.toString();
-    }
-
-    private double getDistance(double x1, double y1, double x2, double y2) {
-        double a = x1 - x2;
-        double b = y1 - y2;
-        double distance = Math.sqrt(a * a + b * b);
-        return distance;
     }
 
 }

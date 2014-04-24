@@ -1,12 +1,14 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.dao.interfaces.IServiceLocationDAO;
 import com.netcracker.wind.entities.ServiceLocation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,7 +27,7 @@ public class OracleServiceLocationDAO implements IServiceLocationDAO {
     private static final String DELETE = "DELETE FROM SERVICE_LOCATIONS WHERE "
             + "ID = ?";
     private static final String INSERT = "INSERT INTO SERVICE_LOCATIONS "
-            + "(ID, POS_X, POS_Y, ADDRESS) VALUES (?, ?, ?, ?)";
+            + "(POS_X, POS_Y, ADDRESS) VALUES (?, ?, ?)";
     private static final String SELECT = "SELECT * FROM SERVICE_LOCATIONS ";
     private static final String ID = "ID";
     private static final String X = "POS_X";
@@ -37,12 +39,20 @@ public class OracleServiceLocationDAO implements IServiceLocationDAO {
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, serviceLocation.getId());
-            stat.setInt(2, serviceLocation.getPosX());
-            stat.setInt(3, serviceLocation.getPosY());
-            stat.setString(4, serviceLocation.getAddress());
+            stat = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+            stat.setDouble(1, serviceLocation.getPosX());
+            stat.setDouble(2, serviceLocation.getPosY());
+            stat.setString(3, serviceLocation.getAddress());
             stat.executeUpdate();
+            ResultSet insertedResultSet = stat.getGeneratedKeys();
+            if (insertedResultSet != null && insertedResultSet.next()) {
+                String s = insertedResultSet.getString(1);
+                PreparedStatement ps = connection.prepareStatement("select * from ROOT.SERVICE_LOCATIONS where rowid = ?");
+                ps.setObject(1, s);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                serviceLocation.setId(rs.getInt(ID));
+            }
         } catch (SQLException ex) {
             //TODO changer logger
             Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,31 +68,13 @@ public class OracleServiceLocationDAO implements IServiceLocationDAO {
         }
     }
 
-    public void delete(int id) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, id);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+    public void delete(int idSL) {
+        new DAOHelper().delete(DELETE, idSL);
     }
 
     public ServiceLocation findByID(int id) {
-        List<ServiceLocation> serviceLocations =
-                findWhere("WHERE ID = ?", new Object[]{id});
+        List<ServiceLocation> serviceLocations
+                = findWhere("WHERE ID = ?", new Object[]{id});
         if (serviceLocations.isEmpty()) {
             return null;
         } else {
@@ -167,8 +159,8 @@ public class OracleServiceLocationDAO implements IServiceLocationDAO {
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, serviceLocation.getPosX());
-            stat.setInt(2, serviceLocation.getPosY());
+            stat.setDouble(1, serviceLocation.getPosX());
+            stat.setDouble(2, serviceLocation.getPosY());
             stat.setString(3, serviceLocation.getAddress());
             stat.setInt(4, serviceLocation.getId());
             stat.executeUpdate();

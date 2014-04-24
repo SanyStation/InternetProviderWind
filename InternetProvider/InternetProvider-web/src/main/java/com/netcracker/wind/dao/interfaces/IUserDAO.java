@@ -20,9 +20,10 @@ public interface IUserDAO {
 
     public User findByID(int id);
 
-    public User findByEmailAndPassword(String email, String password);
+    public User findByEmail(String email);
 
     public void update(User user);
+
     public List<User> findAll();
 
     public List<User> findByRole(int roleID);

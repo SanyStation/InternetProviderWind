@@ -1,8 +1,8 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.Collection;
-import java.util.Date;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -14,19 +14,20 @@ public class ServiceOrder implements Serializable {
 
     private static final long serialVersionUID = 2972707714220134975L;
 
+    public static final String ENTERING = "Entering";
+
     private Integer id;
     private Date enterdate;
     private Date procesdate;
     private Date completedate;
     private String status;
     private String scenario;
-    //one order - one istance ???
-    private Collection<ServiceInstance> serviceInstancesCollection;
+    private ServiceInstance serviceInstance;
     private Collection<Task> tasksCollection;
-    private User users;
-    private ServiceLocation serviceLocations;
-    private Service services;
-    private ProviderLocation providerLocations;
+    private User user;
+    private ServiceLocation serviceLocation;
+    private Service service;
+    private ProviderLocation providerLocation;
 
     public ServiceOrder() {
     }
@@ -88,12 +89,12 @@ public class ServiceOrder implements Serializable {
         this.scenario = scenario;
     }
 
-    public Collection<ServiceInstance> getServiceInstancesCollection() {
-        return serviceInstancesCollection;
+    public ServiceInstance getServiceInstancesCollection() {
+        return serviceInstance;
     }
 
-    public void setServiceInstancesCollection(Collection<ServiceInstance> serviceInstancesCollection) {
-        this.serviceInstancesCollection = serviceInstancesCollection;
+    public void setServiceInstancesCollection(ServiceInstance serviceInstancesCollection) {
+        this.serviceInstance = serviceInstancesCollection;
     }
 
     public Collection<Task> getTasksCollection() {
@@ -104,36 +105,36 @@ public class ServiceOrder implements Serializable {
         this.tasksCollection = tasksCollection;
     }
 
-    public User getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setUser(User users) {
+        this.user = users;
     }
 
-    public ServiceLocation getServiceLocations() {
-        return serviceLocations;
+    public ServiceLocation getServiceLocation() {
+        return serviceLocation;
     }
 
-    public void setServiceLocations(ServiceLocation serviceLocations) {
-        this.serviceLocations = serviceLocations;
+    public void setServiceLocation(ServiceLocation serviceLocations) {
+        this.serviceLocation = serviceLocations;
     }
 
-    public Service getServices() {
-        return services;
+    public Service getService() {
+        return service;
     }
 
-    public void setServices(Service services) {
-        this.services = services;
+    public void setService(Service services) {
+        this.service = services;
     }
 
-    public ProviderLocation getProviderLocations() {
-        return providerLocations;
+    public ProviderLocation getProviderLocation() {
+        return providerLocation;
     }
 
-    public void setProviderLocations(ProviderLocation providerLocations) {
-        this.providerLocations = providerLocations;
+    public void setProviderLocation(ProviderLocation providerLocations) {
+        this.providerLocation = providerLocations;
     }
 
     @Override
@@ -146,12 +147,12 @@ public class ServiceOrder implements Serializable {
         builder.append(completedate);
         builder.append(status);
         builder.append(scenario);
-        builder.append(serviceInstancesCollection);
+        builder.append(serviceInstance);
         builder.append(tasksCollection);
-        builder.append(users);
-        builder.append(serviceLocations);
-        builder.append(services);
-        builder.append(providerLocations);
+        builder.append(user);
+        builder.append(serviceLocation);
+        builder.append(service);
+        builder.append(providerLocation);
 
         return builder.toHashCode();
     }
@@ -176,12 +177,12 @@ public class ServiceOrder implements Serializable {
         builder.append(completedate, rhs.getCompletedate());
         builder.append(status, rhs.getStatus());
         builder.append(scenario, rhs.getScenario());
-        builder.append(serviceInstancesCollection, rhs.getServiceInstancesCollection());
+        builder.append(serviceInstance, rhs.getServiceInstancesCollection());
         builder.append(tasksCollection, rhs.getTasksCollection());
-        builder.append(users, rhs.getUsers());
-        builder.append(serviceLocations, rhs.getServiceLocations());
-        builder.append(services, rhs.getServices());
-        builder.append(providerLocations, rhs.getProviderLocations());
+        builder.append(user, rhs.getUser());
+        builder.append(serviceLocation, rhs.getServiceLocation());
+        builder.append(service, rhs.getService());
+        builder.append(providerLocation, rhs.getProviderLocation());
 
         return builder.isEquals();
     }

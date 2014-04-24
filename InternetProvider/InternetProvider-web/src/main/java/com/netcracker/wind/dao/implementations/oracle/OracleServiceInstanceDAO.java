@@ -4,6 +4,7 @@ import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.implementations.helper.DAOHelper;
 import com.netcracker.wind.entities.ServiceInstance;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,10 +44,10 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, serviceInstance.getId());
-            stat.setInt(2, serviceInstance.getUsers().getId());
-            stat.setInt(3, serviceInstance.getServiceOrders().getId());
+            stat.setInt(2, serviceInstance.getUser().getId());
+            stat.setInt(3, serviceInstance.getServiceOrder().getId());
             stat.setString(4, serviceInstance.getStatus());
-            stat.setInt(5, serviceInstance.getServices().getId());
+            stat.setInt(5, serviceInstance.getService().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
@@ -64,25 +65,7 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
     }
 
     public void delete(int idSi) {
-        Connection con = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(DELETE);
-            stat.setInt(1, idSi);
-            stat.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
+        new DAOHelper().delete(DELETE, idSi);
     }
 
     public ServiceInstance findByID(int idSI) {
@@ -151,16 +134,16 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
                 ServiceInstance servInst = new ServiceInstance();
                 int id = rs.getInt(ID);
                 servInst.setId(id);
-                servInst.setUsers(
+                servInst.setUser(
                         factoryDAO.createUserDAO().findByID(rs.getInt(USER))
                 );
-                servInst.setServiceOrders(
+                servInst.setServiceOrder(
                         factoryDAO.createServiceOrderDAO().findByID(
                                 rs.getInt(SO)
                         )
                 );
                 servInst.setStatus(rs.getString(STATUS));
-                servInst.setServices(
+                servInst.setService(
                         factoryDAO.createServiceDAO().findByID(
                                 rs.getInt(SERVICE)
                         )

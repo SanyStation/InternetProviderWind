@@ -15,9 +15,9 @@ public class ServiceInstance implements Serializable {
 
     private Integer id;
     private String status;
-    private User users;
+    private User user;
     private ServiceOrder serviceOrder;
-    private Service services;
+    private Service service;
     private Circuit circuit;
     private List<ServiceOrder> serviceOrdersList;
 
@@ -44,28 +44,28 @@ public class ServiceInstance implements Serializable {
         this.status = status;
     }
 
-    public User getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setUser(User users) {
+        this.user = users;
     }
 
-    public ServiceOrder getServiceOrders() {
+    public ServiceOrder getServiceOrder() {
         return serviceOrder;
     }
 
-    public void setServiceOrders(ServiceOrder serviceOrders) {
+    public void setServiceOrder(ServiceOrder serviceOrders) {
         this.serviceOrder = serviceOrders;
     }
 
-    public Service getServices() {
-        return services;
+    public Service getService() {
+        return service;
     }
 
-    public void setServices(Service services) {
-        this.services = services;
+    public void setService(Service services) {
+        this.service = services;
     }
 
     public Circuit getCircuit() {
@@ -90,9 +90,9 @@ public class ServiceInstance implements Serializable {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(status);
-        builder.append(users);
+        builder.append(user);
         builder.append(serviceOrder);
-        builder.append(services);
+        builder.append(service);
         builder.append(circuit);
         builder.append(serviceOrdersList);
 
@@ -115,9 +115,9 @@ public class ServiceInstance implements Serializable {
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
         builder.append(status, rhs.getStatus());
-        builder.append(users, rhs.getUsers());
-        builder.append(serviceOrder, rhs.getServiceOrders());
-        builder.append(services, rhs.getServices());
+        builder.append(user, rhs.getUser());
+        builder.append(serviceOrder, rhs.getServiceOrder());
+        builder.append(service, rhs.getService());
         builder.append(circuit, rhs.getCircuit());
         builder.append(serviceOrdersList, rhs.getServiceOrdersList());
 

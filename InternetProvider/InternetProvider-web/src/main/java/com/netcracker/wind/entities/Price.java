@@ -14,8 +14,8 @@ public class Price implements Serializable {
 
     private Integer id;
     private Integer price;
-    private Service services;
-    private ProviderLocation providerLocations;
+    private Service service;
+    private ProviderLocation providerLocation;
 
     public Price() {
     }
@@ -45,20 +45,20 @@ public class Price implements Serializable {
         this.price = price;
     }
 
-    public Service getServices() {
-        return services;
+    public Service getService() {
+        return service;
     }
 
-    public void setServices(Service services) {
-        this.services = services;
+    public void setService(Service services) {
+        this.service = services;
     }
 
-    public ProviderLocation getProviderLocations() {
-        return providerLocations;
+    public ProviderLocation getProviderLocation() {
+        return providerLocation;
     }
 
-    public void setProviderLocations(ProviderLocation providerLocations) {
-        this.providerLocations = providerLocations;
+    public void setProviderLocation(ProviderLocation providerLocations) {
+        this.providerLocation = providerLocations;
     }
 
     @Override
@@ -67,8 +67,8 @@ public class Price implements Serializable {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(price);
-        builder.append(services);
-        builder.append(providerLocations);
+        builder.append(service);
+        builder.append(providerLocation);
 
         return builder.toHashCode();
     }
@@ -89,8 +89,8 @@ public class Price implements Serializable {
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
         builder.append(price, rhs.getPrice());
-        builder.append(services, rhs.getServices());
-        builder.append(providerLocations, rhs.getProviderLocations());
+        builder.append(service, rhs.getService());
+        builder.append(providerLocation, rhs.getProviderLocation());
 
         return builder.isEquals();
     }
