@@ -24,7 +24,8 @@ public class RiMostProfRouterReportGenerator implements ICommand {
                 = factoryDAO.createRiMostProfRouterDAO().findAll();
         HttpSession httpSession = request.getSession(false);
         httpSession.setAttribute("devices", devices);
-        return ConfigurationManager.getInstance().getProperty(ConfigurationManager.REPORT_RIM);
+        return ConfigurationManager.getInstance().
+                getProperty(ConfigurationManager.REPORT_RI_MPR);
 
     }
 

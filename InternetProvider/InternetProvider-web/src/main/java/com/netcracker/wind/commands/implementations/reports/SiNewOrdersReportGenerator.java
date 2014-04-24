@@ -4,6 +4,7 @@ import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.entities.reports.SiOrder;
+import com.netcracker.wind.manager.ConfigurationManager;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,8 @@ public class SiNewOrdersReportGenerator implements ICommand {
         hs.setAttribute("title", "New orders per period: " + dateFrom + " - "
                 + dateTo);
         hs.setAttribute("orders", orders);
-        return "/SiOrders.jsp";
+        return ConfigurationManager.getInstance().
+                getProperty(ConfigurationManager.REPORT_SI_O);
     }
     
 }
