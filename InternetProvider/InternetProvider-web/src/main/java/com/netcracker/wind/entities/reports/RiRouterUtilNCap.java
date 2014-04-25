@@ -1,10 +1,14 @@
 package com.netcracker.wind.entities.reports;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Alexander Kovriga
  */
-public class RiRouterUtilNCap {
+public class RiRouterUtilNCap implements Serializable {
+    
+    private static final long serialVersionUID = -8044636653088120971L;
 
     private int id;
     private int capacity;

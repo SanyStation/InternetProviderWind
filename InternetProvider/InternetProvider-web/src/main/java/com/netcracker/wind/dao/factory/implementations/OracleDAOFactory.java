@@ -102,12 +102,12 @@ public class OracleDAOFactory extends AbstractFactoryDAO {
     
     @Override
     public ISiOrdersDAO createSiNewOrdersDAO() {
-        return new OracleSiOrdersDAO(ISiOrdersDAO.Scenario.New);
+        return new OracleSiOrdersDAO(ISiOrdersDAO.Scenario.NEW);
     }
     
     @Override
     public ISiOrdersDAO createSiDisconnOrdersDAO() {
-        return new OracleSiOrdersDAO(ISiOrdersDAO.Scenario.disconnect);
+        return new OracleSiOrdersDAO(ISiOrdersDAO.Scenario.DISCONNECT);
     }
     
     @Override

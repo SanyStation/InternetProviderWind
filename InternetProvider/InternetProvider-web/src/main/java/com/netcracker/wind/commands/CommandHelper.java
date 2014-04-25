@@ -39,8 +39,10 @@ public class CommandHelper {
     private static final String SENT_MAIL = "sent_mail";
     private static final String CSE_GROUP_TASK = "cse_group_task";
     private static final String CUSTOMERS_LIST = "customers_list";
-    private static final String CSE_GET_ELEMENTS_COUNT = "cse_get_elements_count";
-    private static final String CSE_GET_ELEMENTS_FROM_OFFSET = "cse_get_elements_from_offset";
+    private static final String CSE_GET_ELEMENTS_COUNT =
+            "cse_get_elements_count";
+    private static final String CSE_GET_ELEMENTS_FROM_OFFSET =
+            "cse_get_elements_from_offset";
 
     private final Map<String, ICommand> commands;
 
@@ -57,7 +59,7 @@ public class CommandHelper {
         commands.put(SENT_MAIL, new SentMail());
         commands.put(CSE_GROUP_TASK, new CSEGetGroupTasks());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
-        commands.put(CUSTOMERS_LIST, (ICommand) new CustomersList());
+        commands.put(CUSTOMERS_LIST, new CustomersList());
     }
 
     public static CommandHelper getInstance() {

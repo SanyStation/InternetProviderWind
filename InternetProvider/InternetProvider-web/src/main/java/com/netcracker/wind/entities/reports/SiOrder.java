@@ -1,12 +1,15 @@
 package com.netcracker.wind.entities.reports;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Alexander Kovriga
  */
-public class SiOrder {
+public class SiOrder implements Serializable {
+    
+    private static final long serialVersionUID = -570284085763707851L;
     
     private int id;
     private Date completeDate;
