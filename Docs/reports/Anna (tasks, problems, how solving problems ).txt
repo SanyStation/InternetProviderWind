@@ -1,0 +1,75 @@
+Tasks
+a. Create Use Cases
+
+Problems: 
+1.  Completely different understanding of what is Use Case diagrams  
+2.  Problems with descriptions "Creating Service Order", "Review Service Order", "Creating New Circuit in System"
+    and "Creating Service Instance" use cases.
+
+How we solved problems:
+1.  Discussion of the problem, what  Use Cases we must  do with curators  
+2.  Discussion and resolve issues with the team and  curators how these processes will be implemented .
+
+b.  Create SAD
+
+Problems: 
+1. Understand what SAD includes 
+2. Create use cases, which be description of business processes.
+
+How we solved problems:
+1. Find information about SAD  
+2. Created Use Cases
+
+c.  Create Traceability Matrix
+
+Problems: 
+Answer the question whether all requirements we have covered with use cases.
+
+How we solved problems:
+Carefully verify all requirements and use cases.
+
+d. Find a solution how to improve the ER diagram
+
+Problems: 
+We had problems with the hard realization database  requests for reporting.
+
+How we solved problems:
+We discussed with the team ER diagram and made adjustments.
+
+e. Understand the work Connection pool was created by Anatolii
+
+Problems: 
+To understand whether the Anatolii Connection Pool  is thread-safe and  multi-threaded.
+At first I thought that it is not thread-safe and multi-threaded.
+
+How we solved problems:
+The fact that our ConnectionPool  is safe-thread confirmed using singleton pattern and the fact it is multithreaded singleton  confirmed pool setting . Find information about singleton and ThreadLocal Class.
+
+f. Comprehend the code that wrote the other team members 
+
+Problems: 
+Gradually there are various minor problems.
+
+How we solved problems:
+Solving these problems is finding relevant information and clarify difficult issues with authors.
+
+g. Create CSEDashboard
+
+Problems: 
+1. Problems so that the server does not return the data to the ajax query. 
+2. Problems to display Hart CSEDashboard.
+3. Purification derived table. 
+4. Raging and pagination.
+
+How we solved problems:
+1. Solving the problem is not with the server, but with the inability to retrieve data from the database. 
+2. A more detailed study of CSS, HTML, JS. Use bootstrap and knockout  framework. 
+3-4. The solution of 30%, familiarization with cursor.
+
+h. Explain how to create sequence diagrams
+
+Problems: 
+How sequence diagram to depict a link to another sequence diagram.
+
+How we solved problems:
+Find tutorials about it.
