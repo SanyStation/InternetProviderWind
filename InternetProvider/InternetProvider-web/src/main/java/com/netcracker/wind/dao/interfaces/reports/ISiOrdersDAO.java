@@ -11,10 +11,9 @@ public interface ISiOrdersDAO {
 
     public enum Scenario {
 
-        New, disconnect
+        NEW, DISCONNECT
     }
 
     List<SiOrder> findDateFromTo(String dateFrom, String dateTo);
-    List<SiOrder> findAll();
 
 }

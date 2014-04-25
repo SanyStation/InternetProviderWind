@@ -1,10 +1,14 @@
 package com.netcracker.wind.entities.reports;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Anatolii
  */
-public class RiMostProfRouter {
+public class RiMostProfRouter implements Serializable {
+    
+    private static final long serialVersionUID = 2119276325841852175L;
 
     private int id;
     private Integer profit;

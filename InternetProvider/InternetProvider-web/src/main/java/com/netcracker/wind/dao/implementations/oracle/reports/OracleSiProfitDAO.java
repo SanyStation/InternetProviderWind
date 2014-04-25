@@ -9,8 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -35,6 +34,9 @@ public class OracleSiProfitDAO extends AbstractOracleDAO
             + "AND si.status = 'active' "
             + "GROUP BY so.provider_location_id, so.service_id "
             + "ORDER BY sum DESC";
+    
+    private final Logger logger =
+            Logger.getLogger(OracleSiProfitDAO.class.getName());
 
     public List<SiProfit> findByDateTo(String dateTo) {
         List<SiProfit> orders = null;
@@ -49,7 +51,7 @@ public class OracleSiProfitDAO extends AbstractOracleDAO
             param.add(dateTo);
             orders = super.findWhere(QUERY, param);
         } catch (ParseException ex) {
-            Logger.getLogger(AbstractOracleSiDAO.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(null, ex);
         }
         return orders;
     }
@@ -69,7 +71,7 @@ public class OracleSiProfitDAO extends AbstractOracleDAO
                 profits.add(sp);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(OracleSiProfitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(null, ex);
         }
         return profits;
     }

@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +23,9 @@ public class OracleRiRoutersUtilNCapDAO extends AbstractOracleDAO
             + ", COUNT(CASE WHEN ports.free = 0 THEN 0 END) AS " + UTILIZATION
             + " FROM devices LEFT JOIN ports ON devices.id = ports.device_id "
             + "GROUP BY devices.id";
+    
+    private static final Logger logger =
+            Logger.getLogger(OracleRiMostProfRouterDAO.class.getName());
 
     public List<RiRouterUtilNCap> findAll() {
          return super.findWhere(QUERY, new ArrayList<String>());
@@ -44,7 +46,7 @@ public class OracleRiRoutersUtilNCapDAO extends AbstractOracleDAO
                 devices.add(device);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(OracleRiRoutersUtilNCapDAO.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(null, ex);
         }
         return devices;
     }
