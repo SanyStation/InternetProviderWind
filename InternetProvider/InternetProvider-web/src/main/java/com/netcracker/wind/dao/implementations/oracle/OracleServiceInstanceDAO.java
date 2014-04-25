@@ -37,18 +37,29 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
     private static final String STATUS = "STATUS";
     private static final String SERVICE = "SERVICE_ID";
 
+    private static final String SELECT_FOR_GET_GENERATED_ID = "SELECT * FROM ROOT.SERVICE_INSTANCES WHERE ROWID = ?";
+
     public void add(ServiceInstance serviceInstance) {
         Connection connection = null;
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
             stat.setInt(1, serviceInstance.getId());
             stat.setInt(2, serviceInstance.getUser().getId());
             stat.setInt(3, serviceInstance.getServiceOrder().getId());
             stat.setString(4, serviceInstance.getStatus());
             stat.setInt(5, serviceInstance.getService().getId());
             stat.executeUpdate();
+            ResultSet insertedResultSet = stat.getGeneratedKeys();
+            if (insertedResultSet != null && insertedResultSet.next()) {
+                String s = insertedResultSet.getString(1);
+                PreparedStatement ps = connection.prepareStatement(SELECT_FOR_GET_GENERATED_ID);
+                ps.setObject(1, s);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                serviceInstance.setId(rs.getInt(ID));
+            }
         } catch (SQLException ex) {
             //TODO changer logger
             Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,15 +80,15 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
     }
 
     public ServiceInstance findByID(int idSI) {
-        List<ServiceInstance> servInsts =
-                findWhere("WHERE ID = ?", new Object[]{idSI});
+        List<ServiceInstance> servInsts
+                = findWhere("WHERE ID = ?", new Object[]{idSI});
         if (servInsts.isEmpty()) {
             return null;
         } else {
             return servInsts.get(0);
         }
-    }  
-    
+    }
+
     /**
      *
      * @param where SQL statement where for searching by different parameters
@@ -189,8 +200,8 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
     }
 
     public List<ServiceInstance> findByService(int idService) {
-        List<ServiceInstance> servInsts =
-                findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
+        List<ServiceInstance> servInsts
+                = findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
         if (servInsts.isEmpty()) {
             return null;
         } else {

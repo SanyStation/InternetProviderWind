@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,7 +23,10 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
-    private static final String UPDATE = "";
+    private static final String UPDATE = "UPDATE SERVICE_ORDERS SET ENTERDATE = ?,"
+            + "PROCESDATE = ?, COMPLETEDATE = ?, USER_ID = ?, SERVICE_ID = ?,"
+            + "PROVIDER_LOCATION_ID = ?, SERVICE_LOCATION_ID = ?, STATUS = ?,"
+            + "SCENARIO = ?, SERVICE_INSTANCE_ID = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM SERVICE_ORDERS WHERE "
             + "ID = ?";
     private static final String INSERT = "INSERT INTO SERVICE_ORDERS ("
@@ -44,22 +46,22 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
     private static final String SCENARIO = "SCENARIO";
     private static final String SIID = "SERVICE_INSTANCE_ID";
 
+    @Override
     public void add(ServiceOrder serviceOrder) {
         Connection connection = null;
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setObject(1, new Timestamp(System.currentTimeMillis()));
-            stat.setDate(2, serviceOrder.getProcesdate());
-            stat.setDate(3, serviceOrder.getCompletedate());
+            stat.setTimestamp(1, serviceOrder.getEnterdate());
+            stat.setTimestamp(2, serviceOrder.getProcesdate());
+            stat.setTimestamp(3, serviceOrder.getCompletedate());
             stat.setInt(4, serviceOrder.getUser().getId());
             stat.setInt(5, serviceOrder.getService().getId());
             stat.setInt(6, serviceOrder.getProviderLocation().getId());
             stat.setInt(7, serviceOrder.getServiceLocation().getId());
             stat.setString(8, serviceOrder.getStatus());
             stat.setString(9, serviceOrder.getScenario());
-            System.out.println(stat.toString());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
@@ -76,10 +78,12 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
         }
     }
 
+    @Override
     public void delete(int idSO) {
         new DAOHelper().delete(DELETE, idSO);
     }
 
+    @Override
     public ServiceOrder findByID(int idSo) {
         List<ServiceOrder> serviceOrders
                 = findWhere("WHERE ID = ?", new Object[]{idSo});
@@ -132,8 +136,7 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
         return serviceOrders;
     }
 
-    /**
-     *
+    /*
      *
      * @param rs result return from database
      * @return list of founded serviceOrders
@@ -145,9 +148,9 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
             while (rs.next()) {
                 ServiceOrder serviceOrder = new ServiceOrder();
                 serviceOrder.setId(rs.getInt(ID));
-                serviceOrder.setEnterdate(rs.getDate(ENT_D));
-                serviceOrder.setProcesdate(rs.getDate(PROC_D));
-                serviceOrder.setCompletedate(rs.getDate(COMP_D));
+                serviceOrder.setEnterdate(rs.getTimestamp(ENT_D));
+                serviceOrder.setProcesdate(rs.getTimestamp(PROC_D));
+                serviceOrder.setCompletedate(rs.getTimestamp(COMP_D));
                 serviceOrder.setUser(
                         factoryDAO.createUserDAO().findByID(rs.getInt(USER))
                 );
@@ -180,10 +183,39 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
         return serviceOrders;
     }
 
+    @Override
     public void update(ServiceOrder serviceOrder) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareCall(UPDATE);
+            ps.setTimestamp(1, serviceOrder.getEnterdate());
+            ps.setTimestamp(2, serviceOrder.getProcesdate());
+            ps.setTimestamp(3, serviceOrder.getCompletedate());
+            ps.setInt(4, serviceOrder.getUser().getId());
+            ps.setInt(5, serviceOrder.getService().getId());
+            ps.setInt(6, serviceOrder.getProviderLocation().getId());
+            ps.setInt(7, serviceOrder.getServiceLocation().getId());
+            ps.setString(8, serviceOrder.getStatus());
+            ps.setString(9, serviceOrder.getScenario());
+            ps.setInt(10, serviceOrder.getServiceInstance().getId());
+            ps.setInt(11, serviceOrder.getId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            connectionPool.close(connection);
+        }
     }
 
+    @Override
     public List<ServiceOrder> findByProvLoc(int plId) {
         List<ServiceOrder> serviceOrders
                 = findWhere("WHERE PROVIDER_LOCATION_ID = ?", new Object[]{plId});
@@ -194,6 +226,7 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
         }
     }
 
+    @Override
     public List<ServiceOrder> findByService(int idService) {
         List<ServiceOrder> serviceOrders
                 = findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
@@ -204,6 +237,7 @@ public class OracleServiceOrderDAO implements IServiceOrderDAO {
         }
     }
 
+    @Override
     public List<ServiceOrder> findAll() {
         return findWhere("", new Object[]{});
     }

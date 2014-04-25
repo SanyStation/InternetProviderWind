@@ -13,6 +13,8 @@ public class ServiceInstance implements Serializable {
 
     private static final long serialVersionUID = 9023896353581772798L;
 
+    public static final String PLANNED = "Planned";
+
     private Integer id;
     private String status;
     private User user;

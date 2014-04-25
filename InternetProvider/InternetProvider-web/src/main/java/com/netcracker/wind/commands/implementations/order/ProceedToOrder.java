@@ -18,6 +18,7 @@ import com.netcracker.wind.entities.ServiceLocation;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.User;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,7 +53,7 @@ public class ProceedToOrder implements ICommand {
         //TODO check valid parameter
         double actualX = Double.parseDouble(sX);
         double actualY = Double.parseDouble(sY);
-        int serviceID = Integer.parseInt(sID);
+        int serviceId = Integer.parseInt(sID);
 //        int providerLocationID = Integer.parseInt(plID);
 
         if (!isCoordinatesValid(actualX, actualY)) {
@@ -77,9 +78,10 @@ public class ProceedToOrder implements ICommand {
 //            return "";
 //        }
         ServiceOrder order = new ServiceOrder();
-        order.setEnterdate(new Date(System.currentTimeMillis()));
+        order.setEnterdate(new Timestamp(System.currentTimeMillis()));
         order.setUser(user);
-        order.setService(new Service(serviceID));
+        //Hier new Service(serviceID)
+        order.setService(new Service(serviceId));
         order.setProviderLocation(nearestProviderLocation);
         ServiceLocation serviceLocation = new ServiceLocation();
         serviceLocation.setPosX(actualX);

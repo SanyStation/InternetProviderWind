@@ -2,6 +2,7 @@ package com.netcracker.wind.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Collection;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -15,11 +16,13 @@ public class ServiceOrder implements Serializable {
     private static final long serialVersionUID = 2972707714220134975L;
 
     public static final String ENTERING = "Entering";
+    public static final String PROCESSING = "Processing";
+    public static final String CANCELLED = "Cancelled";
 
     private Integer id;
-    private Date enterdate;
-    private Date procesdate;
-    private Date completedate;
+    private Timestamp enterdate;
+    private Timestamp procesdate;
+    private Timestamp completedate;
     private String status;
     private String scenario;
     private ServiceInstance serviceInstance;
@@ -49,27 +52,27 @@ public class ServiceOrder implements Serializable {
         this.id = id;
     }
 
-    public Date getEnterdate() {
+    public Timestamp getEnterdate() {
         return enterdate;
     }
 
-    public void setEnterdate(Date enterdate) {
+    public void setEnterdate(Timestamp enterdate) {
         this.enterdate = enterdate;
     }
 
-    public Date getProcesdate() {
+    public Timestamp getProcesdate() {
         return procesdate;
     }
 
-    public void setProcesdate(Date procesdate) {
+    public void setProcesdate(Timestamp procesdate) {
         this.procesdate = procesdate;
     }
 
-    public Date getCompletedate() {
+    public Timestamp getCompletedate() {
         return completedate;
     }
 
-    public void setCompletedate(Date completedate) {
+    public void setCompletedate(Timestamp completedate) {
         this.completedate = completedate;
     }
 
@@ -89,11 +92,11 @@ public class ServiceOrder implements Serializable {
         this.scenario = scenario;
     }
 
-    public ServiceInstance getServiceInstancesCollection() {
+    public ServiceInstance getServiceInstance() {
         return serviceInstance;
     }
 
-    public void setServiceInstancesCollection(ServiceInstance serviceInstancesCollection) {
+    public void setServiceInstance(ServiceInstance serviceInstancesCollection) {
         this.serviceInstance = serviceInstancesCollection;
     }
 
@@ -177,7 +180,7 @@ public class ServiceOrder implements Serializable {
         builder.append(completedate, rhs.getCompletedate());
         builder.append(status, rhs.getStatus());
         builder.append(scenario, rhs.getScenario());
-        builder.append(serviceInstance, rhs.getServiceInstancesCollection());
+        builder.append(serviceInstance, rhs.getServiceInstance());
         builder.append(tasksCollection, rhs.getTasksCollection());
         builder.append(user, rhs.getUser());
         builder.append(serviceLocation, rhs.getServiceLocation());
