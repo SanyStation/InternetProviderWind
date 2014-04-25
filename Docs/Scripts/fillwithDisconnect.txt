@@ -244,7 +244,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 1, 1, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -275,7 +275,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 2, 1, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 2, 1, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -306,7 +306,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 3, 1, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 3, 1, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -337,7 +337,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 3, 2, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 3, 2, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -368,7 +368,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 4, 2, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 4, 2, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -399,7 +399,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 5, 2, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 5, 2, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -430,7 +430,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 1, 3, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 1, 3, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -461,7 +461,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 2, 3, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 2, 3, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -492,7 +492,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 3, 3, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 3, 3, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -523,7 +523,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 3, 4, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 3, 4, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -554,7 +554,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 4, 4, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 4, 4, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -585,7 +585,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 5, 4, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 5, 4, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -616,7 +616,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 1, 5, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 1, 5, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -647,7 +647,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 2, 5, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 2, 5, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -678,7 +678,7 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
 		values
-		(e_date, pr_date, c_date, a, 5, 5, a, 'completed', 'New', null);
+		(e_date, pr_date, c_date, a, 5, 5, a, 'COMPLETED', 'NEW', null);
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
@@ -723,10 +723,10 @@ BEGIN
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario , service_instance_id)
 		values
-		(e_date, pr_date, c_date, b, c, d, b, 'completed', 'disconnect', b);
+		(e_date, pr_date, c_date, b, c, d, b, 'COMPLETED', 'DISCONNECT', b);
 		
 		update service_instances
-		set status = 'disconnect' where id = b;
+		set status = 'DISCONNECT' where id = b;
 		
 		delete circuits where service_instance_id = b;
 		
