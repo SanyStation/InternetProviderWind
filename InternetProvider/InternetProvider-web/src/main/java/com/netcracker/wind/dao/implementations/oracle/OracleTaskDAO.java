@@ -198,4 +198,14 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
 
     }
 
+    public List<Task> findByPerformer(int idPerformer) {
+       List<Task> tasks = findWhere("WHERE USER_ID = ?", new Object[]{idPerformer});
+        return tasks;
+    }
+
+    public List<Task> findByPerformerStatus(int idPerformer, String status) {
+        List<Task> tasks = findWhere("WHERE USER_ID = ? AND STATUS= ?", new Object[]{idPerformer,status});
+        return tasks;
+    }
+
 }

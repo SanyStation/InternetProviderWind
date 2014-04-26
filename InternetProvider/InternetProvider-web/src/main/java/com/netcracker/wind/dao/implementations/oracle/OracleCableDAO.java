@@ -89,7 +89,7 @@ implements ICableDAO {
      */
     @Override
     protected List<Cable> findWhere(String where, Object[] param) {
-      return super.findWhere(where, param);
+      return super.findWhere(SELECT+where, param);
     }
 
     /**

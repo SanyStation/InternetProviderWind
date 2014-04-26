@@ -59,7 +59,8 @@ public class OracleRoleDAO extends AbstractDAO implements IRoleDAO {
 
     /**
      *
-     * @param id primary key by which object will be deleted
+     * @param idRole
+     * 
      */
     public void delete(int idRole) {
         super.delete(DELETE, idRole);

@@ -23,6 +23,8 @@ public interface ITaskDAO {
     public List<Task> findByGroup(int idGroup);
 
     public List<Task> findByGroup(int idGroup, int from, int number);
+    public List<Task> findByPerformer(int idPerformer);
+    public List<Task> findByPerformerStatus(int idPerformer,String status);
 
     public void update(Task task);
 
