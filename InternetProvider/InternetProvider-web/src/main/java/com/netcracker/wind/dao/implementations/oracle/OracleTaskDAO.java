@@ -27,6 +27,9 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
     private static final String INSERT = "INSERT INTO TASKS (ID, USER_ID, TYPE,"
             + " STATUS, ROLE_ID, SERVICE_ORDERS_ID) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM TASKS ";
+    private static final String SELECT_PAGING = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
+            + "  FROM (SELECT * FROM tasks WHERE role_id = ? ORDER BY ID) sub "
+            + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
     private static final String UPDATE = "UPDATE TASKS SET USER_ID = ?, "
             + "STATUS = ? WHERE ID = ?";
     private static final String ID = "ID";
@@ -65,7 +68,7 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
     }
 
     public void delete(int idTask) {
-         super.delete(DELETE, idTask);
+        super.delete(DELETE, idTask);
     }
 
     public Task findByID(int id) {
@@ -154,11 +157,45 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
         return findWhere("", new Object[]{});
     }
 
+    public List<Task> findByGroup(int idGroup, int from, int number) {
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement ps = null;
+        List<Task> tasks = null;
+        ResultSet rs = null;
+        try {
+            ps = connection.prepareStatement(SELECT_PAGING);
+            ps.setInt(1, idGroup);
+            ps.setInt(2, from + number);
+            ps.setInt(3, from);
+            rs = ps.executeQuery();
+            tasks = parseResult(rs);
+        } catch (SQLException ex) {
+            Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            connectionPool.close(connection);
+        }
+        return tasks;
+
+    }
+
     public List<Task> findByGroup(int idGroup) {
-          List<Task> tasks = findWhere("WHERE ROLE_ID = ?", new Object[]{idGroup});
-     
-            return tasks;
-        
+        List<Task> tasks = findWhere("WHERE ROLE_ID = ?", new Object[]{idGroup});
+        return tasks;
+
     }
 
 }

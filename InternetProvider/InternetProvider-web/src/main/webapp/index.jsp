@@ -70,5 +70,14 @@
             <a href="logout">Logout</a>
         </div>
 
+        <div>
+            <form method="POST" action="Controller">
+                <input type="hidden" name="command" value="pe_tasks"/>
+                <input type="hidden" name="from" value="0"/>
+                <input type="hidden" name="number" value="25"/>
+                <input type="submit" value="Show List Tasks For PE">
+            </form>
+        </div>
+
     </body>
 </html>

@@ -5,10 +5,9 @@ import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
-import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
-import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
+import com.netcracker.wind.commands.implementations.pedashboard.ProvisioningEngineerTasks;
 import com.netcracker.wind.commands.implementations.reports.RiMostProfRouterReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.RiRoutersUtilNCapReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.SiDisconnOrdersReportGenerator;
@@ -39,10 +38,11 @@ public class CommandHelper {
     private static final String SENT_MAIL = "sent_mail";
     private static final String CSE_GROUP_TASK = "cse_group_task";
     private static final String CUSTOMERS_LIST = "customers_list";
-    private static final String CSE_GET_ELEMENTS_COUNT =
-            "cse_get_elements_count";
-    private static final String CSE_GET_ELEMENTS_FROM_OFFSET =
-            "cse_get_elements_from_offset";
+    private static final String PE_TASKS = "pe_tasks";
+    private static final String CSE_GET_ELEMENTS_COUNT
+            = "cse_get_elements_count";
+    private static final String CSE_GET_ELEMENTS_FROM_OFFSET
+            = "cse_get_elements_from_offset";
 
     private final Map<String, ICommand> commands;
 
@@ -60,6 +60,7 @@ public class CommandHelper {
         commands.put(CSE_GROUP_TASK, new CSEGetGroupTasks());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());
+        commands.put(PE_TASKS, new ProvisioningEngineerTasks());
     }
 
     public static CommandHelper getInstance() {

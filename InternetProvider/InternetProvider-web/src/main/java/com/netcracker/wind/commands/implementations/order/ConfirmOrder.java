@@ -24,6 +24,7 @@ public class ConfirmOrder implements ICommand {
 
     private static final String ORDER = "order_id";
 
+    @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String sOrderId = request.getParameter(ORDER);
         int orderId;

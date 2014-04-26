@@ -19,9 +19,13 @@ public interface ITaskDAO {
     public void delete(int id);
 
     public Task findByID(int id);
+
     public List<Task> findByGroup(int idGroup);
 
+    public List<Task> findByGroup(int idGroup, int from, int number);
+
     public void update(Task task);
+
     public List<Task> findAll();
 
 }
