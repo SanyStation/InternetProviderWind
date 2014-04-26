@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
 import com.netcracker.wind.dao.interfaces.IServiceLocationDAO;
 import com.netcracker.wind.entities.ServiceLocation;
 import java.sql.Connection;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleServiceLocationDAO implements IServiceLocationDAO {
+public class OracleServiceLocationDAO extends AbstractDAO implements IServiceLocationDAO {
 
     //Need add one field cable
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -69,7 +69,7 @@ public class OracleServiceLocationDAO implements IServiceLocationDAO {
     }
 
     public void delete(int idSL) {
-        new DAOHelper().delete(DELETE, idSL);
+        super.delete(DELETE, idSL);
     }
 
     public ServiceLocation findByID(int id) {
@@ -88,41 +88,9 @@ public class OracleServiceLocationDAO implements IServiceLocationDAO {
      * @param param parameters by which search will be formed
      * @return list of found service locations
      */
-    private List<ServiceLocation> findWhere(String where, Object[] param) {
-        List<ServiceLocation> provLocs = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; i++) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            provLocs = parseResult(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OracleServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-        return provLocs;
+    @Override
+    protected List<ServiceLocation> findWhere(String where, Object[] param) {
+       return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -132,7 +100,7 @@ public class OracleServiceLocationDAO implements IServiceLocationDAO {
      * @return list of founded service locations
      *
      */
-    private List<ServiceLocation> parseResult(ResultSet rs) {
+    protected List<ServiceLocation> parseResult(ResultSet rs) {
         List<ServiceLocation> provLocs = new ArrayList<ServiceLocation>();
         try {
             while (rs.next()) {

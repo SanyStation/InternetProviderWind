@@ -1,10 +1,10 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana and Anatolii
  */
-public class OracleUserDAO implements IUserDAO {
+public class OracleUserDAO extends AbstractDAO implements IUserDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
@@ -73,7 +73,7 @@ public class OracleUserDAO implements IUserDAO {
      * @param id primary key of User for deleting
      */
     public void delete(int idUser) {
-        new DAOHelper().delete(DELETE, idUser);
+        super.delete(DELETE, idUser);
     }
 
     /**
@@ -97,39 +97,8 @@ public class OracleUserDAO implements IUserDAO {
      * @param param parameters by which search will be formed
      * @return list of found users
      */
-    private List<User> findWhere(String where, Object[] param) {
-        List<User> users = null;
-        Connection con = null;
-        PreparedStatement stat = null;
-        ResultSet rs = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; i++) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            users = parseResult(rs);
-        } catch (SQLException ex) {
-            //TODO
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-        return users;
+    protected List<User> findWhere(String where, Object[] param) {
+        return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -137,7 +106,7 @@ public class OracleUserDAO implements IUserDAO {
      * @param rs result return from database
      * @return list of founded users
      */
-    private List<User> parseResult(ResultSet rs) {
+    protected List<User> parseResult(ResultSet rs) {
         List<User> users = new ArrayList<User>();
         try {
             while (rs.next()) {

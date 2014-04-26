@@ -1,10 +1,10 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.entities.ServiceInstance;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
+public class OracleServiceInstanceDAO extends AbstractDAO implements IServiceInstanceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
@@ -76,7 +76,7 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
     }
 
     public void delete(int idSi) {
-        new DAOHelper().delete(DELETE, idSi);
+        super.delete(DELETE, idSi);
     }
 
     public ServiceInstance findByID(int idSI) {
@@ -95,40 +95,9 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
      * @param param parameters by which search will be formed
      * @return list of found service instances
      */
-    private List<ServiceInstance> findWhere(String where, Object[] param) {
-        List<ServiceInstance> servInsts = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; i++) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            servInsts = parseResult(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-        return servInsts;
+    @Override
+    protected List<ServiceInstance> findWhere(String where, Object[] param) {
+        return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -138,7 +107,7 @@ public class OracleServiceInstanceDAO implements IServiceInstanceDAO {
      * @return list of founded service instances
      *
      */
-    private List<ServiceInstance> parseResult(ResultSet rs) {
+    protected List<ServiceInstance> parseResult(ResultSet rs) {
         List<ServiceInstance> servInsts = new ArrayList<ServiceInstance>();
         try {
             while (rs.next()) {

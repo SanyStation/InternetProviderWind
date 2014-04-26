@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
 import com.netcracker.wind.dao.interfaces.IServiceDAO;
 import com.netcracker.wind.entities.Service;
 import java.sql.Connection;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleServiceDAO implements IServiceDAO {
+public class OracleServiceDAO extends AbstractDAO implements IServiceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE SERVICES SET NAME = ?,"
@@ -56,7 +56,7 @@ public class OracleServiceDAO implements IServiceDAO {
     }
 
     public void delete(int idService) {
-        new DAOHelper().delete(DELETE, idService);
+        super.delete(DELETE, idService);
     }
 
     public Service findByID(int idService) {
@@ -75,41 +75,9 @@ public class OracleServiceDAO implements IServiceDAO {
      * @param param parameters by which search will be formed
      * @return list of found services
      */
-    private List<Service> findWhere(String where, Object[] param) {
-        List<Service> services = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; i++) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            services = parseResult(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OracleServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-        return services;
+    @Override
+    protected List<Service> findWhere(String where, Object[] param) {
+        return super.findWhere(SELECT+where, param);
     }
 
     /**
@@ -119,7 +87,7 @@ public class OracleServiceDAO implements IServiceDAO {
      * @return list of founded services
      *
      */
-    private List<Service> parseResult(ResultSet rs) {
+    protected List<Service> parseResult(ResultSet rs) {
         List<Service> services = new ArrayList<Service>();
         try {
             while (rs.next()) {

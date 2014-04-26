@@ -1,10 +1,10 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Task;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleTaskDAO implements ITaskDAO {
+public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
@@ -65,7 +65,7 @@ public class OracleTaskDAO implements ITaskDAO {
     }
 
     public void delete(int idTask) {
-         new DAOHelper().delete(DELETE, idTask);
+         super.delete(DELETE, idTask);
     }
 
     public Task findByID(int id) {
@@ -113,43 +113,9 @@ public class OracleTaskDAO implements ITaskDAO {
      * @param param parameters by which search will be formed
      * @return list of found tasks
      */
-    private List<Task> findWhere(String where, Object[] param) {
-        List<Task> tasks = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; i++) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            tasks = parseResult(rs);
-        } catch (SQLException ex) {
-            //TODO
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-
-        return tasks;
+    @Override
+    protected List<Task> findWhere(String where, Object[] param) {
+        return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -157,7 +123,7 @@ public class OracleTaskDAO implements ITaskDAO {
      * @param rs result return from database
      * @return list of founded tasks
      */
-    private List<Task> parseResult(ResultSet rs) {
+    protected List<Task> parseResult(ResultSet rs) {
         List<Task> tasks = new ArrayList<Task>();
         try {
             while (rs.next()) {

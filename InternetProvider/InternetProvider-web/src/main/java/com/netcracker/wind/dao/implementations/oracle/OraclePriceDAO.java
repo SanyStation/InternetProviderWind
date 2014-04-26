@@ -1,10 +1,10 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.interfaces.IPriceDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.interfaces.IPriceDAO;
 import com.netcracker.wind.entities.Price;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OraclePriceDAO implements IPriceDAO {
+public class OraclePriceDAO extends AbstractDAO implements IPriceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE PRICES SET PRICE WHERE ID = ?";
@@ -69,7 +69,7 @@ public class OraclePriceDAO implements IPriceDAO {
      * @param idPrice
      */
     public void delete(int idPrice) {
-         new DAOHelper().delete(DELETE, idPrice);
+         super.delete(DELETE, idPrice);
     }
 
     /**
@@ -92,40 +92,8 @@ public class OraclePriceDAO implements IPriceDAO {
      * @param param parameters by which search will be formed
      * @return list of found roles
      */
-    private List<Price> findWhere(String where, Object[] param) {
-        List<Price> prices = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; i++) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            prices = parseResult(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-        return prices;
+    protected List<Price> findWhere(String where, Object[] param) {
+        return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -135,7 +103,7 @@ public class OraclePriceDAO implements IPriceDAO {
      * @return list of founded roles
      *
      */
-    private List<Price> parseResult(ResultSet rs) {
+    protected List<Price> parseResult(ResultSet rs) {
         List<Price> prices = new ArrayList<Price>();
         try {
             while (rs.next()) {

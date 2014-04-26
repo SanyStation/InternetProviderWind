@@ -1,10 +1,10 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.interfaces.ICircuitDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.interfaces.ICircuitDAO;
 import com.netcracker.wind.entities.Circuit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleCircuitDAO implements ICircuitDAO {
+public class OracleCircuitDAO extends AbstractDAO implements ICircuitDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM CIRCUITS WHERE ID = ?";
@@ -68,7 +68,7 @@ public class OracleCircuitDAO implements ICircuitDAO {
      * @param idCircuit
      */
     public void delete(int idCircuit) {
-       new DAOHelper().delete(DELETE, idCircuit);      
+      super.delete(DELETE, idCircuit);
     }
 
     /**
@@ -92,42 +92,8 @@ public class OracleCircuitDAO implements ICircuitDAO {
      * @param param parameters by which search will be formed
      * @return list of found circuits
      */
-    private List<Circuit> findWhere(String where, Object[] param) {
-        List<Circuit> circuits = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; ++i) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            circuits = parseResult(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OracleCircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleCircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-        return circuits;
+    protected List<Circuit> findWhere(String where, Object[] param) {
+       return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -137,7 +103,8 @@ public class OracleCircuitDAO implements ICircuitDAO {
      * @return list of founded circuits
      *
      */
-    private List<Circuit> parseResult(ResultSet rs) {
+    @Override
+    protected List<Circuit> parseResult(ResultSet rs) {
         List<Circuit> circuits = new ArrayList<Circuit>();
         try {
             while (rs.next()) {

@@ -1,10 +1,10 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.entities.Port;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OraclePortDAO implements IPortDAO {
+public class OraclePortDAO extends AbstractDAO implements IPortDAO {
 
     private static final String UPDATE = "UPDATE PORTS SET FREE = ? WHERE "
             + "ID = ?";
@@ -60,7 +60,7 @@ public class OraclePortDAO implements IPortDAO {
     }
 
     public void delete(int idPort) {
-        new DAOHelper().delete(DELETE, idPort);
+        super.delete(DELETE, idPort);
     }
 
     public Port findByID(int idPort) {
@@ -78,41 +78,9 @@ public class OraclePortDAO implements IPortDAO {
      * @param param parameters by which search will be formed
      * @return list of found ports
      */
-    private List<Port> findWhere(String where, Object[] param) {
-        List<Port> ports = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; i++) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            ports = parseResult(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-        return ports;
+    @Override
+    protected List<Port> findWhere(String where, Object[] param) {
+       return super.findWhere(SELECT+where, param);
     }
 
     /**
@@ -122,7 +90,7 @@ public class OraclePortDAO implements IPortDAO {
      * @return list of founded ports
      *
      */
-    private List<Port> parseResult(ResultSet rs) {
+    protected List<Port> parseResult(ResultSet rs) {
         List<Port> ports = new ArrayList<Port>();
         try {
             while (rs.next()) {

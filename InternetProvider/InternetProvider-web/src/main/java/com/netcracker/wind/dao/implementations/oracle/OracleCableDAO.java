@@ -3,7 +3,7 @@ package com.netcracker.wind.dao.implementations.oracle;
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
 import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.entities.Cable;
 import java.sql.Connection;
@@ -19,7 +19,8 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleCableDAO implements ICableDAO {
+public class OracleCableDAO extends AbstractDAO 
+implements ICableDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM CABLES WHERE ID = ?";
@@ -62,7 +63,7 @@ public class OracleCableDAO implements ICableDAO {
     }
 
     public void delete(int idCable) {
-        new DAOHelper().delete(DELETE, idCable);              
+        super.delete(DELETE, idCable);
     }
 
     /**
@@ -86,43 +87,9 @@ public class OracleCableDAO implements ICableDAO {
      * @param param parameters by which search will be formed
      * @return list of found cables
      */
-    private List<Cable> findWhere(String where, Object[] param) {
-        List<Cable> cables = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; i++) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            cables = parseResult(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-        return cables;
+    @Override
+    protected List<Cable> findWhere(String where, Object[] param) {
+      return super.findWhere(where, param);
     }
 
     /**
@@ -132,7 +99,7 @@ public class OracleCableDAO implements ICableDAO {
      * @return list of founded cables
      *
      */
-    private List<Cable> parseResult(ResultSet rs) {
+    protected List<Cable> parseResult(ResultSet rs) {
         List<Cable> cables = new ArrayList<Cable>();
         try {
             while (rs.next()) {

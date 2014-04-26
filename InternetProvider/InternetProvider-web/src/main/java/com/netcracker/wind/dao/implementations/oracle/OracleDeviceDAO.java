@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
 import com.netcracker.wind.dao.interfaces.IDeviceDAO;
 import com.netcracker.wind.entities.Device;
 import java.sql.Connection;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleDeviceDAO implements IDeviceDAO {
+public class OracleDeviceDAO extends AbstractDAO implements IDeviceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM DEVICES WHERE ID = ?";
@@ -58,7 +58,7 @@ public class OracleDeviceDAO implements IDeviceDAO {
      * @param idDevice
      */
     public void delete(int idDevice) {
-        new DAOHelper().delete(DELETE, idDevice);
+        super.delete(DELETE, idDevice);
     }
 
     /**
@@ -81,42 +81,9 @@ public class OracleDeviceDAO implements IDeviceDAO {
      * @param param parameters by which search will be formed
      * @return list of found devices
      */
-    private List<Device> findWhere(String where, Object[] param) {
-        List<Device> devices = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; i++) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            devices = parseResult(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-        return devices;
+    @Override
+    protected List<Device> findWhere(String where, Object[] param) {
+       return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -126,7 +93,8 @@ public class OracleDeviceDAO implements IDeviceDAO {
      * @return list of founded devices
      *
      */
-    private List<Device> parseResult(ResultSet rs) {
+
+    protected List<Device> parseResult(ResultSet rs) {
         List<Device> devices = new ArrayList<Device>();
         try {
             while (rs.next()) {

@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.implementations.helper.DAOHelper;
+import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
 import com.netcracker.wind.dao.interfaces.IRoleDAO;
 import com.netcracker.wind.entities.Role;
 import java.sql.Connection;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleRoleDAO implements IRoleDAO {
+public class OracleRoleDAO extends AbstractDAO implements IRoleDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM ROLES WHERE ID = ?";
@@ -62,7 +62,7 @@ public class OracleRoleDAO implements IRoleDAO {
      * @param id primary key by which object will be deleted
      */
     public void delete(int idRole) {
-        new DAOHelper().delete(DELETE, idRole);
+        super.delete(DELETE, idRole);
     }
 
     /**
@@ -85,40 +85,9 @@ public class OracleRoleDAO implements IRoleDAO {
      * @param param parameters by which search will be formed
      * @return list of found roles
      */
-    private List<Role> findWhere(String where, Object[] param) {
-        List<Role> roles = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stat = null;
-        try {
-            con = connectionPool.getConnection();
-            stat = con.prepareStatement(SELECT + where);
-            if (param != null) {
-                for (int i = 0; i < param.length; i++) {
-                    stat.setObject(i + 1, param[i]);
-                }
-            }
-            rs = stat.executeQuery();
-            roles = parseResult(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                //TODO
-                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            connectionPool.close(con);
-        }
-        return roles;
+    @Override
+    protected List<Role> findWhere(String where, Object[] param) {
+        return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -128,7 +97,7 @@ public class OracleRoleDAO implements IRoleDAO {
      * @return list of founded roles
      *
      */
-    private List<Role> parseResult(ResultSet rs) {
+    protected List<Role> parseResult(ResultSet rs) {
         List<Role> roles = new ArrayList<Role>();
         try {
             while (rs.next()) {
