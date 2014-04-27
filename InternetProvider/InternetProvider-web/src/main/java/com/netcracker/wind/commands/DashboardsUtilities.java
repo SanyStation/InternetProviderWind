@@ -22,12 +22,7 @@ import org.json.JSONObject;
  * @author Anatolii
  */
 public class DashboardsUtilities {
-
-    public static String getTaskJSON(int groupId) {
-        AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
-        ITaskDAO taskDAO = factoryDAO.createTaskDAO();
-        List<Task> tasks = taskDAO.findByGroup(groupId);
-
+    public static String parseTaskJSON(List<Task> tasks){
         JSONArray tasksJSONArray = new JSONArray();
         for (Task task : tasks) {
             try {
@@ -41,5 +36,19 @@ public class DashboardsUtilities {
             }
         }
         return tasksJSONArray.toString();
+    }
+
+    public static String getTaskJSON(int groupId) {
+        AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
+        ITaskDAO taskDAO = factoryDAO.createTaskDAO();
+        List<Task> tasks = taskDAO.findByGroup(groupId);  
+        return parseTaskJSON(tasks);
+    }
+    
+    public static String getTaskUserJSON(int userId) {
+        AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
+        ITaskDAO taskDAO = factoryDAO.createTaskDAO();
+        List<Task> tasks = taskDAO.findByGroup(userId);
+        return parseTaskJSON(tasks);
     }
 }

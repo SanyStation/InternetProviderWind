@@ -4,6 +4,8 @@ import com.netcracker.wind.commands.implementations.NameGenerator;
 import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
+import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnCompletedTasks;
+import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
@@ -43,6 +45,8 @@ public class CommandHelper {
             = "cse_get_elements_count";
     private static final String CSE_GET_ELEMENTS_FROM_OFFSET
             = "cse_get_elements_from_offset";
+    private static final String CSE_GET_TASKS="cse_get_tasks";
+    private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
 
     private final Map<String, ICommand> commands;
 
@@ -61,6 +65,8 @@ public class CommandHelper {
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());
         commands.put(PE_TASKS, new ProvisioningEngineerTasks());
+        commands.put(CSE_GET_TASKS,new CSEgetOwnTasks());
+        commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
     }
 
     public static CommandHelper getInstance() {
