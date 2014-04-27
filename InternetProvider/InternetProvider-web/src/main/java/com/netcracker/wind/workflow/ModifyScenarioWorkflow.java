@@ -15,12 +15,12 @@ import com.netcracker.wind.entities.Task;
  */
 public class ModifyScenarioWorkflow {
 
-    public static Task createNewModifyTask(ServiceOrder order) {
+    public static Task createTaskForModifyScenario(ServiceOrder order) {
         Task task = null;
         task = new Task();
         task.setRole(new Role(Role.CSE_GROUP_ID));
         task.setServiceOrder(order);
-        task.setStatus(Task.TaskState.NEW.toString());
+        task.setStatus(Task.TaskStatus.NEW.toString());
         task.setType(Task.TaskType.CIRCUIT_MANAGMENT.toString());
         return task;
     }

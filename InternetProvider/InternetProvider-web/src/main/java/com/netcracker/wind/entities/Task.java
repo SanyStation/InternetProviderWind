@@ -15,7 +15,7 @@ public class Task implements Serializable {
         NEW_DEVICE, CIRCUIT_MANAGMENT, SEND_BILL
     }
 
-    public enum TaskState {
+    public enum TaskStatus {
 
         NEW, ACTIVE, SUSPENDED, COMPLETED
     }

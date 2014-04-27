@@ -35,7 +35,7 @@ public class NewScenarioWorkflow {
             task.setRole(new Role(Role.IE_GROUPR_ID));
             task.setServiceOrder(order);
             task.setType(Task.TaskType.NEW_DEVICE.toString());
-            task.setStatus(Task.TaskState.NEW.toString());
+            task.setStatus(Task.TaskStatus.NEW.toString());
         } else {
             task = createTaskForPE(order);
         }
@@ -47,7 +47,7 @@ public class NewScenarioWorkflow {
         task.setRole(new Role(Role.PE_GROUPR_ID));
         task.setServiceOrder(order);
         task.setType(Task.TaskType.CIRCUIT_MANAGMENT.toString());
-        task.setStatus(Task.TaskState.NEW.toString());
+        task.setStatus(Task.TaskStatus.NEW.toString());
         return task;
     }
 
@@ -56,7 +56,7 @@ public class NewScenarioWorkflow {
         task.setRole(new Role(Role.CSE_GROUP_ID));
         task.setServiceOrder(order);
         task.setType(Task.TaskType.SEND_BILL.toString());
-        task.setStatus(Task.TaskState.NEW.toString());
+        task.setStatus(Task.TaskStatus.NEW.toString());
         return task;
     }
 }
