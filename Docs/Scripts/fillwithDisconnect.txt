@@ -66,7 +66,7 @@ BEGIN
   insert into provider_locations
   (pos_x, pos_y, name)
   values
-  (50.395804, 30.644089, 'PoznyakiLoc);
+  (50.395804, 30.644089, 'PoznyakiLoc');
 
   insert into provider_locations
   (pos_x, pos_y, name)
