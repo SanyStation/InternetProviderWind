@@ -32,4 +32,6 @@ public interface ITaskDAO {
 
     public List<Task> findAll();
 
+    public Task occupyTaskByID(int taskId, int userId);
+
 }

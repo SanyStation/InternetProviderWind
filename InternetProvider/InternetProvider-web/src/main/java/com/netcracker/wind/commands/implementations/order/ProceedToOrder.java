@@ -17,7 +17,6 @@ import com.netcracker.wind.entities.Service;
 import com.netcracker.wind.entities.ServiceLocation;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.User;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
