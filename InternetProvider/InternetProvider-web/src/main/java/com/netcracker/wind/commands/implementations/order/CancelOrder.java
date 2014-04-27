@@ -39,7 +39,7 @@ public class CancelOrder implements ICommand {
             //TODO return error page
             return "";
         }
-        order.setStatus(ServiceOrder.CANCELLED);
+        order.setStatus(ServiceOrder.CANCELLED_STATUS);
         serviceOrderDAO.update(order);
         //TODO redirect to next page
         return "";

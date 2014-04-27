@@ -80,7 +80,7 @@ public class OraclePortDAO extends AbstractDAO implements IPortDAO {
      */
     @Override
     protected List<Port> findWhere(String where, Object[] param) {
-       return super.findWhere(SELECT+where, param);
+        return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -151,6 +151,10 @@ public class OraclePortDAO extends AbstractDAO implements IPortDAO {
 
     public List<Port> findAll() {
         return findWhere("", new Object[]{});
+    }
+
+    public List<Port> findByFree(boolean isFree) {
+        return findWhere("WHERE free = ?", new Object[]{isFree});
     }
 
 }

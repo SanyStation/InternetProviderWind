@@ -50,7 +50,7 @@ public class ConfirmOrder implements ICommand {
         serviceInstance.setService(order.getService());
         serviceInstanceDAO.add(serviceInstance);
 
-        order.setStatus(ServiceOrder.PROCESSING);
+        order.setStatus(ServiceOrder.PROCESSING_STATUS);
         order.setProcesdate(new Timestamp(System.currentTimeMillis()));
         order.setServiceInstance(serviceInstance);
         serviceOrderDAO.update(order);

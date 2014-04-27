@@ -19,6 +19,9 @@ public interface IPortDAO {
     public void delete(int idPort);
 
     public Port findByID(int idPort);
+
+    public List<Port> findByFree(boolean isFree);
+
     public List<Port> findAll();
 
     public void update(Port port);

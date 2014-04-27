@@ -15,9 +15,11 @@ public class ServiceOrder implements Serializable {
 
     private static final long serialVersionUID = 2972707714220134975L;
 
-    public static final String ENTERING = "Entering";
-    public static final String PROCESSING = "Processing";
-    public static final String CANCELLED = "Cancelled";
+    public static final String ENTERING_STATUS = "Entering";
+    public static final String PROCESSING_STATUS = "Processing";
+    public static final String CANCELLED_STATUS = "Cancelled";
+
+    public static final String NEW_SCEARIO = "New";
 
     private Integer id;
     private Timestamp enterdate;

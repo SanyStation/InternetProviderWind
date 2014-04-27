@@ -21,9 +21,10 @@ public interface ICableDAO {
     public Cable findByID(int idCable);
 
     public List<Cable> findByPort(int idPort);
+
     public List<Cable> findAll();
 
-    public List<Cable> findByServInst(int idSI);
+    public List<Cable> findByServiceLocation(int idSL);
 
     public void update(Cable cable);
 }

@@ -19,8 +19,8 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleCableDAO extends AbstractDAO 
-implements ICableDAO {
+public class OracleCableDAO extends AbstractDAO
+        implements ICableDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM CABLES WHERE ID = ?";
@@ -32,7 +32,7 @@ implements ICableDAO {
             + "SERVICE_INSTANCE_ID = ? WHERE ID = ?";
     private static final String ID = "ID";
     private static final String PORT = "PORT_ID";
-    private static final String SIID = "SERVICE_INSTANCE_ID";
+    private static final String SLID = "SERVICE_LOCATION_ID";
 
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
@@ -89,7 +89,7 @@ implements ICableDAO {
      */
     @Override
     protected List<Cable> findWhere(String where, Object[] param) {
-      return super.findWhere(SELECT+where, param);
+        return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -110,7 +110,7 @@ implements ICableDAO {
                 );
                 cable.setServiceLocation(
                         factoryDAO.createServiceLocationDAO().findByID(
-                                rs.getInt(SIID)
+                                rs.getInt(SLID)
                         )
                 );
 
@@ -172,5 +172,9 @@ implements ICableDAO {
 
     public List<Cable> findAll() {
         return findWhere("", new Object[]{});
+    }
+
+    public List<Cable> findByServiceLocation(int idSL) {
+        return findWhere("WHERE SERVICE_LOCATION_ID = ?", new Object[]{idSL});
     }
 }

@@ -90,7 +90,7 @@ public class ProceedToOrder implements ICommand {
         serviceLocationDAO.add(serviceLocation);
         //TODO configure servise location
         order.setServiceLocation(serviceLocation);
-        order.setStatus(ServiceOrder.ENTERING);
+        order.setStatus(ServiceOrder.ENTERING_STATUS);
         order.setScenario("new");
         orderDAO.add(order);
         //TODO redirect to next page
