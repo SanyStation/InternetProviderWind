@@ -41,6 +41,10 @@
         <form action="CSEdashboard.jsp" method="POST">
             <input type="submit" value="CSE dashboard"  />
         </form>
+        
+        <form action="IEdashboard.jsp" method="POST">
+            <input type="submit" value="IE dashboard"  />
+        </form>
 
         <form action="mail.jsp" method="POST">
             <input type="submit" value="show_sentmail"  />

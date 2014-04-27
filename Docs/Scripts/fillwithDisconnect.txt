@@ -54,29 +54,29 @@ BEGIN
   values('admin', concat('admin', '@i.ua'), 'pass', 1);
 
   insert into provider_locations
-  (pos_x, pos_y)
+  (pos_x, pos_y, name)
   values
-  (50.467476, 30.413128);
+  (50.467476, 30.413128, 'NyvkiLoc');
 
   insert into provider_locations
-  (pos_x, pos_y)
+  (pos_x, pos_y, name)
   values
-  (50.422445, 30.468119);
+  (50.422445, 30.468119, 'SolomyankaLoc');
 
   insert into provider_locations
-  (pos_x, pos_y)
+  (pos_x, pos_y, name)
   values
-  (50.395804, 30.644089);
+  (50.395804, 30.644089, 'PoznyakiLoc);
 
   insert into provider_locations
-  (pos_x, pos_y)
+  (pos_x, pos_y, name)
   values
-  (50.526232, 30.6020479);
+  (50.526232, 30.6020479, 'TroyeshchinaLoc');
 
   insert into provider_locations
-  (pos_x, pos_y)
+  (pos_x, pos_y, name)
   values
-  (50.501261, 30.766728);
+  (50.501261, 30.766728, 'BrovaryLoc');
 
   insert into services 
   (name)
@@ -229,8 +229,8 @@ BEGIN
   END LOOP;
   
   for a in 1..17 loop
-    insert into devices (id)
-    values (dev_id_seq.nextval);
+    insert into devices (name)
+    values (concat('Device', a));
     for b in 1..60 loop
       insert into ports (device_id)
       values (a);
