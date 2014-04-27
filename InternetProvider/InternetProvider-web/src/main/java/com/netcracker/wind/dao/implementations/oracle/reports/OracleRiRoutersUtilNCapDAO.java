@@ -16,15 +16,18 @@ public class OracleRiRoutersUtilNCapDAO extends AbstractOracleDAO
         implements IRiRoutersUtilNCapDAO {
 
     private static final String ID = "id";
+    private static final String NAME = "name";
     private static final String CAPACITY = "capacity";
     private static final String UTILIZATION = "utilization";
     private static final String QUERY
-            = "SELECT devices.id AS " + ID + ", COUNT(ports.id) AS " + CAPACITY
-            + ", COUNT(CASE WHEN ports.free = 0 THEN 0 END) AS " + UTILIZATION
+            = "SELECT devices.id AS " + ID + ", " + " devices.name AS " + NAME +
+            ", COUNT(ports.id) AS " + CAPACITY + ", "
+            + "COUNT(CASE WHEN ports.free = 0 THEN 0 END) AS " + UTILIZATION
             + " FROM devices LEFT JOIN ports ON devices.id = ports.device_id "
-            + "GROUP BY devices.id";
+            + "GROUP BY devices.id, devices.name "
+            + "ORDER BY devices.id";
     
-    private static final Logger logger =
+    private static final Logger LOGGER =
             Logger.getLogger(OracleRiMostProfRouterDAO.class.getName());
 
     public List<RiRouterUtilNCap> findAll() {
@@ -37,16 +40,18 @@ public class OracleRiRoutersUtilNCapDAO extends AbstractOracleDAO
         try {
             while (rs.next()) {
                 int id = rs.getInt(ID);
+                String name = rs.getString(NAME);
                 int capacity = rs.getInt(CAPACITY);
                 int utilization = rs.getInt(UTILIZATION);
                 RiRouterUtilNCap device = new RiRouterUtilNCap();
                 device.setId(id);
+                device.setName(name);
                 device.setCapacity(capacity);
                 device.setUtilization(utilization);
                 devices.add(device);
             }
         } catch (SQLException ex) {
-            logger.error(null, ex);
+            LOGGER.error(null, ex);
         }
         return devices;
     }

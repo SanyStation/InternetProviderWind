@@ -5,8 +5,8 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <link rel="stylesheet" href="reports/css/rireport.css" type="text/css">
-        <link rel="stylesheet" href="reports/css/riscreen.css" type="text/css">
+        <link rel="stylesheet" href="reports/css/displaytag.css" type="text/css">
+        <link rel="stylesheet" href="reports/css/screen.css" type="text/css">
         <link rel="stylesheet" href="reports/css/site.css" type="text/css">
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,12 +14,12 @@
     </head>
     <body>
 
-        <display:table name="sessionScope.devices"
-                       export="true" sort="list">
-            <display:column property="id" title="Id"
-                            sortable="true" headerClass="sortable" />
-            <display:column property="profit" title="Profit, $"
-                            sortable="true" headerClass="sortable" />
+        <display:table name="sessionScope.devices" export="true" sort="list">
+            <display:caption media="html">
+                <strong>Routers' profitability</strong>
+            </display:caption>
+            <display:column property="id" title="Id" sortable="true" headerClass="sortable" />
+            <display:column property="profit" title="Profit, $" sortable="true" headerClass="sortable" />
         </display:table>
 
     </body>

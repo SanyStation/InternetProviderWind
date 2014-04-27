@@ -11,6 +11,7 @@ public class RiRouterUtilNCap implements Serializable {
     private static final long serialVersionUID = -8044636653088120971L;
 
     private int id;
+    private String name;
     private int capacity;
     private int utilization;
     
@@ -27,6 +28,14 @@ public class RiRouterUtilNCap implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCapacity() {
