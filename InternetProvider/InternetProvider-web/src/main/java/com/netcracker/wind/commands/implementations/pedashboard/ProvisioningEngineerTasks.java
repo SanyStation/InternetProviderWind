@@ -9,6 +9,7 @@ import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Task;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ProvisioningEngineerTasks implements ICommand {
 
-    private static final int PROVISIONING_ENGINEER_TASKS = 2;
     private static final String FROM = "from";
     private static final String NUMBER = "number";
     private static final String TASKS = "tasks";
@@ -43,7 +43,7 @@ public class ProvisioningEngineerTasks implements ICommand {
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
-        List<Task> tasks = taskDAO.findByGroup(PROVISIONING_ENGINEER_TASKS, from, number);
+        List<Task> tasks = taskDAO.findByGroup(Role.PE_GROUPR_ID, from, number);
         request.setAttribute(TASKS, tasks);
         request.setAttribute(SIZE, tasks.size());
         request.setAttribute(LAST_NUMBER, from + number);

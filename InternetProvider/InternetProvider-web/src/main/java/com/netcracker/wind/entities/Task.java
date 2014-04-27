@@ -10,6 +10,16 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class Task implements Serializable {
 
+    public enum TaskType {
+
+        NEW_DEVICE, CIRCUIT_MANAGMENT, SEND_BILL
+    }
+
+    public enum TaskState {
+
+        NEW, ACTIVE, SUSPENDED, COMPLETED
+    }
+
     private static final long serialVersionUID = -9049678772835215167L;
 
     private Integer id;
