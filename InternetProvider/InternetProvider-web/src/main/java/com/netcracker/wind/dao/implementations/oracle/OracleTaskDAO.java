@@ -93,7 +93,6 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
             stat.setInt(1, task.getUser().getId());
             stat.setString(2, task.getStatus());
             stat.setInt(3, task.getId());
-
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -232,6 +231,7 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
             psUpdate.setString(2, task.getStatus());
             psUpdate.setInt(3, task.getId());
             psUpdate.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
             try {
                 connection.rollback();
