@@ -160,16 +160,6 @@ public class OracleCableDAO extends AbstractDAO
         }
     }
 
-    public List<Cable> findByServInst(int idSI) {
-        List<Cable> cables
-                = findWhere("WHERE SERVICE_INSTANCE_ID = ?", new Object[]{idSI});
-        if (cables.isEmpty()) {
-            return null;
-        } else {
-            return cables;
-        }
-    }
-
     public List<Cable> findAll() {
         return findWhere("", new Object[]{});
     }

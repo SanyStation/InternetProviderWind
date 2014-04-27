@@ -33,7 +33,6 @@ public class NewScenarioWorkflow {
         ICableDAO cableDAO = factoryDAO.createCableDAO();
         List<Port> ports = portDAO.findByFree(true);
         List<Cable> cables = cableDAO.findByServiceLocation(serviceLocation.getId());
-        
     }
 
 }
