@@ -6,6 +6,7 @@
 
 package com.netcracker.wind.commands.implementations.csedashboard;
 
+import com.netcracker.wind.commands.DashboardsUtilities;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
@@ -28,24 +29,8 @@ import org.json.JSONObject;
 public class CSEgetOwnCompletedTasks implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
-        ITaskDAO taskDAO = factoryDAO.createTaskDAO();
-        User user =(User)request.getAttribute("user");
-        List<Task> tasks = taskDAO.findByPerformerStatus(user.getId(),"completed");
-
-        JSONArray tasksJSONArray = new JSONArray();
-        for (Task task : tasks) {
-            try {
-                JSONObject taskJSON = new JSONObject();
-                taskJSON.put("id", task.getId());
-                taskJSON.put("type", task.getType());
-                taskJSON.put("status", task.getStatus());
-                tasksJSONArray.put(taskJSON);
-            } catch (JSONException ex) {
-                Logger.getLogger(CSEGetGroupTasks.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return tasksJSONArray.toString();
+       User user =(User)request.getAttribute("user");
+         return DashboardsUtilities.getTaskUserStatus(user.getId(),"completed");
     }
     
 }
