@@ -131,14 +131,13 @@
 
     </head>
     <body>
-
-        <ul id="menu">
+          <ul id="menu">
             <li><a href="#">Main</a></li>
             <li>
                 <a href="#">Tasks</a>
                 <ul>
                     <li>
-                        <
+                        
 
                         <a  href="#" onclick="getTasks('cse_group_task', 0)">CSE Group Tasks</a>
 
@@ -160,10 +159,10 @@
                 <ul>
 
                     <li>
-                        <a href="#">List of Customer Accounts</a>		
+                        <a href="#"  onclick="getTasks('customer_list')">List of Customer Accounts </a>		
                     </li>
                     <li>
-                        <a href="#">List of Provider Location</a>
+                        <a href="#" onclick="getTasks('provider_location_list')" >List of Provider Location  </a>
                     </li>
                     <li>
                         <a href="#">List of SI Status</a>
