@@ -17,15 +17,15 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Oksana
+ * @author Oksana & Anatolii
  */
 public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
     private static final String DELETE = "DELETE FROM TASKS WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO TASKS (ID, USER_ID, TYPE,"
-            + " STATUS, ROLE_ID, SERVICE_ORDERS_ID) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO TASKS (USER_ID, TYPE,"
+            + " STATUS, ROLE_ID, SERVICE_ORDERS_ID) VALUES(?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM TASKS ";
     private static final String SELECT_PAGING = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
             + "  FROM (SELECT * FROM tasks WHERE role_id = ? ORDER BY ID) sub "
@@ -45,12 +45,11 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, task.getId());
-            stat.setInt(2, task.getUser().getId());
-            stat.setString(3, task.getType());
-            stat.setString(4, task.getStatus());
-            stat.setInt(5, task.getRole().getId());
-            stat.setInt(6, task.getServiceOrder().getId());
+            stat.setInt(1, task.getUser().getId());
+            stat.setString(2, task.getType());
+            stat.setString(3, task.getStatus());
+            stat.setInt(4, task.getRole().getId());
+            stat.setInt(5, task.getServiceOrder().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
@@ -94,7 +93,6 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
             stat.setInt(1, task.getUser().getId());
             stat.setString(2, task.getStatus());
             stat.setInt(3, task.getId());
-
             stat.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -199,13 +197,64 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
     }
 
     public List<Task> findByPerformer(int idPerformer) {
-       List<Task> tasks = findWhere("WHERE USER_ID = ?", new Object[]{idPerformer});
+        List<Task> tasks = findWhere("WHERE USER_ID = ?", new Object[]{idPerformer});
         return tasks;
     }
 
     public List<Task> findByPerformerStatus(int idPerformer, String status) {
-        List<Task> tasks = findWhere("WHERE USER_ID = ? AND STATUS= ?", new Object[]{idPerformer,status});
+        List<Task> tasks = findWhere("WHERE USER_ID = ? AND STATUS= ?", new Object[]{idPerformer, status});
         return tasks;
     }
 
+    public Task occupyTaskByID(int taskId, int userId) {
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement psSelect = null;
+        PreparedStatement psUpdate = null;
+        Task task = null;
+        try {
+            connection.setAutoCommit(false);
+            psSelect = connection.prepareCall(SELECT + "WHERE ID = ?");
+            psSelect.setInt(1, taskId);
+            ResultSet rs = psSelect.executeQuery();
+            List<Task> tasks = parseResult(rs);
+            if (tasks.isEmpty()) {
+                return null;
+            }
+            task = tasks.get(0);
+            if (!task.getStatus().equals(Task.TaskStatus.NEW.toString())) {
+                return null;
+            }
+            task.setStatus(Task.TaskStatus.ACTIVE.toString());
+            psUpdate = connection.prepareStatement(UPDATE);
+            psUpdate.setInt(1, userId);
+            psUpdate.setString(2, task.getStatus());
+            psUpdate.setInt(3, task.getId());
+            psUpdate.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (psSelect != null) {
+                try {
+                    psSelect.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (psUpdate != null) {
+                try {
+                    psUpdate.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            connectionPool.close(connection);
+        }
+        return task;
+    }
 }

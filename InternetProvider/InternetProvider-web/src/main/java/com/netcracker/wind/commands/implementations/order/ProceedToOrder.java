@@ -17,12 +17,16 @@ import com.netcracker.wind.entities.Service;
 import com.netcracker.wind.entities.ServiceLocation;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.User;
-import java.sql.Date;
+import com.netcracker.wind.manager.ConfigurationManager;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -33,15 +37,14 @@ public class ProceedToOrder implements ICommand {
     private static final String NAME = "name";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject jsono = new JSONObject();
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return "no session";
-            //TODO redirect to login or register page
+            return processError(jsono);
         }
         Object paramNameUser = session.getAttribute(NAME);
         if (paramNameUser == null) {
-            //TODO redirect to login or register page
-            return "no user";
+            return processError(jsono);
         }
         String email = (String) paramNameUser;
 
@@ -49,17 +52,15 @@ public class ProceedToOrder implements ICommand {
         String sY = request.getParameter("y");
         String sID = request.getParameter("serviceId");
         String address = request.getParameter("address");
-//        String plID = request.getParameter("providerLovationID");
-        //TODO check valid parameter
         double actualX = Double.parseDouble(sX);
         double actualY = Double.parseDouble(sY);
         int serviceId = Integer.parseInt(sID);
-//        int providerLocationID = Integer.parseInt(plID);
-
-        if (!isCoordinatesValid(actualX, actualY)) {
-            //TODO redirect to error page
-            return "";
-        }
+////        int providerLocationID = Integer.parseInt(plID);
+//
+//        if (!isCoordinatesValid(actualX, actualY)) {
+//            //TODO redirect to error page
+//            return "";
+//        }
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IUserDAO userDAO = factoryDAO.createUserDAO();
@@ -73,10 +74,6 @@ public class ProceedToOrder implements ICommand {
         ProviderLocation nearestProviderLocation = OrderUtilities.findNearestProviderLocation(
                 providerLocations, actualX, actualY);
 
-//        //TODO validation
-//        if(providerLocationID != nearestProviderLocation.getId()){
-//            return "";
-//        }
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Timestamp(System.currentTimeMillis()));
         order.setUser(user);
@@ -93,12 +90,30 @@ public class ProceedToOrder implements ICommand {
         order.setStatus(ServiceOrder.ENTERING_STATUS);
         order.setScenario("new");
         orderDAO.add(order);
+        try {
+            jsono.put("auth", true);
+            jsono.put("nextPage", ConfigurationManager.getInstance().
+                    getProperty(ConfigurationManager.PAGE_CONFIRM_ORDER));
+        } catch (JSONException ex) {
+            Logger.getLogger(ProceedToOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //TODO redirect to next page
-        return "";
+        return jsono.toString();
     }
 
     private boolean isCoordinatesValid(double x, double y) {
         return true;
+    }
+
+    private String processError(JSONObject jsono) {
+        try {
+            jsono.put("auth", false);
+            jsono.put("nextPage", ConfigurationManager.getInstance().
+                    getProperty(ConfigurationManager.PAGE_LOGIN));
+        } catch (JSONException ex) {
+            Logger.getLogger(ProceedToOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return jsono.toString();
     }
 
 }

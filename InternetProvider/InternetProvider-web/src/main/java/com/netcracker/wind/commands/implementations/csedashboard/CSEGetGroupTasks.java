@@ -7,6 +7,7 @@ package com.netcracker.wind.commands.implementations.csedashboard;
 
 import com.netcracker.wind.commands.DashboardsUtilities;
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.entities.Role;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CSEGetGroupTasks implements ICommand {
 
-    private static final int CSE_GROUP_ID = 4;
-
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return DashboardsUtilities.getTaskJSON(CSE_GROUP_ID);
+       int number = Integer.parseInt(request.getParameter("size"));
+       int from = Integer.parseInt(request.getParameter("from"));
+       return DashboardsUtilities.getGroupTaskJSON(Role.CSE_GROUP_ID, from, number);
     }
 
 }

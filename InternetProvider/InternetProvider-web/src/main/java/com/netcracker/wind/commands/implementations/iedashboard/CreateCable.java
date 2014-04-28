@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.netcracker.wind.commends.implementations.iedashboard;
+package com.netcracker.wind.commands.implementations.iedashboard;
 
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;

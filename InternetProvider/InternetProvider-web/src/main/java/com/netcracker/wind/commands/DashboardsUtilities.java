@@ -46,6 +46,12 @@ public class DashboardsUtilities {
         return parseTaskJSON(tasks);
     }
 
+     public static String getGroupTaskJSON(int groupId,int from,int number) {
+        AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
+        ITaskDAO taskDAO = factoryDAO.createTaskDAO();
+        List<Task> tasks = taskDAO.findByGroup(groupId, from, number);
+        return parseTaskJSON(tasks);
+    }
     public static String getTaskUserJSON(int userId) {
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();

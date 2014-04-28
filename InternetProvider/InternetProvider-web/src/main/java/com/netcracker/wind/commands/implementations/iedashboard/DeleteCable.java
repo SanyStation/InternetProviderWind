@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-package com.netcracker.wind.commends.implementations.iedashboard;
+package com.netcracker.wind.commands.implementations.iedashboard;
 
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
-import com.netcracker.wind.dao.interfaces.IDeviceDAO;
+import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
-import com.netcracker.wind.entities.Device;
+import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Port;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,28 +20,31 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Сашко
  */
-public class CreateDevice implements ICommand {
+public class DeleteCable implements ICommand{
     
-    public static final String D_NAME = "d_name"; 
-    public static final int PORT_N = 60;
+    public final String CABLE_ID = "cable_id";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String dName;
-        dName = request.getParameter(D_NAME);
+        
+        int cableID;
+        try {
+            cableID = Integer.parseInt(request.getParameter(CABLE_ID));
+        } catch (NumberFormatException exception) {
+            return "";
+        } 
+        
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
-        IDeviceDAO deviceDAO = factoryDAO.createDeviceDAO();
+        ICableDAO cableDAO = factoryDAO.createCableDAO();
         IPortDAO portDAO = factoryDAO.createPortDAO();
         
-        Device device = new Device();
-        device.setName(dName);
-        deviceDAO.add(device);
-     
-        Port port = new Port();
+        Cable cable = cableDAO.findByID(cableID);
+        Port port = cable.getPort();
+        port.setFree(true);
+        port.setCable(null); 
+        portDAO.update(port);
+        cableDAO.delete(cableID);
         
-        for (int i = 0; i != PORT_N; i++){
-            portDAO.add(port);
-        }
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
 }

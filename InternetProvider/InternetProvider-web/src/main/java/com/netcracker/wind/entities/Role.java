@@ -13,6 +13,10 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 4491197292843435012L;
 
+    public static final int PE_GROUPR_ID = 2;
+    public static final int IE_GROUP_ID = 3;
+    public static final int CSE_GROUP_ID = 4;
+
     private Integer id;
     private String name;
     private List<Task> tasksList;

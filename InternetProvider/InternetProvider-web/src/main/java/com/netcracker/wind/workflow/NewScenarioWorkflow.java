@@ -8,12 +8,11 @@ package com.netcracker.wind.workflow;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ICableDAO;
-import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.entities.Cable;
-import com.netcracker.wind.entities.Port;
-import com.netcracker.wind.entities.Service;
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceLocation;
 import com.netcracker.wind.entities.ServiceOrder;
+import com.netcracker.wind.entities.Task;
 import java.util.List;
 
 /**
@@ -22,17 +21,50 @@ import java.util.List;
  */
 public class NewScenarioWorkflow {
 
-    public static void createTasksForNewScnario(ServiceOrder order) {
+    public static Task createTaskForNewScnario(ServiceOrder order) {
         if (!order.getScenario().equals(ServiceOrder.NEW_SCEARIO)) {
             throw new IllegalArgumentException("Service must have 'New' scenario");
         }
-        Service service = order.getService();
         ServiceLocation serviceLocation = order.getServiceLocation();
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
-        IPortDAO portDAO = factoryDAO.createPortDAO();
         ICableDAO cableDAO = factoryDAO.createCableDAO();
-        List<Port> ports = portDAO.findByFree(true);
         List<Cable> cables = cableDAO.findByServiceLocation(serviceLocation.getId());
+        Task task;
+        if (cables.isEmpty()) {
+            task = new Task();
+            task.setRole(new Role(Role.IE_GROUP_ID));
+            task.setServiceOrder(order);
+            task.setType(Task.TaskType.NEW_DEVICE.toString());
+            task.setStatus(Task.TaskStatus.NEW.toString());
+        } else {
+            task = createTaskForPE(order);
+        }
+        return task;
+    }
+
+    public static Task createTaskForPE(ServiceOrder order) {
+        if (!order.getScenario().equals(ServiceOrder.NEW_SCEARIO)) {
+            throw new IllegalArgumentException("Service must have 'New' scenario");
+        }
+        Task task = new Task();
+        task.setRole(new Role(Role.PE_GROUPR_ID));
+        task.setServiceOrder(order);
+        //TODO refactor type to another
+        task.setType(Task.TaskType.CREATE_CIRCUIT.toString());
+        task.setStatus(Task.TaskStatus.NEW.toString());
+        return task;
+    }
+
+    public static Task createTaskForCSE(ServiceOrder order) {
+        if (!order.getScenario().equals(ServiceOrder.NEW_SCEARIO)) {
+            throw new IllegalArgumentException("Service must have 'New' scenario");
+        }
+        Task task = new Task();
+        task.setRole(new Role(Role.CSE_GROUP_ID));
+        task.setServiceOrder(order);
+        task.setType(Task.TaskType.SEND_BILL.toString());
+        task.setStatus(Task.TaskStatus.NEW.toString());
+        return task;
     }
 
 }

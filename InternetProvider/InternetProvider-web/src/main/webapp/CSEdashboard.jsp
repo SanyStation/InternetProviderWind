@@ -10,74 +10,64 @@
     <head>
         <title> Dashboard CSE menu</title>
         <link rel="stylesheet" href="css/menu.css" type="text/css">
+
             <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
             <script type="text/javascript" src="js/csemenu.js"></script>
             <script>
-                function Storage() {
-                    this.data = {};
-                    this.elementCount=0;
-                }
-                Storage.prototype.setData(data){
-                    this.data = data;
-                }
-                Storage.prototype.setElementsCount(elementCount){
-                    this.elementCount=elementCount;
-                }
-                Storage.prototype.drawPaginationTable(){
-                    
-                }
-                Srorage.prototype.setPaginationHandlers(){
-                    
-                }
-                Storage.prototype.drawTable(offset,count){
-                    var tbl = $("<table/>").attr("id", "mytable");
-                    tbl.attr("border", 1)
-                    var element = $.parseJSON(data);
-                    $("#div1").append(tbl);
-                    for (var i = 0; i < count; i++)
-                    {
-                        var tr = "<tr>";
-                        var td1 = "<td>" + element[i+offset]["id"] + "</td>";
-                        var td2 = "<td>" + element[i+offset]["type"] + "</td>";
-                        var td3 = "<td>" + element[i+offset]["status"] + "</td></tr>";
-                       $("#mytable").append(tr + td1 + td2 + td3);
+       
+
+                function makeUL(length, command) {
+                    // Create the list element:
+                    var list = document.createElement('ul');
+                    list.setAttribute("class", "pagination");
+
+                    for (var i = 0; i < length; i++) {
+                        // Create the list item:
+                        var item = document.createElement('li');
+
+                        // Set its contents:
+                        var refItem = document.createElement('a');
+                        refItem.setAttribute("href", "#");
+                        refItem.setAttribute("onclick", command + "'," + i + ")");
+                        
+            refItem.appendChild(document.createTextNode(i));
+                        item.appendChild(refItem);
+
+                        // Add it to the list:
+                        list.appendChild(item);
+
                     }
+                    $("#paging").append(list);
+
                 }
-                function getElementsCount(){
-                  $.ajax({
-                        type: 'POST',
-                        url: 'Controller',
-                        dataType: 'text',
-                        data: {
-                            'command': 'cse_get_elements_count',
-                        },
-                        success: function(data){
-                            storage.setElementsCount(data)
-                        }, 
-                        error: function() {
-                            alert("AJAX error");
-                        }
-                    });
+
+                function drawTable(data) {
+                    var table = document.createElement('table');
+                    table.setAttribute("id", "taskTable");
+                    table.setAttribute("border", 1);
+
+                    for (var i = 0; i < data.length; i++) {
+                        var tr = document.createElement('tr');
+
+                        var td1 = document.createElement('td').appendChild(document.createTextNode(data[i]["id"]));
+
+                        var td2 = document.createElement('td').appendChild(document.createTextNode(data[i]["type"]));
+
+                        var td3 = document.createElement('td').appendChild(document.createTextNode(data[i]["status"]));
+
+                        tr.appendChild(td1);
+                        
+                        tr.appendChild(td2);
+                        
+                        tr.appendChild(td3);
+                        table.appendChild(tr);
+                    }
+
+                    $("#forTable").append(table);
                 }
-                function getElementsFromOffset(count,offset){
-                   $.ajax({
-                        type: 'POST',
-                        url: 'Controller',
-                        dataType: 'text',
-                        data: {
-                            'command': 'cse_get_elements_from_offset',
-                            'count': count,
-                            'offset': offset,
-                        },
-                        success: function(data){
-                            storage.setData(data)
-                        }, 
-                        error: function() {
-                            alert("AJAX error");
-                        }
-                    });
-                }
-              /*  function getCommand(command,callback,offset,count) {
+             /*   function getSize(command){
+                    $(document).ready(function() {
+//                    $('input[type=submit]').click(function() {
                     $.ajax({
                         type: 'POST',
                         url: 'Controller',
@@ -85,17 +75,58 @@
                         data: {
                             'command': command,
                         },
-                        success: callback(data), 
+                        success: function(data) {
+                            return data;
+                        },
                         error: function() {
                             alert("AJAX error");
                         }
                     });
-                } */
-                $(document).ready(function(){
-                    storage = new Storage();
-                })
-                
-                
+                });
+                }*/
+                function getTasks(command, number) {
+                    $(document).ready(function() {
+//                    $('input[type=submit]').click(function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'Controller',
+                            dataType: 'json',
+                            data: {
+                                'command': command,
+                                'size': 25,
+                                'from': number * 25
+
+                            },
+                            success: function(data) {
+//                            var element = $.parseJSON(data);//JSON.parse(data);
+                                var myNode = document.getElementById("paging");
+                                while (myNode.firstChild) {
+                                    myNode.removeChild(myNode.firstChild);
+                                }
+                                 var myNo = document.getElementById("forTable");
+                                while (myNo.firstChild) {
+                                    myNo.removeChild(myNo.firstChild);
+                                }
+                                drawTable(data);
+                                makeUL(3, "getTasks('" + command);
+                            },
+                            error: function() {
+                                alert("AJAX error");
+                            }
+                        });
+                    });
+//                });
+                }
+                /*$(document).ready(function() {
+
+                var cseDashboard = new CSEDashboard();
+                cseDashboard.setElementCount("TABLE_NAME", cseDashboard.getElementCount("COMMAND", "TABLE_NAME"));
+                cseDashboard.drawPaginationTable("test");
+                cseDashboard.setPageEventHanlers("test");
+
+            });*/
+
+
             </script>
 
     </head>
@@ -108,16 +139,17 @@
                 <ul>
                     <li>
                         <
-                        <a href="#" onclick="getCommand('cse_group_task')">CSE Group Tasks</a>
-                        <!--  <input type="submit" value="CSE Group Tasks" onclick="getCommand('cse_group_task')">-->
+
+                        <a  href="#" onclick="getTasks('cse_group_task', 0)">CSE Group Tasks</a>
+
 
                     </li>
                     <li>
                         <a href="#">My Tasks</a>				
                         <ul>
-                            <li><a href="#">All my tasks</a></li>
-                            <li><a href="#">Completed tasks</a></li>
-                            <li><a href="#">Taken tasks</a></li>
+                            <li><a href="#" onclick="getTasks('')">All my tasks</a></li>
+                            <li><a href="#" onclick="getTasks('')">Completed tasks</a></li>
+                            <li><a href="#" onclick="getTasks('')">Taken tasks</a></li>
                         </ul>	
                     </li>
                 </ul>
@@ -191,6 +223,21 @@
             </li>
         </ul>
 
-        <div id="div1"></div>
+        <div id ="forTable">
+
+        </div>
+
+        <div id="paging" class="pagination">
+            <!--    <ul class="pagination">
+      <li><a href="#">&laquo;</a></li>
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">&raquo;</a></li>
+    </ul>-->
+        </div>
+
     </body>
 </html>
