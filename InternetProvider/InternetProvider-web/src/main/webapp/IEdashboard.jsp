@@ -1,7 +1,7 @@
 <%-- 
     Document   : IEdashboard
     Created on : 27.04.2014, 0:07:25
-    Author     : Сашко
+    Author     : Сашко & myshko
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,14 +18,14 @@
             <li>
                 <a href="#">Tasks</a>
                 <ul>
-                    <li><a href="#">IE Group Tasks</a>
+                    <li><a href="#" onclick="IETasks('ie_get_group_tasks');">IE Group Tasks</a>
                     </li>
                     <li>
                         <a href="#">My Tasks</a>				
                         <ul>
-                            <li><a href="#">All my tasks</a></li>
-                            <li><a href="#">Completed tasks</a></li>
-                            <li><a href="#">Taken tasks</a></li>
+                            <li><a href="#" onclick="IETasks('ie_get_group_tasks');">All my tasks</a></li>
+                            <li><a href="#" onclick="IETasks('ie_get_group_tasks');">Completed tasks</a></li>
+                            <li><a href="#" onclick="IETasks('ie_get_group_tasks');">Taken tasks</a></li>
                         </ul>	
                     </li>
                 </ul>
@@ -46,22 +46,23 @@
             </li>
         </ul>
         <div id="div1">
-                <input type="button" value="Group Tasks" name="#groupTask" />
-                <input type="button" value="Personal Tasks" name="#persTask" />
             <script>
-                $(document).ready(function(){              
-                        request=$.ajax({
-                        type: "POST",
-                        datatype: "json",
-                        url: "Controller",
-                        data: {
-                            'command': 'ie_get_group_tasks'
-                        },
-                        success: function(responce) {
-                            
-                        }
-                        });       
-                });                  
+                    function IETasks(command){
+                        $.ajax({
+                            type: 'POST',
+                            url: 'Controller',
+                            dataType: 'text',
+                            data: {
+                                'command': command
+                            },
+                            success: function(data) {
+                                $("#dynamic").html(data);
+                            },
+                            error: function() {
+                                alert("AJAX error");
+                            }
+                        });
+                    }
             </script>
                 
                         
