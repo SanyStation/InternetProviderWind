@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 public class CSEGetGroupTasks implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return DashboardsUtilities.getTaskJSON(Role.CSE_GROUP_ID);
+       int number = Integer.parseInt(request.getParameter("size"));
+       int from = Integer.parseInt(request.getParameter("from"));
+       return DashboardsUtilities.getGroupTaskJSON(Role.CSE_GROUP_ID, from, number);
     }
 
 }
