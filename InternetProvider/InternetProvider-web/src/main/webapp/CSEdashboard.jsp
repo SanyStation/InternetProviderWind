@@ -15,10 +15,10 @@
             <script type="text/javascript" src="js/csemenu.js"></script>
             <script>
 
-                function makeUL(length,command) {
+                function makeUL(length, command) {
                     // Create the list element:
                     var list = document.createElement('ul');
-                    list.setAttribute("class","pagination");
+                    list.setAttribute("class", "pagination");
 
                     for (var i = 0; i < length; i++) {
                         // Create the list item:
@@ -26,8 +26,8 @@
 
                         // Set its contents:
                         var refItem = document.createElement('a');
-                       // refItem.setAttribute("href", "#");
-                        refItem.setAttribute("onclick",command+','+i+')');
+                        // refItem.setAttribute("href", "#");
+                        refItem.setAttribute("onclick", command + ',' + i + ')');
                         refItem.appendChild(document.createTextNode(i));
                         item.appendChild(refItem);
 
@@ -48,12 +48,12 @@
                         var tr = document.createElement('tr');
 
                         var td1 = document.createElement('td').appendChild(document.createTextNode(data[i]["id"]));
-                        
+
                         var td2 = document.createElement('td').appendChild(document.createTextNode(data[i]["type"]));
-                      
+
                         var td3 = document.createElement('td').appendChild(document.createTextNode(data[i]["status"]));
-                        
-                                tr.appendChild(td1);
+
+                        tr.appendChild(td1);
                         tr.appendChild(td2);
                         tr.appendChild(td3);
                         table.appendChild(tr);
@@ -77,8 +77,16 @@
                             },
                             success: function(data) {
 //                            var element = $.parseJSON(data);//JSON.parse(data);
+                                var myNode = document.getElementById("paging");
+                                while (myNode.firstChild) {
+                                    myNode.removeChild(myNode.firstChild);
+                                }
+                                 var myNode = document.getElementById("forTable");
+                                while (myNode.firstChild) {
+                                    myNode.removeChild(myNode.firstChild);
+                                }
                                 drawTable(data);
-                                makeUL(3,'getTasks('+command);
+                                makeUL(3, 'getTasks(' + command);
                             },
                             error: function() {
                                 alert("AJAX error");
