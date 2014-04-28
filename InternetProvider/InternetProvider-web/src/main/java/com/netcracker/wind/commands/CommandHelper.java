@@ -8,8 +8,14 @@ import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnComple
 import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.netcracker.wind.commands.implementations.iedashboard.CreateCable;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateDevice;
+=======
+import com.netcracker.wind.commands.implementations.iedashboard.IEGetGroupTasks;
+import com.netcracker.wind.commands.implementations.iedashboard.IEGetOwnCompletedTasks;
+import com.netcracker.wind.commands.implementations.iedashboard.IEGetOwnTasks;
+>>>>>>> 8bafff6a8c4cfa3616a56bb7a2738f811bb4ca64
 =======
 import com.netcracker.wind.commands.implementations.iedashboard.IEGetGroupTasks;
 import com.netcracker.wind.commands.implementations.iedashboard.IEGetOwnCompletedTasks;
@@ -56,13 +62,19 @@ public class CommandHelper {
     private static final String CSE_GET_TASKS="cse_get_tasks";
     private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
 <<<<<<< HEAD
+<<<<<<< HEAD
     private static final String NEW_CABLE = "new_cable";
     private static final String NEW_DEVICE = "new_device";
 =======
+=======
+>>>>>>> 8bafff6a8c4cfa3616a56bb7a2738f811bb4ca64
     private static final String IE_GET_GROUP_TASKS="ie_get_group_tasks";
     private static final String IE_GET_TASKS="ie_get_tasks";
     private static final String IE_GET_COMPLETED_TASKS = "ie_get_completed_tasks";
     
+<<<<<<< HEAD
+>>>>>>> 8bafff6a8c4cfa3616a56bb7a2738f811bb4ca64
+=======
 >>>>>>> 8bafff6a8c4cfa3616a56bb7a2738f811bb4ca64
 
     private final Map<String, ICommand> commands;
@@ -85,8 +97,14 @@ public class CommandHelper {
         commands.put(CSE_GET_TASKS,new CSEgetOwnTasks());
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
 <<<<<<< HEAD
+<<<<<<< HEAD
         commands.put(NEW_CABLE, new CreateCable());
         commands.put(NEW_DEVICE, new CreateDevice());
+=======
+        commands.put(IE_GET_GROUP_TASKS, new IEGetGroupTasks());
+        commands.put(IE_GET_TASKS,new IEGetOwnTasks());
+        commands.put(IE_GET_COMPLETED_TASKS, new IEGetOwnCompletedTasks());
+>>>>>>> 8bafff6a8c4cfa3616a56bb7a2738f811bb4ca64
 =======
         commands.put(IE_GET_GROUP_TASKS, new IEGetGroupTasks());
         commands.put(IE_GET_TASKS,new IEGetOwnTasks());
