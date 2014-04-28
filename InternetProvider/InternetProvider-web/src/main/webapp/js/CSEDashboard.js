@@ -87,7 +87,7 @@ CSEDashboard.prototype.drawPaginationTable = function(table) {
             div.append("<li><a href=\"#\">" + (i + 1) +"</a></li>");                        
         }
         
-        div.append("<li><a href=\"#\">...</a></li>")
+        div.append("<li><a href=\"#\">...</a></li>");
         
         for(var i = pages - Math.floor(this.pageLimit / 2); i < pages; i++) {
             div.append("<li><a href=\"#\">" + (i + 1) +"</a></li>");                        

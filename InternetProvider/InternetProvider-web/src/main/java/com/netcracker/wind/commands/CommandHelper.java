@@ -7,6 +7,7 @@ import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTask
 import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnCompletedTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
+import com.netcracker.wind.commands.implementations.csedashboard.GetProviderLocation;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.pedashboard.ProvisioningEngineerTasks;
@@ -15,7 +16,6 @@ import com.netcracker.wind.commands.implementations.reports.RiRoutersUtilNCapRep
 import com.netcracker.wind.commands.implementations.reports.SiDisconnOrdersReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.SiNewOrdersReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.SiProfitReportGenerator;
-import com.netcracker.wind.commands.implementations.iedashboard.IEGetGroupTasks;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -46,10 +46,9 @@ public class CommandHelper {
             = "cse_get_elements_count";
     private static final String CSE_GET_ELEMENTS_FROM_OFFSET
             = "cse_get_elements_from_offset";
-    private static final String CSE_GET_TASKS="cse_get_tasks";
+    private static final String CSE_GET_TASKS = "cse_get_tasks";
     private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
-    private static final String IE_GET_GROUP_TASKS="ie_get_group_tasks";
-    
+    private static final String PROVIDER_LOCATION_LIST = "provider_location_list";
 
     private final Map<String, ICommand> commands;
 
@@ -68,9 +67,10 @@ public class CommandHelper {
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());
         commands.put(PE_TASKS, new ProvisioningEngineerTasks());
-        commands.put(CSE_GET_TASKS,new CSEgetOwnTasks());
+        commands.put(CSE_GET_TASKS, new CSEgetOwnTasks());
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
-        commands.put(IE_GET_GROUP_TASKS, new IEGetGroupTasks());
+        commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
+
     }
 
     public static CommandHelper getInstance() {

@@ -21,7 +21,7 @@ public class ModifyScenarioWorkflow {
         task.setRole(new Role(Role.CSE_GROUP_ID));
         task.setServiceOrder(order);
         task.setStatus(Task.TaskStatus.NEW.toString());
-        task.setType(Task.TaskType.CIRCUIT_MANAGMENT.toString());
+        task.setType(Task.TaskType.MODIFY_CIRCUIT.toString());
         return task;
     }
 }
