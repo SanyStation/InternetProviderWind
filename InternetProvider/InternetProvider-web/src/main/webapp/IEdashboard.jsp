@@ -13,6 +13,11 @@
             <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
     </head>
     <body>
+        <form method="POST" action="Controller">
+                <input type="hidden" name="command" value="new_device"/>
+                <input type="text" name="d_name" maxlength="25" size="20">
+                <input type="submit" value="Create Router">
+            </form>
         <ul id="menu">
             <li><a href="#">Main</a></li>
             <li>

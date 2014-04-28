@@ -74,6 +74,15 @@ public class OracleDeviceDAO extends AbstractDAO implements IDeviceDAO {
             return devices.get(0);
         }
     }
+    
+    public Device findByName(String DeviceName) {
+        List<Device> devices = findWhere("WHERE NAME=?", new Object[]{DeviceName});
+        if (devices.isEmpty()) {
+            return null;
+        } else {
+            return devices.get(0);
+        }
+    }
 
     /**
      *

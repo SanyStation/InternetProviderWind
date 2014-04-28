@@ -19,4 +19,6 @@ public interface IDeviceDAO {
     //just one id - nothing to update
     //public void update(Device device);
 
+    public Device findByName(String dName);
+
 }
