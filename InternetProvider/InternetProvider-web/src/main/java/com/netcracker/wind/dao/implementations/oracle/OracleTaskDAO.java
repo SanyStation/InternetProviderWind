@@ -210,13 +210,12 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
         Connection connection = connectionPool.getConnection();
         PreparedStatement psSelect = null;
         PreparedStatement psUpdate = null;
-        ResultSet rs = null;
         Task task = null;
         try {
             connection.setAutoCommit(false);
             psSelect = connection.prepareCall(SELECT + "WHERE ID = ?");
             psSelect.setInt(1, taskId);
-            rs = psSelect.executeQuery();
+            ResultSet rs = psSelect.executeQuery();
             List<Task> tasks = parseResult(rs);
             if (tasks.isEmpty()) {
                 return null;
@@ -240,13 +239,6 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
             }
             Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
             if (psSelect != null) {
                 try {
                     psSelect.close();

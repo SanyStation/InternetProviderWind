@@ -43,15 +43,22 @@ public class NewScenarioWorkflow {
     }
 
     public static Task createTaskForPE(ServiceOrder order) {
+        if (!order.getScenario().equals(ServiceOrder.NEW_SCEARIO)) {
+            throw new IllegalArgumentException("Service must have 'New' scenario");
+        }
         Task task = new Task();
         task.setRole(new Role(Role.PE_GROUPR_ID));
         task.setServiceOrder(order);
+        //TODO refactor type to another
         task.setType(Task.TaskType.CIRCUIT_MANAGMENT.toString());
         task.setStatus(Task.TaskStatus.NEW.toString());
         return task;
     }
 
     public static Task createTaskForCSE(ServiceOrder order) {
+        if (!order.getScenario().equals(ServiceOrder.NEW_SCEARIO)) {
+            throw new IllegalArgumentException("Service must have 'New' scenario");
+        }
         Task task = new Task();
         task.setRole(new Role(Role.CSE_GROUP_ID));
         task.setServiceOrder(order);
@@ -59,4 +66,5 @@ public class NewScenarioWorkflow {
         task.setStatus(Task.TaskStatus.NEW.toString());
         return task;
     }
+
 }
