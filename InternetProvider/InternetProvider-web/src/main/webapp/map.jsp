@@ -157,6 +157,21 @@
                 box-shadow: rgb(159, 159, 159) 0px 0px 10px -2px;
                 opacity: 0.6;
             }
+            #frame1 {
+                position: absolute;
+                right: 0;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                height: 200px;
+                margin: auto;
+                width: 400px;
+                background: white;
+                padding: 10px 20px;
+                border: 0;
+                border-radius: 20px;
+            }
+
         </style>
         <script type='text/javascript'>
             //<![CDATA[
@@ -195,16 +210,19 @@
                     });
                     //plocation.setVisible(false);
                     geocoder = new google.maps.Geocoder();
-
                     // Create the search box and link it to the UI element.
-                    var input = /** @type {HTMLInputElement} */(
-                            document.getElementById('pac-input'));
+                    var input = /** @type {HTMLInputElement} */
+                            (
+                                    document.getElementById('pac-input'));
                     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
                     var autocomplete = new google.maps.places.Autocomplete(
-                            /** @type {HTMLInputElement} */(input), {types: ['geocode'], componentRestrictions: {country: 'ua'}});
-
-
+                            /** @type {HTMLInputElement} */
+                                    (input), {
+                                types: ['geocode'],
+                                componentRestrictions: {
+                                    country: 'ua'
+                                }
+                            });
                     google.maps.event.addListener(autocomplete, 'place_changed', function() {
                         var place = autocomplete.getPlace();
                         if (!place.geometry) {
@@ -212,11 +230,11 @@
                         }
 
                         marker.setPosition(place.geometry.location);
-
                         console.log(marker.getPosition());
-                        google.maps.event.trigger(marker, 'dragend', {'latLng': marker.getPosition()});
+                        google.maps.event.trigger(marker, 'dragend', {
+                            'latLng': marker.getPosition()
+                        });
                     });
-
                     google.maps.event.addListener(marker, 'dragend', function(e) {
                         console.log(e);
                         $("#side form label").remove();
@@ -231,7 +249,7 @@
                             data: {
                                 'command': 'refresh_service',
                                 'x': e.latLng.A, //50.526232,
-                                'y': e.latLng.k//30.6020479
+                                'y': e.latLng.k //30.6020479
                             },
                             success: function(data) {
                                 //                            var element = $.parseJSON(data);//JSON.parse(data);
@@ -242,8 +260,8 @@
                                     //var marker_pos = plocation.getPosition();
                                     if (!pLatLng.equals(plocation.getPosition())) {
                                         plocation.setPosition(pLatLng);
-//                                        var current_bounds = map.getBounds();
-//                                        var marker_pos = plocation.getPosition();
+                                        //                                        var current_bounds = map.getBounds();
+                                        //                                        var marker_pos = plocation.getPosition();
                                         //map.fitBounds(plocation.getPosition());
                                         plocation.setVisible(true);
                                         console.log(plocation);
@@ -261,10 +279,10 @@
                                             }
                                             ne = bounds.getNorthEast();
                                             sw = bounds.getSouthWest();
-// the multiplier used to add space; positive for east, negative for west
+                                            // the multiplier used to add space; positive for east, negative for west
                                             lngPadding = 0.5
                                             extendedLng = ne.lng() + (ne.lng() - sw.lng()) * lngPadding;
-// copy original and extend with the new Lng
+                                            // copy original and extend with the new Lng
                                             extendedBounds = bounds;
                                             extendedBounds.extend(new google.maps.LatLng(ne.lat(), extendedLng));
                                             map.fitBounds(extendedBounds);
@@ -295,7 +313,6 @@
                                 alert("AJAX error");
                             }
                         });
-
                         $('#popup').addClass('active');
                         console.log(e.latLng); // Координаты маркера
                         $('#coord').html('<br>' + e.latLng);
@@ -308,8 +325,10 @@
                             });
                             if (status == google.maps.GeocoderStatus.OK) {
                                 if (results[1]) {
-                                    $('#coord').append('<br>' + results[0].formatted_address);
-                                    $("#side form input[name=address]").attr('value', results[0].formatted_address);
+                                    $('#coord').append('<br>'
+                                            + results[0].formatted_address);
+                                    $("#side form input[name=address]")
+                                            .attr('value', results[0].formatted_address);
                                 } else {
                                     //alert('No results found');
                                 }
@@ -321,8 +340,73 @@
                 }
                 ;
                 initialize();
+                $('#order_form').submit(function(e) {
+                    var url = $('#order_form').attr('action'); // the script where you handle the form input.
 
-            }); //]]>
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $("#order_form").serialize(), // serializes the form's elements.
+                        dataType: 'json',
+                        success: function(data) {
+                            // alert(data); // show response from the php script.
+                            if(!data.auth){
+                            $('<iframe />', {
+                                name: 'frame1',
+                                id: 'frame1',
+                                src: 'profile'
+                            }).appendTo('body').load(function() {
+                                $(this).contents().find('form').submit(function() {
+                                    //var url = $(this).attr('action'); // the script where you handle the form input.
+                                    $('#frame1').load(function() {
+                                        $(this).unbind('load');
+                                        if ($(this)[0].contentDocument.URL.search('profile') > -1) {
+                                            $(this).remove();
+                                        }
+                                    });
+                                    return;
+
+//                                    $.ajax({
+//                                        type: "POST",
+//                                        url: url,
+//                                        data: $(this).serialize(), // serializes the form's elements.
+//                                        //dataType: 'json',
+//                                        success: function(data, x, y) {
+//                                            console.log(data);
+//                                            console.log(x);
+//                                            console.log(y);
+//                                            
+//                                            //if($('#frame1').attr('src')=)
+//                                            
+//                                        },
+//                                        statusCode: {
+//                                            302: function() {
+//                                                alert('302');
+//                                                $('#frame1').remove;
+//                                            }
+//                                        }
+//                                    });
+//                                    return false; // avoid to execute the actual submit of the form.
+                                });
+                            });
+                        }else{
+                             $('<div />', {
+                                name: 'frame1',
+                                id: 'frame1',
+                                src: 'profile'
+                            }).html('<center><h1>Order has been sent successfully</h1></center>').appendTo('body');
+                        }
+
+
+                            //alert(data); // show response from the php script.
+                        }
+                    });
+                    return false; // avoid to execute the actual submit of the form.
+                });
+
+
+            });
+//]]>
 
         </script>
 
@@ -334,7 +418,7 @@
         <div id="popup">Drag the marker<span id="coord"></span></div>
         <div id="side">
             <h1>Choose desired service:</h1>
-            <form action="Controller" method="POST">
+            <form id="order_form" action="Controller" method="POST">
                 <label style="font-size: 20px;">select your position first...</label>
                 <input type="submit" name="send_order" value="Send order" disabled=""/>
                 <input type="hidden" name="command" value="proceed_to_order"/>
