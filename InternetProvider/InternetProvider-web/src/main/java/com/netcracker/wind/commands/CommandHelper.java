@@ -7,6 +7,7 @@ import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTask
 import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnCompletedTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
+import com.netcracker.wind.commands.implementations.csedashboard.GetProviderLocationList;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.pedashboard.ProvisioningEngineerTasks;
@@ -47,6 +48,7 @@ public class CommandHelper {
             = "cse_get_elements_from_offset";
     private static final String CSE_GET_TASKS = "cse_get_tasks";
     private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
+    private static final String PROVIDER_LOCATION_LIST = "provider_location_list";
 
     private final Map<String, ICommand> commands;
 
@@ -67,6 +69,7 @@ public class CommandHelper {
         commands.put(PE_TASKS, new ProvisioningEngineerTasks());
         commands.put(CSE_GET_TASKS, new CSEgetOwnTasks());
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
+        commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocationList());
 
     }
 
