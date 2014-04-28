@@ -50,7 +50,7 @@ public class NewScenarioWorkflow {
         task.setRole(new Role(Role.PE_GROUPR_ID));
         task.setServiceOrder(order);
         //TODO refactor type to another
-        task.setType(Task.TaskType.CIRCUIT_MANAGMENT.toString());
+        task.setType(Task.TaskType.CREATE_CIRCUIT.toString());
         task.setStatus(Task.TaskStatus.NEW.toString());
         return task;
     }
