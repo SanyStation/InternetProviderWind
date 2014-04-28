@@ -115,7 +115,7 @@ CSEDashboard.prototype.setPageEventHanlers = function(table) {
                 
                 var f = function(event) {
                     var offset = (event.data.page - 1) * (event.data.count);
-                    console.log(offset)
+                    console.log(offset);
                     event.data._this_.getElementFromOffset("COMMAND", event.data.table, offset);
                 }
                 

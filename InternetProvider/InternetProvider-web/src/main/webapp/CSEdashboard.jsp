@@ -14,6 +14,7 @@
             <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
             <script type="text/javascript" src="js/csemenu.js"></script>
             <script>
+       
 
                 function makeUL(length, command) {
                     // Create the list element:
@@ -95,6 +96,14 @@
                     });
 //                });
                 }
+                /*$(document).ready(function() {
+
+                var cseDashboard = new CSEDashboard();
+                cseDashboard.setElementCount("TABLE_NAME", cseDashboard.getElementCount("COMMAND", "TABLE_NAME"));
+                cseDashboard.drawPaginationTable("test");
+                cseDashboard.setPageEventHanlers("test");
+
+            });*/
 
 
             </script>
