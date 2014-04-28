@@ -15,6 +15,7 @@ import com.netcracker.wind.commands.implementations.reports.RiRoutersUtilNCapRep
 import com.netcracker.wind.commands.implementations.reports.SiDisconnOrdersReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.SiNewOrdersReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.SiProfitReportGenerator;
+import com.netcracker.wind.commands.implementations.iedashboard.IEGetGroupTasks;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,8 @@ public class CommandHelper {
             = "cse_get_elements_from_offset";
     private static final String CSE_GET_TASKS="cse_get_tasks";
     private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
+    private static final String IE_GET_GROUP_TASKS="ie_get_group_tasks";
+    
 
     private final Map<String, ICommand> commands;
 
@@ -67,6 +70,7 @@ public class CommandHelper {
         commands.put(PE_TASKS, new ProvisioningEngineerTasks());
         commands.put(CSE_GET_TASKS,new CSEgetOwnTasks());
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
+        commands.put(IE_GET_GROUP_TASKS, new IEGetGroupTasks());
     }
 
     public static CommandHelper getInstance() {

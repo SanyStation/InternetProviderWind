@@ -32,7 +32,7 @@ public class NewScenarioWorkflow {
         Task task;
         if (cables.isEmpty()) {
             task = new Task();
-            task.setRole(new Role(Role.IE_GROUPR_ID));
+            task.setRole(new Role(Role.IE_GROUP_ID));
             task.setServiceOrder(order);
             task.setType(Task.TaskType.NEW_DEVICE.toString());
             task.setStatus(Task.TaskStatus.NEW.toString());
