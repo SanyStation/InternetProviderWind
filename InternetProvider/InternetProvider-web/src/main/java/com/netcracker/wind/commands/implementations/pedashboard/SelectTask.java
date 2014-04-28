@@ -57,9 +57,9 @@ public class SelectTask implements ICommand {
         if (task == null) {
             //TODO set error message
             //TODO return error page with error message
-            
+
         }
-        
+
         //TODO return next page
         return "";
     }
