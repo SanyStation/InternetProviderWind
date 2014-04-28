@@ -23,9 +23,9 @@
                     <li>
                         <a href="#">My Tasks</a>				
                         <ul>
-                            <li><a href="#" onclick="IETasks('ie_get_group_tasks');">All my tasks</a></li>
-                            <li><a href="#" onclick="IETasks('ie_get_group_tasks');">Completed tasks</a></li>
-                            <li><a href="#" onclick="IETasks('ie_get_group_tasks');">Taken tasks</a></li>
+                            <li><a href="#" onclick="IETasks('ie_get_tasks');">All my tasks</a></li>
+                            <li><a href="#" onclick="IETasks('ie_get_completed_tasks');">Completed tasks</a></li>
+                            <li><a href="#">Taken tasks</a></li>
                         </ul>	
                     </li>
                 </ul>
