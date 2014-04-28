@@ -8,6 +8,7 @@ package com.netcracker.wind.workflow;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ICableDAO;
+import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceLocation;
@@ -28,6 +29,8 @@ public class NewScenarioWorkflow {
         ServiceLocation serviceLocation = order.getServiceLocation();
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ICableDAO cableDAO = factoryDAO.createCableDAO();
+        IPortDAO portDAO = factoryDAO.createPortDAO();
+//        List<Port> ports = portDAO.fi
         List<Cable> cables = cableDAO.findByServiceLocation(serviceLocation.getId());
         Task task;
         if (cables.isEmpty()) {
@@ -37,12 +40,12 @@ public class NewScenarioWorkflow {
             task.setType(Task.TaskType.NEW_DEVICE.toString());
             task.setStatus(Task.TaskStatus.NEW.toString());
         } else {
-            task = createTaskForPE(order);
+            task = createTaskForPE(order, Task.TaskType.CREATE_CIRCUIT.toString());
         }
         return task;
     }
 
-    public static Task createTaskForPE(ServiceOrder order) {
+    public static Task createTaskForPE(ServiceOrder order, String type) {
         if (!order.getScenario().equals(ServiceOrder.NEW_SCEARIO)) {
             throw new IllegalArgumentException("Service must have 'New' scenario");
         }
@@ -50,7 +53,7 @@ public class NewScenarioWorkflow {
         task.setRole(new Role(Role.PE_GROUPR_ID));
         task.setServiceOrder(order);
         //TODO refactor type to another
-        task.setType(Task.TaskType.CREATE_CIRCUIT.toString());
+        task.setType(type);
         task.setStatus(Task.TaskStatus.NEW.toString());
         return task;
     }
@@ -66,5 +69,5 @@ public class NewScenarioWorkflow {
         task.setStatus(Task.TaskStatus.NEW.toString());
         return task;
     }
-
+    
 }
