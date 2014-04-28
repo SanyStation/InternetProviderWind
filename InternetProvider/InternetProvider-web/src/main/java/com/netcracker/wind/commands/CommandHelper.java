@@ -7,7 +7,7 @@ import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTask
 import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnCompletedTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
-import com.netcracker.wind.commands.implementations.csedashboard.GetProviderLocationList;
+import com.netcracker.wind.commands.implementations.csedashboard.GetProviderLocation;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.pedashboard.ProvisioningEngineerTasks;
@@ -69,7 +69,7 @@ public class CommandHelper {
         commands.put(PE_TASKS, new ProvisioningEngineerTasks());
         commands.put(CSE_GET_TASKS, new CSEgetOwnTasks());
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
-        commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocationList());
+        commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
 
     }
 

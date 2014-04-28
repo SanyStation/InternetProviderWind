@@ -14,11 +14,11 @@ public interface IDeviceDAO {
     public void delete(int idDevice);
 
     public Device findByID(int idDevice);
+
     public List<Device> findAll();
 
     //just one id - nothing to update
     //public void update(Device device);
-
     public Device findByName(String dName);
 
 }
