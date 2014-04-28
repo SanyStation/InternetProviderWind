@@ -24,12 +24,13 @@ public class OraclePortDAO extends AbstractDAO implements IPortDAO {
     private static final String UPDATE = "UPDATE PORTS SET FREE = ? WHERE "
             + "ID = ?";
     private static final String DELETE = "DELETE FROM PORTS WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO PORTS (ID, DEVICE_ID, "
+    private static final String INSERT = "INSERT INTO PORTS (DEVICE_ID, "
             + "FREE) VALUES (?, ?)";
     private static final String SELECT = "SELECT * FROM PORTS ";
     private static final String ID = "ID";
     private static final String DEVICE = "DEVICE_ID";
     private static final String FREE = "FREE";
+    private static final String SEL_FREE = "SELECT ID, DEVICE_ID FROM PORTS WHERE FREE = 1";
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
@@ -40,9 +41,8 @@ public class OraclePortDAO extends AbstractDAO implements IPortDAO {
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, port.getId());
-            stat.setInt(2, port.getDevice().getId());
-            stat.setBoolean(3, port.isFree());
+            stat.setInt(1, port.getDevice().getId());
+            stat.setBoolean(2, true);
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
@@ -70,6 +70,57 @@ public class OraclePortDAO extends AbstractDAO implements IPortDAO {
         } else {
             return ports.get(0);
         }
+    }
+    
+    Port getFreePort () {
+        Connection con = null;
+        PreparedStatement statSel = null;
+        PreparedStatement statUpd = null;
+        Port port = new Port();
+        ResultSet rs = null;
+        try {
+            con = connectionPool.getConnection();
+            con.setAutoCommit(false);
+            statSel = con.prepareCall(SEL_FREE);
+            rs = statSel.executeQuery();
+            List<Port> ports = parseResult(rs);
+             if (ports.isEmpty()) {
+                return null;
+            }
+            port.setId(ports.get(0).getId());
+            statUpd = con.prepareStatement(UPDATE);
+            statUpd.setBoolean(1, false);
+            statUpd.setInt(2, port.getId());
+            statUpd.executeUpdate();
+            con.commit();
+            return port;
+        } catch (SQLException ex) {
+            Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (statSel != null) {
+                try {
+                    statSel.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (statUpd != null) {
+                try {
+                    statUpd.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            connectionPool.close(con);
+        }
+        return port;
     }
 
     /**

@@ -1,7 +1,7 @@
 <%-- 
     Document   : IEdashboard
     Created on : 27.04.2014, 0:07:25
-    Author     : Сашко
+    Author     : Сашко & myshko
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,18 +13,23 @@
             <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
     </head>
     <body>
+        <form method="POST" action="Controller">
+                <input type="hidden" name="command" value="new_device"/>
+                <input type="text" name="d_name" maxlength="25" size="20">
+                <input type="submit" value="Create Router">
+            </form>
         <ul id="menu">
             <li><a href="#">Main</a></li>
             <li>
                 <a href="#">Tasks</a>
                 <ul>
-                    <li><a href="#">IE Group Tasks</a>
+                    <li><a href="#" onclick="IETasks('ie_get_group_tasks');">IE Group Tasks</a>
                     </li>
                     <li>
                         <a href="#">My Tasks</a>				
                         <ul>
-                            <li><a href="#">All my tasks</a></li>
-                            <li><a href="#">Completed tasks</a></li>
+                            <li><a href="#" onclick="IETasks('ie_get_tasks');">All my tasks</a></li>
+                            <li><a href="#" onclick="IETasks('ie_get_completed_tasks');">Completed tasks</a></li>
                             <li><a href="#">Taken tasks</a></li>
                         </ul>	
                     </li>
@@ -46,22 +51,23 @@
             </li>
         </ul>
         <div id="div1">
-                <input type="button" value="Group Tasks" name="#groupTask" />
-                <input type="button" value="Personal Tasks" name="#persTask" />
             <script>
-                $(document).ready(function(){              
-                        request=$.ajax({
-                        type: "POST",
-                        datatype: "json",
-                        url: "Controller",
-                        data: {
-                            'command': 'ie_get_group_tasks'
-                        },
-                        success: function(responce) {
-                            
-                        }
-                        });       
-                });                  
+                    function IETasks(command){
+                        $.ajax({
+                            type: 'POST',
+                            url: 'Controller',
+                            dataType: 'text',
+                            data: {
+                                'command': command
+                            },
+                            success: function(data) {
+                                $("#dynamic").html(data);
+                            },
+                            error: function() {
+                                alert("AJAX error");
+                            }
+                        });
+                    }
             </script>
                 
                         
