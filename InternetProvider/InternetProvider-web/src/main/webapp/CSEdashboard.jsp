@@ -27,9 +27,10 @@
 
                         // Set its contents:
                         var refItem = document.createElement('a');
-                        // refItem.setAttribute("href", "#");
-                        refItem.setAttribute("onclick", command + ',' + i + ')');
-                        refItem.appendChild(document.createTextNode(i));
+                        refItem.setAttribute("href", "#");
+                        refItem.setAttribute("onclick", command + "'," + i + ")");
+                        
+            refItem.appendChild(document.createTextNode(i));
                         item.appendChild(refItem);
 
                         // Add it to the list:
@@ -55,14 +56,34 @@
                         var td3 = document.createElement('td').appendChild(document.createTextNode(data[i]["status"]));
 
                         tr.appendChild(td1);
+                        
                         tr.appendChild(td2);
+                        
                         tr.appendChild(td3);
                         table.appendChild(tr);
                     }
 
                     $("#forTable").append(table);
                 }
-
+             /*   function getSize(command){
+                    $(document).ready(function() {
+//                    $('input[type=submit]').click(function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Controller',
+                        dataType: 'text',
+                        data: {
+                            'command': command,
+                        },
+                        success: function(data) {
+                            return data;
+                        },
+                        error: function() {
+                            alert("AJAX error");
+                        }
+                    });
+                });
+                }*/
                 function getTasks(command, number) {
                     $(document).ready(function() {
 //                    $('input[type=submit]').click(function() {
@@ -82,12 +103,12 @@
                                 while (myNode.firstChild) {
                                     myNode.removeChild(myNode.firstChild);
                                 }
-                                 var myNode = document.getElementById("forTable");
-                                while (myNode.firstChild) {
-                                    myNode.removeChild(myNode.firstChild);
+                                 var myNo = document.getElementById("forTable");
+                                while (myNo.firstChild) {
+                                    myNo.removeChild(myNo.firstChild);
                                 }
                                 drawTable(data);
-                                makeUL(3, 'getTasks(' + command);
+                                makeUL(3, "getTasks('" + command);
                             },
                             error: function() {
                                 alert("AJAX error");
@@ -124,11 +145,11 @@
 
                     </li>
                     <li>
-                        <a href="#" onclick="makeUL(3)">My Tasks</a>				
+                        <a href="#">My Tasks</a>				
                         <ul>
-                            <li><a href="#">All my tasks</a></li>
-                            <li><a href="#">Completed tasks</a></li>
-                            <li><a href="#">Taken tasks</a></li>
+                            <li><a href="#" onclick="getTasks('')">All my tasks</a></li>
+                            <li><a href="#" onclick="getTasks('')">Completed tasks</a></li>
+                            <li><a href="#" onclick="getTasks('')">Taken tasks</a></li>
                         </ul>	
                     </li>
                 </ul>

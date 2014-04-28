@@ -30,6 +30,7 @@
                     </li>
                 </ul>
             </li>
+        
 
             <li>
                 <a href="#"> Create </a>
@@ -41,8 +42,29 @@
                     <li>
                         <a href="#">Device</a>
                     </li>
-                    
-
-        <div id="div1"></div>
+                </ul>
+            </li>
+        </ul>
+        <div id="div1">
+                <input type="button" value="Group Tasks" name="#groupTask" />
+                <input type="button" value="Personal Tasks" name="#persTask" />
+            <script>
+                $(document).ready(function(){              
+                        request=$.ajax({
+                        type: "POST",
+                        datatype: "json",
+                        url: "Controller",
+                        data: {
+                            'command': 'ie_get_group_tasks'
+                        },
+                        success: function(responce) {
+                            
+                        }
+                        });       
+                });                  
+            </script>
+                
+                        
+        </div>
     </body>
 </html>
