@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,7 +41,7 @@ public class OraclePortDAO extends AbstractDAO implements IPortDAO {
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             stat.setInt(1, port.getDevice().getId());
             stat.setBoolean(2, true);
             stat.executeUpdate();

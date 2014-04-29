@@ -36,16 +36,14 @@ public class CreateDevice implements ICommand {
         device.setName(dName);
         deviceDAO.add(device);
      
-        if (device.getId() != null){
-            Port port = new Port();
-            port.setDevice(device);
+        Port port = new Port();
+        port.setDevice(deviceDAO.findByName(dName));
+        
+        for (int i = 0; i != PORT_N; i++){
+            portDAO.add(port);
 
-            for (int i = 0; i != PORT_N; i++){
-                portDAO.add(port);
-            }
-            return "/index.jsp";
         }
-        return "/IEdashboard.jsp";
+        return "/index.jsp";
     }
     
 }
