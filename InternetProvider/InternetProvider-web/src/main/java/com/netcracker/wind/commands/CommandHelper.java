@@ -8,6 +8,9 @@ import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnComple
 import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnTasks;
 import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
 import com.netcracker.wind.commands.implementations.csedashboard.GetProviderLocation;
+import com.netcracker.wind.commands.implementations.iedashboard.CreateCable;
+import com.netcracker.wind.commands.implementations.iedashboard.CreateDevice;
+import com.netcracker.wind.commands.implementations.iedashboard.DeleteCable;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.pedashboard.ProvisioningEngineerTasks;
@@ -49,6 +52,9 @@ public class CommandHelper {
     private static final String CSE_GET_TASKS = "cse_get_tasks";
     private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
     private static final String PROVIDER_LOCATION_LIST = "provider_location_list";
+    private static final String NEW_DEVICE = "new_device";
+    private static final String NEW_CABLE = "new_cable";
+    private static final String DEL_CABLE = "del_cable";
 
     private final Map<String, ICommand> commands;
 
@@ -70,6 +76,9 @@ public class CommandHelper {
         commands.put(CSE_GET_TASKS, new CSEgetOwnTasks());
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
+        commands.put(NEW_DEVICE, new CreateDevice());
+        commands.put(NEW_CABLE, new CreateCable());
+        commands.put(DEL_CABLE, new DeleteCable());
 
     }
 
