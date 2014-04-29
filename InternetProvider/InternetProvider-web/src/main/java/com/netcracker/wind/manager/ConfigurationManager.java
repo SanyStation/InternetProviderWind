@@ -17,6 +17,7 @@ public class ConfigurationManager {
     public static final String REPORT_RI_UNC = "REPORT_RI_UNC";
     public static final String REPORT_SI_O = "REPORT_SI_O";
     public static final String REPORT_SI_P = "REPORT_SI_P";
+    public static final String REPORT_CIA_IPT = "REPORT_CIA_IPT";
 
     private static final ConfigurationManager configurationManager
             = new ConfigurationManager();

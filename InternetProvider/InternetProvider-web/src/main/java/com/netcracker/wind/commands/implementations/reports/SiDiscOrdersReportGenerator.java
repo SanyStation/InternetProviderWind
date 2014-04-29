@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Alexander Kovriga
  */
-public class SiDisconnOrdersReportGenerator implements ICommand {
+public class SiDiscOrdersReportGenerator implements ICommand {
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {

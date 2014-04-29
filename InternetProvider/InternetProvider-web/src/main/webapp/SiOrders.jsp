@@ -14,15 +14,17 @@
     </head>
     <body>
 
-        <display:table name="sessionScope.orders" export="true" sort="list">
-            <display:caption media="html">
-                <strong>${sessionScope.title}</strong>
-            </display:caption>
+        <display:table name="sessionScope.orders" export="true" sort="list" pagesize="30">
+            <display:caption media="html sio">${sessionScope.title}</display:caption>
+            <display:setProperty name="export.sio" value="true"/>
+            <display:setProperty name="export.sio.label" value="XLS"/>
+            <display:setProperty name="export.csio" value="true"/>
+            <display:setProperty name="export.csio.label" value="CSV"/>
             <display:column property="id" title="id" sortable="true" headerClass="sortable" />
-            <display:column property="providerLocationId" title="Provider location" sortable="true" headerClass="sortable" />
+            <display:column property="providerLocationId" title="Provider location ID" sortable="true" headerClass="sortable" />
+            <display:column property="providerLocationName" title="Provider location name" sortable="true" headerClass="sortable" />
             <display:column property="serviceLocationId" title="Service location" sortable="true" headerClass="sortable" />
-            <display:column property="serviceId" title="Service" sortable="true" headerClass="sortable" />
-            <display:column property="status" title="Status" sortable="true" headerClass="sortable" />
+            <display:column property="serviceName" title="Service name" sortable="true" headerClass="sortable" />
             <display:column property="completeDate" title="Complete date" sortable="true" headerClass="sortable" />
         </display:table>
 

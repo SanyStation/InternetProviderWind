@@ -14,9 +14,9 @@ public class SiOrder implements Serializable {
     private int id;
     private Date completeDate;
     private int providerLocationId;
+    private String providerLocationName;
     private int serviceLocationId;
-    private int serviceId;
-    private String status;
+    private String serviceName;
 
     public SiOrder() {
     }
@@ -45,6 +45,14 @@ public class SiOrder implements Serializable {
         this.providerLocationId = providerLocationId;
     }
 
+    public String getProviderLocationName() {
+        return providerLocationName;
+    }
+
+    public void setProviderLocationName(String providerLocationName) {
+        this.providerLocationName = providerLocationName;
+    }
+
     public int getServiceLocationId() {
         return serviceLocationId;
     }
@@ -53,20 +61,12 @@ public class SiOrder implements Serializable {
         this.serviceLocationId = serviceLocationId;
     }
 
-    public int getServiceId() {
-        return serviceId;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setServiceId(int serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
     
 }

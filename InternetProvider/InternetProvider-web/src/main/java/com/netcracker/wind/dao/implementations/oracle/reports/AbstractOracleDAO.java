@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractOracleDAO {
 
-    private static final Logger logger
+    private static final Logger LOGGER
             = Logger.getLogger(AbstractOracleDAO.class.getName());
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -25,32 +25,32 @@ public abstract class AbstractOracleDAO {
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            logger.info("### log4j Query: " + query);
+            LOGGER.info("### log4j Query: " + query);
             stat = con.prepareStatement(query);
             if (param != null) {
                 for (int i = 0; i < param.size(); ++i) {
-                    logger.info("### log4j param [" + i + "] = " + param.get(i));
+                    LOGGER.info("### log4j param [" + i + "] = " + param.get(i));
                     stat.setObject(i + 1, param.get(i));
                 }
             }
             rs = stat.executeQuery();
             entities = parseResult(rs);
         } catch (SQLException ex) {
-            logger.error(null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                logger.error(null, ex);
+                LOGGER.error(null, ex);
             }
             try {
                 if (rs != null) {
                     rs.close();
                 }
             } catch (SQLException ex) {
-                logger.error(null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }

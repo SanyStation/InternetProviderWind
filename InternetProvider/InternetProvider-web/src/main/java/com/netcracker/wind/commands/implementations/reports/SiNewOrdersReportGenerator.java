@@ -25,8 +25,8 @@ public class SiNewOrdersReportGenerator implements ICommand {
         String dateTo = request.getParameter("vdNewTo");
         List<SiOrder> orders = factoryDAO.createSiNewOrdersDAO().
                 findDateFromTo(dateFrom, dateTo);
-        hs.setAttribute("title", "New orders per period: " + dateFrom + " - "
-                + dateTo);
+        hs.setAttribute("title", "New orders per period: " + dateFrom
+                + " - " + dateTo);
         hs.setAttribute("orders", orders);
         return ConfigurationManager.getInstance().
                 getProperty(ConfigurationManager.REPORT_SI_O);

@@ -22,15 +22,18 @@ public class OracleSiOrdersDAO extends AbstractOracleDAO
     public static final String ID = "id";
     public static final String COMPLETE_DATE = "completedate";
     public static final String PROVIDER_LOCATION_ID = "provider_location_id";
+    public static final String PROVIDER_LOCATION_NAME
+            = "provider_location_name";
     public static final String SERVICE_LOCATION_ID = "service_location_id";
-    public static final String SERVICE_ID = "service_id";
-    public static final String STATUS = "status";
+    public static final String SERVICE_NAME = "service_name";
 
     public static final String SELECT
-            = "SELECT " + ID + ", " + COMPLETE_DATE + ", "
-            + PROVIDER_LOCATION_ID + ", " + SERVICE_LOCATION_ID + ", "
-            + SERVICE_ID + ", " + STATUS + " "
-            + "FROM service_orders";
+            = "SELECT so.id AS " + ID + ", " + COMPLETE_DATE + ", "
+            + PROVIDER_LOCATION_ID + ", pl.name AS " + PROVIDER_LOCATION_NAME 
+            + ", " + SERVICE_LOCATION_ID + ", s.name AS " + SERVICE_NAME + " "
+            + "FROM service_orders so JOIN provider_locations pl "
+            + "ON so.provider_location_id = pl.id "
+            + "JOIN services s ON so.service_id = s.id";
 
     public static final String WHERE = "WHERE scenario LIKE ?";
 
@@ -44,10 +47,10 @@ public class OracleSiOrdersDAO extends AbstractOracleDAO
             = COMPLETE_DATE + " BETWEEN TO_DATE(?, '" + DATE_FORMAT + "') AND "
             + " TO_DATE(?, '" + DATE_FORMAT + "')";
 
-    private final ISiOrdersDAO.Scenario scenario;
-
-    private static final Logger logger
+    private static final Logger LOGGER
             = Logger.getLogger(OracleSiOrdersDAO.class.getName());
+
+    private final ISiOrdersDAO.Scenario scenario;
 
     public OracleSiOrdersDAO(ISiOrdersDAO.Scenario scenario) {
         this.scenario = scenario;
@@ -82,7 +85,7 @@ public class OracleSiOrdersDAO extends AbstractOracleDAO
             }
             orders = super.findWhere(query.toString(), param);
         } catch (ParseException ex) {
-            logger.error(null, ex);
+            LOGGER.error(null, ex);
         }
         return orders;
     }
@@ -95,20 +98,21 @@ public class OracleSiOrdersDAO extends AbstractOracleDAO
                 int id = rs.getInt(ID);
                 Date date = rs.getDate(COMPLETE_DATE);
                 int providerLocationId = rs.getInt(PROVIDER_LOCATION_ID);
+                String providerLocationName
+                        = rs.getString(PROVIDER_LOCATION_NAME);
                 int serviceLocationId = rs.getInt(SERVICE_LOCATION_ID);
-                int serviceId = rs.getInt(SERVICE_ID);
-                String status = rs.getString(STATUS);
+                String serviceName = rs.getString(SERVICE_NAME);
                 SiOrder order = new SiOrder();
                 order.setId(id);
                 order.setCompleteDate(date);
                 order.setProviderLocationId(providerLocationId);
+                order.setProviderLocationName(providerLocationName);
                 order.setServiceLocationId(serviceLocationId);
-                order.setServiceId(serviceId);
-                order.setStatus(status);
+                order.setServiceName(serviceName);
                 orders.add(order);
             }
         } catch (SQLException ex) {
-            logger.error(null, ex);
+            LOGGER.error(null, ex);
         }
         return orders;
     }

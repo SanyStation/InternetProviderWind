@@ -1,6 +1,6 @@
 package com.netcracker.wind.export.reports;
 
-import com.netcracker.wind.entities.reports.RiRouterUtilNCap;
+import com.netcracker.wind.entities.reports.RiMostProfRouter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,21 +17,21 @@ import org.displaytag.model.RowIterator;
  *
  * @author Alexander Kovriga
  */
-public class RiUtilNCapExcelExport extends AbstractExcelExport {
+public class RiMostProfRouterExport extends AbstractExcelExport {
 
     private static final Logger LOGGER = Logger.getLogger(
-            RiUtilNCapExcelExport.class.getName());
+            RiMostProfRouterExport.class.getName());
 
     private static final String TEMPLATE_PATH
-            = "/reports/templates/template_ri_util_n_cap.xls";
+            = "/reports/templates/template_ri_most_prof.xls";
 
-    public RiUtilNCapExcelExport() {
+    public RiMostProfRouterExport() {
         super(TEMPLATE_PATH);
     }
 
     @Override
     protected Map fillBeansMap() {
-        List<RiRouterUtilNCap> routers = new ArrayList<RiRouterUtilNCap>();
+        List<RiMostProfRouter> routers = new ArrayList<RiMostProfRouter>();
         Map beans = new HashMap();
         RowIterator rowIterator = super.tableModel.getRowIterator(true);
         try {
@@ -45,14 +45,11 @@ public class RiUtilNCapExcelExport extends AbstractExcelExport {
                 column = columnIterator.nextColumn();
                 String name = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
-                int capacity = (Integer) column.getValue(true);
-                column = columnIterator.nextColumn();
-                int utilization = (Integer) column.getValue(true);
-                RiRouterUtilNCap r = new RiRouterUtilNCap();
+                double profit = (Double) column.getValue(true);
+                RiMostProfRouter r = new RiMostProfRouter();
                 r.setId(id);
                 r.setName(name);
-                r.setCapacity(capacity);
-                r.setUtilization(utilization);
+                r.setProfit(profit);
                 routers.add(r);
             }
         } catch (ObjectLookupException ex) {

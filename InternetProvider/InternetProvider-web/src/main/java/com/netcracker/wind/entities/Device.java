@@ -1,7 +1,7 @@
 package com.netcracker.wind.entities;
 
-import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -15,7 +15,7 @@ public class Device implements Serializable {
     private static final long serialVersionUID = -2152609240262921250L;
 
     private Integer id;
-    private List<Port> ports;
+    private List<Port> ports = new ArrayList();
     private String name;
 
     public Device() {
@@ -34,18 +34,11 @@ public class Device implements Serializable {
     }
 
     public List<Port> getPortsList() {
-        if (ports == null) {
-            fillPortsCollection();
-        }
         return ports;
     }
 
     public void setPortsList(List<Port> portsCollection) {
         this.ports = portsCollection;
-    }
-
-    private void fillPortsCollection() {
-        ports = new OracleDAOFactory().createPortDAO().findByDevice(id);
     }
 
     public String getName() {
@@ -54,31 +47,6 @@ public class Device implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getCapacity() {
-        if (ports == null) {
-            fillPortsCollection();
-        }
-        return ports.size();
-    }
-
-    public int getUtilization() {
-        int busyPorts = 0;
-        if (ports == null) {
-            fillPortsCollection();
-        }
-        for (Port port : ports) {
-            if (!port.isFree()) {
-                ++busyPorts;
-            }
-        }
-        return busyPorts;
-    }
-
-    public double getUtilizationPercent() {
-        return getCapacity() > 0
-                ? (double) getUtilization() / getCapacity() : 0;
     }
 
     @Override

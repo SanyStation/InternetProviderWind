@@ -32,6 +32,7 @@
                 <li><a href="#tabs-si1">SI report: New orders</a></li>
                 <li><a href="#tabs-si2">SI report: Disconnected orders</a></li>
                 <li><a href="#tabs-si3">SI report: Profitability</a></li>
+                <li><a href="#tabs-cia1">CIA report: Impact Propagation Tree</a></li>
             </ul>
             <div id="tabs-ri1">
                 <p>Generates report of profitability of all routers in descending order.</p>
@@ -107,6 +108,15 @@
                     <p>
                         <input type="text" id="vdByMonth" name="vdByMonth" />
                         <input type="hidden" value="si_prof_by_month" name="command" />
+                    </p>
+                    <input type="submit" value="Generate">
+                </form>
+            </div>
+            <div id="tabs-cia1">
+                <p>Generates "Customer Impact Analysis" report: Impact Propagation Tree.</p>
+                <form action="Controller" method="POST">
+                    <p>
+                        <input type="hidden" value="cia_ipt" name="command" />
                     </p>
                     <input type="submit" value="Generate">
                 </form>

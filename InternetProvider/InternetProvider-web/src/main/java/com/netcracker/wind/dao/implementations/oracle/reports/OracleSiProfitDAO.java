@@ -17,26 +17,32 @@ import org.apache.log4j.Logger;
  */
 public class OracleSiProfitDAO extends AbstractOracleDAO
         implements ISiProfitDAO {
-
-    public static final String DATE_FORMAT = "YYYY-MM-DD";
+    
     public static final String PROVIDER_LOCATION_ID = "provider_location_id";
+    public static final String PROVIDER_LOCATION_NAME
+            = "provider_location_name";
     public static final String SERVICE_ID = "service_id";
+    public static final String SERVICE_NAME = "service_name";
     public static final String SUM = "sum";
-
     public static final String QUERY
-            = "SELECT so." + PROVIDER_LOCATION_ID + ", so." + SERVICE_ID + ", "
+            = "SELECT pl.id AS " + PROVIDER_LOCATION_ID + ", "
+            + "pl.name AS " + PROVIDER_LOCATION_NAME + ", "
+            + "s.id AS " + SERVICE_ID + ", s.name AS " + SERVICE_NAME + ", "
             + "SUM(p.price) AS " + SUM + " "
-            + "FROM service_orders so INNER JOIN service_instances si ON "
-            + "si.service_order_id = so.id INNER JOIN prices p ON "
-            + "so.provider_location_id = p.provider_location_id "
+            + "FROM service_orders so JOIN service_instances si "
+            + "ON si.service_order_id = so.id "
+            + "JOIN prices p "
+            + "ON so.provider_location_id = p.provider_location_id "
             + "AND so.service_id = p.service_id "
+            + "JOIN provider_locations pl ON so.provider_location_id = pl.id "
+            + "JOIN services s ON so.service_id = s.id "
             + "WHERE completedate <= TO_DATE(?, 'YYYY-MM-DD') "
             + "AND si.status = 'active' "
-            + "GROUP BY so.provider_location_id, so.service_id "
+            + "GROUP BY pl.id, pl.name, s.id, s.name "
             + "ORDER BY sum DESC";
-    
-    private final Logger logger =
-            Logger.getLogger(OracleSiProfitDAO.class.getName());
+
+    private final Logger LOGGER
+            = Logger.getLogger(OracleSiProfitDAO.class.getName());
 
     public List<SiProfit> findByDateTo(String dateTo) {
         List<SiProfit> orders = null;
@@ -51,7 +57,7 @@ public class OracleSiProfitDAO extends AbstractOracleDAO
             param.add(dateTo);
             orders = super.findWhere(QUERY, param);
         } catch (ParseException ex) {
-            logger.error(null, ex);
+            LOGGER.error(null, ex);
         }
         return orders;
     }
@@ -62,16 +68,21 @@ public class OracleSiProfitDAO extends AbstractOracleDAO
         try {
             while (rs.next()) {
                 int providerLocationId = rs.getInt(PROVIDER_LOCATION_ID);
+                String providerLocationName
+                        = rs.getString(PROVIDER_LOCATION_NAME);
                 int serviceId = rs.getInt(SERVICE_ID);
+                String serviceName = rs.getString(SERVICE_NAME);
                 double sum = rs.getDouble(SUM);
                 SiProfit sp = new SiProfit();
                 sp.setProviderLocationId(providerLocationId);
+                sp.setProviderLocationName(providerLocationName);
                 sp.setServiceId(serviceId);
+                sp.setServiceName(serviceName);
                 sp.setSum(sum);
                 profits.add(sp);
             }
         } catch (SQLException ex) {
-            logger.error(null, ex);
+            LOGGER.error(null, ex);
         }
         return profits;
     }
