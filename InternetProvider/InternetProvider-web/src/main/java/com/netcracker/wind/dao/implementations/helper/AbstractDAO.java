@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -16,6 +16,8 @@ import java.util.logging.Level;
 public abstract class AbstractDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final Logger LOGGER
+            = Logger.getLogger(AbstractDAO.class.getName());
 
     protected List findWhere(String query, Object[] param) {
         List circuits = null;
@@ -33,22 +35,21 @@ public abstract class AbstractDAO {
             rs = stat.executeQuery();
             circuits = parseResult(rs);
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(AbstractDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (rs != null) {
                     rs.close();
                 }
             } catch (SQLException ex) {
-                //TODO
-                java.util.logging.Logger.getLogger(AbstractDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                java.util.logging.Logger.getLogger(AbstractDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }
@@ -64,14 +65,14 @@ public abstract class AbstractDAO {
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(AbstractDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                java.util.logging.Logger.getLogger(AbstractDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }
