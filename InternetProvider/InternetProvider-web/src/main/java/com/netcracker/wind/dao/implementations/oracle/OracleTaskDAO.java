@@ -2,6 +2,7 @@ package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
@@ -136,10 +137,9 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
                 task.setType(rs.getString(TYPE));
                 task.setStatus(rs.getString(STATUS));
                 task.setRole(
-                        factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE))
-                );
-                //TODO 
-                //task.setServiceOrders(DAOFactory.createSODAO().findByID());
+                        factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE)));
+                task.setServiceOrder(
+                        factoryDAO.createServiceOrderDAO().findByID(rs.getInt(SO)));
                 tasks.add(task);
 
             }
@@ -256,5 +256,19 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
             connectionPool.close(connection);
         }
         return task;
+    }
+
+    public List<Task> findByTypeAndStatus(String type, String... status) {
+        StringBuilder sqlWhere = new StringBuilder("WHERE type = ? AND (");
+        for (int i = 0; i < status.length - 1; i++) {
+            sqlWhere.append("status = ? OR ");
+        }
+        sqlWhere.append("status = ?)");
+        Object[] parameters = new Object[status.length + 1];
+        parameters[0] = type;
+        for (int i = 1; i < parameters.length; i++) {
+            parameters[i] = status[i - 1];
+        }
+        return findWhere(sqlWhere.toString(), new Object[]{type, status});
     }
 }

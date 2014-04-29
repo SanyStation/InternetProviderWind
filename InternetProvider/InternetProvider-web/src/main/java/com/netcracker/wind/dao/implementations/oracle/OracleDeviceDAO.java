@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,9 +37,18 @@ public class OracleDeviceDAO extends AbstractDAO implements IDeviceDAO {
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             stat.setString(1, device.getName());
             stat.executeUpdate();
+            ResultSet insertedResultSet = stat.getGeneratedKeys();
+            if (insertedResultSet != null && insertedResultSet.next()) {
+                String s = insertedResultSet.getString(1);
+                PreparedStatement ps = connection.prepareStatement("select * from ROOT.DEVICE where rowid = ?");
+                ps.setObject(1, s);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                device.setId(rs.getInt(ID));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

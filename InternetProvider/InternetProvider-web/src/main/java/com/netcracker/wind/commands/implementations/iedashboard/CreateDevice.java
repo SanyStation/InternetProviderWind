@@ -41,6 +41,7 @@ public class CreateDevice implements ICommand {
         
         for (int i = 0; i != PORT_N; i++){
             portDAO.add(port);
+
         }
         return "/index.jsp";
     }

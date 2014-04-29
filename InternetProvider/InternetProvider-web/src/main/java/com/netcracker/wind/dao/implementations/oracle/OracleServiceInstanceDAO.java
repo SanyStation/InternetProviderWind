@@ -132,7 +132,7 @@ public class OracleServiceInstanceDAO extends AbstractDAO implements IServiceIns
                 //servInst.setServiceOrders(DAOFactory.createCableDAO().findByServInst(id));
                 //TODO get(0) - ???
                 servInst.setCircuit(
-                        factoryDAO.createCircuitDAO().findByServInst(id).get(0)
+                        factoryDAO.createCircuitDAO().findByServInst(id)
                 );
                 servInsts.add(servInst);
             }

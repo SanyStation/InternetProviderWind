@@ -10,8 +10,10 @@ import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ICircuitDAO;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
-import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
+import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Circuit;
+import com.netcracker.wind.entities.Task;
+import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,31 +23,37 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CreateCircuit implements ICommand {
 
-    private static final String PORT_ID = "port_id";
-    private static final String SERVICE_INSTANCE_ID = "service_instance_id";
+    private static final String TASK_ID = "task_id";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        int portID;
-        int serviceInstanceID;
+        int taskID = -1;
         try {
-            portID = Integer.parseInt(request.getParameter(PORT_ID));
-            serviceInstanceID = Integer.parseInt(request.getParameter(SERVICE_INSTANCE_ID));
+            taskID = Integer.parseInt(request.getParameter(TASK_ID));
         } catch (NumberFormatException exception) {
             //TODO log
             //TODO redirecct to error page
             return "";
         }
+        if (taskID == -1) {
+            //TODO return to error page
+        }
+
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IPortDAO portDAO = factoryDAO.createPortDAO();
         ICircuitDAO circuitDAO = factoryDAO.createCircuitDAO();
-        IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
+        ITaskDAO taskDAO = factoryDAO.createTaskDAO();
 
-        Circuit circuit = new Circuit();
-        circuit.setPort(portDAO.findByID(portID));
-        circuit.setServiceInstance(serviceInstanceDAO.findByID(serviceInstanceID));
-        circuitDAO.add(circuit);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Task task = taskDAO.findByID(taskID);
+        int serviceInstanceID = task.getServiceOrder().getServiceInstance().getId();
+
+        Circuit circuit = circuitDAO.findByServInst(serviceInstanceID);
+        //TODO setting circuit
+        task.setStatus(Task.TaskStatus.COMPLETED.toString());
+        taskDAO.update(task);
+        Workflow.createTaskForCSE(task.getServiceOrder(), taskDAO);
+        //TODO return next page
+        return "";
     }
 
 }

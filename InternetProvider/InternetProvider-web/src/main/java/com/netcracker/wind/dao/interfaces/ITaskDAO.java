@@ -28,6 +28,8 @@ public interface ITaskDAO {
 
     public List<Task> findByPerformerStatus(int idPerformer, String status);
 
+    public List<Task> findByTypeAndStatus(String type, String... status);
+
     public void update(Task task);
 
     public List<Task> findAll();

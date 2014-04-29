@@ -10,11 +10,9 @@ import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
-import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.ServiceOrder;
-import com.netcracker.wind.entities.Task;
-import com.netcracker.wind.workflow.NewScenarioWorkflow;
+import com.netcracker.wind.workflow.Workflow;
 import java.sql.Timestamp;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,9 +55,7 @@ public class ConfirmOrder implements ICommand {
         order.setProcesdate(new Timestamp(System.currentTimeMillis()));
         order.setServiceInstance(serviceInstance);
         serviceOrderDAO.update(order);
-        Task task = NewScenarioWorkflow.createTaskForNewScnario(order);
-        ITaskDAO taskDAO = factoryDAO.createTaskDAO();
-        taskDAO.add(task);
+        Workflow.createTaskForNewScnario(order);
         //TODO redirect to next page
         return "";
     }

@@ -27,4 +27,6 @@ public interface IPortDAO {
     public void update(Port port);
 
     public List<Port> findByDevice(int idDevice);
+
+    public Port occupyFreePort();
 }
