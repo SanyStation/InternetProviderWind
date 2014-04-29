@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.dao.implementations.helper;
 
 import com.netcracker.wind.connection.ConnectionPool;
@@ -15,7 +14,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 
-
 /**
  *
  * @author Oksana
@@ -24,7 +22,7 @@ public abstract class AbstractDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    protected   List findWhere(String query, Object[] param) {
+    protected List findWhere(String query, Object[] param) {
         List circuits = null;
         Connection con = null;
         ResultSet rs = null;
@@ -61,7 +59,8 @@ public abstract class AbstractDAO {
         }
         return circuits;
     }
-     public  void delete(String deleteQuary,int id) {
+
+    public void delete(String deleteQuary, int id) {
         Connection con = null;
         PreparedStatement stat = null;
         try {

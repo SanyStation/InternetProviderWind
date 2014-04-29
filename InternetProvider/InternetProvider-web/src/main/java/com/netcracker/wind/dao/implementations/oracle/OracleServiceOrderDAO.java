@@ -102,7 +102,7 @@ public class OracleServiceOrderDAO extends AbstractDAO implements IServiceOrderD
      */
     @Override
     protected List<ServiceOrder> findWhere(String where, Object[] param) {
-       return super.findWhere(SELECT + where, param);
+        return super.findWhere(SELECT + where, param);
     }
 
     /*
@@ -121,27 +121,17 @@ public class OracleServiceOrderDAO extends AbstractDAO implements IServiceOrderD
                 serviceOrder.setProcesdate(rs.getTimestamp(PROC_D));
                 serviceOrder.setCompletedate(rs.getTimestamp(COMP_D));
                 serviceOrder.setUser(
-                        factoryDAO.createUserDAO().findByID(rs.getInt(USER))
-                );
+                        factoryDAO.createUserDAO().findByID(rs.getInt(USER)));
                 serviceOrder.setService(
                         factoryDAO.createServiceDAO().findByID(
-                                rs.getInt(SERVICE)
-                        )
-                );
-                serviceOrder.setProviderLocation(
-                        factoryDAO.createProviderLocationDAO().findByID(
-                                rs.getInt(PLID)
-                        )
-                );
-                serviceOrder.setServiceLocation(
-                        factoryDAO.createServiceLocationDAO().findByID(
-                                rs.getInt(SLID)
-                        )
-                );
+                                rs.getInt(SERVICE)));
+                serviceOrder.setProviderLocation(factoryDAO.
+                        createProviderLocationDAO().findByID(rs.getInt(PLID)));
+                serviceOrder.setServiceLocation(factoryDAO.
+                        createServiceLocationDAO().findByID(rs.getInt(SLID)));
+                serviceOrder.setServiceInstance(factoryDAO.
+                        createServiceInstanceDAO().findByID(rs.getInt(SIID)));
                 serviceOrder.setScenario(rs.getString(SCENARIO));
-                //TODO
-                //serviceOrder.setServiceInstancesCollection(null);
-
                 serviceOrders.add(serviceOrder);
             }
         } catch (SQLException ex) {

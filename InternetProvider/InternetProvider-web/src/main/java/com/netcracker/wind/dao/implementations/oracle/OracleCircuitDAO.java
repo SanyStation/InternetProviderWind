@@ -68,7 +68,7 @@ public class OracleCircuitDAO extends AbstractDAO implements ICircuitDAO {
      * @param idCircuit
      */
     public void delete(int idCircuit) {
-      super.delete(DELETE, idCircuit);
+        super.delete(DELETE, idCircuit);
     }
 
     /**
@@ -92,8 +92,9 @@ public class OracleCircuitDAO extends AbstractDAO implements ICircuitDAO {
      * @param param parameters by which search will be formed
      * @return list of found circuits
      */
+    @Override
     protected List<Circuit> findWhere(String where, Object[] param) {
-       return super.findWhere(SELECT + where, param);
+        return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -177,13 +178,13 @@ public class OracleCircuitDAO extends AbstractDAO implements ICircuitDAO {
      * @param idSi
      * @return
      */
-    public List<Circuit> findByServInst(int idSi) {
+    public Circuit findByServInst(int idSi) {
         List<Circuit> circuits
                 = findWhere("WHERE SERVICE_INSTANCE_ID = ?", new Object[]{idSi});
-        if (circuits.isEmpty()) {
-            return null;
+        if (circuits.size() == 1) {
+            return circuits.get(0);
         } else {
-            return circuits;
+            return null;
         }
     }
 

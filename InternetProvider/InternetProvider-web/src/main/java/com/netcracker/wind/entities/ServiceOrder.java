@@ -98,8 +98,8 @@ public class ServiceOrder implements Serializable {
         return serviceInstance;
     }
 
-    public void setServiceInstance(ServiceInstance serviceInstancesCollection) {
-        this.serviceInstance = serviceInstancesCollection;
+    public void setServiceInstance(ServiceInstance serviceInstances) {
+        this.serviceInstance = serviceInstances;
     }
 
     public Collection<Task> getTasksCollection() {

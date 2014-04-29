@@ -2,6 +2,7 @@ package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
@@ -136,10 +137,9 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
                 task.setType(rs.getString(TYPE));
                 task.setStatus(rs.getString(STATUS));
                 task.setRole(
-                        factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE))
-                );
-                //TODO 
-                //task.setServiceOrders(DAOFactory.createSODAO().findByID());
+                        factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE)));
+                task.setServiceOrder(
+                        factoryDAO.createServiceOrderDAO().findByID(rs.getInt(SO)));
                 tasks.add(task);
 
             }
