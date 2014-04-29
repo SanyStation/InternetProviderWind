@@ -11,7 +11,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.Task;
-import com.netcracker.wind.workflow.NewScenarioWorkflow;
+import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -46,7 +46,7 @@ public class CompleteTask implements ICommand {
         task.setStatus(Task.TaskStatus.ACTIVE.toString());
         ServiceOrder order = task.getServiceOrder();
         taskDAO.update(task);
-        NewScenarioWorkflow.createTaskForCSE(order, taskDAO);
+        Workflow.createTaskForCSE(order, taskDAO);
         //TODO return next page
         return "";
     }

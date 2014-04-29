@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author Anatolii
  */
-public class NewScenarioWorkflow {
+public class Workflow {
 
     public static void createTaskForNewScnario(ServiceOrder order) {
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
@@ -37,20 +37,7 @@ public class NewScenarioWorkflow {
         if (cables.isEmpty()) {
             Port port = portDAO.occupyFreePort();
             if (port == null) {
-                List<Task> tasks = taskDAO.
-                        findByTypeAndStatus(Task.TaskType.NEW_DEVICE.toString(),
-                                Task.TaskStatus.NEW.toString(),
-                                Task.TaskStatus.ACTIVE.toString(),
-                                Task.TaskStatus.SUSPENDED.toString());
-                if (tasks.isEmpty()) {
-                    Task task = TaskCreator.createTask(Role.IE_GROUP_ID,
-                            Task.TaskType.NEW_DEVICE,
-                            Task.TaskStatus.NEW,
-                            order);
-                    taskDAO.add(task);
-                }
-            } else {
-
+                createTaskForIE(order, Task.TaskType.NEW_DEVICE, taskDAO);
             }
             Circuit circuit = new Circuit();
             circuit.setPort(port);
@@ -66,6 +53,23 @@ public class NewScenarioWorkflow {
         }
     }
 
+    public static void createTaskForIE(ServiceOrder order,
+            Task.TaskType taskType, ITaskDAO taskDAO) {
+
+        //If in system isn't task to create new device with not completed status
+        //then don't create new task NEW_DEVICE
+        if (taskType.equals(Task.TaskType.NEW_DEVICE)
+                && isNotComletetdTaskNewDevice(taskDAO)) {
+            return;
+        }
+
+        Task task = TaskCreator.createTask(Role.IE_GROUP_ID,
+                taskType,
+                Task.TaskStatus.NEW,
+                order);
+        taskDAO.add(task);
+    }
+
     public static void createTaskForPE(ServiceOrder order, Task.TaskType type,
             ITaskDAO taskDAO) {
         Task task = TaskCreator.createTask(Role.PE_GROUPR_ID,
@@ -79,6 +83,15 @@ public class NewScenarioWorkflow {
         Task task = TaskCreator.createTask(Role.CSE_GROUP_ID,
                 Task.TaskType.SEND_BILL, Task.TaskStatus.NEW, order);
         taskDAO.add(task);
+    }
+
+    private static boolean isNotComletetdTaskNewDevice(ITaskDAO taskDAO) {
+        List<Task> tasks = taskDAO.
+                findByTypeAndStatus(Task.TaskType.NEW_DEVICE.toString(),
+                        Task.TaskStatus.NEW.toString(),
+                        Task.TaskStatus.ACTIVE.toString(),
+                        Task.TaskStatus.SUSPENDED.toString());
+        return !tasks.isEmpty();
     }
 
 }
