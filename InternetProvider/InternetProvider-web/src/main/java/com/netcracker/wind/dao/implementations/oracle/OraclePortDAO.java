@@ -71,8 +71,8 @@ public class OraclePortDAO extends AbstractDAO implements IPortDAO {
             return ports.get(0);
         }
     }
-    
-    Port getFreePort () {
+
+    Port getFreePort() {
         Connection con = null;
         PreparedStatement statSel = null;
         PreparedStatement statUpd = null;
@@ -84,7 +84,7 @@ public class OraclePortDAO extends AbstractDAO implements IPortDAO {
             statSel = con.prepareCall(SEL_FREE);
             rs = statSel.executeQuery();
             List<Port> ports = parseResult(rs);
-             if (ports.isEmpty()) {
+            if (ports.isEmpty()) {
                 return null;
             }
             port.setId(ports.get(0).getId());
@@ -206,6 +206,54 @@ public class OraclePortDAO extends AbstractDAO implements IPortDAO {
 
     public List<Port> findByFree(boolean isFree) {
         return findWhere("WHERE free = ?", new Object[]{isFree});
+    }
+
+    public Port occupyFreePort() {
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement psSelect = null;
+        PreparedStatement psUpdate = null;
+        Port port = null;
+        try {
+            connection.setAutoCommit(false);
+            psSelect = connection.prepareCall(SELECT + "WHERE FREE = ?");
+            psSelect.setBoolean(1, true);
+            ResultSet rs = psSelect.executeQuery();
+            List<Port> ports = parseResult(rs);
+            if (ports.isEmpty()) {
+                return null;
+            }
+            port = ports.get(0);
+            port.setFree(false);
+            psUpdate = connection.prepareStatement(UPDATE);
+            psUpdate.setBoolean(1, port.isFree());
+            psUpdate.setInt(2, port.getId());
+            psUpdate.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (psSelect != null) {
+                try {
+                    psSelect.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (psUpdate != null) {
+                try {
+                    psUpdate.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            connectionPool.close(connection);
+        }
+        return port;
     }
 
 }

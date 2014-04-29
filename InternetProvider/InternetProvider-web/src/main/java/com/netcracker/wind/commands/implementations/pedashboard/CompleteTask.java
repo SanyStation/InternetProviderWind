@@ -45,9 +45,8 @@ public class CompleteTask implements ICommand {
 
         task.setStatus(Task.TaskStatus.ACTIVE.toString());
         ServiceOrder order = task.getServiceOrder();
-        Task newTask = NewScenarioWorkflow.createTaskForCSE(order);
         taskDAO.update(task);
-        taskDAO.add(newTask);
+        NewScenarioWorkflow.createTaskForCSE(order, taskDAO);
         //TODO return next page
         return "";
     }

@@ -257,4 +257,18 @@ public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
         }
         return task;
     }
+
+    public List<Task> findByTypeAndStatus(String type, String... status) {
+        StringBuilder sqlWhere = new StringBuilder("WHERE type = ? AND (");
+        for (int i = 0; i < status.length - 1; i++) {
+            sqlWhere.append("status = ? OR ");
+        }
+        sqlWhere.append("status = ?)");
+        Object[] parameters = new Object[status.length + 1];
+        parameters[0] = type;
+        for (int i = 1; i < parameters.length; i++) {
+            parameters[i] = status[i - 1];
+        }
+        return findWhere(sqlWhere.toString(), new Object[]{type, status});
+    }
 }
