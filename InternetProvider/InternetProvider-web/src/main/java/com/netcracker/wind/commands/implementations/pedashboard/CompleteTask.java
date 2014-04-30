@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Anatolii
  */
+@Deprecated
 public class CompleteTask implements ICommand {
 
     private static final String TASK_ID = "task_id";

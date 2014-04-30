@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Anatolii
  */
-public class CreateCircuit implements ICommand {
+public class SetupCircuit implements ICommand {
 
     private static final String TASK_ID = "task_id";
 
@@ -40,14 +40,11 @@ public class CreateCircuit implements ICommand {
         }
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
-        IPortDAO portDAO = factoryDAO.createPortDAO();
-        ICircuitDAO circuitDAO = factoryDAO.createCircuitDAO();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
 
         Task task = taskDAO.findByID(taskID);
-        int serviceInstanceID = task.getServiceOrder().getServiceInstance().getId();
 
-        Circuit circuit = circuitDAO.findByServInst(serviceInstanceID);
+        Circuit circuit = task.getServiceOrder().getServiceInstance().getCircuit();
         //TODO setting circuit
         task.setStatus(Task.TaskStatus.COMPLETED.toString());
         taskDAO.update(task);

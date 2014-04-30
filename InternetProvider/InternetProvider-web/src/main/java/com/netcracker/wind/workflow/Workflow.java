@@ -38,16 +38,13 @@ public class Workflow {
             Port port = portDAO.occupyFreePort();
             if (port == null) {
                 createTaskForIE(order, Task.TaskType.NEW_DEVICE, taskDAO);
+            } else {
+                createTaskForIE(order, Task.TaskType.NEW_CABLE, taskDAO);
             }
             Circuit circuit = new Circuit();
             circuit.setPort(port);
             circuit.setServiceInstance(order.getServiceInstance());
             circuitDAO.add(circuit);
-            Task task = TaskCreator.createTask(Role.IE_GROUP_ID,
-                    Task.TaskType.NEW_CABLE,
-                    Task.TaskStatus.NEW,
-                    order);
-            taskDAO.add(task);
         } else {
             createTaskForPE(order, Task.TaskType.MANAGE_CIRCUIT, taskDAO);
         }
