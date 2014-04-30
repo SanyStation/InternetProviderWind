@@ -3,7 +3,7 @@ package com.netcracker.wind.dao.implementations.oracle;
 import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.entities.Cable;
 import java.sql.Connection;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleCableDAO extends AbstractDAO
+public class OracleCableDAO extends AbstractOracleDAO
         implements ICableDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();

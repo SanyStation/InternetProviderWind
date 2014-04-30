@@ -1,5 +1,6 @@
 package com.netcracker.wind.dao.implementations.oracle.reports;
 
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.reports.ICiaIptDAO;
 import com.netcracker.wind.entities.reports.CiaIpt;
 import java.sql.ResultSet;
@@ -55,9 +56,12 @@ public class OracleCiaIptDAO extends AbstractOracleDAO implements ICiaIptDAO {
         }
         return links;
     }
+    
+    @Override
+    public void delete(String deleteQuery, int id) {}
 
     public List<CiaIpt> findAll() {
-        return super.findWhere(QUERY, new ArrayList<String>());
+        return super.findWhere(QUERY, new Object[]{});
     }
 
 }

@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
 import com.netcracker.wind.entities.ProviderLocation;
 import java.sql.Connection;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleProviderLocationDAO extends AbstractDAO implements IProviderLocationDAO {
+public class OracleProviderLocationDAO extends AbstractOracleDAO implements IProviderLocationDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String UPDATE = "UPDATE PROVIDER_LOCATIONS SET "

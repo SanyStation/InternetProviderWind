@@ -1,5 +1,6 @@
 package com.netcracker.wind.dao.implementations.oracle.reports;
 
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.reports.IRiMostProfRouterDAO;
 import com.netcracker.wind.entities.reports.RiMostProfRouter;
 import java.sql.ResultSet;
@@ -35,10 +36,6 @@ public class OracleRiMostProfRouterDAO extends AbstractOracleDAO
     private static final Logger LOGGER
             = Logger.getLogger(OracleRiMostProfRouterDAO.class.getName());
 
-    public List<RiMostProfRouter> findAll() {
-        return super.findWhere(QUERY, new ArrayList<String>());
-    }
-
     @Override
     protected List<RiMostProfRouter> parseResult(ResultSet rs) {
         List<RiMostProfRouter> devices = new ArrayList<RiMostProfRouter>();
@@ -57,6 +54,13 @@ public class OracleRiMostProfRouterDAO extends AbstractOracleDAO
             LOGGER.error(null, ex);
         }
         return devices;
+    }
+    
+    @Override
+    public void delete(String deleteQuery, int id) {}
+    
+    public List<RiMostProfRouter> findAll() {
+        return super.findWhere(QUERY, new Object[]{});
     }
 
 }

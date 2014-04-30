@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IServiceLocationDAO;
 import com.netcracker.wind.entities.ServiceLocation;
 import java.sql.Connection;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleServiceLocationDAO extends AbstractDAO implements IServiceLocationDAO {
+public class OracleServiceLocationDAO extends AbstractOracleDAO implements IServiceLocationDAO {
 
     //Need add one field cable
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();

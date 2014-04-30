@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IRoleDAO;
 import com.netcracker.wind.entities.Role;
 import java.sql.Connection;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana
  */
-public class OracleRoleDAO extends AbstractDAO implements IRoleDAO {
+public class OracleRoleDAO extends AbstractOracleDAO implements IRoleDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM ROLES WHERE ID = ?";
