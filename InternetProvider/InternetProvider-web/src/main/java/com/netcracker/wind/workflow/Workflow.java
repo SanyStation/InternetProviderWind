@@ -91,4 +91,13 @@ public class Workflow {
         return !tasks.isEmpty();
     }
 
+    public static void createTaskForModifyScenario(ServiceOrder order) {
+        createTaskForPE(order, Task.TaskType.MODIFY_CIRCUIT,
+                FactoryCreator.getInstance().getFactory().createTaskDAO());
+    }
+
+    public static void createTaskForDisconnectScenario(ServiceOrder order) {
+        
+    }
+
 }

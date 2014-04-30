@@ -34,7 +34,7 @@ import org.json.JSONObject;
  */
 public class ProceedToOrder implements ICommand {
 
-    private static final String NAME = "name";
+    private static final String USER = "user";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         JSONObject jsono = new JSONObject();
@@ -42,11 +42,11 @@ public class ProceedToOrder implements ICommand {
         if (session == null) {
             return processError(jsono);
         }
-        Object paramNameUser = session.getAttribute(NAME);
-        if (paramNameUser == null) {
+        Object paramUser = session.getAttribute(USER);
+        if (paramUser == null || !(paramUser instanceof User)) {
             return processError(jsono);
         }
-        String email = (String) paramNameUser;
+        User user = (User) session.getAttribute(USER);
 
         String sX = request.getParameter("x");
         String sY = request.getParameter("y");
@@ -55,12 +55,6 @@ public class ProceedToOrder implements ICommand {
         double actualX = Double.parseDouble(sX);
         double actualY = Double.parseDouble(sY);
         int serviceId = Integer.parseInt(sID);
-////        int providerLocationID = Integer.parseInt(plID);
-//
-//        if (!isCoordinatesValid(actualX, actualY)) {
-//            //TODO redirect to error page
-//            return "";
-//        }
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IUserDAO userDAO = factoryDAO.createUserDAO();
@@ -68,7 +62,6 @@ public class ProceedToOrder implements ICommand {
         IServiceLocationDAO serviceLocationDAO = factoryDAO.createServiceLocationDAO();
         IProviderLocationDAO providerLocationDAO = factoryDAO.createProviderLocationDAO();
 
-        User user = userDAO.findByEmail(email);
         //Find nearest ProviderLocation
         List<ProviderLocation> providerLocations = providerLocationDAO.findAll();
         ProviderLocation nearestProviderLocation = OrderUtilities.findNearestProviderLocation(
@@ -88,7 +81,7 @@ public class ProceedToOrder implements ICommand {
         //TODO configure servise location
         order.setServiceLocation(serviceLocation);
         order.setStatus(ServiceOrder.ENTERING_STATUS);
-        order.setScenario("new");
+        order.setScenario(ServiceOrder.NEW_SCEARIO);
         orderDAO.add(order);
         try {
             jsono.put("auth", true);
@@ -99,10 +92,6 @@ public class ProceedToOrder implements ICommand {
         }
         //TODO redirect to next page
         return jsono.toString();
-    }
-
-    private boolean isCoordinatesValid(double x, double y) {
-        return true;
     }
 
     private String processError(JSONObject jsono) {

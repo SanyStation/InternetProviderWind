@@ -56,6 +56,16 @@ public class ConfirmOrder implements ICommand {
         order.setServiceInstance(serviceInstance);
         serviceOrderDAO.update(order);
         Workflow.createTaskForNewScnario(order);
+        if (order.getScenario().equals(ServiceOrder.NEW_SCEARIO)) {
+            Workflow.createTaskForNewScnario(order);
+        } else if (order.getScenario().equals(ServiceOrder.MODIFY_SCEARIO)) {
+            Workflow.createTaskForModifyScenario(order);
+        } else if (order.getScenario().equals(ServiceOrder.DISCONNECT_SCEARIO)) {
+            Workflow.createTaskForDisconnectScenario(order);
+        } else {
+            //TODO return error page
+            return "";
+        }
         //TODO redirect to next page
         return "";
     }
