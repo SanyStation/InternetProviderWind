@@ -57,7 +57,6 @@ public class ProceedToOrder implements ICommand {
         int serviceId = Integer.parseInt(sID);
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
-        IUserDAO userDAO = factoryDAO.createUserDAO();
         IServiceOrderDAO orderDAO = factoryDAO.createServiceOrderDAO();
         IServiceLocationDAO serviceLocationDAO = factoryDAO.createServiceLocationDAO();
         IProviderLocationDAO providerLocationDAO = factoryDAO.createProviderLocationDAO();

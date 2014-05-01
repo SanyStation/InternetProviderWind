@@ -44,19 +44,17 @@ public class ConfirmOrder implements ICommand {
             //TODO return error page
             return "";
         }
-        ServiceInstance serviceInstance = new ServiceInstance();
-        serviceInstance.setStatus(ServiceInstance.PLANNED);
-        serviceInstance.setUser(order.getUser());
-        serviceInstance.setServiceOrder(order);
-        serviceInstance.setService(order.getService());
-        serviceInstanceDAO.add(serviceInstance);
 
         order.setStatus(ServiceOrder.PROCESSING_STATUS);
         order.setProcesdate(new Timestamp(System.currentTimeMillis()));
-        order.setServiceInstance(serviceInstance);
-        serviceOrderDAO.update(order);
-        Workflow.createTaskForNewScnario(order);
         if (order.getScenario().equals(ServiceOrder.NEW_SCEARIO)) {
+            ServiceInstance serviceInstance = new ServiceInstance();
+            serviceInstance.setStatus(ServiceInstance.PLANNED);
+            serviceInstance.setUser(order.getUser());
+            serviceInstance.setServiceOrder(order);
+            serviceInstance.setService(order.getService());
+            serviceInstanceDAO.add(serviceInstance);
+            order.setServiceInstance(serviceInstance);
             Workflow.createTaskForNewScnario(order);
         } else if (order.getScenario().equals(ServiceOrder.MODIFY_SCEARIO)) {
             Workflow.createTaskForModifyScenario(order);
@@ -66,6 +64,7 @@ public class ConfirmOrder implements ICommand {
             //TODO return error page
             return "";
         }
+        serviceOrderDAO.update(order);
         //TODO redirect to next page
         return "";
     }

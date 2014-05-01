@@ -97,7 +97,8 @@ public class Workflow {
     }
 
     public static void createTaskForDisconnectScenario(ServiceOrder order) {
-        
+        createTaskForPE(order, Task.TaskType.DELETE_CIRCUITE,
+                FactoryCreator.getInstance().getFactory().createTaskDAO());
     }
 
 }
