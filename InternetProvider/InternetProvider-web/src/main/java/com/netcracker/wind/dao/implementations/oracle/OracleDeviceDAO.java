@@ -40,7 +40,7 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
             stat = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
             stat.setString(1, device.getName());
             stat.executeUpdate();
-           /* ResultSet insertedResultSet = stat.getGeneratedKeys();
+            ResultSet insertedResultSet = stat.getGeneratedKeys();
             if (insertedResultSet != null && insertedResultSet.next()) {
                 String s = insertedResultSet.getString(1);
                 PreparedStatement ps = connection.prepareStatement("select * from ROOT.DEVICES where rowid = ?");
@@ -48,7 +48,7 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
                 ResultSet rs = ps.executeQuery();
                 rs.next();
                 device.setId(rs.getInt(ID));
-            }*/
+            }
         } catch (SQLException ex) {
             Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
