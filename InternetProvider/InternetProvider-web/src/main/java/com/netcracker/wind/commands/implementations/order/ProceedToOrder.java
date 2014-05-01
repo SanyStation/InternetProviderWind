@@ -11,7 +11,6 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
 import com.netcracker.wind.dao.interfaces.IServiceLocationDAO;
 import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
-import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.ProviderLocation;
 import com.netcracker.wind.entities.Service;
 import com.netcracker.wind.entities.ServiceLocation;

@@ -8,10 +8,7 @@ package com.netcracker.wind.commands.implementations.pedashboard;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
-import com.netcracker.wind.dao.interfaces.ICircuitDAO;
-import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
-import com.netcracker.wind.entities.Circuit;
 import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
@@ -44,8 +41,8 @@ public class SetupCircuit implements ICommand {
 
         Task task = taskDAO.findByID(taskID);
 
-        Circuit circuit = task.getServiceOrder().getServiceInstance().getCircuit();
         //TODO setting circuit
+        //Circuit circuit = task.getServiceOrder().getServiceInstance().getCircuit();
         task.setStatus(Task.TaskStatus.COMPLETED.toString());
         taskDAO.update(task);
         Workflow.createTaskForCSE(task.getServiceOrder(), taskDAO);

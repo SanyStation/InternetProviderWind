@@ -9,7 +9,6 @@ import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
-import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
 import javax.servlet.http.HttpServletRequest;
@@ -23,14 +22,18 @@ import javax.servlet.http.HttpSession;
 public class SelectTask implements ICommand {
 
     private static final String TASK_ID = "task_id";
-    private static final String NAME = "name";
+    private static final String USER = "user";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return "no session";
-            //TODO redirect to login or register page
+            return "";
         }
+        Object paramUser = session.getAttribute(USER);
+        if (paramUser == null || !(paramUser instanceof User)) {
+            return "";
+        }
+        User user = (User) session.getAttribute(USER);
 
         int taskId = -1;
         try {
@@ -45,21 +48,14 @@ public class SelectTask implements ICommand {
         }
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
-        IUserDAO userDAO = factoryDAO.createUserDAO();
-        Object paramNameUser = session.getAttribute(NAME);
-        if (paramNameUser == null) {
-            //TODO redirect to login or register page
-            return "no user";
-        }
-        String email = (String) paramNameUser;
-        User user = userDAO.findByEmail(email);
+        
         Task task = taskDAO.occupyTaskByID(taskId, user.getId());
         if (task == null) {
             //TODO set error message
             //TODO return error page with error message
-
+            
         }
-
+        
         //TODO return next page
         return "";
     }
