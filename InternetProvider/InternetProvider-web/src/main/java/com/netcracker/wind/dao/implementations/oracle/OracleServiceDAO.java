@@ -10,8 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +19,9 @@ import java.util.logging.Logger;
 public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final Logger LOGGER
+            = Logger.getLogger(OracleServiceDAO.class.getName());
+    
     private static final String UPDATE = "UPDATE SERVICES SET NAME = ?,"
             + "DESCRIPTION = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM SERVICES WHERE ID = ?";
@@ -41,15 +43,14 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
             stat.setString(3, service.getDescription());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            //TODO changer logger
-            Logger.getLogger(OracleServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(connection);
         }
@@ -96,14 +97,10 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
                 service.setId(id);
                 service.setName(rs.getString(NAME));
                 service.setDescription(rs.getString(DESCR));
-                //service.setPricesList(DAOFactory.createPriceDAO().findByService(id));
-                // service.setServiceInstancesList(DAOFactory.createServiceInstanceDAO().findByService(id));
-                // service.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByService(id));
                 services.add(service);
             }
         } catch (SQLException ex) {
-            //TODO
-            Logger.getLogger(OracleServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
 
         return services;
@@ -120,14 +117,14 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
             stat.setInt(3, service.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OracleServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }

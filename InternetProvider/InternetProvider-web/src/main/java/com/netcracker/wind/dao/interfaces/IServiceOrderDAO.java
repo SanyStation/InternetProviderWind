@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.interfaces;
 
 import com.netcracker.wind.entities.ServiceOrder;
@@ -23,6 +18,10 @@ public interface IServiceOrderDAO {
     public List<ServiceOrder> findByProvLoc(int pLID);
 
     public List<ServiceOrder> findByService(int idService);
+    
+    public List<ServiceOrder> findByServiceInstance(int serviceInstanceId);
+    
+    public List<ServiceOrder> findByUser(int userId);
 
     public List<ServiceOrder> findAll();
 

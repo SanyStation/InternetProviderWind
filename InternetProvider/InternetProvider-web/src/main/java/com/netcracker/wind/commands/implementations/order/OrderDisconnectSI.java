@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.order;
 
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
-import com.netcracker.wind.dao.interfaces.IServiceDAO;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
-import com.netcracker.wind.entities.Service;
 import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.User;
@@ -60,10 +53,10 @@ public class OrderDisconnectSI implements ICommand {
 
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Timestamp(System.currentTimeMillis()));
-        order.setScenario(ServiceOrder.DISCONNECT_SCEARIO);
+        order.setScenario(ServiceOrder.Scenario.DISCONNECT);
         order.setUser(user);
         order.setServiceInstance(serviceInstance);
-        order.setStatus(ServiceOrder.ENTERING_STATUS);
+        order.setStatus(ServiceOrder.Status.ENTERING);
         serviceOrderDAO.add(order);
         //TODO return next page
         return "";

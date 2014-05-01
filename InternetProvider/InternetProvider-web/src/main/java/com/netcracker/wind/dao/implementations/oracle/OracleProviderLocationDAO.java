@@ -10,16 +10,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Oksana
  */
-public class OracleProviderLocationDAO extends AbstractOracleDAO implements IProviderLocationDAO {
+public class OracleProviderLocationDAO extends AbstractOracleDAO
+        implements IProviderLocationDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final Logger LOGGER
+            = Logger.getLogger(OracleProviderLocationDAO.class.getName());
+
     private static final String UPDATE = "UPDATE PROVIDER_LOCATIONS SET "
             + "POS_X = ?, POS_Y = ?, ADDRESS = ?, NAME = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM PROVIDER_LOCATIONS WHERE "
@@ -46,15 +49,14 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO implements IPro
             stat.setString(5, providerLocation.getName());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            //TODO changer logger
-            Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(connection);
         }
@@ -82,7 +84,7 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO implements IPro
      */
     @Override
     protected List<ProviderLocation> findWhere(String where, Object[] param) {
-       return super.findWhere(SELECT+where, param);
+        return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -106,7 +108,7 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO implements IPro
                 provLocs.add(provLoc);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
 
         return provLocs;
@@ -125,14 +127,14 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO implements IPro
             stat.setInt(5, providerLocation.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }

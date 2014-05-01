@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.order;
 
 import com.netcracker.wind.commands.ICommand;
@@ -65,10 +60,10 @@ public class OrderModifySI implements ICommand {
 
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Timestamp(System.currentTimeMillis()));
-        order.setScenario(ServiceOrder.MODIFY_SCEARIO);
+        order.setScenario(ServiceOrder.Scenario.MODIFY);
         order.setUser(user);
         order.setServiceInstance(serviceInstance);
-        order.setStatus(ServiceOrder.ENTERING_STATUS);
+        order.setStatus(ServiceOrder.Status.ENTERING);
         order.setService(service);
         serviceOrderDAO.add(order);
         //TODO return next page

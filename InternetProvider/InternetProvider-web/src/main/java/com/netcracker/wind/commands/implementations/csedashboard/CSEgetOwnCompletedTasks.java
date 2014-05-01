@@ -29,8 +29,8 @@ import org.json.JSONObject;
 public class CSEgetOwnCompletedTasks implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-       User user =(User)request.getAttribute("user");
-         return DashboardsUtilities.getTaskUserStatus(user.getId(),"completed");
+        // User user =(User)request.getAttribute("user");
+         return DashboardsUtilities.getTaskUserStatus(1002,"completed");
     }
     
 }

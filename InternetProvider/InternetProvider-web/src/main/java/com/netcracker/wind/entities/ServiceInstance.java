@@ -1,5 +1,7 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -12,16 +14,24 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class ServiceInstance implements Serializable {
 
     private static final long serialVersionUID = 9023896353581772798L;
+    
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
-    public static final String PLANNED = "Planned";
+    public static enum Status {
+
+        ACTIVE, PLANNED, PRE_DISCONNECTED, DISCONNECTED
+    }
 
     private Integer id;
-    private String status;
-    private User user;
-    private ServiceOrder serviceOrder;
-    private Service service;
-    private Circuit circuit;
-    private List<ServiceOrder> serviceOrdersList;
+    private Status status;
+    private int userId;
+    private transient User user;
+    private int serviceOrderId;                  //current serviceOrder id
+    private transient ServiceOrder serviceOrder; //current serviceOrder
+    private int serviceId;
+    private transient Service service;
+    private transient Circuit circuit;
+    private transient List<ServiceOrder> serviceOrdersList;
 
     public ServiceInstance() {
     }
@@ -38,23 +48,46 @@ public class ServiceInstance implements Serializable {
         this.id = id;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
+    public User getUser() {
+        if (user == null) {
+            user = factoryDAO.createUserDAO().findByID(userId);
+        }
+        return user;
+    }
+    
     public void setUser(User users) {
         this.user = users;
     }
 
+    public int getServiceOrderId() {
+        return serviceOrderId;
+    }
+
+    public void setServiceOrderId(int serviceOrderId) {
+        this.serviceOrderId = serviceOrderId;
+    }
+
     public ServiceOrder getServiceOrder() {
+        if (serviceOrder == null) {
+            serviceOrder = factoryDAO.createServiceOrderDAO()
+                    .findByID(serviceOrderId);
+        }
         return serviceOrder;
     }
 
@@ -62,7 +95,18 @@ public class ServiceInstance implements Serializable {
         this.serviceOrder = serviceOrders;
     }
 
+    public int getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
+    }
+
     public Service getService() {
+        if (service == null) {
+            service = factoryDAO.createServiceDAO().findByID(serviceId);
+        }
         return service;
     }
 
@@ -71,6 +115,9 @@ public class ServiceInstance implements Serializable {
     }
 
     public Circuit getCircuit() {
+        if (circuit == null) {
+            circuit = factoryDAO.createCircuitDAO().findByServInst(id);
+        }
         return circuit;
     }
 
@@ -79,6 +126,10 @@ public class ServiceInstance implements Serializable {
     }
 
     public List<ServiceOrder> getServiceOrdersList() {
+        if (serviceOrdersList == null) {
+            serviceOrdersList = factoryDAO.createServiceOrderDAO()
+                    .findByServiceInstance(id);
+        }
         return serviceOrdersList;
     }
 
@@ -88,7 +139,6 @@ public class ServiceInstance implements Serializable {
 
     @Override
     public int hashCode() {
-
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(status);
@@ -97,7 +147,6 @@ public class ServiceInstance implements Serializable {
         builder.append(service);
         builder.append(circuit);
         builder.append(serviceOrdersList);
-
         return builder.toHashCode();
     }
 
@@ -112,7 +161,6 @@ public class ServiceInstance implements Serializable {
         if (!(object instanceof ServiceInstance)) {
             return false;
         }
-
         ServiceInstance rhs = (ServiceInstance) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
@@ -122,7 +170,6 @@ public class ServiceInstance implements Serializable {
         builder.append(service, rhs.getService());
         builder.append(circuit, rhs.getCircuit());
         builder.append(serviceOrdersList, rhs.getServiceOrdersList());
-
         return builder.isEquals();
     }
 

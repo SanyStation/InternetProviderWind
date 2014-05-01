@@ -1,5 +1,7 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import java.io.Serializable;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -11,10 +13,14 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Circuit implements Serializable {
 
     private static final long serialVersionUID = 4851026000306784920L;
+    
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     private Integer id;
-    private ServiceInstance serviceInstance;
-    private Port port;
+    private int serviceInstanceId;
+    private transient ServiceInstance serviceInstance;
+    private int portId;
+    private transient Port port;
 
     public Circuit() {
     }
@@ -31,7 +37,19 @@ public class Circuit implements Serializable {
         this.id = id;
     }
 
+    public int getServiceInstanceId() {
+        return serviceInstanceId;
+    }
+
+    public void setServiceInstanceId(int serviceInstanceId) {
+        this.serviceInstanceId = serviceInstanceId;
+    }
+    
     public ServiceInstance getServiceInstance() {
+        if (serviceInstance == null) {
+            serviceInstance = factoryDAO.createServiceInstanceDAO()
+                    .findByID(serviceInstanceId);
+        }
         return serviceInstance;
     }
 
@@ -39,6 +57,17 @@ public class Circuit implements Serializable {
         this.serviceInstance = serviceInstances;
     }
 
+    public int getPortId() {
+        if (port == null) {
+            port = factoryDAO.createPortDAO().findByID(portId);
+        }
+        return portId;
+    }
+
+    public void setPortId(int portId) {
+        this.portId = portId;
+    }
+    
     public Port getPort() {
         return port;
     }
@@ -53,7 +82,6 @@ public class Circuit implements Serializable {
         builder.append(id);
         builder.append(serviceInstance);
         builder.append(port);
-
         return builder.toHashCode();
     }
 
@@ -73,7 +101,6 @@ public class Circuit implements Serializable {
         builder.append(id, rhs.getId());
         builder.append(serviceInstance, rhs.getServiceInstance());
         builder.append(port, rhs.getPort());
-
         return builder.isEquals();
     }
 

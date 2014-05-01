@@ -1,8 +1,6 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IPriceDAO;
 import com.netcracker.wind.entities.Price;
@@ -12,8 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +19,9 @@ import java.util.logging.Logger;
 public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final Logger LOGGER
+            = Logger.getLogger(OraclePriceDAO.class.getName());
+    
     private static final String UPDATE = "UPDATE PRICES SET PRICE WHERE ID = ?";
     private static final String DELETE = "DELETE FROM PRICES WHERE ID = ?";
     private static final String INSERT = "INSERT INTO PRICES (ID, "
@@ -31,8 +31,6 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
     private static final String PLID = "PROVIDER_LOCATION_ID";
     private static final String SERVICE = "SERVICE_ID";
     private static final String PRICE = "PRICE";
-
-    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     /**
      *
@@ -45,20 +43,19 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, price.getId());
-            stat.setInt(2, price.getProviderLocation().getId());
-            stat.setInt(3, price.getService().getId());
+            stat.setInt(2, price.getProviderLocationId());
+            stat.setInt(3, price.getServiceId());
             stat.setInt(4, price.getPrice());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            //TODO changer logger
-            Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(connection);
         }
@@ -109,22 +106,13 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
             while (rs.next()) {
                 Price price = new Price();
                 price.setId(rs.getInt(ID));
-                price.setProviderLocation(
-                        factoryDAO.createProviderLocationDAO().findByID(
-                                rs.getInt(PLID)
-                        )
-                );
-                price.setService(
-                        factoryDAO.createServiceDAO().findByID(
-                                rs.getInt(SERVICE)
-                        )
-                );
+                price.setProviderLocationId(rs.getInt(PLID));
+                price.setServiceId(rs.getInt(SERVICE));
                 price.setPrice(rs.getInt(PRICE));
                 prices.add(price);
             }
         } catch (SQLException ex) {
-            //TODO
-            Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
 
         return prices;
@@ -144,14 +132,14 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
             stat.setInt(2, price.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OraclePriceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }
@@ -163,10 +151,8 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
      * @return
      */
     public List<Price> findByProviderLoc(int idPLoc) {
-        List<Price> prices = findWhere(
-                "WHERE PROVIDER_LOCATION_ID = ?",
-                new Object[]{idPLoc}
-        );
+        List<Price> prices = findWhere("WHERE PROVIDER_LOCATION_ID = ?",
+                new Object[]{idPLoc});
         if (prices.isEmpty()) {
             return null;
         } else {

@@ -1,5 +1,7 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -12,13 +14,15 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Service implements Serializable {
 
     private static final long serialVersionUID = 810980848160712242L;
+    
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     private Integer id;
     private String name;
     private String description;
-    private List<Price> pricesList;
-    private List<ServiceInstance> serviceInstancesList;
-    private List<ServiceOrder> serviceOrdersList;
+    private transient List<Price> pricesList;
+    private transient List<ServiceInstance> serviceInstancesList;
+    private transient List<ServiceOrder> serviceOrdersList;
 
     public Service() {
     }
@@ -55,24 +59,35 @@ public class Service implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
     public List<Price> getPricesList() {
+        if (pricesList == null) {
+            pricesList = factoryDAO.createPriceDAO().findByService(id);
+        }
         return pricesList;
     }
 
     public void setPricesList(List<Price> pricesList) {
         this.pricesList = pricesList;
     }
-
+    
     public List<ServiceInstance> getServiceInstancesList() {
+        if (serviceInstancesList == null) {
+            serviceInstancesList = factoryDAO.createServiceInstanceDAO()
+                    .findByService(id);
+        }
         return serviceInstancesList;
     }
 
     public void setServiceInstancesList(List<ServiceInstance> serviceInstancesList) {
         this.serviceInstancesList = serviceInstancesList;
     }
-
+    
     public List<ServiceOrder> getServiceOrdersList() {
+        if (serviceOrdersList == null) {
+            serviceOrdersList = factoryDAO.createServiceOrderDAO()
+                    .findByService(id);
+        }
         return serviceOrdersList;
     }
 
@@ -82,7 +97,6 @@ public class Service implements Serializable {
 
     @Override
     public int hashCode() {
-
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(name);
@@ -90,7 +104,6 @@ public class Service implements Serializable {
         builder.append(pricesList);
         builder.append(serviceInstancesList);
         builder.append(serviceOrdersList);
-
         return builder.toHashCode();
     }
 
@@ -105,7 +118,6 @@ public class Service implements Serializable {
         if (!(object instanceof Service)) {
             return false;
         }
-
         Service rhs = (Service) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
@@ -114,7 +126,6 @@ public class Service implements Serializable {
         builder.append(pricesList, rhs.getPricesList());
         builder.append(serviceInstancesList, rhs.getServiceInstancesList());
         builder.append(serviceOrdersList, rhs.getServiceOrdersList());
-
         return builder.isEquals();
     }
 

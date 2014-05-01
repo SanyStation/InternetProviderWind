@@ -11,17 +11,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Oksana
  */
-public class OracleServiceLocationDAO extends AbstractOracleDAO implements IServiceLocationDAO {
+public class OracleServiceLocationDAO extends AbstractOracleDAO
+        implements IServiceLocationDAO {
 
-    //Need add one field cable
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final Logger LOGGER
+            = Logger.getLogger(OracleServiceLocationDAO.class.getName());
+
     private static final String UPDATE = "UPDATE SERVICE_LOCATIONS SET "
             + "POS_X = ?, POS_Y = ?, ADDRESS = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM SERVICE_LOCATIONS WHERE "
@@ -39,7 +41,8 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO implements IServ
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+            stat = connection.prepareStatement(INSERT,
+                    Statement.RETURN_GENERATED_KEYS);
             stat.setDouble(1, serviceLocation.getPosX());
             stat.setDouble(2, serviceLocation.getPosY());
             stat.setString(3, serviceLocation.getAddress());
@@ -47,22 +50,22 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO implements IServ
             ResultSet insertedResultSet = stat.getGeneratedKeys();
             if (insertedResultSet != null && insertedResultSet.next()) {
                 String s = insertedResultSet.getString(1);
-                PreparedStatement ps = connection.prepareStatement("select * from ROOT.SERVICE_LOCATIONS where rowid = ?");
+                PreparedStatement ps = connection.prepareStatement("SELECT * "
+                        + "FROM root.service_locations WHERE rowid = ?");
                 ps.setObject(1, s);
                 ResultSet rs = ps.executeQuery();
                 rs.next();
                 serviceLocation.setId(rs.getInt(ID));
             }
         } catch (SQLException ex) {
-            //TODO changer logger
-            Logger.getLogger(OracleProviderLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(connection);
         }
@@ -90,7 +93,7 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO implements IServ
      */
     @Override
     protected List<ServiceLocation> findWhere(String where, Object[] param) {
-       return super.findWhere(SELECT + where, param);
+        return super.findWhere(SELECT + where, param);
     }
 
     /**
@@ -110,12 +113,10 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO implements IServ
                 provLoc.setPosX(rs.getInt(X));
                 provLoc.setPosY(rs.getInt(Y));
                 provLoc.setAddress(rs.getString(ADDRESS));
-                //provLoc.setServiceOrdersList(DAOFactory.createServiceOrderDAO().findByProvLoc(id));
                 provLocs.add(provLoc);
             }
         } catch (SQLException ex) {
-            //TODO
-            Logger.getLogger(OracleServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
 
         return provLocs;
@@ -133,14 +134,14 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO implements IServ
             stat.setInt(4, serviceLocation.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OracleServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceLocationDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }

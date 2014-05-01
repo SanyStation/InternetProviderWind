@@ -1,5 +1,7 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -12,13 +14,15 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class ProviderLocation implements Serializable {
 
     private static final long serialVersionUID = -189052472651534830L;
+    
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     private Integer id;
     private Double posX;
     private Double posY;
     private String address;
-    private List<Price> pricesList;
-    private List<ServiceOrder> serviceOrdersList;
+    private transient List<Price> pricesList;
+    private transient List<ServiceOrder> serviceOrdersList;
     private String name;
 
     public ProviderLocation() {
@@ -67,6 +71,9 @@ public class ProviderLocation implements Serializable {
     }
 
     public List<Price> getPricesList() {
+        if (pricesList == null) {
+            pricesList = factoryDAO.createPriceDAO().findByProviderLoc(id);
+        }
         return pricesList;
     }
 
@@ -75,6 +82,10 @@ public class ProviderLocation implements Serializable {
     }
 
     public List<ServiceOrder> getServiceOrdersList() {
+        if (serviceOrdersList == null) {
+            serviceOrdersList = factoryDAO.createServiceOrderDAO()
+                    .findByProvLoc(id);
+        }
         return serviceOrdersList;
     }
 
@@ -92,7 +103,6 @@ public class ProviderLocation implements Serializable {
 
     @Override
     public int hashCode() {
-
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(posX);
@@ -101,7 +111,6 @@ public class ProviderLocation implements Serializable {
         builder.append(pricesList);
         builder.append(serviceOrdersList);
         builder.append(name);
-
         return builder.toHashCode();
     }
 
@@ -116,7 +125,6 @@ public class ProviderLocation implements Serializable {
         if (!(object instanceof ProviderLocation)) {
             return false;
         }
-
         ProviderLocation rhs = (ProviderLocation) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
@@ -126,7 +134,6 @@ public class ProviderLocation implements Serializable {
         builder.append(pricesList, rhs.getPricesList());
         builder.append(serviceOrdersList, rhs.getServiceOrdersList());
         builder.append(name, rhs.getName());
-
         return builder.isEquals();
     }
 

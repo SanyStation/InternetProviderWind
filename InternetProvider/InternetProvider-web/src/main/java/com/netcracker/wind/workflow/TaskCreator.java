@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.workflow;
 
 import com.netcracker.wind.entities.Role;
@@ -15,12 +10,12 @@ import com.netcracker.wind.entities.Task;
  */
 public class TaskCreator {
 
-    public static Task createTask(int roleId, Task.TaskType taskType,
-            Task.TaskStatus taskStatus, ServiceOrder order) {
+    public static Task createTask(int roleId, Task.Type taskType,
+            Task.Status taskStatus, ServiceOrder order) {
         Task task = new Task();
         task.setRole(new Role(roleId));
-        task.setType(taskType.toString());
-        task.setStatus(taskStatus.toString());
+        task.setType(taskType);
+        task.setStatus(taskStatus);
         task.setServiceOrder(order);
         return task;
     }

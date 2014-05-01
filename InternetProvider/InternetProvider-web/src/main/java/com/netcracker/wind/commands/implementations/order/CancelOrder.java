@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.order;
 
 import com.netcracker.wind.commands.ICommand;
@@ -39,7 +34,7 @@ public class CancelOrder implements ICommand {
             //TODO return error page
             return "";
         }
-        order.setStatus(ServiceOrder.CANCELLED_STATUS);
+        order.setStatus(ServiceOrder.Status.CANCELLED);
         serviceOrderDAO.update(order);
         //TODO redirect to next page
         return "";

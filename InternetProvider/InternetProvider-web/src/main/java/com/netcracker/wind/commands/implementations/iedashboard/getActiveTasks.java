@@ -22,11 +22,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class getActiveTasks implements ICommand {
 
-    //private static final String TASKS = "tasks";
-    //private static final String SIZE = "size";
+    private static final String TASKS = "tasks";
+    private static final String SIZE = "size";
     
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        /*AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
+        AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         List<Task> tasks = taskDAO.findByPerformerStatus(1003, "ACTIVE");
         request.setAttribute(TASKS, tasks);
@@ -34,8 +34,8 @@ public class getActiveTasks implements ICommand {
         if (tasks.isEmpty()){
             return "/index.jsp";
         }
-        return "/IEdashboard.jsp";*/
-        return DashboardsUtilities.getTaskUserStatus(1003, "ACTIVE");
+        return "/IEdashboard.jsp";
+        //return DashboardsUtilities.getTaskUserStatus(1003, "ACTIVE");
     }
     
     
