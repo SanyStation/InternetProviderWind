@@ -6,6 +6,7 @@
 
 package com.netcracker.wind.commands.implementations.csedashboard;
 
+import com.netcracker.wind.commands.DashboardsUtilities;
 import com.netcracker.wind.commands.ICommand;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 public class CSEgetOwnUncompletedTasks implements ICommand{
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         // User user =(User)request.getAttribute("user");
+         return DashboardsUtilities.getTaskUserStatus(1002,"uncompleted");
     }
     
 }

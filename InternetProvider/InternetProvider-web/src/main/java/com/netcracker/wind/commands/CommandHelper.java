@@ -2,11 +2,7 @@ package com.netcracker.wind.commands;
 
 import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.SentMail;
-import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
-import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnCompletedTasks;
-import com.netcracker.wind.commands.implementations.csedashboard.CSEgetOwnTasks;
-import com.netcracker.wind.commands.implementations.csedashboard.CustomersList;
-import com.netcracker.wind.commands.implementations.csedashboard.GetProviderLocation;
+import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateCable;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateDevice;
 import com.netcracker.wind.commands.implementations.iedashboard.DeleteCable;
@@ -51,6 +47,7 @@ public class CommandHelper {
             = "cse_get_elements_from_offset";
     private static final String CSE_GET_TASKS = "cse_get_tasks";
     private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
+    private static final String CSE_GET_UNCOMPLETED_TASKS = "cse_get_uncompleted_tasks";
     private static final String PROVIDER_LOCATION_LIST = "provider_location_list";
     private static final String NEW_DEVICE = "new_device";
     private static final String NEW_CABLE = "new_cable";
@@ -77,6 +74,7 @@ public class CommandHelper {
         commands.put(PE_TASKS, new ProvisioningEngineerTasks());
         commands.put(CSE_GET_TASKS, new CSEgetOwnTasks());
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
+        commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
         commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
         commands.put(NEW_DEVICE, new CreateDevice());
         commands.put(NEW_CABLE, new CreateCable());
