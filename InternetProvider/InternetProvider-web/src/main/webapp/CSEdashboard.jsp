@@ -150,8 +150,8 @@
                             
                             <% request.setAttribute("user",1002);%>
                             <li><a href="#" onclick="getTasks('cse_get_tasks',0)">All my tasks</a></li>
-                            <li><a href="#" onclick="getTasks('')">Completed tasks</a></li>
-                            <li><a href="#" onclick="getTasks('')">Taken tasks</a></li>
+                            <li><a href="#" onclick="getTasks('cse_get_completed_tasks')">Completed tasks</a></li>
+                            <li><a href="#" onclick="getTasks('cse_get_uncompleted_tasks')">Uncompleted tasks</a></li>
                         </ul>	
                     </li>
                 </ul>

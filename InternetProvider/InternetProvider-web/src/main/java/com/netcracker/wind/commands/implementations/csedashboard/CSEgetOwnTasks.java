@@ -29,12 +29,12 @@ public class CSEgetOwnTasks implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int user = (Integer) request.getAttribute("user");
+       // int user = (Integer) request.getAttribute("user");
         // AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         // factoryDAO.createUserDAO().findByID(user);
         int number = Integer.parseInt(request.getParameter("size"));
         int from = Integer.parseInt(request.getParameter("from"));
-        return DashboardsUtilities.getTaskUserJSON(user, from, number);
+        return DashboardsUtilities.getTaskUserJSON(1002, from, number);
     }
 
 }

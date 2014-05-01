@@ -26,13 +26,15 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     private static final String INSERT = "INSERT INTO TASKS (USER_ID, TYPE, "
             + " STATUS, ROLE_ID, SERVICE_ORDERS_ID) VALUES(?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM TASKS ";
-    private static final String SELECT_PAGING = "SELECT * FROM (SELECT ROWNUM "
-            + "rownumber, sub.*  FROM (SELECT * FROM tasks WHERE role_id = ? "
-            + "ORDER BY ID) sub WHERE ROWNUM <= ?) WHERE rownumber > ?";
-    private static final String SELECT_PAGING_USER = "SELECT * FROM (SELECT "
-            + "ROWNUM rownumber, sub.* FROM (SELECT * FROM tasks WHERE "
-            + "user_id = ? ORDER BY ID) sub WHERE ROWNUM <= ?) WHERE "
-            + "rownumber > ?";
+    private static final String SELECT_PAGING = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
+            + "  FROM (SELECT * FROM tasks WHERE role_id = ? ORDER BY ID) sub "
+            + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
+     private static final String SELECT_PAGING_USER= "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
+            + "  FROM (SELECT * FROM tasks WHERE user_id = ? ORDER BY ID) sub "
+            + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
+      private static final String SELECT_PAGING_USER_STATUS= "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
+            + "  FROM (SELECT * FROM tasks WHERE user_id = ? and status=? ORDER BY ID) sub "
+            + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
     private static final String UPDATE = "UPDATE TASKS SET USER_ID = ?, "
             + "STATUS = ? WHERE ID = ?";
     private static final String ID = "ID";
@@ -275,7 +277,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         List<Task> tasks = null;
         ResultSet rs = null;
         try {
-            ps = connection.prepareStatement(SELECT_PAGING);
+            ps = connection.prepareStatement(SELECT_PAGING_USER);
             ps.setInt(1, idPerformer);
             ps.setInt(2, from + number);
             ps.setInt(3, from);
@@ -303,7 +305,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         return tasks;
 
     }
-
+    
     public List<Task> findByServiceOrder(int serviceOrderId) {
         List<Task> tasks = findWhere("WHERE service_order_id = ?",
                 new Object[]{serviceOrderId});
@@ -315,4 +317,41 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         return tasks;
     }
 
+    public List<Task> findByPerformerStatus(int idPerformer, String status, int from, int number) {
+       
+    Connection connection = connectionPool.getConnection();
+        PreparedStatement ps = null;
+        List<Task> tasks = null;
+        ResultSet rs = null;
+        try {
+            ps = connection.prepareStatement(SELECT_PAGING_USER_STATUS);
+            ps.setInt(1, idPerformer);
+            ps.setString(2,status);
+            ps.setInt(3, from + number);
+            ps.setInt(4, from);
+            
+            rs = ps.executeQuery();
+            tasks = parseResult(rs);
+        } catch (SQLException ex) {
+            LOGGER.error(null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    LOGGER.error(null, ex);
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    LOGGER.error(null, ex);
+                }
+            }
+            connectionPool.close(connection);
+        }
+        return tasks;
+    }
+    
 }
