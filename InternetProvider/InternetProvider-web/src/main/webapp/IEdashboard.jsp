@@ -1,14 +1,18 @@
 <%-- 
     Document   : IEdashboard
     Created on : 27.04.2014, 0:07:25
-    Author     : Ğ¡Ğ°ÑˆĞºĞ¾ & myshko
+    Author     : Ñàøêî & myshko
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="windows-1251"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
         <title> Dashboard IE menu</title>
+        <script>
+            
+        </script>
         <link rel="stylesheet" href="css/menu.css" type="text/css">
             <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
     </head>
@@ -18,6 +22,17 @@
                 <input type="text" name="d_name" maxlength="25" size="20">
                 <input type="submit" value="Create Router">
             </form>
+        
+        <form method="POST" action="Controller">
+            <input type="hidden" name="command" value="new_cable">
+        <select id="mysel" name="task_id" >
+            <c:forEach items="${tasks}" var="task">
+                <option value="${task.id}">${task.id}</option>
+            </c:forEach>
+                </select>
+                <input type="submit" value="Create Cable">
+        </form>
+ 
         <ul id="menu">
             <li><a href="#">Main</a></li>
             <li>

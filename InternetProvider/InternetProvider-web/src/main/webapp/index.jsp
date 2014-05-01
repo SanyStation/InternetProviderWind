@@ -42,7 +42,8 @@
             <input type="submit" value="CSE dashboard"  />
         </form>
         
-        <form action="IEdashboard.jsp" method="POST">
+        <form method="POST" action="Controller">
+            <input type="hidden" name="command" value="get_active_ietasks"/>
             <input type="submit" value="IE dashboard"  />
         </form>
 

@@ -22,7 +22,7 @@ public class OracleDeviceDAO extends AbstractDAO implements IDeviceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM DEVICES WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO DEVICES (name) VALUES (?)";
+    private static final String INSERT = "INSERT INTO DEVICES" + "(NAME) VALUES (?)";
     private static final String SELECT = "SELECT * FROM DEVICES ";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
@@ -37,18 +37,18 @@ public class OracleDeviceDAO extends AbstractDAO implements IDeviceDAO {
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+            stat = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
             stat.setString(1, device.getName());
             stat.executeUpdate();
-            ResultSet insertedResultSet = stat.getGeneratedKeys();
+           /* ResultSet insertedResultSet = stat.getGeneratedKeys();
             if (insertedResultSet != null && insertedResultSet.next()) {
                 String s = insertedResultSet.getString(1);
-                PreparedStatement ps = connection.prepareStatement("select * from ROOT.DEVICE where rowid = ?");
+                PreparedStatement ps = connection.prepareStatement("select * from ROOT.DEVICES where rowid = ?");
                 ps.setObject(1, s);
                 ResultSet rs = ps.executeQuery();
                 rs.next();
                 device.setId(rs.getInt(ID));
-            }
+            }*/
         } catch (SQLException ex) {
             Logger.getLogger(OracleDeviceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

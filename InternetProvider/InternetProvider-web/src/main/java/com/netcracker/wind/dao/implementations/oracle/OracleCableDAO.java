@@ -24,8 +24,8 @@ public class OracleCableDAO extends AbstractDAO
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String DELETE = "DELETE FROM CABLES WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO CABLES (ID, PORT_ID, "
-            + "SERVICE_LOCATION_ID) VALUES(?, ?, ?)";
+    private static final String INSERT = "INSERT INTO CABLES (PORT_ID, "
+            + "SERVICE_LOCATION_ID) VALUES(?, ?)";
     private static final String SELECT = "SELECT * FROM CABLES ";
     //TODO check this with bd
     private static final String UPDATE = "UPDATE CABLES SET PORT_ID = ?,"
@@ -42,10 +42,9 @@ public class OracleCableDAO extends AbstractDAO
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, cable.getId());
-            stat.setInt(2, cable.getPort().getId());
+            stat.setInt(1, cable.getPort().getId());
             // do we need to add to the tables
-            stat.setInt(3, cable.getServiceLocation().getId());
+            stat.setInt(2, cable.getServiceLocation().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             //TODO changer logger
