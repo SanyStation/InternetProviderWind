@@ -5,19 +5,15 @@
  */
 package com.netcracker.wind.dao.implementations.oracle.csedashboard;
 
-import com.netcracker.wind.dao.implementations.oracle.OracleUserDAO;
-import com.netcracker.wind.dao.implementations.oracle.reports.AbstractOracleDAO;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.csedashboard.ICSEDashboardDAO;
-import com.netcracker.wind.entities.User;
 import com.netcracker.wind.entities.csedashboard.TaskRecord;
-import com.netcracker.wind.entities.reports.RiMostProfRouter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 /**
@@ -52,8 +48,7 @@ public class CSETasksTableDAO extends AbstractOracleDAO implements ICSEDashboard
     public long getElementCount() {
         List rows_count;
         long r_count[];
-        super.findWhere(ROWS_COUNT_QUERY, new ArrayList<String>());
-        rows_count = super.findWhere(ROWS_COUNT_QUERY, new ArrayList<String>());
+        rows_count = super.findWhere(ROWS_COUNT_QUERY, new Object[]{});
         r_count = (long[]) rows_count.toArray()[0];
         return r_count[0];
     }
