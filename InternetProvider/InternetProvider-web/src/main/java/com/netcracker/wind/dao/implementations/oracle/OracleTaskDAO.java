@@ -220,7 +220,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
                 return null;
             }
             task = tasks.get(0);
-            if (!task.getStatus().equals(Task.Status.NEW.toString())) {
+            if (!task.getStatus().equals(Task.Status.NEW)) {
                 return null;
             }
             task.setStatus(Task.Status.ACTIVE);
@@ -254,6 +254,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
             }
             connectionPool.close(connection);
         }
+        
         return task;
     }
 
