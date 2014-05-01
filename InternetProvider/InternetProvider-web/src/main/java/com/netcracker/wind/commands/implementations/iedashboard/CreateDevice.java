@@ -66,7 +66,7 @@ public class CreateDevice implements ICommand {
             portDAO.add(port);
         }
         
-        task.setStatus(Task.TaskStatus.COMPLETED.toString());
+        task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task); 
         
         return "/index.jsp";
