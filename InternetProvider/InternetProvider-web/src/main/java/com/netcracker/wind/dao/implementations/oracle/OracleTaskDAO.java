@@ -254,6 +254,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
             }
             connectionPool.close(connection);
         }
+        
         return task;
     }
 
