@@ -147,7 +147,9 @@
                     <li>
                         <a href="#">My Tasks</a>				
                         <ul>
-                            <li><a href="#" onclick="getTasks('')">All my tasks</a></li>
+                            
+                            <% request.setAttribute("user",1002);%>
+                            <li><a href="#" onclick="getTasks('cse_get_tasks',0)">All my tasks</a></li>
                             <li><a href="#" onclick="getTasks('')">Completed tasks</a></li>
                             <li><a href="#" onclick="getTasks('')">Taken tasks</a></li>
                         </ul>	
