@@ -13,11 +13,15 @@
     </head>
     <body>
         <display:table name="sessionScope.profits" export="true" sort="list">
-            <display:caption media="html">
-                <strong>${sessionScope.title}</strong>
-            </display:caption>
+            <display:caption media="html sip">${sessionScope.title}</display:caption>
+            <display:setProperty name="export.sip" value="true"/>
+            <display:setProperty name="export.sip.label" value="XLS"/>
+            <display:setProperty name="export.csip" value="true"/>
+            <display:setProperty name="export.csip.label" value="CSV"/>
             <display:column property="providerLocationId" title="Provider location" sortable="true" headerClass="sortable" />
-            <display:column property="serviceId" title="Service" sortable="true" headerClass="sortable" />
+            <display:column property="providerLocationName" title="Provider location name" sortable="true" headerClass="sortable" />
+            <display:column property="serviceId" title="Service ID" sortable="true" headerClass="sortable" />
+            <display:column property="serviceName" title="Service name" sortable="true" headerClass="sortable" />
             <display:column property="sum" title="Profit, $" sortable="true" headerClass="sortable" />
         </display:table>
     </body>

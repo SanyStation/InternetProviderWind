@@ -1,7 +1,6 @@
 package com.netcracker.wind.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Collection;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -20,6 +19,8 @@ public class ServiceOrder implements Serializable {
     public static final String CANCELLED_STATUS = "Cancelled";
 
     public static final String NEW_SCEARIO = "New";
+    public static final String MODIFY_SCEARIO = "Modify";
+    public static final String DISCONNECT_SCEARIO = "Disconnect";
 
     private Integer id;
     private Timestamp enterdate;

@@ -1,6 +1,6 @@
 package com.netcracker.wind.export.reports;
 
-import com.netcracker.wind.entities.reports.RiRouterUtilNCap;
+import com.netcracker.wind.entities.reports.SiProfit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,21 +17,21 @@ import org.displaytag.model.RowIterator;
  *
  * @author Alexander Kovriga
  */
-public class RiUtilNCapExcelExport extends AbstractExcelExport {
+public class SiProfitExport extends AbstractExcelExport {
 
     private static final Logger LOGGER = Logger.getLogger(
-            RiUtilNCapExcelExport.class.getName());
+            SiProfitExport.class.getName());
 
     private static final String TEMPLATE_PATH
-            = "/reports/templates/template_ri_util_n_cap.xls";
+            = "/reports/templates/template_si_profit.xls";
 
-    public RiUtilNCapExcelExport() {
+    public SiProfitExport() {
         super(TEMPLATE_PATH);
     }
 
     @Override
     protected Map fillBeansMap() {
-        List<RiRouterUtilNCap> routers = new ArrayList<RiRouterUtilNCap>();
+        List<SiProfit> profits = new ArrayList<SiProfit>();
         Map beans = new HashMap();
         RowIterator rowIterator = super.tableModel.getRowIterator(true);
         try {
@@ -41,26 +41,32 @@ public class RiUtilNCapExcelExport extends AbstractExcelExport {
                         super.tableModel.getHeaderCellList());
                 Column column;
                 column = columnIterator.nextColumn();
-                int id = (Integer) column.getValue(true);
+                int providerLocationId = (Integer) column.getValue(true);
                 column = columnIterator.nextColumn();
-                String name = (String) column.getValue(true);
+                String providerLocationName = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
-                int capacity = (Integer) column.getValue(true);
+                int serviceId = (Integer) column.getValue(true);
                 column = columnIterator.nextColumn();
-                int utilization = (Integer) column.getValue(true);
-                RiRouterUtilNCap r = new RiRouterUtilNCap();
-                r.setId(id);
-                r.setName(name);
-                r.setCapacity(capacity);
-                r.setUtilization(utilization);
-                routers.add(r);
+                String serviceName = (String) column.getValue(true);
+                column = columnIterator.nextColumn();
+                double sum = (Double) column.getValue(true);
+                
+                SiProfit profit = new SiProfit();
+                profit.setProviderLocationId(providerLocationId);
+                profit.setProviderLocationName(providerLocationName);
+                profit.setServiceId(serviceId);
+                profit.setServiceName(serviceName);
+                profit.setSum(sum);
+                
+                profits.add(profit);
             }
+            beans.put("caption", super.tableModel.getCaption());
+            beans.put("profits", profits);
         } catch (ObjectLookupException ex) {
             LOGGER.error(null, ex);
         } catch (DecoratorException ex) {
             LOGGER.error(null, ex);
         }
-        beans.put("routers", routers);
         return beans;
     }
 

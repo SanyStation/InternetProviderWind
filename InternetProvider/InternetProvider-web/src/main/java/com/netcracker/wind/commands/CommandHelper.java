@@ -1,6 +1,5 @@
 package com.netcracker.wind.commands;
 
-import com.netcracker.wind.commands.implementations.NameGenerator;
 import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
@@ -15,9 +14,10 @@ import com.netcracker.wind.commands.implementations.iedashboard.getActiveTasks;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.pedashboard.ProvisioningEngineerTasks;
+import com.netcracker.wind.commands.implementations.reports.CiaIptReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.RiMostProfRouterReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.RiRoutersUtilNCapReportGenerator;
-import com.netcracker.wind.commands.implementations.reports.SiDisconnOrdersReportGenerator;
+import com.netcracker.wind.commands.implementations.reports.SiDiscOrdersReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.SiNewOrdersReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.SiProfitReportGenerator;
 import java.util.HashMap;
@@ -33,7 +33,6 @@ public class CommandHelper {
     private static CommandHelper commandHelper;
 
     private static final String NO_COMMAND = "no_command";
-    private static final String TEST_AJAX = "name_generator";
     private static final String PROCEED_TO_ORDER = "proceed_to_order";
     private static final String RI_UTIL_N_CAP = "ri_util_n_cap";
     private static final String RI_MOST_PROF = "ri_most_prof";
@@ -65,12 +64,12 @@ public class CommandHelper {
         commands = new HashMap<String, ICommand>();
         commands.put(NO_COMMAND, new NoCommand());
         commands.put(REFRESH_SERVICE, new RefreshService());
-        commands.put(TEST_AJAX, new NameGenerator());
         commands.put(RI_UTIL_N_CAP, new RiRoutersUtilNCapReportGenerator());
         commands.put(RI_MOST_PROF, new RiMostProfRouterReportGenerator());
         commands.put(SI_NEW_ORDERS, new SiNewOrdersReportGenerator());
-        commands.put(SI_DISCONN_ORDERS, new SiDisconnOrdersReportGenerator());
+        commands.put(SI_DISCONN_ORDERS, new SiDiscOrdersReportGenerator());
         commands.put(SI_PROF_BY_MONTH, new SiProfitReportGenerator());
+        commands.put(CIA_IPT, new CiaIptReportGenerator());
         commands.put(SENT_MAIL, new SentMail());
         commands.put(CSE_GROUP_TASK, new CSEGetGroupTasks());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());

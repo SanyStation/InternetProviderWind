@@ -8,19 +8,19 @@
         <link rel="stylesheet" href="reports/css/displaytag.css" type="text/css">
         <link rel="stylesheet" href="reports/css/screen.css" type="text/css">
         <link rel="stylesheet" href="reports/css/site.css" type="text/css">
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Routers utilization and capacity</title>
+        <title>Routers' profitability</title>
     </head>
     <body>
-
-        <display:table name="sessionScope.devices" export="true" sort="list">
-            <display:caption media="html">
-                <strong>Routers' profitability</strong>
-            </display:caption>
-            <display:column property="id" title="Id" sortable="true" headerClass="sortable" />
-            <display:column property="profit" title="Profit, $" sortable="true" headerClass="sortable" />
+        <display:table name="sessionScope.devices" export="true" sort="list" class="its" pagesize="30">
+            <display:caption media="html">Routers' profitability</display:caption>
+            <display:setProperty name="export.rimpr" value="true"/>
+            <display:setProperty name="export.rimpr.label" value="XLS"/>
+            <display:setProperty name="export.crimpr" value="true"/>
+            <display:setProperty name="export.crimpr.label" value="CSV"/>
+            <display:column property="id" title="ID" sortable="true" headerClass="sortable" />
+            <display:column property="name" title="Router name" sortable="true" headerClass="sortable" />
+            <display:column property="profit" title="Profit by router, $" sortable="true" headerClass="sortable" />
         </display:table>
-
     </body>
 </html>

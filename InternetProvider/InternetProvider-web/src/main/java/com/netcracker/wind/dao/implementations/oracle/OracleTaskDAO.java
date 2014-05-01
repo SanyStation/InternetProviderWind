@@ -4,7 +4,7 @@ import com.netcracker.wind.connection.ConnectionPool;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Task;
 import java.sql.Connection;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Oksana & Anatolii
  */
-public class OracleTaskDAO extends AbstractDAO implements ITaskDAO {
+public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();

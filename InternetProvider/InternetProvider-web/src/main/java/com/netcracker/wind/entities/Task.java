@@ -12,7 +12,7 @@ public class Task implements Serializable {
 
     public enum TaskType {
 
-        NEW_DEVICE, NEW_CABLE, MANAGE_CIRCUIT, DELETE_CIRCUITE, MODIFY_CIRCUIT, SEND_BILL
+        NEW_DEVICE, NEW_CABLE, DELETE_CABLE, MANAGE_CIRCUIT, DELETE_CIRCUITE, MODIFY_CIRCUIT, SEND_BILL
     }
 
     public enum TaskStatus {

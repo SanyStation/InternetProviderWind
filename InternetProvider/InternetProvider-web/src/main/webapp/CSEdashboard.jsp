@@ -84,6 +84,8 @@
                     });
                 });
                 }*/
+    
+               
                 function getTasks(command, number) {
                     $(document).ready(function() {
 //                    $('input[type=submit]').click(function() {
@@ -97,8 +99,7 @@
                                 'from': number * 25
 
                             },
-                            success: function(data) {
-//                            var element = $.parseJSON(data);//JSON.parse(data);
+                            success: function(data) {                    
                                 var myNode = document.getElementById("paging");
                                 while (myNode.firstChild) {
                                     myNode.removeChild(myNode.firstChild);
@@ -107,8 +108,8 @@
                                 while (myNo.firstChild) {
                                     myNo.removeChild(myNo.firstChild);
                                 }
-                                drawTable(data);
-                                makeUL(3, "getTasks('" + command);
+                                drawTable(data["data"]);
+                                makeUL(data["size"]/25, "getTasks('" + command);
                             },
                             error: function() {
                                 alert("AJAX error");

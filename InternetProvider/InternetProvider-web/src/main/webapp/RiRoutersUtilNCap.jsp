@@ -7,17 +7,17 @@
         <link rel="stylesheet" href="reports/css/displaytag.css" type="text/css">
         <link rel="stylesheet" href="reports/css/screen.css" type="text/css">
         <link rel="stylesheet" href="reports/css/site.css" type="text/css">
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Routers utilization and capacity</title>
+        <title>Routers' utilization and capacity</title>
     </head>
     <body>
-        <display:table name="sessionScope.devices" export="true" sort="list" class="its">
-            <display:caption media="html">
-                <strong>Routers utilization and capacity</strong>
-            </display:caption>
+        <display:table name="sessionScope.devices" export="true" sort="list" class="its" pagesize="30">
+            <display:caption media="html">Routers' utilization and capacity</display:caption>
             <display:setProperty name="export.riunc" value="true"/>
-            <display:column property="id" title="Id" sortable="true" headerClass="sortable" />
+            <display:setProperty name="export.riunc.label" value="XLS"/>
+            <display:setProperty name="export.criunc" value="true"/>
+            <display:setProperty name="export.criunc.label" value="CSV"/>
+            <display:column property="id" title="ID" sortable="true" headerClass="sortable" />
             <display:column property="name" title="Name" sortable="true" headerClass="sortable" />
             <display:column property="capacity" title="Capacity, ports" sortable="true" headerClass="sortable" />
             <display:column property="utilization" title="Utilization, ports" sortable="true" headerClass="sortable" />

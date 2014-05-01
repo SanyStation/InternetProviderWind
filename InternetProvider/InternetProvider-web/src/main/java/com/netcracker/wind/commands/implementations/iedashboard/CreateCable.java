@@ -51,7 +51,7 @@ public class CreateCable implements ICommand {
         Cable cable = new Cable();
         
         Task task = taskDAO.findByID(taskID);
-        //ServiceInstance serviceInstance = serviceInstanceDAO.findByID(1);
+        ServiceInstance serviceInstance = serviceInstanceDAO.findByID(1);
         
         /*task.getServiceOrder().getId()
         Circuit circuit = circuitDAO.findByServInst(serviceInstance.getId());
