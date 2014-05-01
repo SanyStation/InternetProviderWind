@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.commands.implementations.csedashboard;
 
 import com.netcracker.wind.commands.DashboardsUtilities;
@@ -26,12 +25,16 @@ import org.json.JSONObject;
  *
  * @author Oksana
  */
-public class CSEgetOwnTasks implements ICommand{
+public class CSEgetOwnTasks implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-         
-        User user =(User)request.getAttribute("user");
-         return DashboardsUtilities.getTaskJSON(user.getId());
+
+        int user = (Integer) request.getAttribute("user");
+        // AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
+        // factoryDAO.createUserDAO().findByID(user);
+        int number = Integer.parseInt(request.getParameter("size"));
+        int from = Integer.parseInt(request.getParameter("from"));
+        return DashboardsUtilities.getTaskUserJSON(user, from, number);
     }
-    
+
 }

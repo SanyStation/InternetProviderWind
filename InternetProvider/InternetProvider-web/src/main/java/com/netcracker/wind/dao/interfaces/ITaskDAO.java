@@ -25,6 +25,8 @@ public interface ITaskDAO {
     public List<Task> findByGroup(int idGroup, int from, int number);
 
     public List<Task> findByPerformer(int idPerformer);
+    
+    public List<Task> findByPerformer(int idPerformer,int from,int number);
 
     public List<Task> findByPerformerStatus(int idPerformer, String status);
 
