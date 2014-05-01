@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.pedashboard;
 
 import com.netcracker.wind.commands.ICommand;
@@ -43,7 +38,7 @@ public class SetupCircuit implements ICommand {
 
         //TODO setting circuit
         //Circuit circuit = task.getServiceOrder().getServiceInstance().getCircuit();
-        task.setStatus(Task.TaskStatus.COMPLETED.toString());
+        task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
         Workflow.createTaskForCSE(task.getServiceOrder(), taskDAO);
         //TODO return next page

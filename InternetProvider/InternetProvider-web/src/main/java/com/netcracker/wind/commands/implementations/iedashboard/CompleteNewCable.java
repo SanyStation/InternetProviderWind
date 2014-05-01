@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.netcracker.wind.commands.implementations.iedashboard;
 
 import com.netcracker.wind.commands.ICommand;
@@ -20,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Сашко
+ * @author пїЅпїЅпїЅпїЅпїЅ
  */
 public class CompleteNewCable implements ICommand{
     public static final String TASK_ID = "d_name"; 
@@ -37,13 +31,13 @@ public class CompleteNewCable implements ICommand{
         ICableDAO cableDAO = factoryDAO.createCableDAO();
         Task task = taskDAO.findByID(taskID);
         ServiceOrder serviceOrder = task.getServiceOrder();
-        Cable cable = cableDAO.findByPort(portID).get(0);
+        Cable cable = cableDAO.findByPort(portID);
         
         if (cable == null || cable.getServiceLocation() == serviceOrder.getServiceLocation()){
             return "";
         }
         
-        task.setStatus("COMPLETED");
+        task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

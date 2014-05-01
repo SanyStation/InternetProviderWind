@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.order;
 
 import com.netcracker.wind.commands.ICommand;
@@ -78,8 +73,8 @@ public class ProceedToOrder implements ICommand {
         serviceLocationDAO.add(serviceLocation);
         //TODO configure servise location
         order.setServiceLocation(serviceLocation);
-        order.setStatus(ServiceOrder.ENTERING_STATUS);
-        order.setScenario(ServiceOrder.NEW_SCEARIO);
+        order.setStatus(ServiceOrder.Status.ENTERING);
+        order.setScenario(ServiceOrder.Scenario.NEW);
         orderDAO.add(order);
         try {
             jsono.put("auth", true);

@@ -1,8 +1,6 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.User;
@@ -12,8 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,7 +19,9 @@ import java.util.logging.Logger;
 public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
+    private static final Logger LOGGER
+            = Logger.getLogger(OracleUserDAO.class.getName());
+    
     private static final String DELETE = "DELETE FROM USERS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO USERS (ID, NAME, EMAIL, "
             + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, ?, ?, ?, ?)";
@@ -54,15 +53,14 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
             stat.setInt(6, user.getRole().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            //TODO changer logger
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(connection);
         }
@@ -72,15 +70,15 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
      *
      * @param id primary key of User for deleting
      */
-    public void delete(int idUser) {
-        super.delete(DELETE, idUser);
+    public void delete(int id) {
+        super.delete(DELETE, id);
     }
 
     /**
      *
      * @param id User's id for deleting
-     * @return User with defined id when user exists in database; null if object
-     * wasn't found
+     * @return User with defined id when user exists in database; null if
+     * object wasn't found
      */
     public User findByID(int id) {
         List<User> users = findWhere("WHERE ID = ?", new Object[]{id});
@@ -97,6 +95,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
      * @param param parameters by which search will be formed
      * @return list of found users
      */
+    @Override
     protected List<User> findWhere(String where, Object[] param) {
         return super.findWhere(SELECT + where, param);
     }
@@ -116,14 +115,11 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
                 user.setEmail(rs.getString(EMAIL));
                 user.setPassword(rs.getString(PASSWORD));
                 user.setBlocked(rs.getBoolean(BLOCKED));
-                user.setRole(
-                        factoryDAO.createRoleDAO().findByID(rs.getInt(ROLE))
-                );
+                user.setRoleId(rs.getInt(ROLE));
                 users.add(user);
             }
         } catch (SQLException ex) {
-            //TODO
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
 
         return users;
@@ -147,14 +143,14 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleUserDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }
@@ -181,7 +177,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
         } else if (users.size() == 1) {
             return users.get(0);
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public List<User> findAll() {

@@ -8,6 +8,7 @@
 CREATE TABLE Cables 
     ( 
      id NUMBER (8)  NOT NULL , 
+     name VARCHAR2 (200) ,
      Port_id NUMBER (12)  NOT NULL , 
      Service_Location_id NUMBER (12)  NOT NULL 
     ) 
@@ -31,6 +32,7 @@ ALTER TABLE Cables
 CREATE TABLE Circuits 
     ( 
      id NUMBER (8)  NOT NULL , 
+     name VARCHAR2 (200) ,
      Service_Instance_id NUMBER (8)  NOT NULL , 
      Port_id NUMBER (12)  NOT NULL 
     ) 
@@ -73,6 +75,7 @@ ALTER TABLE Devices
 CREATE TABLE Ports 
     ( 
      id NUMBER (12)  NOT NULL , 
+     name VARCHAR2 (200) ,
      Device_id NUMBER (8)  NOT NULL , 
      free CHAR (1) DEFAULT '1' 
     ) 
@@ -171,6 +174,7 @@ ALTER TABLE Service_Instances
 CREATE TABLE Service_Locations 
     ( 
      id NUMBER (12)  NOT NULL , 
+     name VARCHAR2 (200) ,
      pos_x NUMBER  NOT NULL , 
      pos_y NUMBER  NOT NULL , 
      address VARCHAR2 (200) 
@@ -254,7 +258,7 @@ ALTER TABLE Tasks
 CREATE TABLE Users 
     ( 
      id NUMBER (8)  NOT NULL , 
-     Name VARCHAR2 (50) , 
+     тame VARCHAR2 (50) , 
      email VARCHAR2 (50) , 
      password VARCHAR2 (20)  NOT NULL , 
      blocked CHAR (1) DEFAULT '0' , 
@@ -505,22 +509,6 @@ ALTER TABLE Users
      id
     ) 
 ;
-
-CREATE OR REPLACE VIEW device_profit AS
-SELECT SUM(prc.price) profit,
-  p.Device_id device_id
-FROM Ports p
-INNER JOIN Circuits c
-ON c.Port_id = p.id
-INNER JOIN Service_Instances si
-ON c.Service_Instance_id = si.id
-INNER JOIN Service_Orders so
-ON si.Service_Order_id = so.id
-INNER JOIN Prices prc
-ON prc.Provider_Location_id = so.Provider_Location_id
-AND prc.Service_id          = so.Service_id
-WHERE p.free                = 0
-GROUP BY p.Device_id ;
 
 
 

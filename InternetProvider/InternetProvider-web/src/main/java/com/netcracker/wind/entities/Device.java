@@ -1,7 +1,8 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -13,9 +14,11 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Device implements Serializable {
 
     private static final long serialVersionUID = -2152609240262921250L;
+    
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     private Integer id;
-    private List<Port> ports = new ArrayList();
+    private transient List<Port> portsList;
     private String name;
 
     public Device() {
@@ -32,13 +35,16 @@ public class Device implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
+    
     public List<Port> getPortsList() {
-        return ports;
+        if (portsList == null) {
+            portsList = factoryDAO.createPortDAO().findByDevice(id);
+        }
+        return portsList;
     }
 
-    public void setPortsList(List<Port> portsCollection) {
-        this.ports = portsCollection;
+    public void setPortsList(List<Port> portsList) {
+        this.portsList = portsList;
     }
 
     public String getName() {
@@ -53,9 +59,8 @@ public class Device implements Serializable {
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
-        builder.append(ports);
+        builder.append(portsList);
         builder.append(name);
-
         return builder.toHashCode();
     }
 
@@ -73,9 +78,8 @@ public class Device implements Serializable {
         Device rhs = (Device) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
-        builder.append(ports, rhs.getPortsList());
+        builder.append(portsList, rhs.getPortsList());
         builder.append(name, rhs.getName());
-
         return builder.isEquals();
     }
 

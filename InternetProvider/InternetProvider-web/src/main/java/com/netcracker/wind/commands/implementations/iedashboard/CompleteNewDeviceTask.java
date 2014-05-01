@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.netcracker.wind.commands.implementations.iedashboard;
 
 import com.netcracker.wind.commands.ICommand;
@@ -18,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Сашко
+ * @author пїЅпїЅпїЅпїЅпїЅ
  */
 public class CompleteNewDeviceTask implements ICommand {
     public static final String D_NAME = "d_name"; 
@@ -39,7 +33,7 @@ public class CompleteNewDeviceTask implements ICommand {
             return "";
         }
         
-        task.setStatus("COMPLETED");
+        task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

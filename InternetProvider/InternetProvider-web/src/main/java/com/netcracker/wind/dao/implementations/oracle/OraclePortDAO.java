@@ -1,8 +1,6 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.entities.Port;
@@ -13,8 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +19,10 @@ import java.util.logging.Logger;
  */
 public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
 
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final Logger LOGGER
+            = Logger.getLogger(OraclePortDAO.class.getName());
+    
     private static final String UPDATE = "UPDATE PORTS SET FREE = ? WHERE "
             + "ID = ?";
     private static final String DELETE = "DELETE FROM PORTS WHERE ID = ?";
@@ -31,30 +32,28 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
     private static final String ID = "ID";
     private static final String DEVICE = "DEVICE_ID";
     private static final String FREE = "FREE";
-    private static final String SEL_FREE = "SELECT ID, DEVICE_ID FROM PORTS WHERE FREE = 1";
-
-    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
+    private static final String SEL_FREE = "SELECT ID, DEVICE_ID FROM PORTS "
+            + "WHERE FREE = 1";
 
     public void add(Port port) {
         Connection connection = null;
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-            stat.setInt(1, port.getDevice().getId());
+            stat = connection.prepareStatement(INSERT,
+                    Statement.RETURN_GENERATED_KEYS);
+            stat.setInt(1, port.getDeviceId());
             stat.setBoolean(2, true);
             stat.executeUpdate();
         } catch (SQLException ex) {
-            //TODO changer logger
-            Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(connection);
         }
@@ -73,7 +72,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         }
     }
 
-    Port getFreePort() {
+    public Port getFreePort() {
         Connection con = null;
         PreparedStatement statSel = null;
         PreparedStatement statUpd = null;
@@ -96,27 +95,27 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
             con.commit();
             return port;
         } catch (SQLException ex) {
-            Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error(null, ex);
                 }
             }
             if (statSel != null) {
                 try {
                     statSel.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error(null, ex);
                 }
             }
             if (statUpd != null) {
                 try {
                     statUpd.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error(null, ex);
                 }
             }
             connectionPool.close(con);
@@ -149,20 +148,12 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
                 Port port = new Port();
                 int id = rs.getInt(ID);
                 port.setId(id);
-                port.setDevice(
-                        factoryDAO.createDeviceDAO().findByID(rs.getInt(DEVICE))
-                );
+                port.setDeviceId(rs.getInt(DEVICE));
                 port.setFree(rs.getBoolean(FREE));
-//                port.setCircuits(factoryDAO.createCircuitDAO().findByPort(id));
-                //TODO get(0) - ???
-//                port.setCable(
-//                        factoryDAO.createCableDAO().findByPort(id).get(0)
-//                );
                 ports.add(port);
             }
         } catch (SQLException ex) {
-            //TODO
-            Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
 
         return ports;
@@ -178,14 +169,14 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
             stat.setInt(2, port.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OraclePortDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }
@@ -234,22 +225,22 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex1);
+                LOGGER.error(null, ex1);
             }
-            Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             if (psSelect != null) {
                 try {
                     psSelect.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error(null, ex);
                 }
             }
             if (psUpdate != null) {
                 try {
                     psUpdate.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(OracleTaskDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error(null, ex);
                 }
             }
             connectionPool.close(connection);

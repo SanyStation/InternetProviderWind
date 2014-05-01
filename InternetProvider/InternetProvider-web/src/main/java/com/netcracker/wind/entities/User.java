@@ -1,5 +1,7 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -12,16 +14,19 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 6475947738102035160L;
+    
+    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     private Integer id;
     private String name;
     private String email;
     private String password;
     private boolean blocked;
-    private List<ServiceInstance> serviceInstancesList;
-    private List<Task> tasksList;
-    private Role role;
-    private List<ServiceOrder> serviceOrdersList;
+    private transient List<ServiceInstance> serviceInstancesList;
+    private transient List<Task> tasksList;
+    private int roleId;
+    private transient Role role;
+    private transient List<ServiceOrder> serviceOrdersList;
 
     public User() {
     }
@@ -74,16 +79,23 @@ public class User implements Serializable {
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }
-
+    
     public List<ServiceInstance> getServiceInstancesList() {
+        if (serviceInstancesList == null) {
+            serviceInstancesList = factoryDAO.createServiceInstanceDAO()
+                    .findByUser(id);
+        }
         return serviceInstancesList;
     }
 
     public void setServiceInstancesList(List<ServiceInstance> serviceInstancesList) {
         this.serviceInstancesList = serviceInstancesList;
     }
-
+    
     public List<Task> getTasksList() {
+        if (tasksList == null) {
+            tasksList = factoryDAO.createTaskDAO().findByUser(id);
+        }
         return tasksList;
     }
 
@@ -91,15 +103,30 @@ public class User implements Serializable {
         this.tasksList = tasksList;
     }
 
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+    
     public Role getRole() {
+        if (role == null) {
+            role = factoryDAO.createRoleDAO().findByID(roleId);
+        }
         return role;
     }
 
     public void setRole(Role roles) {
         this.role = roles;
     }
-
+    
     public List<ServiceOrder> getServiceOrdersList() {
+        if (serviceOrdersList == null) {
+            serviceOrdersList = factoryDAO.createServiceOrderDAO()
+                    .findByUser(id);
+        }
         return serviceOrdersList;
     }
 
@@ -109,7 +136,6 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(name);
@@ -120,7 +146,6 @@ public class User implements Serializable {
         builder.append(tasksList);
         builder.append(role);
         builder.append(serviceOrdersList);
-
         return builder.toHashCode();
     }
 
@@ -135,7 +160,6 @@ public class User implements Serializable {
         if (!(object instanceof User)) {
             return false;
         }
-
         User rhs = (User) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
@@ -147,7 +171,6 @@ public class User implements Serializable {
         builder.append(tasksList, rhs.getTasksList());
         builder.append(role, rhs.getRole());
         builder.append(serviceOrdersList, rhs.getServiceOrdersList());
-
         return builder.isEquals();
     }
 

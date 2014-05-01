@@ -1,8 +1,6 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.entities.ServiceInstance;
@@ -12,17 +10,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Oksana
  */
-public class OracleServiceInstanceDAO extends AbstractOracleDAO implements IServiceInstanceDAO {
+public class OracleServiceInstanceDAO extends AbstractOracleDAO
+        implements IServiceInstanceDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
+    private static final Logger LOGGER
+            = Logger.getLogger(OracleServiceInstanceDAO.class.getName());
+
     private static final String UPDATE = "UPDATE SERVICE_INSTANCES SET "
             + "STATUS = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM SERVICE_INSTANCES WHERE "
@@ -37,39 +37,41 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO implements IServ
     private static final String STATUS = "STATUS";
     private static final String SERVICE = "SERVICE_ID";
 
-    private static final String SELECT_FOR_GET_GENERATED_ID = "SELECT * FROM ROOT.SERVICE_INSTANCES WHERE ROWID = ?";
+    private static final String SELECT_FOR_GET_GENERATED_ID = "SELECT * FROM "
+            + "ROOT.SERVICE_INSTANCES WHERE ROWID = ?";
 
     public void add(ServiceInstance serviceInstance) {
         Connection connection = null;
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+            stat = connection.prepareStatement(INSERT,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
             stat.setInt(1, serviceInstance.getId());
             stat.setInt(2, serviceInstance.getUser().getId());
             stat.setInt(3, serviceInstance.getServiceOrder().getId());
-            stat.setString(4, serviceInstance.getStatus());
+            stat.setString(4, serviceInstance.getStatus().toString());
             stat.setInt(5, serviceInstance.getService().getId());
             stat.executeUpdate();
             ResultSet insertedResultSet = stat.getGeneratedKeys();
             if (insertedResultSet != null && insertedResultSet.next()) {
                 String s = insertedResultSet.getString(1);
-                PreparedStatement ps = connection.prepareStatement(SELECT_FOR_GET_GENERATED_ID);
+                PreparedStatement ps = connection.prepareStatement(
+                        SELECT_FOR_GET_GENERATED_ID);
                 ps.setObject(1, s);
                 ResultSet rs = ps.executeQuery();
                 rs.next();
                 serviceInstance.setId(rs.getInt(ID));
             }
         } catch (SQLException ex) {
-            //TODO changer logger
-            Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(connection);
         }
@@ -114,31 +116,12 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO implements IServ
                 ServiceInstance servInst = new ServiceInstance();
                 int id = rs.getInt(ID);
                 servInst.setId(id);
-                servInst.setUser(
-                        factoryDAO.createUserDAO().findByID(rs.getInt(USER))
-                );
-                servInst.setServiceOrder(
-                        factoryDAO.createServiceOrderDAO().findByID(
-                                rs.getInt(SO)
-                        )
-                );
-                servInst.setStatus(rs.getString(STATUS));
-                servInst.setService(
-                        factoryDAO.createServiceDAO().findByID(
-                                rs.getInt(SERVICE)
-                        )
-                );
-                //Need refactor
-                //servInst.setServiceOrders(DAOFactory.createCableDAO().findByServInst(id));
-                //TODO get(0) - ???
-                servInst.setCircuit(
-                        factoryDAO.createCircuitDAO().findByServInst(id)
-                );
+                servInst.setStatus(ServiceInstance.Status.valueOf(
+                        rs.getString(STATUS)));
                 servInsts.add(servInst);
             }
         } catch (SQLException ex) {
-            //TODO
-            Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
 
         return servInsts;
@@ -150,18 +133,18 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO implements IServ
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setString(1, serviceInstance.getStatus());
+            stat.setString(1, serviceInstance.getStatus().toString());
             stat.setInt(2, serviceInstance.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceInstanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }
@@ -183,12 +166,20 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO implements IServ
     }
 
     public ServiceInstance findByServiceOrderId(int idOrder) {
-        List<ServiceInstance> servInsts = findWhere("WHERE SERVICE_ORDER_ID=?", new Object[]{idOrder});
+        List<ServiceInstance> servInsts
+                = findWhere("WHERE SERVICE_ORDER_ID = ?",
+                        new Object[]{idOrder});
         if (servInsts.isEmpty()) {
             return null;
         } else {
             return servInsts.get(0);
         }
+    }
+
+    public List<ServiceInstance> findByUser(int userId) {
+        List<ServiceInstance> servInsts
+                = findWhere("WHERE USER_ID = ?", new Object[]{userId});
+        return servInsts;
     }
 
 }
