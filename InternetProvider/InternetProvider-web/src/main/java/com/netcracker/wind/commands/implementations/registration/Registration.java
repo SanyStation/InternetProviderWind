@@ -24,9 +24,9 @@ public class Registration implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         User user = new User();
         Role userRole = new Role(5);
-        user.setName((String)request.getAttribute("login"));
-        user.setEmail((String)request.getAttribute("email"));
-        user.setPassword((String)request.getAttribute("password"));
+        user.setName((String)request.getParameter("login"));
+        user.setEmail((String)request.getParameter("e-mail"));
+        user.setPassword((String)request.getParameter("pass"));
         user.setBlocked(false);
         user.setRole(userRole);
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();

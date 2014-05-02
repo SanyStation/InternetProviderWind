@@ -23,8 +23,8 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
             = Logger.getLogger(OracleUserDAO.class.getName());
 
     private static final String DELETE = "DELETE FROM USERS WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO USERS (ID, NAME, EMAIL, "
-            + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO USERS (NAME, EMAIL, "
+            + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT * FROM USERS ";
     private static final String UPDATE = "UPDATE USERS SET EMAIL = ?, "
             + "PASSWORD = ?, BLOCKED WHERE ID = ?";
@@ -45,12 +45,11 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, user.getId());
-            stat.setString(2, user.getName());
-            stat.setString(3, user.getEmail());
-            stat.setString(4, user.getPassword());
-            stat.setBoolean(5, user.getBlocked());
-            stat.setInt(6, user.getRole().getId());
+            stat.setString(1, user.getName());
+            stat.setString(2, user.getEmail());
+            stat.setString(3, user.getPassword());
+            stat.setBoolean(4, user.getBlocked());
+            stat.setInt(5, user.getRole().getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error(null, ex);

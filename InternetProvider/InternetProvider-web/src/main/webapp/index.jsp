@@ -35,6 +35,10 @@
             <input type="submit" value="map"  />
         </form>
 
+        <form action="Registration.jsp" method="POST">
+            <input type="submit" value="Registration"  />
+        </form>
+
         <div>
             <a href="profile">Login</a>
         </div>
