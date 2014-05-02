@@ -177,7 +177,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
         } else if (users.size() == 1) {
             return users.get(0);
         }
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet");
     }
 
     public List<User> findAll() {
