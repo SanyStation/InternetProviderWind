@@ -189,6 +189,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     }
 
 
+
     public boolean hasLogin(String login) {
         List<User> users = findWhere(
                 "WHERE name = ?",
