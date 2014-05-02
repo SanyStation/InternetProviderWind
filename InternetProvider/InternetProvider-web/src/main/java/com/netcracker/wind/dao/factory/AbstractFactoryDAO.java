@@ -1,11 +1,12 @@
 package com.netcracker.wind.dao.factory;
 
-import com.netcracker.wind.dao.interfaces.reports.ISiProfitDAO;
-import com.netcracker.wind.dao.interfaces.reports.IRiRoutersUtilNCapDAO;
-import com.netcracker.wind.dao.interfaces.reports.ISiOrdersDAO;
+import com.netcracker.wind.dao.interfaces.*;
+import com.netcracker.wind.dao.interfaces.csedashboard.ICSEDashboardDAO;
 import com.netcracker.wind.dao.interfaces.reports.ICiaIptDAO;
 import com.netcracker.wind.dao.interfaces.reports.IRiMostProfRouterDAO;
-import com.netcracker.wind.dao.interfaces.*;
+import com.netcracker.wind.dao.interfaces.reports.IRiRoutersUtilNCapDAO;
+import com.netcracker.wind.dao.interfaces.reports.ISiOrdersDAO;
+import com.netcracker.wind.dao.interfaces.reports.ISiProfitDAO;
 
 /**
  *
@@ -50,5 +51,8 @@ public abstract class AbstractFactoryDAO {
     public abstract ISiOrdersDAO createSiNewOrdersDAO();
 
     public abstract ISiOrdersDAO createSiDisconnOrdersDAO();
-
+    
+    public abstract ICSEDashboardDAO  createCSESITableDAO();
+    
+    public abstract ICSEDashboardDAO  createCSESIbyProviderLocationTableDAO();
 }
