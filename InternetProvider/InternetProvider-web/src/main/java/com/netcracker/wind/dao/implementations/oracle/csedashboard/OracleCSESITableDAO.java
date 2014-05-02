@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  *
  * @author Anna
  */
-public class CSESITableDAO extends AbstractOracleDAO implements ICSEDashboardDAO {
+public class OracleCSESITableDAO extends AbstractOracleDAO implements ICSEDashboardDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     public static final String ROWS_COUNT = "rows_count";
@@ -46,7 +46,7 @@ public class CSESITableDAO extends AbstractOracleDAO implements ICSEDashboardDAO
             + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
 
     private final Logger LOGGER
-            = Logger.getLogger(CSESITableDAO.class.getName());
+            = Logger.getLogger(OracleCSESITableDAO.class.getName());
 
     @Override
     protected List parseResult(ResultSet rs) {
