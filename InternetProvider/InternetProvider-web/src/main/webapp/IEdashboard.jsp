@@ -103,14 +103,7 @@
                     input3.setAttribute("type", "submit");
                     input3.setAttribute("value", "Create Router");
                     var sel = document.createElement('select');
-                    sel.setAttribute("name", "task_id");
-                    for (var i = 0; i !== 10; i++){
-                        var opt = 
-                                document.createElement('option');
-                        opt.attributes : as="asa";
-                        opt.textContent
-                        sel.appendChild(opt);
-                    }
+
                     form.appendChild(input1);
                     form.appendChild(input2);
                     form.appendChild(input3);
