@@ -23,8 +23,10 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
             = Logger.getLogger(OracleDeviceDAO.class.getName());
 
     private static final String DELETE = "DELETE FROM DEVICES WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO DEVICES" + "(NAME) "
+    private static final String INSERT = "INSERT INTO DEVICES (NAME) "
             + "VALUES (?)";
+    private static final String UPDATE = "UPDATE DEVICES SET NAME = ?, "
+            + "WHERE ID = ?";
     private static final String SELECT = "SELECT * FROM DEVICES ";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
@@ -39,7 +41,7 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT, 
+            stat = connection.prepareStatement(INSERT,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             stat.setString(1, device.getName());
             stat.executeUpdate();
@@ -81,7 +83,7 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
      * @return
      */
     public Device findByID(int idDevice) {
-        List<Device> devices = findWhere("WHERE ID = ?", 
+        List<Device> devices = findWhere("WHERE ID = ?",
                 new Object[]{idDevice});
         if (devices.isEmpty()) {
             return null;
@@ -134,6 +136,30 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
 
     public List<Device> findAll() {
         return findWhere("", new Object[]{});
+    }
+
+    public void update(Device device) {
+        Connection con = null;
+        PreparedStatement stat = null;
+        try {
+            con = connectionPool.getConnection();
+            stat = con.prepareStatement(UPDATE);
+            stat.setString(1, device.getName());
+            stat.setInt(2, device.getId());
+            stat.executeUpdate();
+        } catch (SQLException ex) {
+            LOGGER.error(null, ex);
+        } finally {
+
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                LOGGER.error(null, ex);
+            }
+            connectionPool.close(con);
+        }
     }
 
 }

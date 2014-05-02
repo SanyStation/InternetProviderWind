@@ -23,10 +23,10 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
             = Logger.getLogger(OracleCircuitDAO.class.getName());
     
     private static final String DELETE = "DELETE FROM CIRCUITS WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO CIRCUITS (ID, "
+    private static final String INSERT = "INSERT INTO CIRCUITS (NAME, "
             + "SERVICE_INSTANCE_ID, PORT_ID) VALUES(?, ?, ?)";
     private static final String SELECT = "SELECT * FROM CIRCUITS ";
-    private static final String UPDATE = "UPDATE CIRCUITS SET "
+    private static final String UPDATE = "UPDATE CIRCUITS SET NAME = ?, "
             + "SERVICE_INSTANCE_ID = ?, PORT_ID = ? WHERE ID = ?";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
@@ -43,7 +43,7 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, circuit.getId());
+            stat.setString(1, circuit.getName());
             stat.setInt(2, circuit.getServiceInstanceId());
             stat.setInt(3, circuit.getPortId());
             stat.executeUpdate();
@@ -130,9 +130,10 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, circuit.getServiceInstanceId());
-            stat.setInt(2, circuit.getPortId());
-            stat.setInt(3, circuit.getId());
+            stat.setString(1, circuit.getName());
+            stat.setInt(2, circuit.getServiceInstanceId());
+            stat.setInt(3, circuit.getPortId());
+            stat.setInt(4, circuit.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error(null, ex);

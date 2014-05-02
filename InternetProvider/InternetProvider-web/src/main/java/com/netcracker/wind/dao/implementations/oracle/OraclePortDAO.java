@@ -23,11 +23,11 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
     private static final Logger LOGGER
             = Logger.getLogger(OraclePortDAO.class.getName());
     
-    private static final String UPDATE = "UPDATE PORTS SET FREE = ? WHERE "
-            + "ID = ?";
+    private static final String UPDATE = "UPDATE PORTS SET NAME = ?, "
+            + "DEVICE_ID = ?, FREE = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM PORTS WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO PORTS (DEVICE_ID, "
-            + "FREE) VALUES (?, ?)";
+    private static final String INSERT = "INSERT INTO PORTS (NAME, DEVICE_ID, "
+            + "FREE) VALUES (?, ?, ?)";
     private static final String SELECT = "SELECT * FROM PORTS ";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
@@ -43,8 +43,9 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT,
                     Statement.RETURN_GENERATED_KEYS);
-            stat.setInt(1, port.getDeviceId());
-            stat.setBoolean(2, true);
+            stat.setString(1, port.getName());
+            stat.setInt(2, port.getDeviceId());
+            stat.setBoolean(3, true);
             stat.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error(null, ex);
@@ -166,8 +167,10 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setBoolean(1, port.isFree());
-            stat.setInt(2, port.getId());
+            stat.setString(1, port.getName());
+            stat.setInt(2, port.getDeviceId());
+            stat.setBoolean(3, port.isFree());
+            stat.setInt(4, port.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error(null, ex);
