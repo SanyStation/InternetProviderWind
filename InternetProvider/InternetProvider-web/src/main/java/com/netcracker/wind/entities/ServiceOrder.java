@@ -1,9 +1,10 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.FactoryCreator;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -14,25 +15,37 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class ServiceOrder implements Serializable {
 
     private static final long serialVersionUID = 2972707714220134975L;
-
-    public static final String ENTERING_STATUS = "Entering";
-    public static final String PROCESSING_STATUS = "Processing";
-    public static final String CANCELLED_STATUS = "Cancelled";
-
-    public static final String NEW_SCEARIO = "New";
+    
+    private final AbstractFactoryDAO factoryDAO
+            = FactoryCreator.getInstance().getFactory();
+    
+    public static enum Status {
+        
+        ENTERING, PROCESSING, CANCELLED
+    }
+    
+    public static enum Scenario {
+        
+        NEW, MODIFY, DISCONNECT
+    }
 
     private Integer id;
     private Timestamp enterdate;
     private Timestamp procesdate;
     private Timestamp completedate;
-    private String status;
-    private String scenario;
-    private ServiceInstance serviceInstance;
-    private Collection<Task> tasksCollection;
-    private User user;
-    private ServiceLocation serviceLocation;
-    private Service service;
-    private ProviderLocation providerLocation;
+    private Status status;
+    private Scenario scenario;
+    private int serviceInstanceId;
+    private transient ServiceInstance serviceInstance;
+    private transient List<Task> tasksList;
+    private int userId;
+    private transient User user;
+    private int serviceLocationId;
+    private transient ServiceLocation serviceLocation;
+    private int serviceId;
+    private transient Service service;
+    private int providerLocationId;
+    private transient ProviderLocation providerLocation;
 
     public ServiceOrder() {
     }
@@ -41,7 +54,7 @@ public class ServiceOrder implements Serializable {
         this.id = id;
     }
 
-    public ServiceOrder(Integer id, String scenario) {
+    public ServiceOrder(Integer id, Scenario scenario) {
         this.id = id;
         this.scenario = scenario;
     }
@@ -78,39 +91,65 @@ public class ServiceOrder implements Serializable {
         this.completedate = completedate;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public String getScenario() {
+    public Scenario getScenario() {
         return scenario;
     }
 
-    public void setScenario(String scenario) {
+    public void setScenario(Scenario scenario) {
         this.scenario = scenario;
     }
 
+    public int getServiceInstanceId() {
+        return serviceInstanceId;
+    }
+
+    public void setServiceInstanceId(int serviceInstanceId) {
+        this.serviceInstanceId = serviceInstanceId;
+    }
+    
     public ServiceInstance getServiceInstance() {
+        if (serviceInstance == null) {
+            serviceInstance = factoryDAO.createServiceInstanceDAO()
+                    .findByID(serviceInstanceId);
+        }
         return serviceInstance;
     }
 
     public void setServiceInstance(ServiceInstance serviceInstances) {
         this.serviceInstance = serviceInstances;
     }
-
-    public Collection<Task> getTasksCollection() {
-        return tasksCollection;
+    
+    public List<Task> getTasksList() {
+        if (tasksList == null) {
+            tasksList = factoryDAO.createTaskDAO().findByServiceOrder(id);
+        }
+        return tasksList;
     }
 
-    public void setTasksCollection(Collection<Task> tasksCollection) {
-        this.tasksCollection = tasksCollection;
+    public void setTasksCollection(List<Task> tasksList) {
+        this.tasksList = tasksList;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
     public User getUser() {
+        if (user == null) {
+            user = factoryDAO.createUserDAO().findByID(userId);
+        }
         return user;
     }
 
@@ -118,7 +157,19 @@ public class ServiceOrder implements Serializable {
         this.user = users;
     }
 
+    public int getServiceLocationId() {
+        return serviceLocationId;
+    }
+
+    public void setServiceLocationId(int serviceLocationId) {
+        this.serviceLocationId = serviceLocationId;
+    }
+    
     public ServiceLocation getServiceLocation() {
+        if (serviceLocation == null) {
+            serviceLocation = factoryDAO.createServiceLocationDAO()
+                    .findByID(serviceLocationId);
+        }
         return serviceLocation;
     }
 
@@ -126,7 +177,18 @@ public class ServiceOrder implements Serializable {
         this.serviceLocation = serviceLocations;
     }
 
+    public int getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
+    }
+    
     public Service getService() {
+        if (service == null) {
+            service = factoryDAO.createServiceDAO().findByID(serviceId);
+        }
         return service;
     }
 
@@ -134,7 +196,19 @@ public class ServiceOrder implements Serializable {
         this.service = services;
     }
 
+    public int getProviderLocationId() {
+        return providerLocationId;
+    }
+
+    public void setProviderLocationId(int providerLocationId) {
+        this.providerLocationId = providerLocationId;
+    }
+    
     public ProviderLocation getProviderLocation() {
+        if (providerLocation == null) {
+            providerLocation = factoryDAO.createProviderLocationDAO()
+                    .findByID(providerLocationId);
+        }
         return providerLocation;
     }
 
@@ -144,7 +218,6 @@ public class ServiceOrder implements Serializable {
 
     @Override
     public int hashCode() {
-
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(enterdate);
@@ -153,12 +226,11 @@ public class ServiceOrder implements Serializable {
         builder.append(status);
         builder.append(scenario);
         builder.append(serviceInstance);
-        builder.append(tasksCollection);
+        builder.append(tasksList);
         builder.append(user);
         builder.append(serviceLocation);
         builder.append(service);
         builder.append(providerLocation);
-
         return builder.toHashCode();
     }
 
@@ -173,7 +245,6 @@ public class ServiceOrder implements Serializable {
         if (!(object instanceof ServiceOrder)) {
             return false;
         }
-
         ServiceOrder rhs = (ServiceOrder) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
@@ -183,12 +254,11 @@ public class ServiceOrder implements Serializable {
         builder.append(status, rhs.getStatus());
         builder.append(scenario, rhs.getScenario());
         builder.append(serviceInstance, rhs.getServiceInstance());
-        builder.append(tasksCollection, rhs.getTasksCollection());
+        builder.append(tasksList, rhs.getTasksList());
         builder.append(user, rhs.getUser());
         builder.append(serviceLocation, rhs.getServiceLocation());
         builder.append(service, rhs.getService());
         builder.append(providerLocation, rhs.getProviderLocation());
-
         return builder.isEquals();
     }
 

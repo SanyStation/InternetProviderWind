@@ -1,5 +1,7 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.FactoryCreator;
 import java.io.Serializable;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -11,12 +13,17 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Port implements Serializable {
 
     private static final long serialVersionUID = 1983449719630976337L;
+    
+    private final AbstractFactoryDAO factoryDAO
+            = FactoryCreator.getInstance().getFactory();
 
     private Integer id;
+    private String name;
     private boolean free;
-    private Device device;
-    private Circuit circuit;
-    private Cable cable;
+    private int deviceId;
+    private transient Device device;
+    private transient Circuit circuit;
+    private transient Cable cable;
 
     public Port() {
     }
@@ -32,7 +39,15 @@ public class Port implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+    
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public boolean isFree() {
         return free;
     }
@@ -41,7 +56,18 @@ public class Port implements Serializable {
         this.free = free;
     }
 
+    public int getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(int deviceId) {
+        this.deviceId = deviceId;
+    }
+
     public Device getDevice() {
+        if (device == null) {
+            device = factoryDAO.createDeviceDAO().findByID(deviceId);
+        }
         return device;
     }
 
@@ -50,14 +76,20 @@ public class Port implements Serializable {
     }
 
     public Circuit getCircuit() {
+        if (circuit == null) {
+            circuit = factoryDAO.createCircuitDAO().findByPort(id);
+        }
         return circuit;
     }
 
     public void setCircuit(Circuit circuits) {
         this.circuit = circuits;
     }
-
+    
     public Cable getCable() {
+        if (cable == null) {
+            cable = factoryDAO.createCableDAO().findByPort(id);
+        }
         return cable;
     }
 
@@ -67,13 +99,11 @@ public class Port implements Serializable {
 
     @Override
     public int hashCode() {
-
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(free);
         builder.append(circuit);
         builder.append(cable);
-
         return builder.toHashCode();
     }
 
@@ -88,7 +118,6 @@ public class Port implements Serializable {
         if (!(object instanceof Port)) {
             return false;
         }
-
         Port rhs = (Port) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
@@ -96,7 +125,6 @@ public class Port implements Serializable {
         builder.append(device, rhs.getDevice());
         builder.append(circuit, rhs.getCircuit());
         builder.append(cable, rhs.getCable());
-
         return builder.isEquals();
     }
 

@@ -1,5 +1,7 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.FactoryCreator;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -12,6 +14,9 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 4491197292843435012L;
+    
+    private final AbstractFactoryDAO factoryDAO
+            = FactoryCreator.getInstance().getFactory();
 
     public static final int PE_GROUPR_ID = 2;
     public static final int IE_GROUP_ID = 3;
@@ -19,8 +24,8 @@ public class Role implements Serializable {
 
     private Integer id;
     private String name;
-    private List<Task> tasksList;
-    private List<User> usersList;
+    private transient List<Task> tasksList;
+    private transient List<User> usersList;
 
     public Role() {
     }
@@ -49,16 +54,22 @@ public class Role implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public List<Task> getTasksList() {
+        if (tasksList == null) {
+            tasksList = factoryDAO.createTaskDAO().findByGroup(id);
+        }
         return tasksList;
     }
 
     public void setTasksList(List<Task> tasksList) {
         this.tasksList = tasksList;
     }
-
+    
     public List<User> getUsersList() {
+        if (usersList == null) {
+            usersList = factoryDAO.createUserDAO().findByRole(id);
+        }
         return usersList;
     }
 
@@ -73,7 +84,6 @@ public class Role implements Serializable {
         builder.append(name);
         builder.append(tasksList);
         builder.append(usersList);
-
         return builder.toHashCode();
     }
 
@@ -88,14 +98,12 @@ public class Role implements Serializable {
         if (!(object instanceof Role)) {
             return false;
         }
-
         Role rhs = (Role) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
         builder.append(name, rhs.getName());
         builder.append(tasksList, rhs.getTasksList());
         builder.append(usersList, rhs.getUsersList());
-
         return builder.isEquals();
     }
 

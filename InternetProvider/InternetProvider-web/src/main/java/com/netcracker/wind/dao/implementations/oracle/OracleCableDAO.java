@@ -1,9 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.entities.Cable;
 import java.sql.Connection;
@@ -12,29 +10,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Oksana
  */
-public class OracleCableDAO extends AbstractDAO
-        implements ICableDAO {
+public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final Logger LOGGER
+            = Logger.getLogger(OracleCableDAO.class.getName());
+
     private static final String DELETE = "DELETE FROM CABLES WHERE ID = ?";
-    private static final String INSERT = "INSERT INTO CABLES (ID, PORT_ID, "
-            + "SERVICE_LOCATION_ID) VALUES(?, ?, ?)";
+    private static final String INSERT = "INSERT INTO CABLES (PORT_ID, "
+            + "SERVICE_LOCATION_ID) VALUES(?, ?)";
     private static final String SELECT = "SELECT * FROM CABLES ";
-    //TODO check this with bd
     private static final String UPDATE = "UPDATE CABLES SET PORT_ID = ?,"
             + "SERVICE_INSTANCE_ID = ? WHERE ID = ?";
     private static final String ID = "ID";
     private static final String PORT = "PORT_ID";
     private static final String SLID = "SERVICE_LOCATION_ID";
-
-    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
 
     public void add(Cable cable) {
         Connection connection = null;
@@ -42,21 +38,18 @@ public class OracleCableDAO extends AbstractDAO
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, cable.getId());
-            stat.setInt(2, cable.getPort().getId());
-            // do we need to add to the tables
-            stat.setInt(3, cable.getServiceLocation().getId());
+            stat.setInt(1, cable.getPortId());
+            stat.setInt(2, cable.getServiceLocationId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            //TODO changer logger
-            Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(connection);
         }
@@ -73,7 +66,7 @@ public class OracleCableDAO extends AbstractDAO
      * otherwise
      */
     public Cable findByID(int idCable) {
-        List<Cable> cables = findWhere("WHERE ID=?", new Object[]{idCable});
+        List<Cable> cables = findWhere("WHERE ID = ?", new Object[]{idCable});
         if (cables.isEmpty()) {
             return null;
         } else {
@@ -94,10 +87,8 @@ public class OracleCableDAO extends AbstractDAO
 
     /**
      *
-     *
      * @param rs result return from database
      * @return list of founded cables
-     *
      */
     protected List<Cable> parseResult(ResultSet rs) {
         List<Cable> cables = new ArrayList<Cable>();
@@ -105,22 +96,13 @@ public class OracleCableDAO extends AbstractDAO
             while (rs.next()) {
                 Cable cable = new Cable();
                 cable.setId(rs.getInt(ID));
-                cable.setPort(
-                        factoryDAO.createPortDAO().findByID(rs.getInt(PORT))
-                );
-                cable.setServiceLocation(
-                        factoryDAO.createServiceLocationDAO().findByID(
-                                rs.getInt(SLID)
-                        )
-                );
-
+                cable.setPortId(rs.getInt(PORT));
+                cable.setServiceLocationId(rs.getInt(SLID));
                 cables.add(cable);
             }
         } catch (SQLException ex) {
-            //TODO
-            Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
-
         return cables;
     }
 
@@ -130,12 +112,12 @@ public class OracleCableDAO extends AbstractDAO
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, cable.getPort().getId());
-            stat.setInt(2, cable.getServiceLocation().getId());
+            stat.setInt(1, cable.getPortId());
+            stat.setInt(2, cable.getServiceLocationId());
             stat.setInt(3, cable.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
 
             try {
@@ -143,20 +125,20 @@ public class OracleCableDAO extends AbstractDAO
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleCableDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }
 
     }
 
-    public List<Cable> findByPort(int idPort) {
+    public Cable findByPort(int idPort) {
         List<Cable> cables
                 = findWhere("WHERE PORT_ID = ?", new Object[]{idPort});
         if (cables.isEmpty()) {
             return null;
         } else {
-            return cables;
+            return cables.get(0);
         }
     }
 
@@ -164,7 +146,14 @@ public class OracleCableDAO extends AbstractDAO
         return findWhere("", new Object[]{});
     }
 
-    public List<Cable> findByServiceLocation(int idSL) {
-        return findWhere("WHERE SERVICE_LOCATION_ID = ?", new Object[]{idSL});
+    public Cable findByServiceLocation(int idSL) {
+        List<Cable> cables
+                = findWhere("WHERE SERVICE_LOCATION_ID = ?",
+                        new Object[]{idSL});
+        if (cables.isEmpty()) {
+            return null;
+        } else {
+            return cables.get(0);
+        }
     }
 }

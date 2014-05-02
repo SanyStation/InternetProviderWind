@@ -5,6 +5,9 @@
  */
 package com.netcracker.wind.controllers;
 
+import com.netcracker.wind.dao.factory.FactoryCreator;
+import com.netcracker.wind.dao.interfaces.IUserDAO;
+import com.netcracker.wind.entities.User;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -33,6 +36,7 @@ public class PrivateController extends HttpServlet {
      */
     private static final Logger logger = Logger.getLogger(PrivateController.class.getName());
     private static final String NAME = "name";
+    private static final String USER = "user";
     private static final String WEB_INF = "WEB-INF/";
     private static final String INDEX = "/index.jsp";
     private static final String LOGOUT = "/logout";
@@ -59,6 +63,15 @@ public class PrivateController extends HttpServlet {
                 while ((i < roles.length) && (!founded)) {
                     if (founded = request.isUserInRole(roles[i])) {
                         request.setAttribute(NAME, request.getUserPrincipal().getName());
+                        HttpSession session = request.getSession(false);
+                        if (session != null) {
+                            IUserDAO userDAO = FactoryCreator.getInstance().
+                                    getFactory().createUserDAO();
+                            User user = userDAO.findByEmail(request.getUserPrincipal().getName());
+                            if (user != null) {
+                                session.setAttribute(USER, user);
+                            }
+                        }
                         request.getSession().setAttribute(NAME, request.getUserPrincipal().getName());
                         request.getRequestDispatcher(WEB_INF + roledirs[i] + INDEX).
                                 forward(request, response);

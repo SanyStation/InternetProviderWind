@@ -1,3 +1,12 @@
+ALTER TABLE Circuits
+   ADD name varchar2(20);
+	
+ALTER TABLE Ports
+   ADD name varchar2(20);
+   
+ALTER TABLE Service_locations
+   ADD name varchar2(20);
+   
 DECLARE
    a number;
    x number;
@@ -9,6 +18,7 @@ DECLARE
    pr_date date:= Sysdate + 1/24;
    c_date date:= Sysdate + 1;
 BEGIN
+  
   INSERT INTO roles
   (name )
   VALUES
@@ -184,8 +194,8 @@ BEGIN
 		x:= (x + 0.000050);
 		y:= (y + 0.000100);
 		insert into service_locations
-		(pos_x, pos_y)
-		values(x, y);
+		(pos_x, pos_y, name)
+		values(x, y, concat('Location', a));
   END LOOP;
 
    x :=50.422445;
@@ -194,8 +204,8 @@ BEGIN
 		x:= (x + 0.000075);
 		y:= (y + 0.000250);
 		insert into service_locations
-		(pos_x, pos_y)
-		values(x, y);
+		(pos_x, pos_y, name)
+		values(x, y, concat('Location', a));
   END LOOP;
   
    x :=50.395804;
@@ -204,8 +214,8 @@ BEGIN
 		x:= (x + 0.000050);
 		y:= (y + 0.000200);
 		insert into service_locations
-		(pos_x, pos_y)
-		values(x, y);
+		(pos_x, pos_y, name)
+		values(x, y, concat('Location', a));
   END LOOP;
 
    x :=50.501261;
@@ -214,8 +224,8 @@ BEGIN
 		x:= (x + 0.000040);
 		y:= (y - 0.000200);
 		insert into service_locations
-		(pos_x, pos_y)
-		values(x, y);
+		(pos_x, pos_y, name)
+		values(x, y, concat('Location', a));
   END LOOP;
 
    x :=50.526232;
@@ -224,16 +234,16 @@ BEGIN
 		x:= (x - 0.000040);
 		y:= (y + 0.000075);
 		insert into service_locations
-		(pos_x, pos_y)
-		values(x, y);
+		(pos_x, pos_y, name)
+		values(x, y, concat('Location', a));
   END LOOP;
   
   for a in 1..17 loop
     insert into devices (name)
     values (concat('Device', a));
     for b in 1..60 loop
-      insert into ports (device_id)
-      values (a);
+      insert into ports (device_id, name)
+      values (a, concat('Port', (b * 60 - (60 - a))));
     end loop;
   end loop;
 
@@ -250,9 +260,9 @@ BEGIN
 		values
 		(a, a, 'active', 1);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -281,9 +291,9 @@ BEGIN
 		values
 		(a, a, 'active', 2);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -312,9 +322,9 @@ BEGIN
 		values
 		(a, a, 'active', 3);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -343,9 +353,9 @@ BEGIN
 		values
 		(a, a, 'active', 3);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -374,9 +384,9 @@ BEGIN
 		values
 		(a, a, 'active', 4);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -405,9 +415,9 @@ BEGIN
 		values
 		(a, a, 'active', 5);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -436,9 +446,9 @@ BEGIN
 		values
 		(a, a, 'active', 1);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -467,9 +477,9 @@ BEGIN
 		values
 		(a, a, 'active', 2);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -498,9 +508,9 @@ BEGIN
 		values
 		(a, a, 'active', 3);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -529,9 +539,9 @@ BEGIN
 		values
 		(a, a, 'active', 3);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -560,9 +570,9 @@ BEGIN
 		values
 		(a, a, 'active', 4);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -591,9 +601,9 @@ BEGIN
 		values
 		(a, a, 'active', 5);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -622,9 +632,9 @@ BEGIN
 		values
 		(a, a, 'active', 1);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -653,9 +663,9 @@ BEGIN
 		values
 		(a, a, 'active', 2);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -684,9 +694,9 @@ BEGIN
 		values
 		(a, a, 'active', 5);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 

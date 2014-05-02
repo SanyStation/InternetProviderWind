@@ -1,5 +1,6 @@
 package com.netcracker.wind.dao.implementations.oracle.reports;
 
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.reports.ISiOrdersDAO;
 import com.netcracker.wind.entities.reports.SiOrder;
 import java.sql.ResultSet;
@@ -56,6 +57,36 @@ public class OracleSiOrdersDAO extends AbstractOracleDAO
         this.scenario = scenario;
     }
 
+    @Override
+    protected List parseResult(ResultSet rs) {
+        List<SiOrder> orders = new ArrayList();
+        try {
+            while (rs.next()) {
+                int id = rs.getInt(ID);
+                Date date = rs.getDate(COMPLETE_DATE);
+                int providerLocationId = rs.getInt(PROVIDER_LOCATION_ID);
+                String providerLocationName
+                        = rs.getString(PROVIDER_LOCATION_NAME);
+                int serviceLocationId = rs.getInt(SERVICE_LOCATION_ID);
+                String serviceName = rs.getString(SERVICE_NAME);
+                SiOrder order = new SiOrder();
+                order.setId(id);
+                order.setCompleteDate(date);
+                order.setProviderLocationId(providerLocationId);
+                order.setProviderLocationName(providerLocationName);
+                order.setServiceLocationId(serviceLocationId);
+                order.setServiceName(serviceName);
+                orders.add(order);
+            }
+        } catch (SQLException ex) {
+            LOGGER.error(null, ex);
+        }
+        return orders;
+    }
+    
+    @Override
+    public void delete(String deleteQuery, int id) {}
+    
     public List<SiOrder> findDateFromTo(String dateFrom, String dateTo) {
         List<SiOrder> orders = null;
         List<String> param = new ArrayList<String>();
@@ -83,35 +114,8 @@ public class OracleSiOrdersDAO extends AbstractOracleDAO
             for (int i = 1; i < param.size(); ++i) {
                 sdf.parse(param.get(i));
             }
-            orders = super.findWhere(query.toString(), param);
+            orders = super.findWhere(query.toString(), param.toArray());
         } catch (ParseException ex) {
-            LOGGER.error(null, ex);
-        }
-        return orders;
-    }
-
-    @Override
-    protected List parseResult(ResultSet rs) {
-        List<SiOrder> orders = new ArrayList();
-        try {
-            while (rs.next()) {
-                int id = rs.getInt(ID);
-                Date date = rs.getDate(COMPLETE_DATE);
-                int providerLocationId = rs.getInt(PROVIDER_LOCATION_ID);
-                String providerLocationName
-                        = rs.getString(PROVIDER_LOCATION_NAME);
-                int serviceLocationId = rs.getInt(SERVICE_LOCATION_ID);
-                String serviceName = rs.getString(SERVICE_NAME);
-                SiOrder order = new SiOrder();
-                order.setId(id);
-                order.setCompleteDate(date);
-                order.setProviderLocationId(providerLocationId);
-                order.setProviderLocationName(providerLocationName);
-                order.setServiceLocationId(serviceLocationId);
-                order.setServiceName(serviceName);
-                orders.add(order);
-            }
-        } catch (SQLException ex) {
             LOGGER.error(null, ex);
         }
         return orders;

@@ -1,7 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IRoleDAO;
 import com.netcracker.wind.entities.Role;
 import java.sql.Connection;
@@ -10,16 +10,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Oksana
  */
-public class OracleRoleDAO extends AbstractDAO implements IRoleDAO {
+public class OracleRoleDAO extends AbstractOracleDAO implements IRoleDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final Logger LOGGER
+            = Logger.getLogger(OracleRoleDAO.class.getName());
+    
     private static final String DELETE = "DELETE FROM ROLES WHERE ID = ?";
     private static final String INSERT = "INSERT INTO ROLES (ID, NAME) "
             + "VALUES(?, ?)";
@@ -43,15 +45,14 @@ public class OracleRoleDAO extends AbstractDAO implements IRoleDAO {
             stat.setString(2, role.getName());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            //TODO changer logger
-            Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(connection);
         }
@@ -93,7 +94,6 @@ public class OracleRoleDAO extends AbstractDAO implements IRoleDAO {
 
     /**
      *
-     *
      * @param rs result return from database
      * @return list of founded roles
      *
@@ -105,12 +105,11 @@ public class OracleRoleDAO extends AbstractDAO implements IRoleDAO {
                 Role role = new Role();
                 role.setId(rs.getInt(ID));
                 role.setName(rs.getString(NAME));
-//                role.setUsersList(DAOFactory.createUserDAO().findByRole(role.getId()));
                 roles.add(role);
             }
         } catch (SQLException ex) {
             //TODO
-            Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
 
         return roles;
@@ -126,14 +125,14 @@ public class OracleRoleDAO extends AbstractDAO implements IRoleDAO {
             stat.setInt(2, role.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleRoleDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(con);
         }

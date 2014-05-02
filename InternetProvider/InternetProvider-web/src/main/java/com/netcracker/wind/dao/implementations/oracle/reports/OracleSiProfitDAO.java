@@ -1,5 +1,6 @@
 package com.netcracker.wind.dao.implementations.oracle.reports;
 
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.reports.ISiProfitDAO;
 import com.netcracker.wind.entities.reports.SiProfit;
 import java.sql.ResultSet;
@@ -44,24 +45,6 @@ public class OracleSiProfitDAO extends AbstractOracleDAO
     private final Logger LOGGER
             = Logger.getLogger(OracleSiProfitDAO.class.getName());
 
-    public List<SiProfit> findByDateTo(String dateTo) {
-        List<SiProfit> orders = null;
-        List<String> param = new ArrayList<String>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-        if (dateTo.isEmpty()) {
-            dateTo = sdf.format(Calendar.getInstance().getTime());
-        }
-        dateTo += "-01";
-        try {
-            sdf.parse(dateTo);
-            param.add(dateTo);
-            orders = super.findWhere(QUERY, param);
-        } catch (ParseException ex) {
-            LOGGER.error(null, ex);
-        }
-        return orders;
-    }
-
     @Override
     protected List<SiProfit> parseResult(ResultSet rs) {
         List<SiProfit> profits = new ArrayList<SiProfit>();
@@ -85,6 +68,27 @@ public class OracleSiProfitDAO extends AbstractOracleDAO
             LOGGER.error(null, ex);
         }
         return profits;
+    }
+    
+    @Override
+    public void delete(String deleteQuery, int id) {}
+    
+    public List<SiProfit> findByDateTo(String dateTo) {
+        List<SiProfit> orders = null;
+        List<String> param = new ArrayList<String>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        if (dateTo.isEmpty()) {
+            dateTo = sdf.format(Calendar.getInstance().getTime());
+        }
+        dateTo += "-01";
+        try {
+            sdf.parse(dateTo);
+            param.add(dateTo);
+            orders = super.findWhere(QUERY, param.toArray());
+        } catch (ParseException ex) {
+            LOGGER.error(null, ex);
+        }
+        return orders;
     }
 
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.commands.implementations.csedashboard;
 
 import com.netcracker.wind.commands.DashboardsUtilities;
@@ -29,8 +28,10 @@ import org.json.JSONObject;
 public class CSEgetOwnCompletedTasks implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-       User user =(User)request.getAttribute("user");
-         return DashboardsUtilities.getTaskUserStatus(user.getId(),"completed");
+        // User user =(User)request.getAttribute("user");
+        int number = Integer.parseInt(request.getParameter("size"));
+        int from = Integer.parseInt(request.getParameter("from"));
+        return DashboardsUtilities.getTaskUserStatus(1002,Task.Status.COMPLETED.toString(), number, from);
     }
-    
+
 }

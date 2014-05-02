@@ -1,7 +1,6 @@
 package com.netcracker.wind.dao.implementations.helper;
 
 import com.netcracker.wind.connection.ConnectionPool;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,11 +12,11 @@ import org.apache.log4j.Logger;
  *
  * @author Oksana
  */
-public abstract class AbstractDAO {
+public abstract class AbstractOracleDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER
-            = Logger.getLogger(AbstractDAO.class.getName());
+            = Logger.getLogger(AbstractOracleDAO.class.getName());
 
     protected List findWhere(String query, Object[] param) {
         List circuits = null;
@@ -26,6 +25,7 @@ public abstract class AbstractDAO {
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
+            LOGGER.info("### Query: " + query);
             stat = con.prepareStatement(query);
             if (param != null) {
                 for (int i = 0; i < param.length; ++i) {
@@ -56,12 +56,12 @@ public abstract class AbstractDAO {
         return circuits;
     }
 
-    public void delete(String deleteQuary, int id) {
+    public void delete(String deleteQuery, int id) {
         Connection con = null;
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            stat = con.prepareStatement(deleteQuary);
+            stat = con.prepareStatement(deleteQuery);
             stat.setInt(1, id);
             stat.executeUpdate();
         } catch (SQLException ex) {
@@ -79,4 +79,5 @@ public abstract class AbstractDAO {
     }
 
     protected abstract List parseResult(ResultSet rs);
+    
 }

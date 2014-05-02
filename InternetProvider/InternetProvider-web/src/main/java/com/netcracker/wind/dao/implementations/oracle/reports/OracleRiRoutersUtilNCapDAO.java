@@ -1,5 +1,6 @@
 package com.netcracker.wind.dao.implementations.oracle.reports;
 
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.reports.IRiRoutersUtilNCapDAO;
 import com.netcracker.wind.entities.reports.RiRouterUtilNCap;
 import java.sql.ResultSet;
@@ -31,7 +32,7 @@ public class OracleRiRoutersUtilNCapDAO extends AbstractOracleDAO
             Logger.getLogger(OracleRiMostProfRouterDAO.class.getName());
 
     public List<RiRouterUtilNCap> findAll() {
-         return super.findWhere(QUERY, new ArrayList<String>());
+         return super.findWhere(QUERY, new Object[]{});
     }
 
     @Override
@@ -55,5 +56,8 @@ public class OracleRiRoutersUtilNCapDAO extends AbstractOracleDAO
         }
         return devices;
     }
+    
+    @Override
+    public void delete(String deleteQuery, int id) {}
 
 }

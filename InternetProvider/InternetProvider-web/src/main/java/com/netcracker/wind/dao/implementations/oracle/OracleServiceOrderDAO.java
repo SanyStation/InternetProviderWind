@@ -1,9 +1,7 @@
 package com.netcracker.wind.dao.implementations.oracle;
 
 import com.netcracker.wind.connection.ConnectionPool;
-import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
-import com.netcracker.wind.dao.implementations.helper.AbstractDAO;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
 import com.netcracker.wind.entities.ServiceOrder;
 import java.sql.Connection;
@@ -12,21 +10,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Oksana
  */
-public class OracleServiceOrderDAO extends AbstractDAO implements IServiceOrderDAO {
+public class OracleServiceOrderDAO extends AbstractOracleDAO
+        implements IServiceOrderDAO {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
-    private static final String UPDATE = "UPDATE SERVICE_ORDERS SET ENTERDATE = ?,"
-            + "PROCESDATE = ?, COMPLETEDATE = ?, USER_ID = ?, SERVICE_ID = ?,"
-            + "PROVIDER_LOCATION_ID = ?, SERVICE_LOCATION_ID = ?, STATUS = ?,"
-            + "SCENARIO = ?, SERVICE_INSTANCE_ID = ? WHERE ID = ?";
+    private static final Logger LOGGER
+            = Logger.getLogger(OracleServiceOrderDAO.class.getName());
+
+    private static final String UPDATE = "UPDATE SERVICE_ORDERS SET "
+            + "ENTERDATE = ?, PROCESDATE = ?, COMPLETEDATE = ?, USER_ID = ?, "
+            + "SERVICE_ID = ?, PROVIDER_LOCATION_ID = ?,"
+            + "SERVICE_LOCATION_ID = ?, STATUS = ?, SCENARIO = ?, "
+            + "SERVICE_INSTANCE_ID = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM SERVICE_ORDERS WHERE "
             + "ID = ?";
     private static final String INSERT = "INSERT INTO SERVICE_ORDERS ("
@@ -60,19 +61,18 @@ public class OracleServiceOrderDAO extends AbstractDAO implements IServiceOrderD
             stat.setInt(5, serviceOrder.getService().getId());
             stat.setInt(6, serviceOrder.getProviderLocation().getId());
             stat.setInt(7, serviceOrder.getServiceLocation().getId());
-            stat.setString(8, serviceOrder.getStatus());
-            stat.setString(9, serviceOrder.getScenario());
+            stat.setString(8, serviceOrder.getStatus().toString());
+            stat.setString(9, serviceOrder.getScenario().toString());
             stat.executeUpdate();
         } catch (SQLException ex) {
-            //TODO changer logger
-            Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             try {
                 if (stat != null) {
                     stat.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             connectionPool.close(connection);
         }
@@ -109,7 +109,6 @@ public class OracleServiceOrderDAO extends AbstractDAO implements IServiceOrderD
      *
      * @param rs result return from database
      * @return list of founded serviceOrders
-     *
      */
     protected List<ServiceOrder> parseResult(ResultSet rs) {
         List<ServiceOrder> serviceOrders = new ArrayList<ServiceOrder>();
@@ -120,23 +119,17 @@ public class OracleServiceOrderDAO extends AbstractDAO implements IServiceOrderD
                 serviceOrder.setEnterdate(rs.getTimestamp(ENT_D));
                 serviceOrder.setProcesdate(rs.getTimestamp(PROC_D));
                 serviceOrder.setCompletedate(rs.getTimestamp(COMP_D));
-                serviceOrder.setUser(
-                        factoryDAO.createUserDAO().findByID(rs.getInt(USER)));
-                serviceOrder.setService(
-                        factoryDAO.createServiceDAO().findByID(
-                                rs.getInt(SERVICE)));
-                serviceOrder.setProviderLocation(factoryDAO.
-                        createProviderLocationDAO().findByID(rs.getInt(PLID)));
-                serviceOrder.setServiceLocation(factoryDAO.
-                        createServiceLocationDAO().findByID(rs.getInt(SLID)));
-                serviceOrder.setServiceInstance(factoryDAO.
-                        createServiceInstanceDAO().findByID(rs.getInt(SIID)));
-                serviceOrder.setScenario(rs.getString(SCENARIO));
+                serviceOrder.setUserId(rs.getInt(USER));
+                serviceOrder.setServiceId(rs.getInt(SERVICE));
+                serviceOrder.setProviderLocationId(rs.getInt(PLID));
+                serviceOrder.setServiceLocationId(rs.getInt(SLID));
+                serviceOrder.setServiceInstanceId(rs.getInt(SIID));
+                serviceOrder.setScenario(ServiceOrder.Scenario.valueOf(
+                        rs.getString(SCENARIO)));
                 serviceOrders.add(serviceOrder);
             }
         } catch (SQLException ex) {
-            //TODO
-            Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
 
         return serviceOrders;
@@ -155,19 +148,19 @@ public class OracleServiceOrderDAO extends AbstractDAO implements IServiceOrderD
             ps.setInt(5, serviceOrder.getService().getId());
             ps.setInt(6, serviceOrder.getProviderLocation().getId());
             ps.setInt(7, serviceOrder.getServiceLocation().getId());
-            ps.setString(8, serviceOrder.getStatus());
-            ps.setString(9, serviceOrder.getScenario());
+            ps.setString(8, serviceOrder.getStatus().toString());
+            ps.setString(9, serviceOrder.getScenario().toString());
             ps.setInt(10, serviceOrder.getServiceInstance().getId());
             ps.setInt(11, serviceOrder.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(OracleServiceOrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error(null, ex);
                 }
             }
             connectionPool.close(connection);
@@ -177,7 +170,8 @@ public class OracleServiceOrderDAO extends AbstractDAO implements IServiceOrderD
     @Override
     public List<ServiceOrder> findByProvLoc(int plId) {
         List<ServiceOrder> serviceOrders
-                = findWhere("WHERE PROVIDER_LOCATION_ID = ?", new Object[]{plId});
+                = findWhere("WHERE PROVIDER_LOCATION_ID = ?",
+                        new Object[]{plId});
         if (serviceOrders.isEmpty()) {
             return null;
         } else {
@@ -199,6 +193,23 @@ public class OracleServiceOrderDAO extends AbstractDAO implements IServiceOrderD
     @Override
     public List<ServiceOrder> findAll() {
         return findWhere("", new Object[]{});
+    }
+
+    public List<ServiceOrder> findByServiceInstance(int serviceInstanceId) {
+        List<ServiceOrder> serviceOrders
+                = findWhere("WHERE SERVICE_INSTANCE_ID = ?",
+                        new Object[]{serviceInstanceId});
+        if (serviceOrders.isEmpty()) {
+            return null;
+        } else {
+            return serviceOrders;
+        }
+    }
+
+    public List<ServiceOrder> findByUser(int userId) {
+        List<ServiceOrder> serviceOrders
+                = findWhere("WHERE USER_ID = ?", new Object[]{userId});
+        return serviceOrders;
     }
 
 }

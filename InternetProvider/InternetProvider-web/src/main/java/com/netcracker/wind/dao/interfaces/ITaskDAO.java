@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.interfaces;
 
 import com.netcracker.wind.entities.Task;
@@ -25,10 +20,17 @@ public interface ITaskDAO {
     public List<Task> findByGroup(int idGroup, int from, int number);
 
     public List<Task> findByPerformer(int idPerformer);
+    
+    public List<Task> findByPerformer(int idPerformer,int from,int number);
 
     public List<Task> findByPerformerStatus(int idPerformer, String status);
+    public List<Task> findByPerformerStatus(int idPerformer, String status,int from,int number);
 
     public List<Task> findByTypeAndStatus(String type, String... status);
+    
+    public List<Task> findByServiceOrder(int serviceOrderId);
+    
+    public List<Task> findByUser(int userId);
 
     public void update(Task task);
 

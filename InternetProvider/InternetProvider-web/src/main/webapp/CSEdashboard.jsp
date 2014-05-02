@@ -84,6 +84,8 @@
                     });
                 });
                 }*/
+    
+               
                 function getTasks(command, number) {
                     $(document).ready(function() {
 //                    $('input[type=submit]').click(function() {
@@ -97,8 +99,7 @@
                                 'from': number * 25
 
                             },
-                            success: function(data) {
-//                            var element = $.parseJSON(data);//JSON.parse(data);
+                            success: function(data) {                    
                                 var myNode = document.getElementById("paging");
                                 while (myNode.firstChild) {
                                     myNode.removeChild(myNode.firstChild);
@@ -107,8 +108,8 @@
                                 while (myNo.firstChild) {
                                     myNo.removeChild(myNo.firstChild);
                                 }
-                                drawTable(data);
-                                makeUL(3, "getTasks('" + command);
+                                drawTable(data["data"]);
+                                makeUL(data["size"]/25, "getTasks('" + command);
                             },
                             error: function() {
                                 alert("AJAX error");
@@ -146,9 +147,11 @@
                     <li>
                         <a href="#">My Tasks</a>				
                         <ul>
-                            <li><a href="#" onclick="getTasks('')">All my tasks</a></li>
-                            <li><a href="#" onclick="getTasks('')">Completed tasks</a></li>
-                            <li><a href="#" onclick="getTasks('')">Taken tasks</a></li>
+                            
+                            <% request.setAttribute("user",1002);%>
+                            <li><a href="#" onclick="getTasks('cse_get_tasks',0)">All my tasks</a></li>
+                            <li><a href="#" onclick="getTasks('cse_get_completed_tasks')">Completed tasks</a></li>
+                            <li><a href="#" onclick="getTasks('cse_get_uncompleted_tasks')">Uncompleted tasks</a></li>
                         </ul>	
                     </li>
                 </ul>
@@ -159,10 +162,10 @@
                 <ul>
 
                     <li>
-                        <a href="#"  onclick="getTasks('customer_list')">List of Customer Accounts </a>		
+                        <a href="#"  onclick="getTasks('customer_list',0)">List of Customer Accounts </a>		
                     </li>
                     <li>
-                        <a href="#" onclick="getTasks('provider_location_list')" >List of Provider Location  </a>
+                        <a href="#" onclick="getTasks('provider_location_list',0)" >List of Provider Location  </a>
                     </li>
                     <li>
                         <a href="#">List of SI Status</a>

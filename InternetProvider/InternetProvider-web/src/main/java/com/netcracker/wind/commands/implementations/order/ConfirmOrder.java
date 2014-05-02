@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.order;
 
 import com.netcracker.wind.commands.ICommand;
@@ -44,18 +39,28 @@ public class ConfirmOrder implements ICommand {
             //TODO return error page
             return "";
         }
-        ServiceInstance serviceInstance = new ServiceInstance();
-        serviceInstance.setStatus(ServiceInstance.PLANNED);
-        serviceInstance.setUser(order.getUser());
-        serviceInstance.setServiceOrder(order);
-        serviceInstance.setService(order.getService());
-        serviceInstanceDAO.add(serviceInstance);
 
-        order.setStatus(ServiceOrder.PROCESSING_STATUS);
+        order.setStatus(ServiceOrder.Status.PROCESSING);
         order.setProcesdate(new Timestamp(System.currentTimeMillis()));
-        order.setServiceInstance(serviceInstance);
+        if (order.getScenario().equals(ServiceOrder.Scenario.NEW)) {
+            ServiceInstance serviceInstance = new ServiceInstance();
+            serviceInstance.setStatus(ServiceInstance.Status.PLANNED);
+            serviceInstance.setUser(order.getUser());
+            serviceInstance.setServiceOrder(order);
+            serviceInstance.setService(order.getService());
+            serviceInstanceDAO.add(serviceInstance);
+            order.setServiceInstance(serviceInstance);
+            Workflow.createTaskForNewScnario(order);
+        } else if (order.getScenario().equals(ServiceOrder.Scenario.MODIFY)) {
+            Workflow.createTaskForModifyScenario(order);
+        } else if (order.getScenario().equals(
+                ServiceOrder.Scenario.DISCONNECT)) {
+            Workflow.createTaskForDisconnectScenario(order);
+        } else {
+            //TODO return error page
+            return "";
+        }
         serviceOrderDAO.update(order);
-        Workflow.createTaskForNewScnario(order);
         //TODO redirect to next page
         return "";
     }

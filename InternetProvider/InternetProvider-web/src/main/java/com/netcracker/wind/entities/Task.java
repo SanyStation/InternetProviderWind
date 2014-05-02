@@ -1,5 +1,7 @@
 package com.netcracker.wind.entities;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.FactoryCreator;
 import java.io.Serializable;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -10,24 +12,31 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class Task implements Serializable {
 
-    public enum TaskType {
+    private static final long serialVersionUID = -9049678772835215167L;
+    
+    private final AbstractFactoryDAO factoryDAO
+            = FactoryCreator.getInstance().getFactory();
+    
+    public static enum Type {
 
-        NEW_DEVICE, NEW_CABLE, MANAGE_CIRCUIT, DELETE_CIRCUITE, MODIFY_CIRCUIT, SEND_BILL
+        NEW_DEVICE, NEW_CABLE, DELETE_CABLE, MANAGE_CIRCUIT, DELETE_CIRCUIT,
+        MODIFY_CIRCUIT, SEND_BILL
     }
 
-    public enum TaskStatus {
+    public static enum Status {
 
         NEW, ACTIVE, SUSPENDED, COMPLETED
     }
 
-    private static final long serialVersionUID = -9049678772835215167L;
-
     private Integer id;
-    private String type;
-    private String status;
-    private User user;
-    private ServiceOrder serviceOrder;
-    private Role role;
+    private Type type;
+    private Status status;
+    private int userId;
+    private transient User user;
+    private int serviceOrderId;
+    private transient ServiceOrder serviceOrder;
+    private int roleId;
+    private transient Role role;
 
     public Task() {
     }
@@ -44,23 +53,34 @@ public class Task implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
     public User getUser() {
+        if (user == null) {
+            user = factoryDAO.createUserDAO().findByID(userId);
+        }
         return user;
     }
 
@@ -68,7 +88,19 @@ public class Task implements Serializable {
         this.user = users;
     }
 
+    public int getServiceOrderId() {
+        return serviceOrderId;
+    }
+
+    public void setServiceOrderId(int serviceOrderId) {
+        this.serviceOrderId = serviceOrderId;
+    }
+    
     public ServiceOrder getServiceOrder() {
+        if (serviceOrder == null) {
+            serviceOrder = factoryDAO.createServiceOrderDAO()
+                    .findByID(serviceOrderId);
+        }
         return serviceOrder;
     }
 
@@ -76,7 +108,18 @@ public class Task implements Serializable {
         this.serviceOrder = serviceOrders;
     }
 
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+    
     public Role getRole() {
+        if (role == null) {
+            role = factoryDAO.createRoleDAO().findByID(roleId);
+        }
         return role;
     }
 
@@ -86,7 +129,6 @@ public class Task implements Serializable {
 
     @Override
     public int hashCode() {
-
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(id);
         builder.append(type);
@@ -94,7 +136,6 @@ public class Task implements Serializable {
         builder.append(user);
         builder.append(serviceOrder);
         builder.append(role);
-
         return builder.toHashCode();
     }
 
@@ -109,7 +150,6 @@ public class Task implements Serializable {
         if (!(object instanceof Task)) {
             return false;
         }
-
         Task rhs = (Task) object;
         EqualsBuilder builder = new EqualsBuilder();
         builder.append(id, rhs.getId());
@@ -118,7 +158,6 @@ public class Task implements Serializable {
         builder.append(user, rhs.getUser());
         builder.append(serviceOrder, rhs.getServiceOrder());
         builder.append(role, rhs.getRole());
-
         return builder.isEquals();
     }
 

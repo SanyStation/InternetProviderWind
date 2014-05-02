@@ -10,31 +10,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
-        <script>
-            function getName(command) {
-                $(document).ready(function() {
-//                    $('input[type=submit]').click(function() {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'Controller',
-                        dataType: 'text',
-                        data: {
-                            'command': command,
-                            'x': 50.526232,
-                            'y': 30.6020479
-                        },
-                        success: function(data) {
-//                            var element = $.parseJSON(data);//JSON.parse(data);
-                            $("#dynamic").html(data);
-                        },
-                        error: function() {
-                            alert("AJAX error");
-                        }
-                    });
-                });
-//                });
-            }
-        </script>
         <title>NameGenerator</title>
     </head>
     <body>
@@ -42,7 +17,8 @@
             <input type="submit" value="CSE dashboard"  />
         </form>
         
-        <form action="IEdashboard.jsp" method="POST">
+        <form method="POST" action="Controller">
+            <input type="hidden" name="command" value="get_active_ietasks"/>
             <input type="submit" value="IE dashboard"  />
         </form>
 
@@ -58,13 +34,6 @@
         <form action="map.jsp" method="POST">
             <input type="submit" value="map"  />
         </form>
-
-        <h1 align="center">Name generator</h1>
-        <div align="center">
-            <input type="submit" value="Get Services" onclick="getName('refresh_service')"/>
-            <div id="dynamic" >
-            </div>
-        </div>
 
         <div>
             <a href="profile">Login</a>
