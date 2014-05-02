@@ -59,7 +59,6 @@ public class CommandHelper {
     private static final String REGISTRATION = "registration";
     private static final String GET_ACTIVE_IETASKS = "get_active_ietasks";
 
-
     private final Map<String, ICommand> commands;
 
     private CommandHelper() {
@@ -96,7 +95,6 @@ public class CommandHelper {
         }
         return commandHelper;
     }
-
 
     public ICommand getCommand(HttpServletRequest request) {
         ICommand command;

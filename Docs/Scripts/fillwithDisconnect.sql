@@ -1,3 +1,12 @@
+ALTER TABLE Circuits
+   ADD name varchar2(20);
+	
+ALTER TABLE Ports
+   ADD name varchar2(20);
+   
+ALTER TABLE Service_locations
+   ADD name varchar2(20);
+   
 DECLARE
    a number;
    x number;
@@ -9,10 +18,11 @@ DECLARE
    pr_date date:= Sysdate + 1/24;
    c_date date:= Sysdate + 1;
 BEGIN
+  
   INSERT INTO roles
   (name )
   VALUES
-  ('Administrator');
+  ('ADMINISTRATOR');
 
   INSERT INTO roles
   (name )
@@ -32,7 +42,7 @@ BEGIN
   INSERT INTO roles
   (name )
   VALUES
-  ('User');
+  ('USER');
 
 
    FOR a in 1 .. 1000 LOOP
@@ -66,7 +76,7 @@ BEGIN
   insert into provider_locations
   (pos_x, pos_y, name)
   values
-  (50.395804, 30.644089, 'PoznyakiLoc);
+  (50.395804, 30.644089, 'PoznyakiLoc');
 
   insert into provider_locations
   (pos_x, pos_y, name)
@@ -184,8 +194,8 @@ BEGIN
 		x:= (x + 0.000050);
 		y:= (y + 0.000100);
 		insert into service_locations
-		(pos_x, pos_y)
-		values(x, y);
+		(pos_x, pos_y, name)
+		values(x, y, concat('Location', a));
   END LOOP;
 
    x :=50.422445;
@@ -194,8 +204,8 @@ BEGIN
 		x:= (x + 0.000075);
 		y:= (y + 0.000250);
 		insert into service_locations
-		(pos_x, pos_y)
-		values(x, y);
+		(pos_x, pos_y, name)
+		values(x, y, concat('Location', a));
   END LOOP;
   
    x :=50.395804;
@@ -204,8 +214,8 @@ BEGIN
 		x:= (x + 0.000050);
 		y:= (y + 0.000200);
 		insert into service_locations
-		(pos_x, pos_y)
-		values(x, y);
+		(pos_x, pos_y, name)
+		values(x, y, concat('Location', a));
   END LOOP;
 
    x :=50.501261;
@@ -214,8 +224,8 @@ BEGIN
 		x:= (x + 0.000040);
 		y:= (y - 0.000200);
 		insert into service_locations
-		(pos_x, pos_y)
-		values(x, y);
+		(pos_x, pos_y, name)
+		values(x, y, concat('Location', a));
   END LOOP;
 
    x :=50.526232;
@@ -224,16 +234,16 @@ BEGIN
 		x:= (x - 0.000040);
 		y:= (y + 0.000075);
 		insert into service_locations
-		(pos_x, pos_y)
-		values(x, y);
+		(pos_x, pos_y, name)
+		values(x, y, concat('Location', a));
   END LOOP;
   
   for a in 1..17 loop
     insert into devices (name)
     values (concat('Device', a));
     for b in 1..60 loop
-      insert into ports (device_id)
-      values (a);
+      insert into ports (device_id, name)
+      values (a, concat('Port', (b * 60 - (60 - a))));
     end loop;
   end loop;
 
@@ -250,9 +260,9 @@ BEGIN
 		values
 		(a, a, 'active', 1);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -279,11 +289,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 2);
+		(a, a, 'ACTIVE', 2);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -291,11 +301,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -310,11 +320,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 3);
+		(a, a, 'ACTIVE', 3);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -322,11 +332,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -341,11 +351,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 3);
+		(a, a, 'ACTIVE', 3);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -353,11 +363,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -372,11 +382,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 4);
+		(a, a, 'ACTIVE', 4);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -384,11 +394,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -403,11 +413,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 5);
+		(a, a, 'ACTIVE', 5);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -415,11 +425,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -434,11 +444,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 1);
+		(a, a, 'ACTIVE', 1);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -446,11 +456,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -465,11 +475,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 2);
+		(a, a, 'ACTIVE', 2);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -477,11 +487,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -496,11 +506,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 3);
+		(a, a, 'ACTIVE', 3);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -508,11 +518,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -527,11 +537,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 3);
+		(a, a, 'ACTIVE', 3);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -539,11 +549,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -558,11 +568,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 4);
+		(a, a, 'ACTIVE', 4);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -570,11 +580,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -589,11 +599,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 5);
+		(a, a, 'ACTIVE', 5);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -601,11 +611,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -620,11 +630,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 1);
+		(a, a, 'ACTIVE', 1);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -632,11 +642,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -651,11 +661,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 2);
+		(a, a, 'ACTIVE', 2);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -663,11 +673,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -682,11 +692,11 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 5);
+		(a, a, 'ACTIVE', 5);
 		insert into circuits 
-		(service_instance_id, port_id)
+		(service_instance_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Circuit', a));
 		insert into cables 
 		(service_location_id, port_id)
 		values 
@@ -694,11 +704,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -736,5 +746,9 @@ BEGIN
 		set free = 1 where id = b;
 		
   END LOOP;
+  insert into tasks 
+  (status, type, user_id, role_id, service_orders_id)
+  values 
+  ('ACTIVE', 'create cable', 1003, 3, 140);
   commit;
 END;

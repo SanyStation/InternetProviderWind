@@ -129,7 +129,6 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
             }
             connectionPool.close(con);
         }
-
     }
 
     public Cable findByPort(int idPort) {

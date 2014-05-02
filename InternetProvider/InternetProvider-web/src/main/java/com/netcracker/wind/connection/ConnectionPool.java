@@ -1,18 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.connection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +16,8 @@ public class ConnectionPool {
 
     private final String NAME = "jdbc/wind";
     private static final ConnectionPool connectionPool = new ConnectionPool();
+    private static final Logger LOGGER
+            = Logger.getLogger(ConnectionPool.class.getName());
 
     private DataSource dataSource;
 
@@ -31,7 +27,7 @@ public class ConnectionPool {
             initialContext = new InitialContext();
             dataSource = (DataSource) initialContext.lookup(NAME);
         } catch (NamingException ex) {
-            Logger.getLogger(ConnectionPool.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
     }
 
@@ -44,7 +40,7 @@ public class ConnectionPool {
         try {
             connection = dataSource.getConnection();
         } catch (SQLException ex) {
-            Logger.getLogger(ConnectionPool.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
         return connection;
     }
@@ -53,7 +49,7 @@ public class ConnectionPool {
         try {
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ConnectionPool.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
     }
 

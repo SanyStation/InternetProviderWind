@@ -21,7 +21,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER
             = Logger.getLogger(OracleUserDAO.class.getName());
-    
+
     private static final String DELETE = "DELETE FROM USERS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO USERS (ID, NAME, EMAIL, "
             + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, ?, ?, ?, ?)";
@@ -77,8 +77,8 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     /**
      *
      * @param id User's id for deleting
-     * @return User with defined id when user exists in database; null if
-     * object wasn't found
+     * @return User with defined id when user exists in database; null if object
+     * wasn't found
      */
     public User findByID(int id) {
         List<User> users = findWhere("WHERE ID = ?", new Object[]{id});
@@ -180,8 +180,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
         throw new UnsupportedOperationException("Not supported yet");
     }
 
-    
-    public boolean hasEmail(String email){
+    public boolean hasEmail(String email) {
         List<User> users = findWhere(
                 "WHERE email = ?",
                 new Object[]{email}
@@ -190,7 +189,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     }
 
 
-    public boolean hasLogin(String login){
+    public boolean hasLogin(String login) {
         List<User> users = findWhere(
                 "WHERE name = ?",
                 new Object[]{login}

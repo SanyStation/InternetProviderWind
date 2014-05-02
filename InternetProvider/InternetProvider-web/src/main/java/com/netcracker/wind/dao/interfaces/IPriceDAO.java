@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.dao.interfaces;
 
 import com.netcracker.wind.entities.Price;
@@ -19,8 +14,11 @@ public interface IPriceDAO {
     public void delete(int idPrice);
 
     public Price findByID(int idPrice);
+
     public List<Price> findByProviderLoc(int idPLoc);
+
     public List<Price> findByService(int idService);
+
     public List<Price> findAll();
 
     public void update(Price price);
