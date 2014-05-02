@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  *
+ *
  * @author Anatolii
  */
 public class CommandHelper {
@@ -54,13 +55,10 @@ public class CommandHelper {
     private static final String NEW_DEVICE = "new_device";
     private static final String NEW_CABLE = "new_cable";
     private static final String DEL_CABLE = "del_cable";
-<<<<<<< HEAD
     private static final String VALIDATION = "validation";
     private static final String REGISTRATION = "registration";
-=======
     private static final String GET_ACTIVE_IETASKS = "get_active_ietasks";
 
->>>>>>> 821c9abaac4fee2ca5b96590d2050ad878c92e18
 
     private final Map<String, ICommand> commands;
 
@@ -74,7 +72,7 @@ public class CommandHelper {
         commands.put(SI_DISCONN_ORDERS, new SiDiscOrdersReportGenerator());
         commands.put(SI_PROF_BY_MONTH, new SiProfitReportGenerator());
         commands.put(CIA_IPT, new CiaIptReportGenerator());
-        commands.put(SENT_MAIL, new SentMail());
+\        commands.put(SENT_MAIL, new SentMail());
         commands.put(CSE_GROUP_TASK, new CSEGetGroupTasks());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());
@@ -86,12 +84,9 @@ public class CommandHelper {
         commands.put(NEW_DEVICE, new CreateDevice());
         commands.put(NEW_CABLE, new CreateCable());
         commands.put(DEL_CABLE, new DeleteCable());
-<<<<<<< HEAD
         commands.put(VALIDATION, new Validation());
         commands.put(REGISTRATION, new Registration());
-=======
         commands.put(GET_ACTIVE_IETASKS, new getActiveTasks());
->>>>>>> 821c9abaac4fee2ca5b96590d2050ad878c92e18
 
     }
 
