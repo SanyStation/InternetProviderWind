@@ -13,11 +13,9 @@ import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.dao.interfaces.ICircuitDAO;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
-import com.netcracker.wind.dao.interfaces.IServiceLocationDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Circuit;
-import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.Task;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,11 +36,11 @@ public class CreateCable implements ICommand {
             return "";
         } 
         if (taskID == -1) {
-            return "/IEdashboard.jsp";
+            return "";
+            //error
         }
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ICableDAO cableDAO = factoryDAO.createCableDAO();
-        IServiceLocationDAO serviceLocationDAO = factoryDAO.createServiceLocationDAO();
         IPortDAO portDAO  = factoryDAO.createPortDAO();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
@@ -51,16 +49,14 @@ public class CreateCable implements ICommand {
         Cable cable = new Cable();
         
         Task task = taskDAO.findByID(taskID);
-        ServiceInstance serviceInstance = serviceInstanceDAO.findByID(1);
         
-        /*task.getServiceOrder().getId()
-        Circuit circuit = circuitDAO.findByServInst(serviceInstance.getId());
-        cable.setServiceLocation(
-                serviceLocationDAO.findByID(task.getServiceOrder().getServiceLocation().getId()));
-        cable.setPort(portDAO.findByID(circuit.getPort().getId()));
+        Circuit circuit = circuitDAO.findByServInst(
+                serviceInstanceDAO.findByServiceOrderId(task.getServiceOrderId()).getId());
+        cable.setServiceLocationId(task.getServiceOrder().getServiceLocation().getId());
+        cable.setPortId(portDAO.findByID(circuit.getPortId()).getId());
         cableDAO.add(cable);
-        task.setStatus(Task.TaskStatus.COMPLETED.toString());
-        taskDAO.update(task);*/
+        task.setStatus(Task.Status.COMPLETED);
+        taskDAO.update(task);
         return "/index.jsp";
     }
     
