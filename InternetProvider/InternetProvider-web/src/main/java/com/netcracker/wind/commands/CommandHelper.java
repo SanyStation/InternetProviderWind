@@ -14,6 +14,8 @@ import com.netcracker.wind.commands.implementations.iedashboard.DeleteCable;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.pedashboard.ProvisioningEngineerTasks;
+import com.netcracker.wind.commands.implementations.registration.Validation;
+import com.netcracker.wind.commands.implementations.registration.Registration;
 import com.netcracker.wind.commands.implementations.reports.CiaIptReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.RiMostProfRouterReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.RiRoutersUtilNCapReportGenerator;
@@ -56,6 +58,8 @@ public class CommandHelper {
     private static final String NEW_DEVICE = "new_device";
     private static final String NEW_CABLE = "new_cable";
     private static final String DEL_CABLE = "del_cable";
+    private static final String VALIDATION = "validation";
+    private static final String REGISTRATION = "registration";
 
     private final Map<String, ICommand> commands;
 
@@ -81,6 +85,8 @@ public class CommandHelper {
         commands.put(NEW_DEVICE, new CreateDevice());
         commands.put(NEW_CABLE, new CreateCable());
         commands.put(DEL_CABLE, new DeleteCable());
+        commands.put(VALIDATION, new Validation());
+        commands.put(REGISTRATION, new Registration());
 
     }
 
@@ -90,6 +96,7 @@ public class CommandHelper {
         }
         return commandHelper;
     }
+
 
     public ICommand getCommand(HttpServletRequest request) {
         ICommand command;

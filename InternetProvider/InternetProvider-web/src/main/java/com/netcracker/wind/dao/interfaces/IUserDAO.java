@@ -27,5 +27,9 @@ public interface IUserDAO {
     public List<User> findAll();
 
     public List<User> findByRole(int roleID);
+    
+    public boolean hasEmail(String email);
+    
+    public boolean hasLogin(String login);
 
 }

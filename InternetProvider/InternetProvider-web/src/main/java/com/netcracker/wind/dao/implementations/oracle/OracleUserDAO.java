@@ -184,6 +184,25 @@ public class OracleUserDAO extends AbstractDAO implements IUserDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
+    public boolean hasEmail(String email){
+        List<User> users = findWhere(
+                "WHERE email = ?",
+                new Object[]{email}
+        );
+        return users.isEmpty();
+    }
+
+
+    public boolean hasLogin(String login){
+        List<User> users = findWhere(
+                "WHERE name = ?",
+                new Object[]{login}
+        );
+        return users.isEmpty();
+    }
+
+
     public List<User> findAll() {
         return findWhere("", new Object[]{});
     }
