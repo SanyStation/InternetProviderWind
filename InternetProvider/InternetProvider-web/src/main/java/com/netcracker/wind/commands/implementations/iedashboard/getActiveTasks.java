@@ -6,6 +6,7 @@
 
 package com.netcracker.wind.commands.implementations.iedashboard;
 
+import com.netcracker.wind.commands.DashboardsUtilities;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
@@ -34,6 +35,7 @@ public class getActiveTasks implements ICommand {
             return "/index.jsp";
         }
         return "/IEdashboard.jsp";
+        //return DashboardsUtilities.getTaskUserStatus(1003, "ACTIVE");
     }
     
     

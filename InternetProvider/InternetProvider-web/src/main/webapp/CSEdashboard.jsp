@@ -162,10 +162,10 @@
                 <ul>
 
                     <li>
-                        <a href="#"  onclick="getTasks('customer_list')">List of Customer Accounts </a>		
+                        <a href="#"  onclick="getTasks('customer_list',0)">List of Customer Accounts </a>		
                     </li>
                     <li>
-                        <a href="#" onclick="getTasks('provider_location_list')" >List of Provider Location  </a>
+                        <a href="#" onclick="getTasks('provider_location_list',0)" >List of Provider Location  </a>
                     </li>
                     <li>
                         <a href="#">List of SI Status</a>

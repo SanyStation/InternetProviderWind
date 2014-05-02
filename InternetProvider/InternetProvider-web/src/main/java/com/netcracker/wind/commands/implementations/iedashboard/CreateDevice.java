@@ -34,9 +34,9 @@ public class CreateDevice implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String dName;
-        //int taskID = -1;
+        int taskID = -1;
         dName = request.getParameter(D_NAME);
-        /*try {
+        try {
             taskID = Integer.parseInt(request.getParameter(TASK_ID));
         } catch (NumberFormatException exception) {
             //TODO log
@@ -45,19 +45,20 @@ public class CreateDevice implements ICommand {
         }
         if (taskID == -1) {
             return "";//error
-        } */
+        } 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IDeviceDAO deviceDAO = factoryDAO.createDeviceDAO();
         IPortDAO portDAO = factoryDAO.createPortDAO();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
-       // Task task = taskDAO.findByID(taskID);
+        Task task = taskDAO.findByID(taskID);
         IServiceLocationDAO servLocDAO = factoryDAO.createServiceLocationDAO();
         ServiceLocation servLoc = new ServiceLocation();
         
         Device device = new Device();
         device.setName(dName);
         deviceDAO.add(device);
-     /*
+        servLocDAO.add(servLoc);
+
         Port port = new Port();
         port.setDevice(deviceDAO.findByID(device.getId()));
         
@@ -65,9 +66,9 @@ public class CreateDevice implements ICommand {
             portDAO.add(port);
         }
         
-        //task.setStatus(Task.TaskStatus.COMPLETED.toString());
-        //taskDAO.update(task);
-       */ 
+        task.setStatus(Task.Status.COMPLETED);
+        taskDAO.update(task); 
+        
         return "/index.jsp";
     }
 }
