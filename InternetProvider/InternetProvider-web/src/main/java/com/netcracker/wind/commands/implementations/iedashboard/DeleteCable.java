@@ -11,8 +11,10 @@ import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
+import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Port;
+import com.netcracker.wind.entities.Task;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,13 +24,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DeleteCable implements ICommand{
     
-    public final String CABLE_ID = "cable_id";
+    public final String TASK_ID = "task_id";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         
-        int cableID;
+        int taskID;
         try {
-            cableID = Integer.parseInt(request.getParameter(CABLE_ID));
+            taskID = Integer.parseInt(request.getParameter(TASK_ID));
         } catch (NumberFormatException exception) {
             return "";
         } 
@@ -36,15 +38,21 @@ public class DeleteCable implements ICommand{
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ICableDAO cableDAO = factoryDAO.createCableDAO();
         IPortDAO portDAO = factoryDAO.createPortDAO();
+        ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         
-        Cable cable = cableDAO.findByID(cableID);
+        Task task = taskDAO.findByID(taskID);
+        Cable cable = cableDAO.findByServiceLocation(
+                task.getServiceOrder().getProviderLocationId());
+        
         Port port = cable.getPort();
         port.setFree(true);
-        port.setCable(null); 
         portDAO.update(port);
-        cableDAO.delete(cableID);
+        cableDAO.delete(cable.getId());
         
-        throw new UnsupportedOperationException("Not supported yet."); 
+        task.setStatus(Task.Status.COMPLETED);
+        taskDAO.update(task);
+        
+        return "/index.jsp"; 
     }
     
 }

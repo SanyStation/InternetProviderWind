@@ -24,7 +24,7 @@
             </form>
         
         <form method="POST" action="Controller">
-            <input type="hidden" name="command" value="new_cable">
+            <input type="hidden" name="command" value="del_cable">
         <select name="task_id" >
             <c:forEach items="${tasks}" var="task">
                 <option value="${task.id}">${task.id}</option>
