@@ -59,7 +59,6 @@ public class CommandHelper {
     private static final String REGISTRATION = "registration";
     private static final String GET_ACTIVE_IETASKS = "get_active_ietasks";
 
-
     private final Map<String, ICommand> commands;
 
     private CommandHelper() {
@@ -72,7 +71,7 @@ public class CommandHelper {
         commands.put(SI_DISCONN_ORDERS, new SiDiscOrdersReportGenerator());
         commands.put(SI_PROF_BY_MONTH, new SiProfitReportGenerator());
         commands.put(CIA_IPT, new CiaIptReportGenerator());
-\        commands.put(SENT_MAIL, new SentMail());
+        commands.put(SENT_MAIL, new SentMail());
         commands.put(CSE_GROUP_TASK, new CSEGetGroupTasks());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());
@@ -96,7 +95,6 @@ public class CommandHelper {
         }
         return commandHelper;
     }
-
 
     public ICommand getCommand(HttpServletRequest request) {
         ICommand command;
