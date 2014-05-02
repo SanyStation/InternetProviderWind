@@ -30,6 +30,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
             + "FREE) VALUES (?, ?)";
     private static final String SELECT = "SELECT * FROM PORTS ";
     private static final String ID = "ID";
+    private static final String NAME = "NAME";
     private static final String DEVICE = "DEVICE_ID";
     private static final String FREE = "FREE";
     private static final String SEL_FREE = "SELECT ID, DEVICE_ID FROM PORTS "
@@ -146,8 +147,8 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         try {
             while (rs.next()) {
                 Port port = new Port();
-                int id = rs.getInt(ID);
-                port.setId(id);
+                port.setId(rs.getInt(ID));
+                port.setName(rs.getString(NAME));
                 port.setDeviceId(rs.getInt(DEVICE));
                 port.setFree(rs.getBoolean(FREE));
                 ports.add(port);

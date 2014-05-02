@@ -1,7 +1,7 @@
 package com.netcracker.wind.entities;
 
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.factory.FactoryCreator;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -16,7 +16,8 @@ public class ServiceOrder implements Serializable {
 
     private static final long serialVersionUID = 2972707714220134975L;
     
-    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
+    private final AbstractFactoryDAO factoryDAO
+            = FactoryCreator.getInstance().getFactory();
     
     public static enum Status {
         

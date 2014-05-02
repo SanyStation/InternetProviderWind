@@ -1,7 +1,7 @@
 package com.netcracker.wind.entities;
 
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.factory.FactoryCreator;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -15,7 +15,8 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 4491197292843435012L;
     
-    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
+    private final AbstractFactoryDAO factoryDAO
+            = FactoryCreator.getInstance().getFactory();
 
     public static final int PE_GROUPR_ID = 2;
     public static final int IE_GROUP_ID = 3;

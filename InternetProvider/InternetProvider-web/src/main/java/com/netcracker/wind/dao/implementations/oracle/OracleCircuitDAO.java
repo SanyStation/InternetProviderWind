@@ -29,6 +29,7 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
     private static final String UPDATE = "UPDATE CIRCUITS SET "
             + "SERVICE_INSTANCE_ID = ?, PORT_ID = ? WHERE ID = ?";
     private static final String ID = "ID";
+    private static final String NAME = "NAME";
     private static final String SIID = "SERVICE_INSTANCE_ID";
     private static final String PORT = "PORT_ID";
 
@@ -108,6 +109,7 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
             while (rs.next()) {
                 Circuit circuit = new Circuit();
                 circuit.setId(rs.getInt(ID));
+                circuit.setName(rs.getString(NAME));
                 circuit.setServiceInstanceId(rs.getInt(SIID));
                 circuit.setPortId(rs.getInt(PORT));
                 circuits.add(circuit);

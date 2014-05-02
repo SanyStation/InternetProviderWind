@@ -46,7 +46,8 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
             ResultSet insertedResultSet = stat.getGeneratedKeys();
             if (insertedResultSet != null && insertedResultSet.next()) {
                 String s = insertedResultSet.getString(1);
-                PreparedStatement ps = connection.prepareStatement("select * from ROOT.DEVICES where rowid = ?");
+                PreparedStatement ps = connection.prepareStatement("SELECT * "
+                        + "FROM root.devices WHERE rowid = ?");
                 ps.setObject(1, s);
                 ResultSet rs = ps.executeQuery();
                 rs.next();

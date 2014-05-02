@@ -1,7 +1,7 @@
 package com.netcracker.wind.entities;
 
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.implementations.OracleDAOFactory;
+import com.netcracker.wind.dao.factory.FactoryCreator;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -15,7 +15,8 @@ public class ProviderLocation implements Serializable {
 
     private static final long serialVersionUID = -189052472651534830L;
     
-    private final AbstractFactoryDAO factoryDAO = new OracleDAOFactory();
+    private final AbstractFactoryDAO factoryDAO
+            = FactoryCreator.getInstance().getFactory();
 
     private Integer id;
     private Double posX;
