@@ -186,16 +186,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
                 "WHERE email = ?",
                 new Object[]{email}
         );
-        return users.isEmpty();
-    }
-
-    
-    public boolean hasEmail(String email){
-        List<User> users = findWhere(
-                "WHERE email = ?",
-                new Object[]{email}
-        );
-        return users.isEmpty();
+        return !users.isEmpty();
     }
 
 
@@ -204,7 +195,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
                 "WHERE name = ?",
                 new Object[]{login}
         );
-        return users.isEmpty();
+        return !users.isEmpty();
     }
 
     public List<User> findAll() {

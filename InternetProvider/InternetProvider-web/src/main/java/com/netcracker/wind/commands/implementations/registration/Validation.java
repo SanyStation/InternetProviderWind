@@ -37,7 +37,7 @@ public class Validation implements ICommand {
         returnedMessage.append(validator.validatePasswords());     
         returnedMessage.append(validator.validateLogin());
         returnedMessage.append(validator.validateEmail());       
-        return "/index.jsp";
+        return returnedMessage.toString();
     }
     
 }

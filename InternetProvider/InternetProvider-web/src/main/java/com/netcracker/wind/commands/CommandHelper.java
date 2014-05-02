@@ -72,7 +72,7 @@ public class CommandHelper {
         commands.put(SI_DISCONN_ORDERS, new SiDiscOrdersReportGenerator());
         commands.put(SI_PROF_BY_MONTH, new SiProfitReportGenerator());
         commands.put(CIA_IPT, new CiaIptReportGenerator());
-\        commands.put(SENT_MAIL, new SentMail());
+        commands.put(SENT_MAIL, new SentMail());
         commands.put(CSE_GROUP_TASK, new CSEGetGroupTasks());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());

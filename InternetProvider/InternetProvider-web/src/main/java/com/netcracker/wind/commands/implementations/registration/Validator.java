@@ -33,7 +33,7 @@ class Validator {
     String validateLogin() {
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IUserDAO userDAO = factoryDAO.createUserDAO();
-        if (userDAO.hasLogin(data.get("login"))) return "Such login exists";
+        if (userDAO.hasLogin(data.get("login"))) return "Such login exists<br />";
         return "";
     }
 
@@ -41,7 +41,7 @@ class Validator {
     String validateEmail() {
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IUserDAO userDAO = factoryDAO.createUserDAO();
-        if (userDAO.hasEmail(data.get("email"))) return "Such e-mail exists";
+        if (userDAO.hasEmail(data.get("e-mail"))) return "Such e-mail exists<br />";
         return "";
     }
 
@@ -49,19 +49,19 @@ class Validator {
     String validateInputData() {
         Pattern p = Pattern.compile(LOGIN_PATTERN);
         Matcher m = p.matcher(data.get("login"));
-        if (!m.matches()) return "Invalid format of login\n";
+        if (!m.matches()) return "Invalid format of login<br />";
         p = Pattern.compile(EMAIL_PATTERN);
-        m = p.matcher(data.get("email"));
-        if (!m.matches()) return "Invalid format of e-mail\n";
+        m = p.matcher(data.get("e-mail"));
+        if (!m.matches()) return "Invalid format of e-mail<br />";
         p = Pattern.compile(PASSWORD_PATTERN);
         m = p.matcher(data.get("pass"));
-        if (!m.matches()) return "Invalid format of password\n";
+        if (!m.matches()) return "Invalid format of password<br />";
         return "";
     }
 
     //Passwords equals validation
     String validatePasswords() {
-        if (!data.get("pass").equalsIgnoreCase(data.get("confpass"))) return "Unequal password fields";
+        if (!data.get("pass").equalsIgnoreCase(data.get("confpass"))) return "Unequal password fields<br />";
         return "";
     }
 }

@@ -18,51 +18,51 @@
             $(document).ready(function(){
                 $("#register").click(function(){
                     //data normalization
-                    var login = $(#login).val();
-                    var pass = $(#pass).val();
-                    var confpass = $(#confpass).val();
-                    var e-mail = $(#e-mail).val();
+                    var login = $("#login").val();
+                    var pass = $("#pass").val();
+                    var confpass = $("#confpass").val();
+                    var email = $("#email").val();
                     $.trim(login);
                     $.trim(pass);
-                    $.trim(confpass]);
-                    $.trim(e-mail); 
+                    $.trim(confpass);
+                    $.trim(email); 
                     //validation
                     $.ajax({
                         type: 'POST',
                         url: 'Controller',
-                        dataType : "text", 
+                        dataType : 'text', 
                         data: {
-                            'command': validation,
-                            'login': login,
-                            'e-mail': e-mail,
-                            'pass': pass,
+                            'command': 'validation',
+                            'login':    login,
+                            'e-mail':   email,
+                            'pass':     pass,
                             'confpass': confpass                            
                         },
                         success: function (data) {  
-                            if (data=="")
+                            if (data==="")
                                 $.ajax({
                                     type: 'POST',
                                     url: 'Controller',
-                                    dataType : "text", 
+                                    dataType : 'text', 
                                     data: {
-                                        'command': registration,
-                                        'login': login,
-                                        'e-mail': e-mail,
-                                        'pass': pass,
+                                        'command': 'registration',
+                                        'login':    login,
+                                        'e-mail':   email,
+                                        'pass':     pass
+                                    }
                                     });
                             else 
-                            $("#msgfield").append("data");
+                            $("#msgfield").html("");
+                            $("#msgfield").append(data);
                         }
                     });
                 }); 
-                });
-        
+            
         
         
         
         
                     
-                }); 
             });    
         </script>
                 <div id="div1">
@@ -88,7 +88,7 @@
                     <br />
                         E-mail:
                     <br />
-                        <input type="text" name="e-mail" id="email" size="40">
+                        <input type="text" name="email" id="email" size="40">
                     <br />
                         <input type="button" id="register" value="Register new user">
                 </div>
