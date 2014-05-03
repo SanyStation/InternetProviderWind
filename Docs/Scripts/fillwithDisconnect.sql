@@ -261,11 +261,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('COMPLETED', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'CREATE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('COMPLETED', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SENDING_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -740,6 +740,6 @@ BEGIN
   insert into tasks 
   (status, type, user_id, role_id, service_orders_id)
   values 
-  ('ACTIVE', 'create cable', 1003, 3, 140);
+  ('ACTIVE', 'CREATE_CABLE', 1003, 3, 140);
   commit;
 END;

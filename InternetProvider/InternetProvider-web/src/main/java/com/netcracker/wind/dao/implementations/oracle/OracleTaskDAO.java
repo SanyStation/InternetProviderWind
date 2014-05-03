@@ -142,8 +142,8 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
                 task.setUserId(rs.getInt(USER));
                 LOGGER.info("### TYPE " + rs.getString(TYPE));
                 LOGGER.info("### STATUS " + rs.getString(STATUS));
-//                task.setType(Task.Type.valueOf(rs.getString(TYPE)));
-//                task.setStatus(Task.Status.valueOf(rs.getString(STATUS)));
+                task.setType(Task.Type.valueOf(rs.getString(TYPE)));
+                task.setStatus(Task.Status.valueOf(rs.getString(STATUS)));
                 task.setRoleId(rs.getInt(ROLE));
                 task.setServiceOrderId(rs.getInt(SO));
                 super.rows = rs.getInt(ROWS);
