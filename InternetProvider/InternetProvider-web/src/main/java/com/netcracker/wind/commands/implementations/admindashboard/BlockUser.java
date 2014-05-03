@@ -20,7 +20,7 @@ public class BlockUser implements ICommand {
         int userId = Integer.parseInt(request.getParameter(USER_ID));
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IUserDAO userDAO = factoryDAO.createUserDAO();
-
+        
         User user = userDAO.findById(userId);
         if (user != null) {
             user.setBlocked(true);

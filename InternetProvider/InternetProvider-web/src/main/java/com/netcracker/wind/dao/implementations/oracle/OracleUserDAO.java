@@ -21,7 +21,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER
             = Logger.getLogger(OracleUserDAO.class.getName());
-    
+
     private static final String DELETE = "DELETE FROM USERS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO USERS (NAME, EMAIL, "
             + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, ?, ?, ?)";

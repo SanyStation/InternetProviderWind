@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.admindashboard;
 
 import com.netcracker.wind.commands.ICommand;
@@ -32,7 +27,7 @@ public class RegisterEngineer implements ICommand {
         IUserDAO userDAO = factoryDAO.createUserDAO();
 
         int roleId = Integer.parseInt(request.getParameter(ROLE));
-
+        
         Role role = roleDAO.findById(roleId);
 
         User user = new User();

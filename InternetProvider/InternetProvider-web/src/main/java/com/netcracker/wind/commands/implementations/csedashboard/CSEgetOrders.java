@@ -19,11 +19,11 @@ public class CSEgetOrders implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IServiceOrderDAO serviceOrderDAO = factoryDAO.createServiceOrderDAO();
+        
         List<ServiceOrder> serviceOrders = serviceOrderDAO.findAll(
                 AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE);
-
+        
         return "";
     }
-
 }
