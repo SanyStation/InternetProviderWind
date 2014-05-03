@@ -6,7 +6,7 @@ import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateCable;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateDevice;
 import com.netcracker.wind.commands.implementations.iedashboard.DeleteCable;
-import com.netcracker.wind.commands.implementations.iedashboard.getActiveTasks;
+import com.netcracker.wind.commands.implementations.iedashboard.GetActiveIETasks;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.pedashboard.ProvisioningEngineerTasks;
@@ -88,7 +88,8 @@ public class CommandHelper {
         commands.put(DEL_CABLE, new DeleteCable());
         commands.put(VALIDATION, new Validation());
         commands.put(REGISTRATION, new Registration());
-        commands.put(GET_ACTIVE_IETASKS, new getActiveTasks());
+        commands.put(GET_ACTIVE_IETASKS, new GetActiveIETasks());
+
         
         commands.put(TEST, new Test());
     }

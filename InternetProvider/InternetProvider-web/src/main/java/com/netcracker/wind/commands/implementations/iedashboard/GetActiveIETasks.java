@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Сашко
  */
-public class getActiveTasks implements ICommand {
+public class GetActiveIETasks implements ICommand {
 
     private static final String TASKS_DEV = "tasks_dev";
     private static final String TASKS_CABL = "tasks_cabl";
