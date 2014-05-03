@@ -34,7 +34,7 @@ public class SetupCircuit implements ICommand {
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
 
-        Task task = taskDAO.findByID(taskID);
+        Task task = taskDAO.findById(taskID);
 
         //TODO setting circuit
         //Circuit circuit = task.getServiceOrder().getServiceInstance().getCircuit();

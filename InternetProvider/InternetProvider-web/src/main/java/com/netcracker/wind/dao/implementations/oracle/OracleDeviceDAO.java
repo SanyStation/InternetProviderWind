@@ -27,15 +27,12 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
             + "VALUES (?)";
     private static final String UPDATE = "UPDATE DEVICES SET NAME = ?, "
             + "WHERE ID = ?";
-    private static final String SELECT = "SELECT * FROM DEVICES ";
+    private static final String SELECT = "SELECT d.*, COUNT(*) OVER () AS "
+            + ROWS + " FROM devices d ";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
-    // private static final String UPDATE = "";
 
-    /**
-     *
-     * @param device
-     */
+    @Override
     public void add(Device device) {
         Connection connection = null;
         PreparedStatement stat = null;
@@ -69,22 +66,15 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
         }
     }
 
-    /**
-     *
-     * @param idDevice
-     */
+    @Override
     public void delete(int idDevice) {
         super.delete(DELETE, idDevice);
     }
-
-    /**
-     *
-     * @param idDevice
-     * @return
-     */
-    public Device findByID(int idDevice) {
+    
+    @Override
+    public Device findById(int idDevice) {
         List<Device> devices = findWhere("WHERE ID = ?",
-                new Object[]{idDevice});
+                new Object[]{idDevice}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (devices.isEmpty()) {
             return null;
         } else {
@@ -92,32 +82,24 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
         }
     }
 
+    @Override
     public Device findByName(String DeviceName) {
         List<Device> devices = findWhere("WHERE NAME = ?",
-                new Object[]{DeviceName});
+                new Object[]{DeviceName}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (devices.isEmpty()) {
             return null;
         } else {
             return devices.get(0);
         }
     }
-
-    /**
-     *
-     * @param where SQL statement where for searching by different parameters
-     * @param param parameters by which search will be formed
-     * @return list of found devices
-     */
+    
     @Override
-    protected List<Device> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<Device> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
-    /**
-     *
-     * @param rs result return from database
-     * @return list of founded devices
-     */
+    @Override
     protected List<Device> parseResult(ResultSet rs) {
         List<Device> devices = new ArrayList<Device>();
         try {
@@ -134,10 +116,12 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
         return devices;
     }
 
-    public List<Device> findAll() {
-        return findWhere("", new Object[]{});
+    @Override
+    public List<Device> findAll(int pageNumber, int pageSize) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
 
+    @Override
     public void update(Device device) {
         Connection con = null;
         PreparedStatement stat = null;

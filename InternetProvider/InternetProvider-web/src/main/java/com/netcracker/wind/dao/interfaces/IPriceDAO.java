@@ -11,15 +11,20 @@ public interface IPriceDAO {
 
     public void add(Price price);
 
-    public void delete(int idPrice);
+    public void delete(int id);
 
-    public Price findByID(int idPrice);
+    public Price findById(int id);
 
-    public List<Price> findByProviderLoc(int idPLoc);
+    public List<Price> findByProviderLoc(int plId, int pageNumber,
+            int pageSize);
 
-    public List<Price> findByService(int idService);
+    public List<Price> findByService(int serviceId, int pageNumber,
+            int pageSize);
 
-    public List<Price> findAll();
+    public List<Price> findAll(int pageNumber, int pageSize);
 
     public void update(Price price);
+    
+    public int getRows();
+    
 }

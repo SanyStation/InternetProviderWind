@@ -49,7 +49,7 @@ public class Cable implements Serializable {
     public ServiceLocation getServiceLocation() {
         if (serviceLocation == null) {
             serviceLocation = factoryDAO.createServiceLocationDAO()
-                    .findByID(serviceLocationId);
+                    .findById(serviceLocationId);
         }
         return serviceLocation;
     }
@@ -68,7 +68,7 @@ public class Cable implements Serializable {
     
     public Port getPort() {
         if (port == null) {
-            port = factoryDAO.createPortDAO().findByID(portId);
+            port = factoryDAO.createPortDAO().findById(portId);
         }
         return port;
     }

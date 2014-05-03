@@ -11,11 +11,14 @@ public interface IProviderLocationDAO {
 
     public void add(ProviderLocation providerLocation);
 
-    public void delete(int idPL);
+    public void delete(int id);
 
-    public ProviderLocation findByID(int idPL);
+    public ProviderLocation findById(int id);
     
-    public List<ProviderLocation> findAll();
+    public List<ProviderLocation> findAll(int pageNumber, int pageSize);
 
     public void update(ProviderLocation providerLocation);
+    
+    public int getRows();
+    
 }

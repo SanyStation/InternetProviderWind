@@ -1,12 +1,3 @@
-ALTER TABLE Circuits
-   ADD name varchar2(20);
-	
-ALTER TABLE Ports
-   ADD name varchar2(20);
-   
-ALTER TABLE Service_locations
-   ADD name varchar2(20);
-   
 DECLARE
    a number;
    x number;
@@ -27,7 +18,7 @@ BEGIN
   INSERT INTO roles
   (name )
   VALUES
-  ('PI');
+  ('PE');
 
   INSERT INTO roles
   (name )
@@ -258,7 +249,7 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 1);
+		(a, a, 'ACTIVE', 1);
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
@@ -270,11 +261,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'CREATE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'SENDING_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
@@ -749,6 +740,6 @@ BEGIN
   insert into tasks 
   (status, type, user_id, role_id, service_orders_id)
   values 
-  ('ACTIVE', 'create cable', 1003, 3, 140);
+  ('ACTIVE', 'CREATE_CABLE', 1003, 3, 140);
   commit;
 END;

@@ -94,7 +94,8 @@ public class OracleCSESITableDAO extends AbstractOracleDAO implements ICSEDashbo
     public long getElementCount() {
         List rows_count;
         long r_count[];
-        rows_count = super.findWhere(SI_ROWS_COUNT_QUERY, new Object[]{});
+        rows_count = super.findWhere(SI_ROWS_COUNT_QUERY, new Object[]{},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         r_count = (long[]) rows_count.toArray()[0];
         return r_count[0];
     }

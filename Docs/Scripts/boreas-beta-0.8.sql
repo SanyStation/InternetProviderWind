@@ -258,7 +258,7 @@ ALTER TABLE Tasks
 CREATE TABLE Users 
     ( 
      id NUMBER (8)  NOT NULL , 
-     тame VARCHAR2 (50) , 
+     Name VARCHAR2 (50) , 
      email VARCHAR2 (50) , 
      password VARCHAR2 (20)  NOT NULL , 
      blocked CHAR (1) DEFAULT '0' , 

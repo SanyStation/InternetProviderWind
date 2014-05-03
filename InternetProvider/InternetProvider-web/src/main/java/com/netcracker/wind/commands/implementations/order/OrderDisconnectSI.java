@@ -49,7 +49,7 @@ public class OrderDisconnectSI implements ICommand {
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
         IServiceOrderDAO serviceOrderDAO = factoryDAO.createServiceOrderDAO();
 
-        ServiceInstance serviceInstance = serviceInstanceDAO.findByID(serviceInstanceId);
+        ServiceInstance serviceInstance = serviceInstanceDAO.findById(serviceInstanceId);
 
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Timestamp(System.currentTimeMillis()));

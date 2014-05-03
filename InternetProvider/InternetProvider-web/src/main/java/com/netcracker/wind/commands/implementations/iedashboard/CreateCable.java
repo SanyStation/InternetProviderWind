@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.netcracker.wind.commands.implementations.iedashboard;
 
 import com.netcracker.wind.commands.ICommand;
@@ -22,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Сашко
+ * @author пїЅпїЅпїЅпїЅпїЅ
  */
 public class CreateCable implements ICommand {
     
@@ -48,12 +42,12 @@ public class CreateCable implements ICommand {
         
         Cable cable = new Cable();
         
-        Task task = taskDAO.findByID(taskID);
+        Task task = taskDAO.findById(taskID);
         
         Circuit circuit = circuitDAO.findByServInst(
-                serviceInstanceDAO.findByServiceOrderId(task.getServiceOrderId()).getId());
+                serviceInstanceDAO.findByServiceOrder(task.getServiceOrderId()).getId());
         cable.setServiceLocationId(task.getServiceOrder().getServiceLocation().getId());
-        cable.setPortId(portDAO.findByID(circuit.getPortId()).getId());
+        cable.setPortId(portDAO.findById(circuit.getPortId()).getId());
         cableDAO.add(cable);
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);

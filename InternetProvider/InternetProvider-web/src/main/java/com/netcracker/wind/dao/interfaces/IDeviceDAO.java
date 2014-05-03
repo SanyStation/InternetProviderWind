@@ -11,14 +11,16 @@ public interface IDeviceDAO {
 
     public void add(Device device);
 
-    public void delete(int idDevice);
+    public void delete(int id);
 
-    public Device findByID(int idDevice);
+    public Device findById(int id);
 
-    public List<Device> findAll();
+    public List<Device> findAll(int pageNumber, int pageSize);
     
     public void update(Device device);
     
-    public Device findByName(String dName);
+    public Device findByName(String deviceName);
+    
+    public int getRows();
 
 }

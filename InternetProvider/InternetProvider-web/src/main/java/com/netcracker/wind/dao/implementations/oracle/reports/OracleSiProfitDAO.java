@@ -84,7 +84,8 @@ public class OracleSiProfitDAO extends AbstractOracleDAO
         try {
             sdf.parse(dateTo);
             param.add(dateTo);
-            orders = super.findWhere(QUERY, param.toArray());
+            orders = super.findWhere(QUERY, param.toArray(),
+                    DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         } catch (ParseException ex) {
             LOGGER.error(null, ex);
         }

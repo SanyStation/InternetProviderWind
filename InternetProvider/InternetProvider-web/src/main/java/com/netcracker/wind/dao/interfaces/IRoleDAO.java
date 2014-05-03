@@ -13,10 +13,12 @@ public interface IRoleDAO {
 
     public void delete(int id);
 
-    public Role findByID(int role);
+    public Role findById(int id);
 
-    public List<Role> findAll();
+    public List<Role> findAll(int pageNumber, int pageSize);
 
     public void update(Role role);
+    
+    public int getRows();
 
 }

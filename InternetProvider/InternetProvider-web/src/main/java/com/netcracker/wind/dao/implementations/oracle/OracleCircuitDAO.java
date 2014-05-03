@@ -25,7 +25,8 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
     private static final String DELETE = "DELETE FROM CIRCUITS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO CIRCUITS (NAME, "
             + "SERVICE_INSTANCE_ID, PORT_ID) VALUES(?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM CIRCUITS ";
+    private static final String SELECT = "SELECT c.*, COUNT(*) OVER () AS "
+            + ROWS + " FROM circuits c ";
     private static final String UPDATE = "UPDATE CIRCUITS SET NAME = ?, "
             + "SERVICE_INSTANCE_ID = ?, PORT_ID = ? WHERE ID = ?";
     private static final String ID = "ID";
@@ -33,10 +34,7 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
     private static final String SIID = "SERVICE_INSTANCE_ID";
     private static final String PORT = "PORT_ID";
 
-    /**
-     *
-     * @param circuit
-     */
+    @Override
     public void add(Circuit circuit) {
         Connection connection = null;
         PreparedStatement stat = null;
@@ -61,47 +59,29 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
         }
     }
 
-    /**
-     *
-     * @param idCircuit
-     */
+    @Override
     public void delete(int idCircuit) {
         super.delete(DELETE, idCircuit);
     }
-
-    /**
-     *
-     * @param idCircuit
-     * @return
-     */
-    public Circuit findByID(int idCircuit) {
+    
+    @Override
+    public Circuit findById(int idCircuit) {
         List<Circuit> circuits
-                = findWhere("WHERE ID = ?", new Object[]{idCircuit});
+                = findWhere("WHERE ID = ?", new Object[]{idCircuit},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (circuits.isEmpty()) {
             return null;
         } else {
             return circuits.get(0);
         }
     }
-
-    /**
-     *
-     * @param where SQL statement where for searching by different parameters
-     * @param param parameters by which search will be formed
-     * @return list of found circuits
-     */
+    
     @Override
-    protected List<Circuit> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<Circuit> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
-
-    /**
-     *
-     *
-     * @param rs result return from database
-     * @return list of founded circuits
-     *
-     */
+    
     @Override
     protected List<Circuit> parseResult(ResultSet rs) {
         List<Circuit> circuits = new ArrayList<Circuit>();
@@ -120,10 +100,7 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
         return circuits;
     }
 
-    /**
-     *
-     * @param circuit
-     */
+    @Override
     public void update(Circuit circuit) {
         Connection con = null;
         PreparedStatement stat = null;
@@ -150,14 +127,11 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
 
     }
 
-    /**
-     *
-     * @param idPort
-     * @return
-     */
+    @Override
     public Circuit findByPort(int idPort) {
         List<Circuit> circuits
-                = findWhere("WHERE PORT_ID = ?", new Object[]{idPort});
+                = findWhere("WHERE PORT_ID = ?", new Object[]{idPort},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (circuits.isEmpty()) {
             return null;
         } else {
@@ -165,15 +139,10 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
         }
     }
 
-    /**
-     *
-     * @param idSi
-     * @return
-     */
+    @Override
     public Circuit findByServInst(int idSi) {
-        List<Circuit> circuits
-                = findWhere("WHERE SERVICE_INSTANCE_ID = ?",
-                        new Object[]{idSi});
+        List<Circuit> circuits = findWhere("WHERE SERVICE_INSTANCE_ID = ?",
+                        new Object[]{idSi}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (circuits.size() == 1) {
             return circuits.get(0);
         } else {
@@ -181,7 +150,9 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
         }
     }
 
-    public List<Circuit> findAll() {
-        return findWhere("", new Object[]{});
+    @Override
+    public List<Circuit> findAll(int pageNumber, int pageSize) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
+    
 }

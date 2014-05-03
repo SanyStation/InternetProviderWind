@@ -12,7 +12,6 @@ import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.Task;
-import com.netcracker.wind.entities.User;
 import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,7 +47,7 @@ public class ModifyServiceInstance implements ICommand {
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
 
-        Task task = taskDAO.findByID(taskId);
+        Task task = taskDAO.findById(taskId);
         if (!task.getType().equals(Task.Type.MODIFY_CIRCUIT)) {
             //TODO return error page
             return "";
@@ -60,7 +59,7 @@ public class ModifyServiceInstance implements ICommand {
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
         Workflow.createTaskForCSE(task.getServiceOrder(), taskDAO);
-        
+
         //TODO return next page
         return "";
     }

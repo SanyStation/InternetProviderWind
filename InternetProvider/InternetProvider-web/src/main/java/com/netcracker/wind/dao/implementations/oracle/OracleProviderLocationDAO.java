@@ -29,13 +29,15 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO
             + "ID = ?";
     private static final String INSERT = "INSERT INTO PROVIDER_LOCATIONS (ID, "
             + "POS_X, POS_Y, ADDRESS, NAME) VALUES (?, ?, ?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM PROVIDER_LOCATIONS ";
+    private static final String SELECT = "SELECT pl.*, COUNT(*) OVER () AS "
+            + ROWS + " FROM provider_locations pl ";
     private static final String ID = "ID";
     private static final String X = "POS_X";
     private static final String Y = "POS_Y";
     private static final String ADDRESS = "ADDRESS";
     private static final String NAME = "NAME";
 
+    @Override
     public void add(ProviderLocation providerLocation) {
         Connection connection = null;
         PreparedStatement stat = null;
@@ -62,38 +64,30 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO
         }
     }
 
+    @Override
     public void delete(int idPl) {
         super.delete(DELETE, idPl);
     }
 
-    public ProviderLocation findByID(int idPl) {
+    @Override
+    public ProviderLocation findById(int idPl) {
         List<ProviderLocation> providerLocations
-                = findWhere("WHERE ID = ?", new Object[]{idPl});
+                = findWhere("WHERE ID = ?", new Object[]{idPl},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (providerLocations.isEmpty()) {
             return null;
         } else {
             return providerLocations.get(0);
         }
     }
-
-    /**
-     *
-     * @param where SQL statement where for searching by different parameters
-     * @param param parameters by which search will be formed
-     * @return list of found roles
-     */
+    
     @Override
-    protected List<ProviderLocation> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<ProviderLocation> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
-    /**
-     *
-     *
-     * @param rs result return from database
-     * @return list of founded roles
-     *
-     */
+    @Override
     protected List<ProviderLocation> parseResult(ResultSet rs) {
         List<ProviderLocation> provLocs = new ArrayList<ProviderLocation>();
         try {
@@ -114,6 +108,7 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO
         return provLocs;
     }
 
+    @Override
     public void update(ProviderLocation providerLocation) {
         Connection con = null;
         PreparedStatement stat = null;
@@ -140,7 +135,9 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO
         }
     }
 
-    public List<ProviderLocation> findAll() {
-        return findWhere("", new Object[]{});
+    @Override
+    public List<ProviderLocation> findAll(int pageNumber, int pageSize) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
+    
 }

@@ -34,7 +34,8 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
             + "ENTERDATE, PROCESDATE, COMPLETEDATE, USER_ID, SERVICE_ID, "
             + "PROVIDER_LOCATION_ID, SERVICE_LOCATION_ID, STATUS, SCENARIO"
             + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM SERVICE_ORDERS ";
+    private static final String SELECT = "SELECT so.*, COUNT(*) OVER () AS "
+            + ROWS + " FROM service_orders so ";
     private static final String ID = "ID";
     private static final String ENT_D = "ENTERDATE";
     private static final String PROC_D = "PROCESDATE";
@@ -84,32 +85,24 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     }
 
     @Override
-    public ServiceOrder findByID(int idSo) {
+    public ServiceOrder findById(int idSo) {
         List<ServiceOrder> serviceOrders
-                = findWhere("WHERE ID = ?", new Object[]{idSo});
+                = findWhere("WHERE ID = ?", new Object[]{idSo},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (serviceOrders.isEmpty()) {
             return null;
         } else {
             return serviceOrders.get(0);
         }
     }
-
-    /**
-     *
-     * @param where SQL statement where for searching by different parameters
-     * @param param parameters by which search will be formed
-     * @return list of found serviceOrders
-     */
+    
     @Override
-    protected List<ServiceOrder> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<ServiceOrder> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
-    /*
-     *
-     * @param rs result return from database
-     * @return list of founded serviceOrders
-     */
+    @Override
     protected List<ServiceOrder> parseResult(ResultSet rs) {
         List<ServiceOrder> serviceOrders = new ArrayList<ServiceOrder>();
         try {
@@ -144,13 +137,13 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
             ps.setTimestamp(1, serviceOrder.getEnterdate());
             ps.setTimestamp(2, serviceOrder.getProcesdate());
             ps.setTimestamp(3, serviceOrder.getCompletedate());
-            ps.setInt(4, serviceOrder.getUser().getId());
-            ps.setInt(5, serviceOrder.getService().getId());
-            ps.setInt(6, serviceOrder.getProviderLocation().getId());
-            ps.setInt(7, serviceOrder.getServiceLocation().getId());
+            ps.setInt(4, serviceOrder.getUserId());
+            ps.setInt(5, serviceOrder.getServiceId());
+            ps.setInt(6, serviceOrder.getProviderLocationId());
+            ps.setInt(7, serviceOrder.getServiceLocationId());
             ps.setString(8, serviceOrder.getStatus().toString());
             ps.setString(9, serviceOrder.getScenario().toString());
-            ps.setInt(10, serviceOrder.getServiceInstance().getId());
+            ps.setInt(10, serviceOrder.getServiceInstanceId());
             ps.setInt(11, serviceOrder.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -168,10 +161,11 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     }
 
     @Override
-    public List<ServiceOrder> findByProvLoc(int plId) {
+    public List<ServiceOrder> findByProvLoc(int plId, int pageNumber,
+            int pageSize) {
         List<ServiceOrder> serviceOrders
                 = findWhere("WHERE PROVIDER_LOCATION_ID = ?",
-                        new Object[]{plId});
+                        new Object[]{plId}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (serviceOrders.isEmpty()) {
             return null;
         } else {
@@ -180,9 +174,11 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     }
 
     @Override
-    public List<ServiceOrder> findByService(int idService) {
+    public List<ServiceOrder> findByService(int idService, int pageNumber,
+            int pageSize) {
         List<ServiceOrder> serviceOrders
-                = findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
+                = findWhere("WHERE SERVICE_ID = ?", new Object[]{idService},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (serviceOrders.isEmpty()) {
             return null;
         } else {
@@ -191,14 +187,17 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     }
 
     @Override
-    public List<ServiceOrder> findAll() {
-        return findWhere("", new Object[]{});
+    public List<ServiceOrder> findAll(int pageNumber, int pageSize) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
 
-    public List<ServiceOrder> findByServiceInstance(int serviceInstanceId) {
+    @Override
+    public List<ServiceOrder> findByServiceInstance(int serviceInstanceId, 
+            int pageNumber, int pageSize) {
         List<ServiceOrder> serviceOrders
                 = findWhere("WHERE SERVICE_INSTANCE_ID = ?",
-                        new Object[]{serviceInstanceId});
+                        new Object[]{serviceInstanceId},
+                        pageNumber, pageSize);
         if (serviceOrders.isEmpty()) {
             return null;
         } else {
@@ -206,9 +205,12 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
         }
     }
 
-    public List<ServiceOrder> findByUser(int userId) {
+    @Override
+    public List<ServiceOrder> findByUser(int userId, int pageNumber,
+            int pageSize) {
         List<ServiceOrder> serviceOrders
-                = findWhere("WHERE USER_ID = ?", new Object[]{userId});
+                = findWhere("WHERE USER_ID = ?", new Object[]{userId},
+                        pageNumber, pageSize);
         return serviceOrders;
     }
 

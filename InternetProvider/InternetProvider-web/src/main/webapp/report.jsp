@@ -1,3 +1,7 @@
+<%-- 
+    Author     : Alexander Kovriga
+--%>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,6 +29,9 @@
         </style>
     </head>
     <body>
+        <form action="Controller" method="POST">
+            <input type="submit" value="test" name="command" />
+        </form>
         <div id="tabs">
             <ul>
                 <li><a href="#tabs-ri1">RI report: Routers' profitability</a></li>

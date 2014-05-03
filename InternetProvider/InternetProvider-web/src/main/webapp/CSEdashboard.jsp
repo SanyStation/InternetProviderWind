@@ -14,9 +14,9 @@
             <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
             <script type="text/javascript" src="js/csemenu.js"></script>
             <script>
-       
 
-                function makeUL(length, command) {
+
+                function makeUL(length, command, type) {
                     // Create the list element:
                     var list = document.createElement('ul');
                     list.setAttribute("class", "pagination");
@@ -28,9 +28,9 @@
                         // Set its contents:
                         var refItem = document.createElement('a');
                         refItem.setAttribute("href", "#");
-                        refItem.setAttribute("onclick", command + "'," + i + ")");
-                        
-            refItem.appendChild(document.createTextNode(i));
+                        refItem.setAttribute("onclick", command + "'," + i + "," +type+")");
+
+                        refItem.appendChild(document.createTextNode(i));
                         item.appendChild(refItem);
 
                         // Add it to the list:
@@ -56,37 +56,70 @@
                         var td3 = document.createElement('td').appendChild(document.createTextNode(data[i]["status"]));
 
                         tr.appendChild(td1);
-                        
+
                         tr.appendChild(td2);
-                        
+
                         tr.appendChild(td3);
                         table.appendChild(tr);
                     }
 
                     $("#forTable").append(table);
                 }
-             /*   function getSize(command){
-                    $(document).ready(function() {
-//                    $('input[type=submit]').click(function() {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'Controller',
-                        dataType: 'text',
-                        data: {
-                            'command': command,
-                        },
-                        success: function(data) {
-                            return data;
-                        },
-                        error: function() {
-                            alert("AJAX error");
-                        }
-                    });
-                });
-                }*/
-    
-               
-                function getTasks(command, number) {
+                
+                
+                    function drawUserTable(data) {
+                    var table = document.createElement('table');
+                    table.setAttribute("id", "userTable");
+                    table.setAttribute("border", 1);
+
+                    for (var i = 0; i < data.length; i++) {
+                        var tr = document.createElement('tr');
+
+                        var td1 = document.createElement('td').appendChild(document.createTextNode(data[i]["id"]));
+
+                        var td2 = document.createElement('td').appendChild(document.createTextNode(data[i]["name"]));
+
+                        var td3 = document.createElement('td').appendChild(document.createTextNode(data[i]["email"]));
+                        var td4 = document.createElement('td').appendChild(document.createElement('button').setAttribute("value","change password"));
+                        var td5 = document.createElement('td').appendChild(document.createElement('button').setAttribute("value","review service instance"));
+                        var td6 = document.createElement('td').appendChild(document.createElement('button').setAttribute("value","review service order"));
+                        
+
+                        tr.appendChild(td1);
+
+                        tr.appendChild(td2);
+
+                        tr.appendChild(td3);
+                        tr.appendChild(td4);
+                        tr.appendChild(td5);
+                        tr.appendChild(td6);
+                        table.appendChild(tr);
+                    }
+
+                    $("#forTable").append(table);
+                }
+                /*   function getSize(command){
+                 $(document).ready(function() {
+                 //                    $('input[type=submit]').click(function() {
+                 $.ajax({
+                 type: 'POST',
+                 url: 'Controller',
+                 dataType: 'text',
+                 data: {
+                 'command': command,
+                 },
+                 success: function(data) {
+                 return data;
+                 },
+                 error: function() {
+                 alert("AJAX error");
+                 }
+                 });
+                 });
+                 }*/
+
+
+                function getTasks(command, number, type) {
                     $(document).ready(function() {
 //                    $('input[type=submit]').click(function() {
                         $.ajax({
@@ -99,17 +132,26 @@
                                 'from': number * 25
 
                             },
-                            success: function(data) {                    
+                            success: function(data) {
                                 var myNode = document.getElementById("paging");
                                 while (myNode.firstChild) {
                                     myNode.removeChild(myNode.firstChild);
                                 }
-                                 var myNo = document.getElementById("forTable");
+                                var myNo = document.getElementById("forTable");
                                 while (myNo.firstChild) {
                                     myNo.removeChild(myNo.firstChild);
                                 }
-                                drawTable(data["data"]);
-                                makeUL(data["size"]/25, "getTasks('" + command);
+
+                                switch (type) {
+                                    case 'task':
+                                        drawTable(data["data"]);
+                                        break;
+                                    case 'user':
+                                         drawUserTable(data["data"]);
+                                        break;
+                                }
+                                makeUL(data["size"] / 25, "getTasks('" + command,type);
+
                             },
                             error: function() {
                                 alert("AJAX error");
@@ -119,39 +161,39 @@
 //                });
                 }
                 /*$(document).ready(function() {
-
-                var cseDashboard = new CSEDashboard();
-                cseDashboard.setElementCount("TABLE_NAME", cseDashboard.getElementCount("COMMAND", "TABLE_NAME"));
-                cseDashboard.drawPaginationTable("test");
-                cseDashboard.setPageEventHanlers("test");
-
-            });*/
+                 
+                 var cseDashboard = new CSEDashboard();
+                 cseDashboard.setElementCount("TABLE_NAME", cseDashboard.getElementCount("COMMAND", "TABLE_NAME"));
+                 cseDashboard.drawPaginationTable("test");
+                 cseDashboard.setPageEventHanlers("test");
+                 
+                 });*/
 
 
             </script>
 
     </head>
     <body>
-          <ul id="menu">
+        <ul id="menu">
             <li><a href="#">Main</a></li>
             <li>
                 <a href="#">Tasks</a>
                 <ul>
                     <li>
-                        
 
-                        <a  href="#" onclick="getTasks('cse_group_task', 0)">CSE Group Tasks</a>
+
+                        <a  href="#" onclick="getTasks('cse_group_task', 0,'task')">CSE Group Tasks</a>
 
 
                     </li>
                     <li>
                         <a href="#">My Tasks</a>				
                         <ul>
-                            
-                            <% request.setAttribute("user",1002);%>
-                            <li><a href="#" onclick="getTasks('cse_get_tasks',0)">All my tasks</a></li>
-                            <li><a href="#" onclick="getTasks('cse_get_completed_tasks')">Completed tasks</a></li>
-                            <li><a href="#" onclick="getTasks('cse_get_uncompleted_tasks')">Uncompleted tasks</a></li>
+
+                            <% request.setAttribute("user", 1002);%>
+                            <li><a href="#" onclick="getTasks('cse_get_tasks', 0,'task')">All my tasks</a></li>
+                            <li><a href="#" onclick="getTasks('cse_get_completed_tasks',0,'task')">Completed tasks</a></li>
+                            <li><a href="#" onclick="getTasks('cse_get_uncompleted_tasks',0,'task')">Uncompleted tasks</a></li>
                         </ul>	
                     </li>
                 </ul>
@@ -162,10 +204,10 @@
                 <ul>
 
                     <li>
-                        <a href="#"  onclick="getTasks('customer_list',0)">List of Customer Accounts </a>		
+                        <a href="#"  onclick="getTasks('customer_list', 0,'user')">List of Customer Accounts </a>		
                     </li>
                     <li>
-                        <a href="#" onclick="getTasks('provider_location_list',0)" >List of Provider Location  </a>
+                        <a href="#" onclick="getTasks('provider_location_list', 0)" >List of Provider Location  </a>
                     </li>
                     <li>
                         <a href="#">List of SI Status</a>

@@ -3,6 +3,7 @@ package com.netcracker.wind.commands.implementations.order;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IPriceDAO;
 import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
 import com.netcracker.wind.entities.Price;
@@ -47,7 +48,10 @@ public class RefreshService implements ICommand {
             IPriceDAO priceDAO = factoryDAO.createPriceDAO();
 
             //Find nearest ProviderLocation
-            List<ProviderLocation> providerLocations = providerLocationDAO.findAll();
+            List<ProviderLocation> providerLocations
+                    = providerLocationDAO.findAll(
+                            AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                            AbstractOracleDAO.ALL_RECORDS);
             ProviderLocation nearestProviderLocation = OrderUtilities.findNearestProviderLocation(
                     providerLocations, actualX, actualY);
 
@@ -61,7 +65,10 @@ public class RefreshService implements ICommand {
             }
 
             //Find available Services and Prices
-            List<Price> prices = priceDAO.findByProviderLoc(nearestProviderLocation.getId());
+            List<Price> prices = priceDAO.findByProviderLoc(
+                    nearestProviderLocation.getId(),
+                    AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                    AbstractOracleDAO.ALL_RECORDS);
 
             try {
                 jsono.put("status", "ok");

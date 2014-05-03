@@ -11,11 +11,14 @@ public interface IServiceDAO {
 
     public void add(Service service);
 
-    public void delete(int idService);
+    public void delete(int id);
 
-    public Service findByID(int idService);
+    public Service findById(int id);
 
-    public List<Service> findAll();
+    public List<Service> findAll(int pageNumber, int pageSize);
 
     public void update(Service role);
+    
+    public int getRows();
+    
 }

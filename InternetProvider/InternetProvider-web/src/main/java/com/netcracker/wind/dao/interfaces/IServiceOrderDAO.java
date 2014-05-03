@@ -13,17 +13,24 @@ public interface IServiceOrderDAO {
 
     public void delete(int id);
 
-    public ServiceOrder findByID(int role);
+    public ServiceOrder findById(int id);
 
-    public List<ServiceOrder> findByProvLoc(int pLID);
+    public List<ServiceOrder> findByProvLoc(int plId, int pageNumber,
+            int pageSize);
 
-    public List<ServiceOrder> findByService(int idService);
+    public List<ServiceOrder> findByService(int serviceId, int pageNumber,
+            int pageSize);
     
-    public List<ServiceOrder> findByServiceInstance(int serviceInstanceId);
+    public List<ServiceOrder> findByServiceInstance(int serviceInstanceId,
+            int pageNumber, int pageSize);
     
-    public List<ServiceOrder> findByUser(int userId);
+    public List<ServiceOrder> findByUser(int userId, int pageNumber,
+            int pageSize);
 
-    public List<ServiceOrder> findAll();
+    public List<ServiceOrder> findAll(int pageNumber, int pageSize);
 
-    public void update(ServiceOrder role);
+    public void update(ServiceOrder serviceOrder);
+    
+    public int getRows();
+    
 }

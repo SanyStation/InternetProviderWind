@@ -55,8 +55,8 @@ public class OrderModifySI implements ICommand {
         IServiceDAO serviceDAO = factoryDAO.createServiceDAO();
         IServiceOrderDAO serviceOrderDAO = factoryDAO.createServiceOrderDAO();
 
-        ServiceInstance serviceInstance = serviceInstanceDAO.findByID(serviceInstanceId);
-        Service service = serviceDAO.findByID(serviceId);
+        ServiceInstance serviceInstance = serviceInstanceDAO.findById(serviceInstanceId);
+        Service service = serviceDAO.findById(serviceId);
 
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Timestamp(System.currentTimeMillis()));

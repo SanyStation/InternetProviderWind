@@ -2,6 +2,7 @@ package com.netcracker.wind.entities;
 
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -117,8 +118,8 @@ public class ServiceOrder implements Serializable {
     
     public ServiceInstance getServiceInstance() {
         if (serviceInstance == null) {
-            serviceInstance = factoryDAO.createServiceInstanceDAO()
-                    .findByID(serviceInstanceId);
+            serviceInstance = factoryDAO.createServiceInstanceDAO().
+                    findById(serviceInstanceId);
         }
         return serviceInstance;
     }
@@ -129,7 +130,9 @@ public class ServiceOrder implements Serializable {
     
     public List<Task> getTasksList() {
         if (tasksList == null) {
-            tasksList = factoryDAO.createTaskDAO().findByServiceOrder(id);
+            tasksList = factoryDAO.createTaskDAO().findByServiceOrder(id, 
+                    AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                    AbstractOracleDAO.ALL_RECORDS);
         }
         return tasksList;
     }
@@ -148,7 +151,7 @@ public class ServiceOrder implements Serializable {
     
     public User getUser() {
         if (user == null) {
-            user = factoryDAO.createUserDAO().findByID(userId);
+            user = factoryDAO.createUserDAO().findById(userId);
         }
         return user;
     }
@@ -168,7 +171,7 @@ public class ServiceOrder implements Serializable {
     public ServiceLocation getServiceLocation() {
         if (serviceLocation == null) {
             serviceLocation = factoryDAO.createServiceLocationDAO()
-                    .findByID(serviceLocationId);
+                    .findById(serviceLocationId);
         }
         return serviceLocation;
     }
@@ -187,7 +190,7 @@ public class ServiceOrder implements Serializable {
     
     public Service getService() {
         if (service == null) {
-            service = factoryDAO.createServiceDAO().findByID(serviceId);
+            service = factoryDAO.createServiceDAO().findById(serviceId);
         }
         return service;
     }
@@ -207,7 +210,7 @@ public class ServiceOrder implements Serializable {
     public ProviderLocation getProviderLocation() {
         if (providerLocation == null) {
             providerLocation = factoryDAO.createProviderLocationDAO()
-                    .findByID(providerLocationId);
+                    .findById(providerLocationId);
         }
         return providerLocation;
     }

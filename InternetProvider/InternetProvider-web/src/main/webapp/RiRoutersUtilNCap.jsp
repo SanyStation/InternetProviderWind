@@ -1,3 +1,7 @@
+<%-- 
+    Author     : Alexander Kovriga
+--%>
+
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 

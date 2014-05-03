@@ -38,7 +38,7 @@ public class DeleteCircuit implements ICommand {
         ICircuitDAO circuitDAO = factoryDAO.createCircuitDAO();
         IPortDAO portDAO = factoryDAO.createPortDAO();
 
-        Task task = taskDAO.findByID(taskId);
+        Task task = taskDAO.findById(taskId);
 
         Circuit circuit = task.getServiceOrder().getServiceInstance().getCircuit();
         Port port = circuit.getPort();

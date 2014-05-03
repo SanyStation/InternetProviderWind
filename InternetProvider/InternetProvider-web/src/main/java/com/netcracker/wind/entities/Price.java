@@ -62,7 +62,7 @@ public class Price implements Serializable {
     
     public Service getService() {
         if (service == null) {
-            service = factoryDAO.createServiceDAO().findByID(serviceId);
+            service = factoryDAO.createServiceDAO().findById(serviceId);
         }
         return service;
     }
@@ -74,7 +74,7 @@ public class Price implements Serializable {
     public int getProviderLocationId() {
         if (providerLocation == null) {
             providerLocation = factoryDAO.createProviderLocationDAO()
-                    .findByID(providerLocationId);
+                    .findById(providerLocationId);
         }
         return providerLocationId;
     }

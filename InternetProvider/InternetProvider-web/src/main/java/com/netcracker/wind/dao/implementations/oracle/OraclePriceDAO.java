@@ -26,16 +26,14 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
     private static final String DELETE = "DELETE FROM PRICES WHERE ID = ?";
     private static final String INSERT = "INSERT INTO PRICES (ID, "
             + "PROVIDER_LOCATION_ID, SERVICE_ID, PRICE) VALUES (?, ?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM PRICES ";
+    private static final String SELECT = "SELECT p.*, COUNT(*) OVER () AS "
+            + ROWS + " FROM prices p ";
     private static final String ID = "ID";
     private static final String PLID = "PROVIDER_LOCATION_ID";
     private static final String SERVICE = "SERVICE_ID";
     private static final String PRICE = "PRICE";
 
-    /**
-     *
-     * @param price
-     */
+    @Override
     public void add(Price price) {
         Connection connection = null;
         PreparedStatement stat = null;
@@ -61,21 +59,15 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
         }
     }
 
-    /**
-     *
-     * @param idPrice
-     */
+    @Override
     public void delete(int idPrice) {
          super.delete(DELETE, idPrice);
     }
-
-    /**
-     *
-     * @param idPrice
-     * @return
-     */
-    public Price findByID(int idPrice) {
-        List<Price> roles = findWhere("WHERE ID = ?", new Object[]{idPrice});
+    
+    @Override
+    public Price findById(int idPrice) {
+        List<Price> roles = findWhere("WHERE ID = ?", new Object[]{idPrice},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (roles.isEmpty()) {
             return null;
         } else {
@@ -83,23 +75,13 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
         }
     }
 
-    /**
-     *
-     * @param where SQL statement where for searching by different parameters
-     * @param param parameters by which search will be formed
-     * @return list of found roles
-     */
-    protected List<Price> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    @Override
+    protected List<Price> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
-    /**
-     *
-     *
-     * @param rs result return from database
-     * @return list of founded roles
-     *
-     */
+    @Override
     protected List<Price> parseResult(ResultSet rs) {
         List<Price> prices = new ArrayList<Price>();
         try {
@@ -118,10 +100,7 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
         return prices;
     }
 
-    /**
-     *
-     * @param price
-     */
+    @Override
     public void update(Price price) {
         Connection con = null;
         PreparedStatement stat = null;
@@ -144,30 +123,25 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
             connectionPool.close(con);
         }
     }
-
-    /**
-     *
-     * @param idPLoc
-     * @return
-     */
-    public List<Price> findByProviderLoc(int idPLoc) {
+    
+    @Override
+    public List<Price> findByProviderLoc(int idPLoc, int pageNumber,
+            int pageSize) {
         List<Price> prices = findWhere("WHERE PROVIDER_LOCATION_ID = ?",
-                new Object[]{idPLoc});
+                new Object[]{idPLoc}, pageNumber, pageSize);
         if (prices.isEmpty()) {
             return null;
         } else {
             return prices;
         }
     }
-
-    /**
-     *
-     * @param idService
-     * @return
-     */
-    public List<Price> findByService(int idService) {
+    
+    @Override
+    public List<Price> findByService(int idService, int pageNumber,
+            int pageSize) {
         List<Price> prices =
-                findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
+                findWhere("WHERE SERVICE_ID = ?", new Object[]{idService},
+                        pageNumber, pageSize);
         if (prices.isEmpty()) {
             return null;
         } else {
@@ -175,8 +149,9 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
         }
     }
 
-    public List<Price> findAll() {
-        return findWhere("", new Object[]{});
+    @Override
+    public List<Price> findAll(int pageNumber, int pageSize) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
 
 }

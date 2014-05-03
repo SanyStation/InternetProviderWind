@@ -10,6 +10,7 @@ import com.netcracker.wind.commands.implementations.iedashboard.GetActiveIETasks
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.pedashboard.ProvisioningEngineerTasks;
+import com.netcracker.wind.commands.implementations.pedashboard.Test;
 import com.netcracker.wind.commands.implementations.registration.Validation;
 import com.netcracker.wind.commands.implementations.registration.Registration;
 import com.netcracker.wind.commands.implementations.reports.CiaIptReportGenerator;
@@ -58,6 +59,8 @@ public class CommandHelper {
     private static final String VALIDATION = "validation";
     private static final String REGISTRATION = "registration";
     private static final String GET_ACTIVE_IETASKS = "get_active_ietasks";
+    
+    private static final String TEST = "test";
 
     private final Map<String, ICommand> commands;
 
@@ -87,6 +90,8 @@ public class CommandHelper {
         commands.put(REGISTRATION, new Registration());
         commands.put(GET_ACTIVE_IETASKS, new GetActiveIETasks());
 
+        
+        commands.put(TEST, new Test());
     }
 
     public static CommandHelper getInstance() {

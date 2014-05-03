@@ -11,17 +11,22 @@ public interface IPortDAO {
 
     public void add(Port port);
 
-    public void delete(int idPort);
+    public void delete(int id);
 
-    public Port findByID(int idPort);
+    public Port findById(int id);
 
-    public List<Port> findByFree(boolean isFree);
+    public List<Port> findByFree(boolean isFree, int pageNumber, int pageSize);
 
-    public List<Port> findAll();
+    public List<Port> findAll(int pageNumber, int pageSize);
 
     public void update(Port port);
 
-    public List<Port> findByDevice(int idDevice);
+    public List<Port> findByDevice(int deviceId, int pageNumber, int pageSize);
 
     public Port occupyFreePort();
+    
+    public Port getFreePort();
+    
+    public int getRows();
+    
 }
