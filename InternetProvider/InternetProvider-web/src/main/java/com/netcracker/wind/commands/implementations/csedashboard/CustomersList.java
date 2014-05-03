@@ -5,6 +5,7 @@
  */
 package com.netcracker.wind.commands.implementations.csedashboard;
 
+import com.netcracker.wind.commands.DashboardsUtilities;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
@@ -29,24 +30,8 @@ public class CustomersList implements ICommand {
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
-        AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
-        IUserDAO userDAO = factoryDAO.createUserDAO();
-        List<User> customers = userDAO.findByRole(CUSTOMER_GROUP_ID);
-        JSONArray customersJSONArray = new JSONArray();
-        for (User user : customers) {
-            try {
-                JSONObject userJSON = new JSONObject();
-                userJSON.put("id", user.getId());
-                userJSON.put("name", user.getName());
-                userJSON.put("email", user.getEmail());
-
-                customersJSONArray.put(userJSON);
-            } catch (JSONException ex) {
-                Logger.getLogger(CSEGetGroupTasks.class.getName())
-                        .log(Level.ERROR, null, ex);
-            }
-        }
-
-        return customersJSONArray.toString();
+         int number = Integer.parseInt(request.getParameter("size"));
+         int from = Integer.parseInt(request.getParameter("from"));
+       return DashboardsUtilities.getUserRoleJSON(CUSTOMER_GROUP_ID, number, from);
     }
 }

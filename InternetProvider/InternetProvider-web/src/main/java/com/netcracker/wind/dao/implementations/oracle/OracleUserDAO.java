@@ -22,6 +22,9 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     private static final Logger LOGGER
             = Logger.getLogger(OracleUserDAO.class.getName());
 
+    private static final String SELECT_PAGING_ROLE = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
+            + "  FROM (SELECT * FROM users WHERE role_id = ? ORDER BY ID) sub "
+            + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
     private static final String DELETE = "DELETE FROM USERS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO USERS (NAME, EMAIL, "
             + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, ?, ?, ?)";
@@ -81,7 +84,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
      */
     public User findByID(int id) {
         List<User> users = findWhere("WHERE ID = ?", new Object[]{id},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (users.isEmpty()) {
             return null;
         } else {
@@ -170,8 +173,8 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
     @Override
     public User findByEmail(String email) {
-        List<User> users = findWhere("WHERE email = ?",new Object[]{email},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+        List<User> users = findWhere("WHERE email = ?", new Object[]{email},
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (users.isEmpty()) {
             return null;
         } else if (users.size() == 1) {
@@ -182,19 +185,51 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
     public boolean hasEmail(String email) {
         List<User> users = findWhere("WHERE email = ?", new Object[]{email},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return !users.isEmpty();
     }
 
-
-
     public boolean hasLogin(String login) {
         List<User> users = findWhere("WHERE name = ?", new Object[]{login},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return !users.isEmpty();
     }
 
     public List<User> findAll() {
         return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+    }
+
+    public List<User> findByRole(int roleID, int number, int from) {
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement ps = null;
+        List<User> users = null;
+        ResultSet rs = null;
+        try {
+            ps = connection.prepareStatement(SELECT_PAGING_ROLE);
+            ps.setInt(1, roleID);
+            ps.setInt(2, from + number);
+            ps.setInt(3, from);
+            rs = ps.executeQuery();
+            users = parseResult(rs);
+        } catch (SQLException ex) {
+            LOGGER.error(null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    LOGGER.error(null, ex);
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    LOGGER.error(null, ex);
+                }
+            }
+            connectionPool.close(connection);
+        }
+        return users;
     }
 }

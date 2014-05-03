@@ -22,6 +22,7 @@ public interface IUserDAO {
     public List<User> findAll();
 
     public List<User> findByRole(int roleID);
+    public List<User> findByRole(int roleID,int number,int from);
     
     public boolean hasEmail(String email);
     
