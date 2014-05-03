@@ -12,7 +12,6 @@ import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.Task;
-import com.netcracker.wind.entities.User;
 import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +59,7 @@ public class ModifyServiceInstance implements ICommand {
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
         Workflow.createTaskForCSE(task.getServiceOrder(), taskDAO);
-        
+
         //TODO return next page
         return "";
     }

@@ -21,7 +21,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER
             = Logger.getLogger(OracleUserDAO.class.getName());
-
+    
     private static final String DELETE = "DELETE FROM USERS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO USERS (NAME, EMAIL, "
             + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, ?, ?, ?)";
@@ -71,7 +71,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     @Override
     public User findById(int id) {
         List<User> users = findWhere("WHERE ID = ?", new Object[]{id},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (users.isEmpty()) {
             return null;
         } else {
@@ -147,8 +147,8 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
     @Override
     public User findByEmail(String email) {
-        List<User> users = findWhere("WHERE email = ?",new Object[]{email},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+        List<User> users = findWhere("WHERE email = ?", new Object[]{email},
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (users.isEmpty()) {
             return null;
         } else if (users.size() == 1) {
@@ -160,14 +160,14 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     @Override
     public boolean hasEmail(String email) {
         List<User> users = findWhere("WHERE email = ?", new Object[]{email},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return !users.isEmpty();
     }
-
+    
     @Override
     public boolean hasLogin(String login) {
         List<User> users = findWhere("WHERE name = ?", new Object[]{login},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return !users.isEmpty();
     }
 

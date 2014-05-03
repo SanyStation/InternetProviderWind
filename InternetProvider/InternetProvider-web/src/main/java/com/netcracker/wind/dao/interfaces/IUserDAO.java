@@ -20,7 +20,7 @@ public interface IUserDAO {
     public void update(User user);
 
     public List<User> findAll(int pageNumber, int pageSize);
-
+    
     public List<User> findByRole(int roleID, int pageNumber, int pageSize);
     
     public boolean hasEmail(String email);
