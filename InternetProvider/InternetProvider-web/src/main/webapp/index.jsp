@@ -17,8 +17,7 @@
             <input type="submit" value="CSE dashboard"  />
         </form>
         
-        <form method="POST" action="Controller">
-            <input type="hidden" name="command" value="get_active_ietasks"/>
+        <form method="POST" action="IEdashboard.jsp">
             <input type="submit" value="IE dashboard"  />
         </form>
 
@@ -33,6 +32,10 @@
         <br>
         <form action="map.jsp" method="POST">
             <input type="submit" value="map"  />
+        </form>
+
+        <form action="Registration.jsp" method="POST">
+            <input type="submit" value="Registration"  />
         </form>
 
         <div>

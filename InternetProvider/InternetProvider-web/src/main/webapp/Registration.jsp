@@ -16,6 +16,19 @@
         </script>
         <script type="text/javascript">
             $(document).ready(function(){
+                function register(log, pas, eml){
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Controller',
+                        dataType : 'text', 
+                        data: {
+                            'command': 'registration',
+                            'login':        log,
+                            'e-mail':       eml,
+                            'password':     pas
+                        }
+                    });
+                };
                 $("#register").click(function(){
                     //data normalization
                     var login = $("#login").val();
@@ -40,20 +53,11 @@
                         },
                         success: function (data) {  
                             if (data==="")
-                                $.ajax({
-                                    type: 'POST',
-                                    url: 'Controller',
-                                    dataType : 'text', 
-                                    data: {
-                                        'command': 'registration',
-                                        'login':    login,
-                                        'e-mail':   email,
-                                        'pass':     pass
-                                    }
-                                    });
-                            else 
+                                register(login, pass, email);
+                            else{ 
                             $("#msgfield").html("");
                             $("#msgfield").append(data);
+                        }
                         }
                     });
                 }); 
