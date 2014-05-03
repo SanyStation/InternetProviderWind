@@ -97,6 +97,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
                 user.setPassword(rs.getString(PASSWORD));
                 user.setBlocked(rs.getBoolean(BLOCKED));
                 user.setRoleId(rs.getInt(ROLE));
+                super.rows = rs.getInt(ROWS);
                 users.add(user);
             }
         } catch (SQLException ex) {

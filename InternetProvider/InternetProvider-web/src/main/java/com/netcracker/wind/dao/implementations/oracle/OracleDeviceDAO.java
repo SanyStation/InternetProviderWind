@@ -108,6 +108,7 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
                 int id = rs.getInt(ID);
                 device.setId(id);
                 device.setName(rs.getString(NAME));
+                super.rows = rs.getInt(ROWS);
                 devices.add(device);
             }
         } catch (SQLException ex) {

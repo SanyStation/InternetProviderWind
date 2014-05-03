@@ -92,6 +92,7 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
                 circuit.setName(rs.getString(NAME));
                 circuit.setServiceInstanceId(rs.getInt(SIID));
                 circuit.setPortId(rs.getInt(PORT));
+                super.rows = rs.getInt(ROWS);
                 circuits.add(circuit);
             }
         } catch (SQLException ex) {

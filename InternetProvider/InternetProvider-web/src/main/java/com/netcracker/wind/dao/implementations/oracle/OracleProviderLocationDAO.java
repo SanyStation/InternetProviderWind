@@ -99,6 +99,7 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO
                 provLoc.setPosY(rs.getDouble(Y));
                 provLoc.setAddress(rs.getString(ADDRESS));
                 provLoc.setName(rs.getString(NAME));
+                super.rows = rs.getInt(ROWS);
                 provLocs.add(provLoc);
             }
         } catch (SQLException ex) {

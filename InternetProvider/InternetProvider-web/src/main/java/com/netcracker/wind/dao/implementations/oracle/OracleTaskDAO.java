@@ -26,7 +26,6 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     private static final String DELETE = "DELETE FROM TASKS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO TASKS (USER_ID, TYPE, "
             + " STATUS, ROLE_ID, SERVICE_ORDERS_ID) VALUES(?, ?, ?, ?, ?)";
-//    private static final String SELECT = "SELECT * FROM TASKS ";
     private static final String SELECT = "SELECT t.*, COUNT(*) OVER () AS "
             + ROWS + " FROM tasks t ";
     private static final String SELECT_PAGING = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
