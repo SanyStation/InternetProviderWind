@@ -158,7 +158,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
-//    public List<Task> findByGroup(int idGroup, int from, int number) {
+//    public List<Task> findByGroup(int idGroup, int from, int number) { 
 //        Connection connection = connectionPool.getConnection();
 //        PreparedStatement ps = null;
 //        List<Task> tasks = null;
