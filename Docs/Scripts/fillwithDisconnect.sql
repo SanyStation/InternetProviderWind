@@ -268,6 +268,7 @@ BEGIN
 		('COMPLETED', 'SENDING_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 71 .. 140 LOOP
 		e_date := Sysdate + 3 +(a/3)/24;
@@ -299,6 +300,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
    FOR a in 141 .. 200 LOOP
 		e_date := Sysdate + 8 +(a/3)/24;
@@ -330,6 +332,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 201 .. 270 LOOP
 		e_date := Sysdate + 9 +(a)/24;
@@ -361,6 +364,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 271 .. 340 LOOP
 		e_date := Sysdate + 20 +(a/3)/24;
@@ -392,6 +396,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 341 .. 400 LOOP
 		e_date := Sysdate + 25 +(a/3)/24;
@@ -423,6 +428,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 401 .. 470 LOOP
 		e_date := Sysdate + 28 +(a/3)/24;
@@ -454,6 +460,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 471 .. 540 LOOP
 		e_date := Sysdate + 30 +(a/2)/24;
@@ -485,6 +492,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 541 .. 600 LOOP
 		e_date := Sysdate + 32 +(a/3)/24;
@@ -516,6 +524,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 601 .. 670 LOOP
 		e_date := Sysdate + 34 +(a/3)/24;
@@ -547,6 +556,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 671 .. 740 LOOP
 		e_date := Sysdate + 40 +(a/3)/24;
@@ -578,6 +588,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 741 .. 800 LOOP
 		e_date := Sysdate + 45 +(a/3)/24;
@@ -609,6 +620,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 801 .. 870 LOOP
 		e_date := Sysdate + 48 +(a/3)/24;
@@ -640,6 +652,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 871 .. 940 LOOP
 		e_date := Sysdate + 49 +(a/3)/24;
@@ -671,6 +684,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 941 .. 1000 LOOP
 		e_date := Sysdate + 49 +(a/3)/24;
@@ -702,6 +716,7 @@ BEGIN
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
+		update service_orders set service_instance_id = a where id = a;
   END LOOP;
 		FOR a in 1001 .. 1100 LOOP
 		e_date := Sysdate + 55 +(a/3)/24;
@@ -737,9 +752,5 @@ BEGIN
 		set free = 1 where id = b;
 		
   END LOOP;
-  insert into tasks 
-  (status, type, user_id, role_id, service_orders_id)
-  values 
-  ('ACTIVE', 'CREATE_CABLE', 1003, 3, 140);
   commit;
 END;
