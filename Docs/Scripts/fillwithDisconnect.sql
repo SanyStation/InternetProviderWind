@@ -18,7 +18,7 @@ BEGIN
   INSERT INTO roles
   (name )
   VALUES
-  ('PI');
+  ('PE');
 
   INSERT INTO roles
   (name )

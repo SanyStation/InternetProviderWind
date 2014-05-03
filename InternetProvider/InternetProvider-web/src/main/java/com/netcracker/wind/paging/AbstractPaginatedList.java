@@ -21,6 +21,15 @@ public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
         this.pageNumber = Integer.parseInt(page);
         this.pageSize = pageSize;
     }
+    
+    @Override
+    public void setRequest(HttpServletRequest request) {
+        String page = (String) request.getParameter(ATTRIBUTE_PAGE);
+        if (page == null) {
+            page = "1";
+        }
+        this.pageNumber = Integer.parseInt(page);
+    }
 
     @Override
     public int getPageNumber() {

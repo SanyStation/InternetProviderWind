@@ -15,7 +15,7 @@
   </security-role-mapping>
   <security-role-mapping>
     <role-name>ProvisioningEngineer</role-name>
-    <group-name>PI</group-name>
+    <group-name>PE</group-name>
   </security-role-mapping>
   <security-role-mapping>
     <role-name>InstallationEngineer</role-name>

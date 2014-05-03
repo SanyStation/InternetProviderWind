@@ -18,15 +18,6 @@ public class TasksPaginatedList extends AbstractPaginatedList {
     public TasksPaginatedList(HttpServletRequest request, int pageSize) {
         super(request, pageSize);
     }
-    
-    @Override
-    public void setRequest(HttpServletRequest request) {
-        String page = (String) request.getParameter(ATTRIBUTE_PAGE);
-        if (page == null) {
-            page = "1";
-        }
-        this.pageNumber = Integer.parseInt(page);
-    }
 
     @Override
     public List getList() {
