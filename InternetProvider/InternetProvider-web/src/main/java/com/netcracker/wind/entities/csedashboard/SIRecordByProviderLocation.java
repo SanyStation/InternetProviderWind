@@ -6,6 +6,7 @@
 package com.netcracker.wind.entities.csedashboard;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -77,4 +78,8 @@ public class SIRecordByProviderLocation extends CSEDashboardEntity implements Se
         this.service_name = service_name;
     }
 
+    @Override
+    public String parseJSON(List jsonList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

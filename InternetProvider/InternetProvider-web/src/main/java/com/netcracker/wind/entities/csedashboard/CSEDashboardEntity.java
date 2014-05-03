@@ -6,10 +6,18 @@
 
 package com.netcracker.wind.entities.csedashboard;
 
+import java.util.List;
+
 /**
  *
  * @author Anna
  */
-public class CSEDashboardEntity {
-    
+public abstract class CSEDashboardEntity <T>{
+
+    /**
+     *
+     * @param jsonList
+     * @return
+     */
+    public abstract String parseJSON(List<T> jsonList);
 }
