@@ -91,6 +91,7 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
                 price.setProviderLocationId(rs.getInt(PLID));
                 price.setServiceId(rs.getInt(SERVICE));
                 price.setPrice(rs.getInt(PRICE));
+                super.rows = rs.getInt(ROWS);
                 prices.add(price);
             }
         } catch (SQLException ex) {

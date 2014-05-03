@@ -91,6 +91,7 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
                 service.setId(id);
                 service.setName(rs.getString(NAME));
                 service.setDescription(rs.getString(DESCR));
+                super.rows = rs.getInt(ROWS);
                 services.add(service);
             }
         } catch (SQLException ex) {

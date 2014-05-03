@@ -147,6 +147,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
                 port.setName(rs.getString(NAME));
                 port.setDeviceId(rs.getInt(DEVICE));
                 port.setFree(rs.getBoolean(FREE));
+                super.rows = rs.getInt(ROWS);
                 ports.add(port);
             }
         } catch (SQLException ex) {

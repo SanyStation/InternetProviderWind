@@ -98,6 +98,7 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
                 cable.setId(rs.getInt(ID));
                 cable.setPortId(rs.getInt(PORT));
                 cable.setServiceLocationId(rs.getInt(SLID));
+                super.rows = rs.getInt(ROWS);
                 cables.add(cable);
             }
         } catch (SQLException ex) {

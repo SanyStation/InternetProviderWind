@@ -30,7 +30,6 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO
             + "ID = ?";
     private static final String INSERT = "INSERT INTO SERVICE_LOCATIONS "
             + "(POS_X, POS_Y, ADDRESS) VALUES (?, ?, ?)";
-//    private static final String SELECT = "SELECT * FROM SERVICE_LOCATIONS ";
     private static final String SELECT = "SELECT sl.*, COUNT(*) OVER () AS "
             + ROWS + " FROM service_locations sl ";
     private static final String ID = "ID";
@@ -108,6 +107,7 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO
                 provLoc.setPosX(rs.getInt(X));
                 provLoc.setPosY(rs.getInt(Y));
                 provLoc.setAddress(rs.getString(ADDRESS));
+                super.rows = rs.getInt(ROWS);
                 provLocs.add(provLoc);
             }
         } catch (SQLException ex) {

@@ -116,6 +116,7 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
                         rs.getString(STATUS)));
                 servInst.setServiceOrderId(rs.getInt(SERVICE_ORDER_ID));
                 servInst.setServiceId(rs.getInt(SERVICE_ID));
+                super.rows = rs.getInt(ROWS);
                 servInsts.add(servInst);
             }
         } catch (SQLException ex) {

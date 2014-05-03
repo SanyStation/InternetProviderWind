@@ -119,6 +119,7 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
                 serviceOrder.setServiceInstanceId(rs.getInt(SIID));
                 serviceOrder.setScenario(ServiceOrder.Scenario.valueOf(
                         rs.getString(SCENARIO)));
+                super.rows = rs.getInt(ROWS);
                 serviceOrders.add(serviceOrder);
             }
         } catch (SQLException ex) {
