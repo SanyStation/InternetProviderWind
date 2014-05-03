@@ -249,7 +249,7 @@ BEGIN
 		insert into service_instances
 		(user_id, service_order_id, status, service_id)
 		values
-		(a, a, 'active', 1);
+		(a, a, 'ACTIVE', 1);
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
@@ -261,11 +261,11 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'create circuit', 1001, 2, a);
+		('COMPLETED', 'create circuit', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('completed', 'sending bill', 1002, 4, a);
+		('COMPLETED', 'sending bill', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
   END LOOP;
