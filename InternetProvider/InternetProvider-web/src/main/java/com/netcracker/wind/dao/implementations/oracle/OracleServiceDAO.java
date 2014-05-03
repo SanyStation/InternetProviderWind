@@ -62,7 +62,8 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
 
     public Service findByID(int idService) {
         List<Service> services =
-                findWhere("WHERE ID = ?", new Object[]{idService});
+                findWhere("WHERE ID = ?", new Object[]{idService},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (services.isEmpty()) {
             return null;
         } else {
@@ -77,8 +78,9 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
      * @return list of found services
      */
     @Override
-    protected List<Service> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT+where, param);
+    protected List<Service> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -131,7 +133,7 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
     }
 
     public List<Service> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
 }

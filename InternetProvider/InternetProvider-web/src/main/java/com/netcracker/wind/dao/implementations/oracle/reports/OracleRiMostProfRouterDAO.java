@@ -60,7 +60,8 @@ public class OracleRiMostProfRouterDAO extends AbstractOracleDAO
     public void delete(String deleteQuery, int id) {}
     
     public List<RiMostProfRouter> findAll() {
-        return super.findWhere(QUERY, new Object[]{});
+        return super.findWhere(QUERY, new Object[]{}, DEFAULT_PAGE_NUMBER,
+                ALL_RECORDS);
     }
 
 }

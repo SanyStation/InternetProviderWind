@@ -81,7 +81,8 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
      * wasn't found
      */
     public User findByID(int id) {
-        List<User> users = findWhere("WHERE ID = ?", new Object[]{id});
+        List<User> users = findWhere("WHERE ID = ?", new Object[]{id},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (users.isEmpty()) {
             return null;
         } else {
@@ -96,8 +97,9 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
      * @return list of found users
      */
     @Override
-    protected List<User> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<User> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -158,7 +160,8 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
     public List<User> findByRole(int roleID) {
         List<User> users
-                = findWhere("WHERE ROLES_ID = ?", new Object[]{roleID});
+                = findWhere("WHERE ROLES_ID = ?", new Object[]{roleID},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (users.isEmpty()) {
             return null;
         } else {
@@ -168,10 +171,8 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
     @Override
     public User findByEmail(String email) {
-        List<User> users = findWhere(
-                "WHERE email = ?",
-                new Object[]{email}
-        );
+        List<User> users = findWhere("WHERE email = ?",new Object[]{email},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (users.isEmpty()) {
             return null;
         } else if (users.size() == 1) {
@@ -181,24 +182,20 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     }
 
     public boolean hasEmail(String email) {
-        List<User> users = findWhere(
-                "WHERE email = ?",
-                new Object[]{email}
-        );
+        List<User> users = findWhere("WHERE email = ?", new Object[]{email},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return !users.isEmpty();
     }
 
 
 
     public boolean hasLogin(String login) {
-        List<User> users = findWhere(
-                "WHERE name = ?",
-                new Object[]{login}
-        );
+        List<User> users = findWhere("WHERE name = ?", new Object[]{login},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return !users.isEmpty();
     }
 
     public List<User> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 }

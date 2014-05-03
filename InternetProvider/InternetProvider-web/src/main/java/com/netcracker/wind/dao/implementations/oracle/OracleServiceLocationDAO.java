@@ -77,7 +77,8 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO
 
     public ServiceLocation findByID(int id) {
         List<ServiceLocation> serviceLocations
-                = findWhere("WHERE ID = ?", new Object[]{id});
+                = findWhere("WHERE ID = ?", new Object[]{id},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (serviceLocations.isEmpty()) {
             return null;
         } else {
@@ -92,8 +93,9 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO
      * @return list of found service locations
      */
     @Override
-    protected List<ServiceLocation> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<ServiceLocation> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -148,7 +150,7 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO
     }
 
     public List<ServiceLocation> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
 }

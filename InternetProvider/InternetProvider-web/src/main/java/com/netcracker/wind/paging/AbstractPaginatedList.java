@@ -1,46 +1,40 @@
 package com.netcracker.wind.paging;
 
-import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
-import com.netcracker.wind.dao.factory.FactoryCreator;
-import java.util.List;
-import org.displaytag.pagination.PaginatedList;
+import javax.servlet.http.HttpServletRequest;
 import org.displaytag.properties.SortOrderEnum;
 
 /**
  *
  * @author Alexander Kovriga
  */
-public class FragmentList implements PaginatedList {
+public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
     
-    private final AbstractFactoryDAO factoryDAO
-            = FactoryCreator.getInstance().getFactory();
-    
-    private final int currentPage;
-    private final int pageSize;
+    protected int pageNumber;
+    protected int pageSize;
 
-    public FragmentList(int currentPage, int pageSize) {
-        this.currentPage = currentPage;
+    public AbstractPaginatedList(HttpServletRequest request,
+            int pageSize) {
+        String page = (String) request.getParameter(ATTRIBUTE_PAGE);
+        if (page == null) {
+            page = "1";
+        }
+        this.pageNumber = Integer.parseInt(page);
         this.pageSize = pageSize;
     }
 
     @Override
-    public List getList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int getPageNumber() {
-        return currentPage;
+        return pageNumber;
+    }
+    
+    @Override
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
     @Override
     public int getObjectsPerPage() {
         return pageSize;
-    }
-
-    @Override
-    public int getFullListSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

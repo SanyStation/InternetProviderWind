@@ -66,7 +66,8 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
      * otherwise
      */
     public Cable findByID(int idCable) {
-        List<Cable> cables = findWhere("WHERE ID = ?", new Object[]{idCable});
+        List<Cable> cables = findWhere("WHERE ID = ?", new Object[]{idCable},
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (cables.isEmpty()) {
             return null;
         } else {
@@ -74,15 +75,10 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
         }
     }
 
-    /**
-     *
-     * @param where SQL statement where for searching by different parameters
-     * @param param parameters by which search will be formed
-     * @return list of found cables
-     */
     @Override
-    protected List<Cable> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<Cable> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -132,8 +128,8 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
     }
 
     public Cable findByPort(int idPort) {
-        List<Cable> cables
-                = findWhere("WHERE PORT_ID = ?", new Object[]{idPort});
+        List<Cable> cables = findWhere("WHERE PORT_ID = ?",
+                new Object[]{idPort}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (cables.isEmpty()) {
             return null;
         } else {
@@ -142,13 +138,12 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
     }
 
     public List<Cable> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
     public Cable findByServiceLocation(int idSL) {
-        List<Cable> cables
-                = findWhere("WHERE SERVICE_LOCATION_ID = ?",
-                        new Object[]{idSL});
+        List<Cable> cables = findWhere("WHERE SERVICE_LOCATION_ID = ?",
+                        new Object[]{idSL}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (cables.isEmpty()) {
             return null;
         } else {

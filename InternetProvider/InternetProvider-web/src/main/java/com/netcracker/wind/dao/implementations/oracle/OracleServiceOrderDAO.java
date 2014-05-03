@@ -86,7 +86,8 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     @Override
     public ServiceOrder findByID(int idSo) {
         List<ServiceOrder> serviceOrders
-                = findWhere("WHERE ID = ?", new Object[]{idSo});
+                = findWhere("WHERE ID = ?", new Object[]{idSo},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (serviceOrders.isEmpty()) {
             return null;
         } else {
@@ -101,8 +102,9 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
      * @return list of found serviceOrders
      */
     @Override
-    protected List<ServiceOrder> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<ServiceOrder> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /*
@@ -144,13 +146,13 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
             ps.setTimestamp(1, serviceOrder.getEnterdate());
             ps.setTimestamp(2, serviceOrder.getProcesdate());
             ps.setTimestamp(3, serviceOrder.getCompletedate());
-            ps.setInt(4, serviceOrder.getUser().getId());
-            ps.setInt(5, serviceOrder.getService().getId());
-            ps.setInt(6, serviceOrder.getProviderLocation().getId());
-            ps.setInt(7, serviceOrder.getServiceLocation().getId());
+            ps.setInt(4, serviceOrder.getUserId());
+            ps.setInt(5, serviceOrder.getServiceId());
+            ps.setInt(6, serviceOrder.getProviderLocationId());
+            ps.setInt(7, serviceOrder.getServiceLocationId());
             ps.setString(8, serviceOrder.getStatus().toString());
             ps.setString(9, serviceOrder.getScenario().toString());
-            ps.setInt(10, serviceOrder.getServiceInstance().getId());
+            ps.setInt(10, serviceOrder.getServiceInstanceId());
             ps.setInt(11, serviceOrder.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -171,7 +173,7 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     public List<ServiceOrder> findByProvLoc(int plId) {
         List<ServiceOrder> serviceOrders
                 = findWhere("WHERE PROVIDER_LOCATION_ID = ?",
-                        new Object[]{plId});
+                        new Object[]{plId}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (serviceOrders.isEmpty()) {
             return null;
         } else {
@@ -182,7 +184,8 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     @Override
     public List<ServiceOrder> findByService(int idService) {
         List<ServiceOrder> serviceOrders
-                = findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
+                = findWhere("WHERE SERVICE_ID = ?", new Object[]{idService},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (serviceOrders.isEmpty()) {
             return null;
         } else {
@@ -192,13 +195,14 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
 
     @Override
     public List<ServiceOrder> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
     public List<ServiceOrder> findByServiceInstance(int serviceInstanceId) {
         List<ServiceOrder> serviceOrders
                 = findWhere("WHERE SERVICE_INSTANCE_ID = ?",
-                        new Object[]{serviceInstanceId});
+                        new Object[]{serviceInstanceId},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (serviceOrders.isEmpty()) {
             return null;
         } else {
@@ -208,7 +212,8 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
 
     public List<ServiceOrder> findByUser(int userId) {
         List<ServiceOrder> serviceOrders
-                = findWhere("WHERE USER_ID = ?", new Object[]{userId});
+                = findWhere("WHERE USER_ID = ?", new Object[]{userId},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return serviceOrders;
     }
 

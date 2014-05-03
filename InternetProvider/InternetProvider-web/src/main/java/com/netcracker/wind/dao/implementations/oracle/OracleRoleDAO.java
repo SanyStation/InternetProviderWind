@@ -73,7 +73,8 @@ public class OracleRoleDAO extends AbstractOracleDAO implements IRoleDAO {
      * @return Role with defined id if that role exists in database
      */
     public Role findByID(int id) {
-        List<Role> roles = findWhere("WHERE ID = ?", new Object[]{id});
+        List<Role> roles = findWhere("WHERE ID = ?", new Object[]{id},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (roles.isEmpty()) {
             return null;
         } else {
@@ -88,8 +89,9 @@ public class OracleRoleDAO extends AbstractOracleDAO implements IRoleDAO {
      * @return list of found roles
      */
     @Override
-    protected List<Role> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<Role> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -140,6 +142,6 @@ public class OracleRoleDAO extends AbstractOracleDAO implements IRoleDAO {
     }
 
     public List<Role> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 }

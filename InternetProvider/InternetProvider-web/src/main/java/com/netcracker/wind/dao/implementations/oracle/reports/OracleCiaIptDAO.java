@@ -61,7 +61,8 @@ public class OracleCiaIptDAO extends AbstractOracleDAO implements ICiaIptDAO {
     public void delete(String deleteQuery, int id) {}
 
     public List<CiaIpt> findAll() {
-        return super.findWhere(QUERY, new Object[]{});
+        return super.findWhere(QUERY, new Object[]{}, DEFAULT_PAGE_NUMBER,
+                ALL_RECORDS);
     }
 
 }

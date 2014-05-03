@@ -17,7 +17,7 @@ public interface ITaskDAO {
 
     public List<Task> findByGroup(int idGroup);
 
-    public List<Task> findByGroup(int idGroup, int from, int number);
+    public List<Task> findByGroup(int idGroup, int pageNumber, int pageSize);
 
     public List<Task> findByPerformer(int idPerformer);
 
@@ -39,5 +39,7 @@ public interface ITaskDAO {
     public List<Task> findAll();
 
     public Task occupyTaskByID(int taskId, int userId);
+    
+    public int getRows();
 
 }

@@ -19,9 +19,14 @@ public interface IServiceInstanceDAO {
 
     public List<ServiceInstance> findAll();
 
+    public List<ServiceInstance> findAll(int pageNumber, int pageSize);
+
     public ServiceInstance findByServiceOrderId(int idOrder);
-    
+
     public List<ServiceInstance> findByUser(int userId);
 
     public void update(ServiceInstance serviceInstance);
+
+    public int getRows();
+    
 }

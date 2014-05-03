@@ -68,7 +68,8 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO
 
     public ProviderLocation findByID(int idPl) {
         List<ProviderLocation> providerLocations
-                = findWhere("WHERE ID = ?", new Object[]{idPl});
+                = findWhere("WHERE ID = ?", new Object[]{idPl},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (providerLocations.isEmpty()) {
             return null;
         } else {
@@ -83,8 +84,9 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO
      * @return list of found roles
      */
     @Override
-    protected List<ProviderLocation> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<ProviderLocation> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -141,6 +143,6 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO
     }
 
     public List<ProviderLocation> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 }

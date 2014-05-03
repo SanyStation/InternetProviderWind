@@ -76,7 +76,8 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
      */
     public Circuit findByID(int idCircuit) {
         List<Circuit> circuits
-                = findWhere("WHERE ID = ?", new Object[]{idCircuit});
+                = findWhere("WHERE ID = ?", new Object[]{idCircuit},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (circuits.isEmpty()) {
             return null;
         } else {
@@ -91,8 +92,9 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
      * @return list of found circuits
      */
     @Override
-    protected List<Circuit> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<Circuit> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -157,7 +159,8 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
      */
     public Circuit findByPort(int idPort) {
         List<Circuit> circuits
-                = findWhere("WHERE PORT_ID = ?", new Object[]{idPort});
+                = findWhere("WHERE PORT_ID = ?", new Object[]{idPort},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (circuits.isEmpty()) {
             return null;
         } else {
@@ -171,9 +174,8 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
      * @return
      */
     public Circuit findByServInst(int idSi) {
-        List<Circuit> circuits
-                = findWhere("WHERE SERVICE_INSTANCE_ID = ?",
-                        new Object[]{idSi});
+        List<Circuit> circuits = findWhere("WHERE SERVICE_INSTANCE_ID = ?",
+                        new Object[]{idSi}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (circuits.size() == 1) {
             return circuits.get(0);
         } else {
@@ -182,6 +184,6 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
     }
 
     public List<Circuit> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 }

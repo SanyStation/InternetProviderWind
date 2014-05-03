@@ -18,6 +18,7 @@ public class ConfigurationManager {
     public static final String REPORT_SI_O = "REPORT_SI_O";
     public static final String REPORT_SI_P = "REPORT_SI_P";
     public static final String REPORT_CIA_IPT = "REPORT_CIA_IPT";
+    public static final String PAGE_PE_DASHBOARD = "PAGE_PE_DASHBOARD";
 
     private static final ConfigurationManager configurationManager
             = new ConfigurationManager();

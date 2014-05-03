@@ -66,7 +66,8 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
     }
 
     public Port findByID(int idPort) {
-        List<Port> ports = findWhere("WHERE ID = ?", new Object[]{idPort});
+        List<Port> ports = findWhere("WHERE ID = ?", new Object[]{idPort},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (ports.isEmpty()) {
             return null;
         } else {
@@ -132,8 +133,9 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
      * @return list of found ports
      */
     @Override
-    protected List<Port> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<Port> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -187,8 +189,8 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
     }
 
     public List<Port> findByDevice(int idDevice) {
-        List<Port> ports
-                = findWhere("WHERE DEVICE_ID = ?", new Object[]{idDevice});
+        List<Port> ports = findWhere("WHERE DEVICE_ID = ?",
+                new Object[]{idDevice}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (ports.isEmpty()) {
             return null;
         } else {
@@ -197,11 +199,12 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
     }
 
     public List<Port> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
     public List<Port> findByFree(boolean isFree) {
-        return findWhere("WHERE free = ?", new Object[]{isFree});
+        return findWhere("WHERE free = ?", new Object[]{isFree},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
     public Port occupyFreePort() {

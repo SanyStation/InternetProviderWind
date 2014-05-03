@@ -24,21 +24,22 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
             = Logger.getLogger(OracleServiceInstanceDAO.class.getName());
 
     private static final String UPDATE = "UPDATE SERVICE_INSTANCES SET "
-            + "STATUS = ? WHERE ID = ?";
+            + "USER_ID = ?, SERVICE_ORDER_ID = ?, STATUS = ?, SERVICE_ID = ? "
+            + "WHERE ID = ?";
     private static final String DELETE = "DELETE FROM SERVICE_INSTANCES WHERE "
             + "ID = ?";
     private static final String INSERT = "INSERT INTO SERVICE_INSTANCES (ID, "
             + "USER_ID, SERVICE_ORDER_ID, STATUS, SERVICE_ID) "
             + "VALUES(?, ?, ?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM SERVICE_INSTANCES ";
-    private static final String ID = "ID";
-    private static final String USER = "USER_ID";
-    private static final String SO = "SERVICE_ORDER_ID";
-    private static final String STATUS = "STATUS";
-    private static final String SERVICE = "SERVICE_ID";
+    private static final String SELECT = "SELECT si.*, COUNT(*) OVER () AS "
+            + ROWS + " FROM service_instances si";
+    private static final String ID = "id";
+    private static final String USER_ID = "user_id";
+    private static final String SERVICE_ORDER_ID = "service_order_id";
+    private static final String SERVICE_ID = "service_id";
 
     private static final String SELECT_FOR_GET_GENERATED_ID = "SELECT * FROM "
-            + "ROOT.SERVICE_INSTANCES WHERE ROWID = ?";
+            + "root.service_instances WHERE rowid = ?";
 
     public void add(ServiceInstance serviceInstance) {
         Connection connection = null;
@@ -48,10 +49,10 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
             stat = connection.prepareStatement(INSERT,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             stat.setInt(1, serviceInstance.getId());
-            stat.setInt(2, serviceInstance.getUser().getId());
-            stat.setInt(3, serviceInstance.getServiceOrder().getId());
+            stat.setInt(2, serviceInstance.getUserId());
+            stat.setInt(3, serviceInstance.getServiceOrderId());
             stat.setString(4, serviceInstance.getStatus().toString());
-            stat.setInt(5, serviceInstance.getService().getId());
+            stat.setInt(5, serviceInstance.getServiceId());
             stat.executeUpdate();
             ResultSet insertedResultSet = stat.getGeneratedKeys();
             if (insertedResultSet != null && insertedResultSet.next()) {
@@ -83,41 +84,33 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
 
     public ServiceInstance findByID(int idSI) {
         List<ServiceInstance> servInsts
-                = findWhere("WHERE ID = ?", new Object[]{idSI});
+                = findWhere("WHERE ID = ?", new Object[]{idSI},
+                        DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
         if (servInsts.isEmpty()) {
             return null;
         } else {
             return servInsts.get(0);
         }
     }
-
-    /**
-     *
-     * @param where SQL statement where for searching by different parameters
-     * @param param parameters by which search will be formed
-     * @return list of found service instances
-     */
+    
     @Override
-    protected List<ServiceInstance> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<ServiceInstance> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
-
-    /**
-     *
-     *
-     * @param rs result return from database
-     * @return list of founded service instances
-     *
-     */
+    
     protected List<ServiceInstance> parseResult(ResultSet rs) {
         List<ServiceInstance> servInsts = new ArrayList<ServiceInstance>();
         try {
             while (rs.next()) {
+                super.rows = rs.getInt(ROWS);
                 ServiceInstance servInst = new ServiceInstance();
-                int id = rs.getInt(ID);
-                servInst.setId(id);
-                servInst.setStatus(ServiceInstance.Status.valueOf(
-                        rs.getString(STATUS)));
+                servInst.setId(rs.getInt(ID));
+                servInst.setUserId(rs.getInt(USER_ID));
+//                servInst.setStatus(ServiceInstance.Status.valueOf(
+//                        rs.getString(STATUS)));
+                servInst.setServiceOrderId(rs.getInt(SERVICE_ORDER_ID));
+                servInst.setServiceId(rs.getInt(SERVICE_ID));
                 servInsts.add(servInst);
             }
         } catch (SQLException ex) {
@@ -133,8 +126,11 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setString(1, serviceInstance.getStatus().toString());
-            stat.setInt(2, serviceInstance.getId());
+            stat.setInt(1, serviceInstance.getUserId());
+            stat.setInt(2, serviceInstance.getServiceOrderId());
+            stat.setString(3, serviceInstance.getStatus().toString());
+            stat.setInt(4, serviceInstance.getServiceId());
+            stat.setInt(5, serviceInstance.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error(null, ex);
@@ -153,7 +149,8 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
 
     public List<ServiceInstance> findByService(int idService) {
         List<ServiceInstance> servInsts
-                = findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
+                = findWhere("WHERE SERVICE_ID = ?", new Object[]{idService},
+                        DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
         if (servInsts.isEmpty()) {
             return null;
         } else {
@@ -162,13 +159,19 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
     }
 
     public List<ServiceInstance> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER,
+                DEFAULT_PAGE_SIZE);
+    }
+    
+    public List<ServiceInstance> findAll(int pageNumber, int pageSize) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
 
     public ServiceInstance findByServiceOrderId(int idOrder) {
         List<ServiceInstance> servInsts
                 = findWhere("WHERE SERVICE_ORDER_ID = ?",
-                        new Object[]{idOrder});
+                        new Object[]{idOrder}, DEFAULT_PAGE_NUMBER,
+                        DEFAULT_PAGE_SIZE);
         if (servInsts.isEmpty()) {
             return null;
         } else {
@@ -178,8 +181,13 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
 
     public List<ServiceInstance> findByUser(int userId) {
         List<ServiceInstance> servInsts
-                = findWhere("WHERE USER_ID = ?", new Object[]{userId});
+                = findWhere("WHERE USER_ID = ?", new Object[]{userId},
+                        DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
         return servInsts;
+    }
+    
+    public int getRows() {
+        return super.rows;
     }
 
 }

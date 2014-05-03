@@ -1,3 +1,7 @@
+<%-- 
+    Author     : Alexander Kovriga
+--%>
+
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
@@ -13,7 +17,7 @@
     <body>
         <display:table name="sessionScope.links" export="true" sort="list" class="simple" pagesize="30">
             <display:caption media="html">
-                <strong>Customer Impact Analisys: Impact Propagation Tree</strong>
+                Customer Impact Analisys: Impact Propagation Tree
             </display:caption>
             <display:setProperty name="export.ciaipt" value="true"/>
             <display:setProperty name="export.ciaipt.label" value="XLS"/>

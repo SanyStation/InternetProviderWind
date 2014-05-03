@@ -114,7 +114,8 @@ public class OracleSiOrdersDAO extends AbstractOracleDAO
             for (int i = 1; i < param.size(); ++i) {
                 sdf.parse(param.get(i));
             }
-            orders = super.findWhere(query.toString(), param.toArray());
+            orders = super.findWhere(query.toString(), param.toArray(), 
+                    DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         } catch (ParseException ex) {
             LOGGER.error(null, ex);
         }

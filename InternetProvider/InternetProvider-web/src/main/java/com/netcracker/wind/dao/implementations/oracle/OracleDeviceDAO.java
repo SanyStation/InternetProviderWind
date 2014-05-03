@@ -84,7 +84,7 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
      */
     public Device findByID(int idDevice) {
         List<Device> devices = findWhere("WHERE ID = ?",
-                new Object[]{idDevice});
+                new Object[]{idDevice}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (devices.isEmpty()) {
             return null;
         } else {
@@ -94,7 +94,7 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
 
     public Device findByName(String DeviceName) {
         List<Device> devices = findWhere("WHERE NAME = ?",
-                new Object[]{DeviceName});
+                new Object[]{DeviceName}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (devices.isEmpty()) {
             return null;
         } else {
@@ -109,8 +109,9 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
      * @return list of found devices
      */
     @Override
-    protected List<Device> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<Device> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -135,7 +136,7 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
     }
 
     public List<Device> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
     public void update(Device device) {

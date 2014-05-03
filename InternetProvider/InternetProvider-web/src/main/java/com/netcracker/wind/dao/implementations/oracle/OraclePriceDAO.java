@@ -75,7 +75,8 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
      * @return
      */
     public Price findByID(int idPrice) {
-        List<Price> roles = findWhere("WHERE ID = ?", new Object[]{idPrice});
+        List<Price> roles = findWhere("WHERE ID = ?", new Object[]{idPrice},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (roles.isEmpty()) {
             return null;
         } else {
@@ -89,8 +90,9 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
      * @param param parameters by which search will be formed
      * @return list of found roles
      */
-    protected List<Price> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<Price> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -152,7 +154,7 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
      */
     public List<Price> findByProviderLoc(int idPLoc) {
         List<Price> prices = findWhere("WHERE PROVIDER_LOCATION_ID = ?",
-                new Object[]{idPLoc});
+                new Object[]{idPLoc}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (prices.isEmpty()) {
             return null;
         } else {
@@ -167,7 +169,8 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
      */
     public List<Price> findByService(int idService) {
         List<Price> prices =
-                findWhere("WHERE SERVICE_ID = ?", new Object[]{idService});
+                findWhere("WHERE SERVICE_ID = ?", new Object[]{idService},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (prices.isEmpty()) {
             return null;
         } else {
@@ -176,7 +179,7 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
     }
 
     public List<Price> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
 }

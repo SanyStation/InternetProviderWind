@@ -14,7 +14,8 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author Oksana & Anatolii
+ * @author Oksana
+ * @author Anatolii
  */
 public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
 
@@ -25,7 +26,9 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     private static final String DELETE = "DELETE FROM TASKS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO TASKS (USER_ID, TYPE, "
             + " STATUS, ROLE_ID, SERVICE_ORDERS_ID) VALUES(?, ?, ?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM TASKS ";
+//    private static final String SELECT = "SELECT * FROM TASKS ";
+    private static final String SELECT = "SELECT t.*, COUNT(*) OVER () AS "
+            + ROWS + " FROM tasks t ";
     private static final String SELECT_PAGING = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
             + "  FROM (SELECT * FROM tasks WHERE role_id = ? ORDER BY ID) sub "
             + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
@@ -50,11 +53,11 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, task.getUser().getId());
+            stat.setInt(1, task.getUserId());
             stat.setString(2, task.getType().toString());
             stat.setString(3, task.getStatus().toString());
-            stat.setInt(4, task.getRole().getId());
-            stat.setInt(5, task.getServiceOrder().getId());
+            stat.setInt(4, task.getRoleId());
+            stat.setInt(5, task.getServiceOrderId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error(null, ex);
@@ -75,7 +78,8 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     }
 
     public Task findByID(int id) {
-        List<Task> tasks = findWhere("WHERE ID = ?", new Object[]{id});
+        List<Task> tasks = findWhere("WHERE ID = ?", new Object[]{id},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (tasks.isEmpty()) {
             return null;
         } else {
@@ -119,8 +123,9 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
      * @return list of found tasks
      */
     @Override
-    protected List<Task> findWhere(String where, Object[] param) {
-        return super.findWhere(SELECT + where, param);
+    protected List<Task> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
     /**
@@ -135,10 +140,11 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
                 Task task = new Task();
                 task.setId(rs.getInt(ID));
                 task.setUserId(rs.getInt(USER));
-                task.setType(Task.Type.valueOf(rs.getString(TYPE)));
-                task.setStatus(Task.Status.valueOf(rs.getString(STATUS)));
+//                task.setType(Task.Type.valueOf(rs.getString(TYPE)));
+//                task.setStatus(Task.Status.valueOf(rs.getString(STATUS)));
                 task.setRoleId(rs.getInt(ROLE));
                 task.setServiceOrderId(rs.getInt(SO));
+                super.rows = rs.getInt(ROWS);
                 tasks.add(task);
             }
         } catch (SQLException ex) {
@@ -149,59 +155,64 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     }
 
     public List<Task> findAll() {
-        return findWhere("", new Object[]{});
+        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
-    public List<Task> findByGroup(int idGroup, int from, int number) {
-        Connection connection = connectionPool.getConnection();
-        PreparedStatement ps = null;
-        List<Task> tasks = null;
-        ResultSet rs = null;
-        try {
-            ps = connection.prepareStatement(SELECT_PAGING);
-            ps.setInt(1, idGroup);
-            ps.setInt(2, from + number);
-            ps.setInt(3, from);
-            rs = ps.executeQuery();
-            tasks = parseResult(rs);
-        } catch (SQLException ex) {
-            LOGGER.error(null, ex);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    LOGGER.error(null, ex);
-                }
-            }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException ex) {
-                    LOGGER.error(null, ex);
-                }
-            }
-            connectionPool.close(connection);
-        }
-        return tasks;
-
-    }
+//    public List<Task> findByGroup(int idGroup, int from, int number) {
+//        Connection connection = connectionPool.getConnection();
+//        PreparedStatement ps = null;
+//        List<Task> tasks = null;
+//        ResultSet rs = null;
+//        try {
+//            ps = connection.prepareStatement(SELECT_PAGING);
+//            ps.setInt(1, idGroup);
+//            ps.setInt(2, from + number);
+//            ps.setInt(3, from);
+//            rs = ps.executeQuery();
+//            tasks = parseResult(rs);
+//        } catch (SQLException ex) {
+//            LOGGER.error(null, ex);
+//        } finally {
+//            if (rs != null) {
+//                try {
+//                    rs.close();
+//                } catch (SQLException ex) {
+//                    LOGGER.error(null, ex);
+//                }
+//            }
+//            if (ps != null) {
+//                try {
+//                    ps.close();
+//                } catch (SQLException ex) {
+//                    LOGGER.error(null, ex);
+//                }
+//            }
+//            connectionPool.close(connection);
+//        }
+//        return tasks;
+//
+//    }
 
     public List<Task> findByGroup(int idGroup) {
+        return findByGroup(idGroup, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+    }
+    
+    public List<Task> findByGroup(int idGroup, int pageNumber, int pageSize) {
         List<Task> tasks = findWhere("WHERE ROLE_ID = ?",
-                new Object[]{idGroup});
+                new Object[]{idGroup}, pageNumber, pageSize);
         return tasks;
     }
 
     public List<Task> findByPerformer(int idPerformer) {
         List<Task> tasks = findWhere("WHERE USER_ID = ?",
-                new Object[]{idPerformer});
+                new Object[]{idPerformer}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return tasks;
     }
 
     public List<Task> findByPerformerStatus(int idPerformer, String status) {
         List<Task> tasks = findWhere("WHERE USER_ID = ? AND STATUS= ?",
-                new Object[]{idPerformer, status});
+                new Object[]{idPerformer, status}, DEFAULT_PAGE_NUMBER,
+                ALL_RECORDS);
         return tasks;
     }
 
@@ -269,7 +280,8 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         for (int i = 1; i < parameters.length; i++) {
             parameters[i] = status[i - 1];
         }
-        return findWhere(sqlWhere.toString(), new Object[]{type, status});
+        return findWhere(sqlWhere.toString(), new Object[]{type, status},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
 
     public List<Task> findByPerformer(int idPerformer, int from, int number) {
@@ -309,13 +321,18 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     
     public List<Task> findByServiceOrder(int serviceOrderId) {
         List<Task> tasks = findWhere("WHERE service_order_id = ?",
-                new Object[]{serviceOrderId});
+                new Object[]{serviceOrderId}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return tasks;
     }
 
     public List<Task> findByUser(int userId) {
-        List<Task> tasks = findWhere("WHERE USER_ID = ?", new Object[]{userId});
+        List<Task> tasks = findWhere("WHERE USER_ID = ?", new Object[]{userId},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return tasks;
+    }
+    
+    public int getRows() {
+        return super.rows;
     }
 
     public List<Task> findByPerformerStatus(int idPerformer, String status, int from, int number) {
