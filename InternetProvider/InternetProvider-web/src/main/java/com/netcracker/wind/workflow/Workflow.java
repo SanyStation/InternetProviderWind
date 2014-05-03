@@ -64,7 +64,7 @@ public class Workflow {
 
     public static void createTaskForPE(ServiceOrder order, Task.Type type,
             ITaskDAO taskDAO) {
-        Task task = TaskCreator.createTask(Role.PE_GROUPR_ID, type,
+        Task task = TaskCreator.createTask(Role.PE_GROUP_ID, type,
                 Task.Status.NEW, order);
         taskDAO.add(task);
     }

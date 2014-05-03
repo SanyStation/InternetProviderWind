@@ -43,7 +43,7 @@ public class ProvisioningEngineerTasks implements ICommand {
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
-        List<Task> tasks = taskDAO.findByGroup(Role.PE_GROUPR_ID, from, number);
+        List<Task> tasks = taskDAO.findByGroup(Role.PE_GROUP_ID, from, number);
         request.setAttribute(TASKS, tasks);
         request.setAttribute(SIZE, tasks.size());
         request.setAttribute(LAST_NUMBER, from + number);
