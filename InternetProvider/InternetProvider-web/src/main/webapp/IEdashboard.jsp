@@ -14,25 +14,10 @@
             
         </script>
         <link rel="stylesheet" href="css/menu.css" type="text/css">
+        <link rel="stylesheet" href="css/iedasb.css" type="text/css">
             <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
     </head>
-    <body>
-        <form method="POST" action="Controller">
-                <input type="hidden" name="command" value="new_device"/>
-                <input type="text" name="d_name" maxlength="25" size="20">
-                <input type="submit" value="Create Router">
-            </form>
-        
-        <form method="POST" action="Controller">
-            <input type="hidden" name="command" value="del_cable">
-        <select name="task_id" >
-            <c:forEach items="${tasks}" var="task">
-                <option value="${task.id}">${task.id}</option>
-            </c:forEach>
-                </select>
-                <input type="submit" value="Create Cable">
-        </form>
- 
+    <body> 
         <ul id="menu">
             <li><a href="#">Main</a></li>
             <li>
@@ -57,17 +42,26 @@
                 <ul>
 
                     <li>
-                        <a href="#">Cable</a>		
+                        <a href="#" onclick="IETasks('get_active_ietasks', 'NEW_CABLE', 'Create Cable', 'new_cable');">Cable</a>		
                     </li>
                     <li>
-                        <a href="#" onclick="IETasks('get_active_ietasks');">Device</a>
+                        <a href="#" onclick="IETasks('get_active_ietasks', 'NEW_DEVICE', 'Create Device', 'new_dev');">Device</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"> Delete </a>
+                <ul>
+
+                    <li>
+                        <a href="#" onclick="IETasks('get_active_ietasks', 'DELETE_CABLE', 'Delete Cable', 'del_cable');">Cable</a>		
                     </li>
                 </ul>
             </li>
         </ul>
         <div id="div1"></div>
             <script>
-                    function IETasks(command){
+                    function IETasks(command, typeT, buttonN, commandN){
                         $.ajax({
                             type: 'POST',
                             url: 'Controller',
@@ -76,7 +70,7 @@
                                 'command': command
                             },
                             success: function(data) {
-                                getForm(data["data"]);
+                                getForm(data["data"], typeT, buttonN, commandN);
                             },
                             error: function() {
                                 alert("AJAX error");
@@ -85,36 +79,47 @@
                     }
             </script>
             <script>
-                function getForm(data) {
+                function getForm(data, typeT, buttonN, commandN) {
                 $(document).ready(function() {
+                    $("#div1").empty();
                     var form = document.createElement('form');
                     form.setAttribute("method", "POST");
                     form.setAttribute("action", "Controller");
                     var input1 = document.createElement('input');
                     input1.setAttribute("type", "hidden");
                     input1.setAttribute("name", "command");
-                    input1.setAttribute("value", "new_device");
-                    var input2 = document.createElement('input');
-                    input2.setAttribute("type", "text");
-                    input2.setAttribute("name", "d_name");
-                    input2.setAttribute("maxlength", "25");
-                    input2.setAttribute("size", "20");
+                    input1.setAttribute("value", commandN);
                     var input3 = document.createElement('input');
                     input3.setAttribute("type", "submit");
-                    input3.setAttribute("value", "Create Router");
+                    input3.setAttribute("value", buttonN);
                     var sel = document.createElement('select');
-                    sel.setAttribute("name", "task_id");
-                    for (var i = 0; i !== 10; i++){
-                        var opt = 
-                                document.createElement('option');
-                        opt.attributes : as="asa";
-                        opt.textContent
-                        sel.appendChild(opt);
+                    for (var i = 1; i !== data.length; i++){
+                            if (data[i]["type"] === typeT){
+                                var opt = document.createElement('option');
+                                opt.innerHTML = data[i]["id"];
+                                sel.appendChild(opt);
+                        }
+                    }
+                    if (typeT === 'NEW_DEVICE'){
+                        var lab = document.createElement('lable');
+                        lab.innerHTML = 'Device Name:';
+                        form.appendChild(lab);
+                        form.appendChild(document.createElement('br'));
+                        var input2 = document.createElement('input');
+                        input2.setAttribute("type", "text");
+                        input2.setAttribute("name", "d_name");
+                        input2.setAttribute("maxlength", "25");
+                        input2.setAttribute("size", "20");
+                        form.appendChild(input2);
+                        form.appendChild(document.createElement('br'));
                     }
                     form.appendChild(input1);
-                    form.appendChild(input2);
-                    form.appendChild(input3);
+                    var lab = document.createElement('lable');
+                    lab.innerHTML = 'Task id:';
+                    form.appendChild(lab);
                     form.appendChild(sel);
+                    form.appendChild(document.createElement('br'));
+                    form.appendChild(input3);
                     $("#div1").append(form);
                 });
             }
