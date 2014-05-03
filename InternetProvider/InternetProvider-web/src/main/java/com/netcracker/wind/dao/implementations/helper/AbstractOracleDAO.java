@@ -26,6 +26,10 @@ public abstract class AbstractOracleDAO {
     protected static final String ROWS = "total_rows";
     protected int rows;
     
+    public int getRows() {
+        return rows;
+    }
+    
     /**
      *
      * @param query SQL statement where for searching by different parameters
@@ -39,7 +43,7 @@ public abstract class AbstractOracleDAO {
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            LOGGER.info("### Query: " + query);
+//            LOGGER.info("### Query: " + query);
             stat = con.prepareStatement(query);
             if (param != null) {
                 for (int i = 0; i < param.length; ++i) {

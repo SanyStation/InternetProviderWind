@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands;
 
 import com.netcracker.wind.commands.implementations.csedashboard.CSEGetGroupTasks;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Task;
 import java.util.List;
@@ -72,12 +68,16 @@ public class DashboardsUtilities {
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         List<Task> tasks = taskDAO.findByPerformer(userId, from, number);
-        return parseTaskJSON(tasks,taskDAO.findByPerformer(userId).size());
+        return parseTaskJSON(tasks,taskDAO.findByPerformer(userId,
+                AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                AbstractOracleDAO.ALL_RECORDS).size());
     }
     public static String getTaskUserStatus(int userId, String status) {
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
-        List<Task> tasks = taskDAO.findByPerformerStatus(userId, status);
+        List<Task> tasks = taskDAO.findByPerformerStatus(userId, status,
+                AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                AbstractOracleDAO.ALL_RECORDS);
         return parseTaskJSON(tasks,tasks.size());
     }
     
@@ -85,6 +85,8 @@ public class DashboardsUtilities {
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         List<Task> tasks = taskDAO.findByPerformerStatus(userId, status,from,number);
-        return parseTaskJSON(tasks,taskDAO.findByPerformerStatus(userId, status).size());
+        return parseTaskJSON(tasks,taskDAO.findByPerformerStatus(userId, status,
+                AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                AbstractOracleDAO.ALL_RECORDS).size());
     }
 }

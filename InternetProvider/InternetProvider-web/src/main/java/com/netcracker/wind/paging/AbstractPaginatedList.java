@@ -28,7 +28,7 @@ public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
         if (page == null) {
             page = "1";
         }
-        this.pageNumber = Integer.parseInt(page);
+        pageNumber = Integer.parseInt(page);
     }
 
     @Override

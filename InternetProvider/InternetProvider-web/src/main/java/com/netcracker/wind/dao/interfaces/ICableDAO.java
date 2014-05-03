@@ -11,15 +11,18 @@ public interface ICableDAO {
 
     public void add(Cable cable);
 
-    public void delete(int idCable);
+    public void delete(int id);
 
-    public Cable findByID(int idCable);
+    public Cable findById(int id);
 
-    public Cable findByPort(int idPort);
+    public Cable findByPort(int portId);
 
-    public List<Cable> findAll();
+    public List<Cable> findAll(int pageNumber, int pageSize);
 
-    public Cable findByServiceLocation(int idSL);
+    public Cable findByServiceLocation(int slId);
 
     public void update(Cable cable);
+    
+    public int getRows();
+    
 }

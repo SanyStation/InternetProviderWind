@@ -3,6 +3,7 @@ package com.netcracker.wind.commands.implementations.order;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
 import com.netcracker.wind.dao.interfaces.IServiceLocationDAO;
 import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
@@ -56,7 +57,9 @@ public class ProceedToOrder implements ICommand {
         IProviderLocationDAO providerLocationDAO = factoryDAO.createProviderLocationDAO();
 
         //Find nearest ProviderLocation
-        List<ProviderLocation> providerLocations = providerLocationDAO.findAll();
+        List<ProviderLocation> providerLocations = providerLocationDAO.findAll(
+                AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                AbstractOracleDAO.ALL_RECORDS);
         ProviderLocation nearestProviderLocation = OrderUtilities.findNearestProviderLocation(
                 providerLocations, actualX, actualY);
 

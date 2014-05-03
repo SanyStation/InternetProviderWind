@@ -13,9 +13,12 @@ public interface IServiceLocationDAO {
 
     public void delete(int id);
 
-    public ServiceLocation findByID(int role);
+    public ServiceLocation findById(int id);
 
     public void update(ServiceLocation serviceLocation);
 
-    public List<ServiceLocation> findAll();
+    public List<ServiceLocation> findAll(int pageNumber, int pageSize);
+    
+    public int getRows();
+    
 }

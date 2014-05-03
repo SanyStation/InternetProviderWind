@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.netcracker.wind.commands.implementations.iedashboard;
 
 import com.netcracker.wind.commands.ICommand;
@@ -16,15 +10,12 @@ import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Device;
 import com.netcracker.wind.entities.Port;
 import com.netcracker.wind.entities.ServiceLocation;
-import com.netcracker.wind.entities.Task;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Сашко
+ * @author пїЅпїЅпїЅпїЅпїЅ
  */
 public class CreateDevice implements ICommand {
     
@@ -60,7 +51,7 @@ public class CreateDevice implements ICommand {
         servLocDAO.add(servLoc);
 
         Port port = new Port();
-        port.setDevice(deviceDAO.findByID(device.getId()));
+        port.setDevice(deviceDAO.findById(device.getId()));
         
         for (int i = 0; i != PORT_N; i++){
             portDAO.add(port);

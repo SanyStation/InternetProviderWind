@@ -32,8 +32,9 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
             + "USER_ID, SERVICE_ORDER_ID, STATUS, SERVICE_ID) "
             + "VALUES(?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT si.*, COUNT(*) OVER () AS "
-            + ROWS + " FROM service_instances si";
+            + ROWS + " FROM service_instances si ";
     private static final String ID = "id";
+    private static final String STATUS = "status";
     private static final String USER_ID = "user_id";
     private static final String SERVICE_ORDER_ID = "service_order_id";
     private static final String SERVICE_ID = "service_id";
@@ -41,6 +42,7 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
     private static final String SELECT_FOR_GET_GENERATED_ID = "SELECT * FROM "
             + "root.service_instances WHERE rowid = ?";
 
+    @Override
     public void add(ServiceInstance serviceInstance) {
         Connection connection = null;
         PreparedStatement stat = null;
@@ -78,13 +80,15 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
         }
     }
 
+    @Override
     public void delete(int idSi) {
         super.delete(DELETE, idSi);
     }
 
-    public ServiceInstance findByID(int idSI) {
+    @Override
+    public ServiceInstance findById(int id) {
         List<ServiceInstance> servInsts
-                = findWhere("WHERE ID = ?", new Object[]{idSI},
+                = findWhere("WHERE ID = ?", new Object[]{id},
                         DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
         if (servInsts.isEmpty()) {
             return null;
@@ -99,6 +103,7 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
         return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
     
+    @Override
     protected List<ServiceInstance> parseResult(ResultSet rs) {
         List<ServiceInstance> servInsts = new ArrayList<ServiceInstance>();
         try {
@@ -107,8 +112,8 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
                 ServiceInstance servInst = new ServiceInstance();
                 servInst.setId(rs.getInt(ID));
                 servInst.setUserId(rs.getInt(USER_ID));
-//                servInst.setStatus(ServiceInstance.Status.valueOf(
-//                        rs.getString(STATUS)));
+                servInst.setStatus(ServiceInstance.Status.valueOf(
+                        rs.getString(STATUS)));
                 servInst.setServiceOrderId(rs.getInt(SERVICE_ORDER_ID));
                 servInst.setServiceId(rs.getInt(SERVICE_ID));
                 servInsts.add(servInst);
@@ -120,6 +125,7 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
         return servInsts;
     }
 
+    @Override
     public void update(ServiceInstance serviceInstance) {
         Connection con = null;
         PreparedStatement stat = null;
@@ -147,10 +153,12 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
 
     }
 
-    public List<ServiceInstance> findByService(int idService) {
+    @Override
+    public List<ServiceInstance> findByService(int idService, int pageNumber, 
+            int pageSize) {
         List<ServiceInstance> servInsts
                 = findWhere("WHERE SERVICE_ID = ?", new Object[]{idService},
-                        DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
+                        pageNumber, pageSize);
         if (servInsts.isEmpty()) {
             return null;
         } else {
@@ -158,16 +166,13 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
         }
     }
 
-    public List<ServiceInstance> findAll() {
-        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER,
-                DEFAULT_PAGE_SIZE);
-    }
-    
+    @Override
     public List<ServiceInstance> findAll(int pageNumber, int pageSize) {
         return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
 
-    public ServiceInstance findByServiceOrderId(int idOrder) {
+    @Override
+    public ServiceInstance findByServiceOrder(int idOrder) {
         List<ServiceInstance> servInsts
                 = findWhere("WHERE SERVICE_ORDER_ID = ?",
                         new Object[]{idOrder}, DEFAULT_PAGE_NUMBER,
@@ -179,15 +184,13 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
         }
     }
 
-    public List<ServiceInstance> findByUser(int userId) {
+    @Override
+    public List<ServiceInstance> findByUser(int userId, int pageNumber,
+            int pageSize) {
         List<ServiceInstance> servInsts
                 = findWhere("WHERE USER_ID = ?", new Object[]{userId},
-                        DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
+                        pageNumber, pageSize);
         return servInsts;
-    }
-    
-    public int getRows() {
-        return super.rows;
     }
 
 }

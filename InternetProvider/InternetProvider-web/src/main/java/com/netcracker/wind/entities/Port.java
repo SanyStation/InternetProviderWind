@@ -66,7 +66,7 @@ public class Port implements Serializable {
 
     public Device getDevice() {
         if (device == null) {
-            device = factoryDAO.createDeviceDAO().findByID(deviceId);
+            device = factoryDAO.createDeviceDAO().findById(deviceId);
         }
         return device;
     }

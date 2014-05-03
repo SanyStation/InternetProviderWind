@@ -58,7 +58,7 @@ public class Circuit implements Serializable {
     public ServiceInstance getServiceInstance() {
         if (serviceInstance == null) {
             serviceInstance = factoryDAO.createServiceInstanceDAO()
-                    .findByID(serviceInstanceId);
+                    .findById(serviceInstanceId);
         }
         return serviceInstance;
     }
@@ -69,7 +69,7 @@ public class Circuit implements Serializable {
 
     public int getPortId() {
         if (port == null) {
-            port = factoryDAO.createPortDAO().findByID(portId);
+            port = factoryDAO.createPortDAO().findById(portId);
         }
         return portId;
     }

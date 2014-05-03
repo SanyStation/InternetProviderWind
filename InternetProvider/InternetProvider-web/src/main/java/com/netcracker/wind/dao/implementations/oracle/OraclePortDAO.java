@@ -28,7 +28,8 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
     private static final String DELETE = "DELETE FROM PORTS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO PORTS (NAME, DEVICE_ID, "
             + "FREE) VALUES (?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM PORTS ";
+    private static final String SELECT = "SELECT p.*, COUNT(*) OVER () AS "
+            + ROWS + " FROM ports p ";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String DEVICE = "DEVICE_ID";
@@ -36,6 +37,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
     private static final String SEL_FREE = "SELECT ID, DEVICE_ID FROM PORTS "
             + "WHERE FREE = 1";
 
+    @Override
     public void add(Port port) {
         Connection connection = null;
         PreparedStatement stat = null;
@@ -61,11 +63,13 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         }
     }
 
+    @Override
     public void delete(int idPort) {
         super.delete(DELETE, idPort);
     }
 
-    public Port findByID(int idPort) {
+    @Override
+    public Port findById(int idPort) {
         List<Port> ports = findWhere("WHERE ID = ?", new Object[]{idPort},
                         DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (ports.isEmpty()) {
@@ -75,6 +79,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         }
     }
 
+    @Override
     public Port getFreePort() {
         Connection con = null;
         PreparedStatement statSel = null;
@@ -125,26 +130,14 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         }
         return port;
     }
-
-    /**
-     *
-     * @param where SQL statement where for searching by different parameters
-     * @param param parameters by which search will be formed
-     * @return list of found ports
-     */
+    
     @Override
     protected List<Port> findWhere(String where, Object[] param,
             int pageNumber, int pageSize) {
         return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
-    /**
-     *
-     *
-     * @param rs result return from database
-     * @return list of founded ports
-     *
-     */
+    @Override
     protected List<Port> parseResult(ResultSet rs) {
         List<Port> ports = new ArrayList<Port>();
         try {
@@ -163,6 +156,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         return ports;
     }
 
+    @Override
     public void update(Port port) {
         Connection con = null;
         PreparedStatement stat = null;
@@ -188,9 +182,10 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         }
     }
 
-    public List<Port> findByDevice(int idDevice) {
+    @Override
+    public List<Port> findByDevice(int deviceId, int pageNumber, int pageSize) {
         List<Port> ports = findWhere("WHERE DEVICE_ID = ?",
-                new Object[]{idDevice}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                new Object[]{deviceId}, pageNumber, pageSize);
         if (ports.isEmpty()) {
             return null;
         } else {
@@ -198,15 +193,18 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         }
     }
 
-    public List<Port> findAll() {
-        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+    @Override
+    public List<Port> findAll(int pageNumber, int pageSize) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
 
-    public List<Port> findByFree(boolean isFree) {
-        return findWhere("WHERE free = ?", new Object[]{isFree},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+    @Override
+    public List<Port> findByFree(boolean isFree, int pageNumber, int pageSize) {
+        return findWhere("WHERE free = ?", new Object[]{isFree}, pageNumber, 
+                pageSize);
     }
 
+    @Override
     public Port occupyFreePort() {
         Connection connection = connectionPool.getConnection();
         PreparedStatement psSelect = null;

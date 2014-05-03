@@ -2,6 +2,7 @@ package com.netcracker.wind.entities;
 
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -84,18 +85,22 @@ public class User implements Serializable {
     public List<ServiceInstance> getServiceInstancesList() {
         if (serviceInstancesList == null) {
             serviceInstancesList = factoryDAO.createServiceInstanceDAO()
-                    .findByUser(id);
+                    .findByUser(id, AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                    AbstractOracleDAO.ALL_RECORDS);
         }
         return serviceInstancesList;
     }
 
-    public void setServiceInstancesList(List<ServiceInstance> serviceInstancesList) {
+    public void setServiceInstancesList(List<ServiceInstance>
+            serviceInstancesList) {
         this.serviceInstancesList = serviceInstancesList;
     }
     
     public List<Task> getTasksList() {
         if (tasksList == null) {
-            tasksList = factoryDAO.createTaskDAO().findByUser(id);
+            tasksList = factoryDAO.createTaskDAO().findByUser(id, 
+                    AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                    AbstractOracleDAO.ALL_RECORDS);
         }
         return tasksList;
     }
@@ -114,7 +119,7 @@ public class User implements Serializable {
     
     public Role getRole() {
         if (role == null) {
-            role = factoryDAO.createRoleDAO().findByID(roleId);
+            role = factoryDAO.createRoleDAO().findById(roleId);
         }
         return role;
     }
@@ -126,7 +131,8 @@ public class User implements Serializable {
     public List<ServiceOrder> getServiceOrdersList() {
         if (serviceOrdersList == null) {
             serviceOrdersList = factoryDAO.createServiceOrderDAO()
-                    .findByUser(id);
+                    .findByUser(id, AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                    AbstractOracleDAO.ALL_RECORDS);
         }
         return serviceOrdersList;
     }

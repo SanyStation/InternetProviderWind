@@ -79,7 +79,7 @@ public class Task implements Serializable {
     
     public User getUser() {
         if (user == null) {
-            user = factoryDAO.createUserDAO().findByID(userId);
+            user = factoryDAO.createUserDAO().findById(userId);
         }
         return user;
     }
@@ -99,7 +99,7 @@ public class Task implements Serializable {
     public ServiceOrder getServiceOrder() {
         if (serviceOrder == null) {
             serviceOrder = factoryDAO.createServiceOrderDAO()
-                    .findByID(serviceOrderId);
+                    .findById(serviceOrderId);
         }
         return serviceOrder;
     }
@@ -118,7 +118,7 @@ public class Task implements Serializable {
     
     public Role getRole() {
         if (role == null) {
-            role = factoryDAO.createRoleDAO().findByID(roleId);
+            role = factoryDAO.createRoleDAO().findById(roleId);
         }
         return role;
     }

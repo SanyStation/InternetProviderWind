@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations;
 
 import com.netcracker.wind.commands.ICommand;
@@ -26,7 +21,7 @@ public class SentMail implements ICommand {
         int userID = Integer.parseInt(request.getParameter("user_id"));
         AbstractFactoryDAO factoryDAO
                 = FactoryCreator.getInstance().getFactory();
-        User user = factoryDAO.createUserDAO().findByID(userID);
+        User user = factoryDAO.createUserDAO().findById(userID);
         List<User> users = new ArrayList<User>();
         if (user != null) {
             new MailSendler().sendEmail(users, "Boreas Registration", new FormatedMail().getUserRegistrationMassage(user));

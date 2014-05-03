@@ -11,15 +11,18 @@ public interface ICircuitDAO {
 
     public void add(Circuit circuit);
 
-    public void delete(int idCircuit);
+    public void delete(int шd);
 
-    public Circuit findByID(int idCircuit);
+    public Circuit findById(int id);
 
-    public Circuit findByPort(int idPort);
+    public Circuit findByPort(int portId);
 
-    public Circuit findByServInst(int idSI);
+    public Circuit findByServInst(int siId);
 
-    public List<Circuit> findAll();
+    public List<Circuit> findAll(int pageNumber, int pageSize);
 
     public void update(Circuit circuit);
+    
+    public int getRows();
+    
 }

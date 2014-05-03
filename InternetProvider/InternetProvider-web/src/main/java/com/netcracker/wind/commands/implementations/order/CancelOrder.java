@@ -29,7 +29,7 @@ public class CancelOrder implements ICommand {
         }
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IServiceOrderDAO serviceOrderDAO = factoryDAO.createServiceOrderDAO();
-        ServiceOrder order = serviceOrderDAO.findByID(orderId);
+        ServiceOrder order = serviceOrderDAO.findById(orderId);
         if (order == null) {
             //TODO return error page
             return "";

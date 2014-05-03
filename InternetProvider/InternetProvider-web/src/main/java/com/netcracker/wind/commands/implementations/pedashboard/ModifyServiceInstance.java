@@ -48,7 +48,7 @@ public class ModifyServiceInstance implements ICommand {
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
 
-        Task task = taskDAO.findByID(taskId);
+        Task task = taskDAO.findById(taskId);
         if (!task.getType().equals(Task.Type.MODIFY_CIRCUIT)) {
             //TODO return error page
             return "";

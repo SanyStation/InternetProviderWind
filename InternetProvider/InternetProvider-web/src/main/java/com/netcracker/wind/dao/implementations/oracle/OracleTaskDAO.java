@@ -32,10 +32,10 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     private static final String SELECT_PAGING = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
             + "  FROM (SELECT * FROM tasks WHERE role_id = ? ORDER BY ID) sub "
             + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
-     private static final String SELECT_PAGING_USER= "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
+    private static final String SELECT_PAGING_USER = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
             + "  FROM (SELECT * FROM tasks WHERE user_id = ? ORDER BY ID) sub "
             + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
-      private static final String SELECT_PAGING_USER_STATUS= "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
+    private static final String SELECT_PAGING_USER_STATUS = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
             + "  FROM (SELECT * FROM tasks WHERE user_id = ? and status=? ORDER BY ID) sub "
             + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
     private static final String UPDATE = "UPDATE TASKS SET USER_ID = ?, "
@@ -47,6 +47,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     private static final String TYPE = "TYPE";
     private static final String SO = "SERVICE_ORDERS_ID";
 
+    @Override
     public void add(Task task) {
         Connection connection = null;
         PreparedStatement stat = null;
@@ -73,13 +74,15 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         }
     }
 
+    @Override
     public void delete(int idTask) {
         super.delete(DELETE, idTask);
     }
 
-    public Task findByID(int id) {
+    @Override
+    public Task findById(int id) {
         List<Task> tasks = findWhere("WHERE ID = ?", new Object[]{id},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (tasks.isEmpty()) {
             return null;
         } else {
@@ -87,11 +90,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         }
     }
 
-    /**
-     * allows to update task's user and task's status
-     *
-     * @param task
-     */
+    @Override
     public void update(Task task) {
         Connection con = null;
         PreparedStatement stat = null;
@@ -115,24 +114,14 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
             connectionPool.close(con);
         }
     }
-
-    /**
-     *
-     * @param where SQL statement where for searching by different parameters
-     * @param param parameters by which search will be formed
-     * @return list of found tasks
-     */
+    
     @Override
     protected List<Task> findWhere(String where, Object[] param,
             int pageNumber, int pageSize) {
         return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
 
-    /**
-     *
-     * @param rs result return from database
-     * @return list of founded tasks
-     */
+    @Override
     protected List<Task> parseResult(ResultSet rs) {
         List<Task> tasks = new ArrayList<Task>();
         try {
@@ -140,8 +129,6 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
                 Task task = new Task();
                 task.setId(rs.getInt(ID));
                 task.setUserId(rs.getInt(USER));
-                LOGGER.info("### TYPE " + rs.getString(TYPE));
-                LOGGER.info("### STATUS " + rs.getString(STATUS));
                 task.setType(Task.Type.valueOf(rs.getString(TYPE)));
                 task.setStatus(Task.Status.valueOf(rs.getString(STATUS)));
                 task.setRoleId(rs.getInt(ROLE));
@@ -156,68 +143,40 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         return tasks;
     }
 
-    public List<Task> findAll() {
-        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+    @Override
+    public List<Task> findAll(int pageNumber, int pageSize) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
-
-//    public List<Task> findByGroup(int idGroup, int from, int number) { 
-//        Connection connection = connectionPool.getConnection();
-//        PreparedStatement ps = null;
-//        List<Task> tasks = null;
-//        ResultSet rs = null;
-//        try {
-//            ps = connection.prepareStatement(SELECT_PAGING);
-//            ps.setInt(1, idGroup);
-//            ps.setInt(2, from + number);
-//            ps.setInt(3, from);
-//            rs = ps.executeQuery();
-//            tasks = parseResult(rs);
-//        } catch (SQLException ex) {
-//            LOGGER.error(null, ex);
-//        } finally {
-//            if (rs != null) {
-//                try {
-//                    rs.close();
-//                } catch (SQLException ex) {
-//                    LOGGER.error(null, ex);
-//                }
-//            }
-//            if (ps != null) {
-//                try {
-//                    ps.close();
-//                } catch (SQLException ex) {
-//                    LOGGER.error(null, ex);
-//                }
-//            }
-//            connectionPool.close(connection);
-//        }
-//        return tasks;
-//
-//    }
-
+    
+    @Override
     public List<Task> findByGroup(int idGroup) {
         return findByGroup(idGroup, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
     }
-    
+
+    @Override
     public List<Task> findByGroup(int idGroup, int pageNumber, int pageSize) {
         List<Task> tasks = findWhere("WHERE ROLE_ID = ?",
                 new Object[]{idGroup}, pageNumber, pageSize);
         return tasks;
     }
 
-    public List<Task> findByPerformer(int idPerformer) {
+    @Override
+    public List<Task> findByPerformer(int idPerformer, int pageNumber,
+            int pageSize) {
         List<Task> tasks = findWhere("WHERE USER_ID = ?",
                 new Object[]{idPerformer}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return tasks;
     }
 
-    public List<Task> findByPerformerStatus(int idPerformer, String status) {
+    @Override
+    public List<Task> findByPerformerStatus(int idPerformer, String status,
+            int pageNumber, int pageSize) {
         List<Task> tasks = findWhere("WHERE USER_ID = ? AND STATUS= ?",
-                new Object[]{idPerformer, status}, DEFAULT_PAGE_NUMBER,
-                ALL_RECORDS);
+                new Object[]{idPerformer, status}, pageNumber, pageSize);
         return tasks;
     }
 
+    @Override
     public Task occupyTaskByID(int taskId, int userId) {
         Connection connection = connectionPool.getConnection();
         PreparedStatement psSelect = null;
@@ -267,11 +226,13 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
             }
             connectionPool.close(connection);
         }
-        
+
         return task;
     }
 
-    public List<Task> findByTypeAndStatus(String type, String... status) {
+    @Override
+    public List<Task> findByTypeAndStatus(int pageNumber, int pageSize,
+            Task.Type type, Task.Status... status) {
         StringBuilder sqlWhere = new StringBuilder("WHERE type = ? AND (");
         for (int i = 0; i < status.length - 1; i++) {
             sqlWhere.append("status = ? OR ");
@@ -283,95 +244,22 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
             parameters[i] = status[i - 1];
         }
         return findWhere(sqlWhere.toString(), new Object[]{type, status},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                pageNumber, pageSize);
     }
 
-    public List<Task> findByPerformer(int idPerformer, int from, int number) {
-        Connection connection = connectionPool.getConnection();
-        PreparedStatement ps = null;
-        List<Task> tasks = null;
-        ResultSet rs = null;
-        try {
-            ps = connection.prepareStatement(SELECT_PAGING_USER);
-            ps.setInt(1, idPerformer);
-            ps.setInt(2, from + number);
-            ps.setInt(3, from);
-            rs = ps.executeQuery();
-            tasks = parseResult(rs);
-        } catch (SQLException ex) {
-            LOGGER.error(null, ex);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    LOGGER.error(null, ex);
-                }
-            }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException ex) {
-                    LOGGER.error(null, ex);
-                }
-            }
-            connectionPool.close(connection);
-        }
-        return tasks;
-
-    }
-    
-    public List<Task> findByServiceOrder(int serviceOrderId) {
+    @Override
+    public List<Task> findByServiceOrder(int serviceOrderId, int pageNumber,
+            int pageSize) {
         List<Task> tasks = findWhere("WHERE service_order_id = ?",
-                new Object[]{serviceOrderId}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                new Object[]{serviceOrderId}, pageNumber, pageSize);
         return tasks;
     }
 
-    public List<Task> findByUser(int userId) {
+    @Override
+    public List<Task> findByUser(int userId, int pageNumber, int pageSize) {
         List<Task> tasks = findWhere("WHERE USER_ID = ?", new Object[]{userId},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                pageNumber, pageSize);
         return tasks;
-    }
-    
-    public int getRows() {
-        return super.rows;
     }
 
-    public List<Task> findByPerformerStatus(int idPerformer, String status, int from, int number) {
-       
-    Connection connection = connectionPool.getConnection();
-        PreparedStatement ps = null;
-        List<Task> tasks = null;
-        ResultSet rs = null;
-        try {
-            ps = connection.prepareStatement(SELECT_PAGING_USER_STATUS);
-            ps.setInt(1, idPerformer);
-            ps.setString(2,status);
-            ps.setInt(3, from + number);
-            ps.setInt(4, from);
-            
-            rs = ps.executeQuery();
-            tasks = parseResult(rs);
-        } catch (SQLException ex) {
-            LOGGER.error(null, ex);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    LOGGER.error(null, ex);
-                }
-            }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException ex) {
-                    LOGGER.error(null, ex);
-                }
-            }
-            connectionPool.close(connection);
-        }
-        return tasks;
-    }
-    
 }

@@ -2,6 +2,7 @@ package com.netcracker.wind.entities;
 
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -39,7 +40,9 @@ public class Device implements Serializable {
     
     public List<Port> getPortsList() {
         if (portsList == null) {
-            portsList = factoryDAO.createPortDAO().findByDevice(id);
+            portsList = factoryDAO.createPortDAO().findByDevice(id, 
+                    AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                    AbstractOracleDAO.ALL_RECORDS);
         }
         return portsList;
     }

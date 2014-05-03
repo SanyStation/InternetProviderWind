@@ -27,11 +27,13 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
     private static final String DELETE = "DELETE FROM SERVICES WHERE ID = ?";
     private static final String INSERT = "INSERT INTO SERVICES (ID, NAME, "
             + "DESCRIPTION) VALUES (?, ?, ?)";
-    private static final String SELECT = "SELECT * FROM SERVICES ";
+    private static final String SELECT = "SELECT s.*, COUNT(*) OVER () AS "
+            + ROWS + " FROM services s ";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String DESCR = "DESCRIPTION";
 
+    @Override
     public void add(Service service) {
         Connection connection = null;
         PreparedStatement stat = null;
@@ -56,11 +58,13 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
         }
     }
 
+    @Override
     public void delete(int idService) {
         super.delete(DELETE, idService);
     }
 
-    public Service findByID(int idService) {
+    @Override
+    public Service findById(int idService) {
         List<Service> services =
                 findWhere("WHERE ID = ?", new Object[]{idService},
                         DEFAULT_PAGE_NUMBER, ALL_RECORDS);
@@ -70,26 +74,14 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
             return services.get(0);
         }
     }
-
-    /**
-     *
-     * @param where SQL statement where for searching by different parameters
-     * @param param parameters by which search will be formed
-     * @return list of found services
-     */
+    
     @Override
     protected List<Service> findWhere(String where, Object[] param,
             int pageNumber, int pageSize) {
         return super.findWhere(SELECT + where, param, pageNumber, pageSize);
     }
-
-    /**
-     *
-     *
-     * @param rs result return from database
-     * @return list of founded services
-     *
-     */
+    
+    @Override
     protected List<Service> parseResult(ResultSet rs) {
         List<Service> services = new ArrayList<Service>();
         try {
@@ -108,6 +100,7 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
         return services;
     }
 
+    @Override
     public void update(Service service) {
         Connection con = null;
         PreparedStatement stat = null;
@@ -132,8 +125,9 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
         }
     }
 
-    public List<Service> findAll() {
-        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+    @Override
+    public List<Service> findAll(int pageNumber, int pageSize) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
 
 }

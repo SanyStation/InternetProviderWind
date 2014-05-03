@@ -25,7 +25,8 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
     private static final String DELETE = "DELETE FROM CABLES WHERE ID = ?";
     private static final String INSERT = "INSERT INTO CABLES (PORT_ID, "
             + "SERVICE_LOCATION_ID) VALUES(?, ?)";
-    private static final String SELECT = "SELECT * FROM CABLES ";
+    private static final String SELECT = "SELECT c.*, COUNT(*) OVER () AS "
+            + ROWS + " FROM cables c ";
     private static final String UPDATE = "UPDATE CABLES SET PORT_ID = ?,"
             + "SERVICE_INSTANCE_ID = ? WHERE ID = ?";
     private static final String ID = "ID";
@@ -55,6 +56,7 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
         }
     }
 
+    @Override
     public void delete(int idCable) {
         super.delete(DELETE, idCable);
     }
@@ -65,7 +67,8 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
      * @return entities with idCable if it exists in database, and null -
      * otherwise
      */
-    public Cable findByID(int idCable) {
+    @Override
+    public Cable findById(int idCable) {
         List<Cable> cables = findWhere("WHERE ID = ?", new Object[]{idCable},
                 DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (cables.isEmpty()) {
@@ -86,6 +89,7 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
      * @param rs result return from database
      * @return list of founded cables
      */
+    @Override
     protected List<Cable> parseResult(ResultSet rs) {
         List<Cable> cables = new ArrayList<Cable>();
         try {
@@ -102,6 +106,7 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
         return cables;
     }
 
+    @Override
     public void update(Cable cable) {
         Connection con = null;
         PreparedStatement stat = null;
@@ -127,6 +132,7 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
         }
     }
 
+    @Override
     public Cable findByPort(int idPort) {
         List<Cable> cables = findWhere("WHERE PORT_ID = ?",
                 new Object[]{idPort}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
@@ -137,10 +143,7 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
         }
     }
 
-    public List<Cable> findAll() {
-        return findWhere("", new Object[]{}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
-    }
-
+    @Override
     public Cable findByServiceLocation(int idSL) {
         List<Cable> cables = findWhere("WHERE SERVICE_LOCATION_ID = ?",
                         new Object[]{idSL}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
@@ -150,4 +153,10 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
             return cables.get(0);
         }
     }
+
+    @Override
+    public List<Cable> findAll(int pageNumber, int pageSize) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize);
+    }
+    
 }

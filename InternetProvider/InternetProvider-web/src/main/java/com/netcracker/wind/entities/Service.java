@@ -2,6 +2,7 @@ package com.netcracker.wind.entities;
 
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import java.io.Serializable;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -63,7 +64,9 @@ public class Service implements Serializable {
     
     public List<Price> getPricesList() {
         if (pricesList == null) {
-            pricesList = factoryDAO.createPriceDAO().findByService(id);
+            pricesList = factoryDAO.createPriceDAO().findByService(id, 
+                    AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                    AbstractOracleDAO.ALL_RECORDS);
         }
         return pricesList;
     }
@@ -75,7 +78,8 @@ public class Service implements Serializable {
     public List<ServiceInstance> getServiceInstancesList() {
         if (serviceInstancesList == null) {
             serviceInstancesList = factoryDAO.createServiceInstanceDAO()
-                    .findByService(id);
+                    .findByService(id, AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                    AbstractOracleDAO.ALL_RECORDS);
         }
         return serviceInstancesList;
     }
@@ -87,7 +91,8 @@ public class Service implements Serializable {
     public List<ServiceOrder> getServiceOrdersList() {
         if (serviceOrdersList == null) {
             serviceOrdersList = factoryDAO.createServiceOrderDAO()
-                    .findByService(id);
+                    .findByService(id, AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
+                    AbstractOracleDAO.ALL_RECORDS);
         }
         return serviceOrdersList;
     }
