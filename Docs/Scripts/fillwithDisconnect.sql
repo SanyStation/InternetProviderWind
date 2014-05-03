@@ -1,12 +1,3 @@
-ALTER TABLE Circuits
-   ADD name varchar2(20);
-	
-ALTER TABLE Ports
-   ADD name varchar2(20);
-   
-ALTER TABLE Service_locations
-   ADD name varchar2(20);
-   
 DECLARE
    a number;
    x number;

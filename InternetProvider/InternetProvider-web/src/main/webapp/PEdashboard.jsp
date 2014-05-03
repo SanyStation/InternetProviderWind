@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <%
     IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("tasks");
-    System.out.println("### DEBUG expl " + expl);
     expl.setRequest(request);
 %>
 <html>
