@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface IServiceOrderDAO {
+public interface IServiceOrderDAO extends IRowsCounter {
 
     public void add(ServiceOrder serviceOrder);
 
@@ -30,7 +30,5 @@ public interface IServiceOrderDAO {
     public List<ServiceOrder> findAll(int pageNumber, int pageSize);
 
     public void update(ServiceOrder serviceOrder);
-    
-    public int getRows();
     
 }

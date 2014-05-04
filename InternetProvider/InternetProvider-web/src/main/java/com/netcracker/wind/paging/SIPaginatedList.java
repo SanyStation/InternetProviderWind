@@ -1,6 +1,5 @@
 package com.netcracker.wind.paging;
 
-import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import java.util.List;
@@ -19,10 +18,12 @@ public class SIPaginatedList extends AbstractPaginatedList {
         super(request, pageSize);
     }
 
+    @Override
     public List getList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public int getFullListSize() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

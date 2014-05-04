@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface ITaskDAO {
+public interface ITaskDAO extends IRowsCounter {
 
     public void add(Task task);
 
@@ -38,7 +38,5 @@ public interface ITaskDAO {
     public List<Task> findAll(int pageNumber, int pageSize);
 
     public Task occupyTaskByID(int taskId, int userId);
-    
-    public int getRows();
 
 }

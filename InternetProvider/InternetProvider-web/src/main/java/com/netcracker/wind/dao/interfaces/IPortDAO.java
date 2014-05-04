@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface IPortDAO {
+public interface IPortDAO extends IRowsCounter {
 
     public void add(Port port);
 
@@ -26,7 +26,5 @@ public interface IPortDAO {
     public Port occupyFreePort();
     
     public Port getFreePort();
-    
-    public int getRows();
     
 }

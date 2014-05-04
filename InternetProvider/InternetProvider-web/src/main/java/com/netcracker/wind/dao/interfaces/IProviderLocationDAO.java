@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface IProviderLocationDAO {
+public interface IProviderLocationDAO extends IRowsCounter {
 
     public void add(ProviderLocation providerLocation);
 
@@ -18,7 +18,5 @@ public interface IProviderLocationDAO {
     public List<ProviderLocation> findAll(int pageNumber, int pageSize);
 
     public void update(ProviderLocation providerLocation);
-    
-    public int getRows();
     
 }

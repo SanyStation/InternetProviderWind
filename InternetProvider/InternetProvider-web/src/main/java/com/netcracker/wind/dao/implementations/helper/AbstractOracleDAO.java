@@ -26,7 +26,7 @@ public abstract  class AbstractOracleDAO {
     protected static final String ROWS = "total_rows";
     protected int rows;
     
-    public int getRows() {
+    public int countRows() {
         return rows;
     }
     

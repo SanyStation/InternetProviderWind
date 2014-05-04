@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface IDeviceDAO {
+public interface IDeviceDAO extends IRowsCounter {
 
     public void add(Device device);
 
@@ -20,7 +20,5 @@ public interface IDeviceDAO {
     public void update(Device device);
     
     public Device findByName(String deviceName);
-    
-    public int getRows();
 
 }

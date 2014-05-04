@@ -28,7 +28,7 @@ public class TasksPaginatedList extends AbstractPaginatedList {
 
     @Override
     public int getFullListSize() {
-        return taskDAO.getRows();
+        return taskDAO.countRows();
     }
     
 }

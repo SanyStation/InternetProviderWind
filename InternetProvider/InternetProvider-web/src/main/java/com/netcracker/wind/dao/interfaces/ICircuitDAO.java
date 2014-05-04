@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface ICircuitDAO {
+public interface ICircuitDAO extends IRowsCounter {
 
     public void add(Circuit circuit);
 
@@ -22,7 +22,5 @@ public interface ICircuitDAO {
     public List<Circuit> findAll(int pageNumber, int pageSize);
 
     public void update(Circuit circuit);
-    
-    public int getRows();
     
 }

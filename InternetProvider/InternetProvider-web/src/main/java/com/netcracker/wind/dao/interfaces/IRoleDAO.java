@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface IRoleDAO {
+public interface IRoleDAO extends IRowsCounter {
 
     public void add(Role role);
 
@@ -18,7 +18,5 @@ public interface IRoleDAO {
     public List<Role> findAll(int pageNumber, int pageSize);
 
     public void update(Role role);
-    
-    public int getRows();
 
 }
