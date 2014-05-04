@@ -94,6 +94,8 @@ public class CommandHelper {
         commands.put(REGISTRATION, new Registration());
         commands.put(GET_ACTIVE_IETASKS, new GetActiveIETasks());
         commands.put(TO_PAGE, new ToPage());
+        commands.put(CSE_GET_ELEMENTS_COUNT, new CSEgetElementsCount() );
+        commands.put(CSE_GET_ELEMENTS_FROM_OFFSET, new CSEGetElementsFromOffset());
         
         commands.put(TEST, new Test());
     }

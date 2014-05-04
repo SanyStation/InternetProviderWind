@@ -5,6 +5,7 @@
  */
 package com.netcracker.wind.commands.implementations.csedashboard;
 
+import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.implementations.oracle.csedashboard.OracleCSESITableDAO;
@@ -26,7 +27,7 @@ import org.json.JSONObject;
  *
  * @author Anna
  */
-public class CSEGetElementsFromOffset {
+public class CSEGetElementsFromOffset implements ICommand{
 
     private final Logger LOGGER
             = Logger.getLogger(CSEGetElementsFromOffset.class.getName());
