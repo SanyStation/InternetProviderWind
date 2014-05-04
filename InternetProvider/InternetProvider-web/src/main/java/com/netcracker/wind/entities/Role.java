@@ -19,6 +19,7 @@ public class Role implements Serializable {
     private final AbstractFactoryDAO factoryDAO
             = FactoryCreator.getInstance().getFactory();
 
+    public static final int CU_GROUP_ID = 1;
     public static final int PE_GROUP_ID = 2;
     public static final int IE_GROUP_ID = 3;
     public static final int CSE_GROUP_ID = 4;

@@ -2,7 +2,7 @@ package com.netcracker.wind.commands.implementations.csedashboard;
 
 import com.netcracker.wind.commands.DashboardsUtilities;
 import com.netcracker.wind.commands.ICommand;
-import com.netcracker.wind.paging.CSETasksPaginatedList;
+import com.netcracker.wind.paging.CSEUsersPaginatedList;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +20,7 @@ public class CustomersList implements ICommand {
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
-        IExtendedPaginatedList paginatedList = new CSETasksPaginatedList(request, 
+        IExtendedPaginatedList paginatedList = new CSEUsersPaginatedList(request, 
                 IExtendedPaginatedList.DEFAULT_PAGE_SIZE);
         HttpSession session = request.getSession(false);
         if(session == null){
