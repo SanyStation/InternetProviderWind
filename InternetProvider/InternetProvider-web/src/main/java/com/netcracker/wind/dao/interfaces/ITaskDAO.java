@@ -18,7 +18,7 @@ public interface ITaskDAO {
     public List<Task> findByGroup(int groupId);
 
     public List<Task> findByGroup(int groupId, int pageNumber, int pageSize);
-
+    public List<Task> findByGroupStatus(int groupId,String status, int pageNumber, int pageSize);
     public List<Task> findByPerformer(int idPerformer, int pageNumber,
             int pageSize);
 

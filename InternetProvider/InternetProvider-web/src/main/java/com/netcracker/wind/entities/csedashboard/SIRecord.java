@@ -5,7 +5,16 @@
  */
 package com.netcracker.wind.entities.csedashboard;
 
+import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
+import com.netcracker.wind.dao.factory.FactoryCreator;
+import com.netcracker.wind.dao.implementations.oracle.csedashboard.OracleCSESITableDAO;
+import com.netcracker.wind.dao.interfaces.csedashboard.ICSEDashboardDAO;
 import java.io.Serializable;
+import java.util.List;
+import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -25,6 +34,8 @@ public class SIRecord extends CSEDashboardEntity implements Serializable {
 
     public SIRecord() {
     }
+    private final Logger LOGGER
+            = Logger.getLogger(CSEDashboardEntity.class.getName());
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -84,6 +95,28 @@ public class SIRecord extends CSEDashboardEntity implements Serializable {
 
     public void setSi_status(String si_status) {
         this.si_status = si_status;
+    }
+
+    @Override
+    public String parseJSON(List jsonList) {
+        List<SIRecord> instances = jsonList;
+        JSONArray instancesJSONArray = new JSONArray();
+        for (SIRecord si : instances) {
+            try {
+                JSONObject siJSON = new JSONObject();
+                siJSON.put("SI_id", si.getSi_id());
+                siJSON.put("User_id", si.getUser_id());
+                siJSON.put("User_name", si.getUser_name());
+                siJSON.put("Service_order_id", si.getSo_id());
+                siJSON.put("Service_id", si.getService_id());
+                siJSON.put("SI_status", si.getService_name());
+                siJSON.put("Service_id", si.getSi_status());
+                instancesJSONArray.put(siJSON);
+            } catch (JSONException ex) {
+                LOGGER.error(null, ex);
+            }
+        }
+        return instancesJSONArray.toString();
     }
 
 }

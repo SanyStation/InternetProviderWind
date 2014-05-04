@@ -28,15 +28,6 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
             + " STATUS, ROLE_ID, SERVICE_ORDERS_ID) VALUES(?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT t.*, COUNT(*) OVER () AS "
             + ROWS + " FROM tasks t ";
-    private static final String SELECT_PAGING = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
-            + "  FROM (SELECT * FROM tasks WHERE role_id = ? ORDER BY ID) sub "
-            + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
-    private static final String SELECT_PAGING_USER = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
-            + "  FROM (SELECT * FROM tasks WHERE user_id = ? ORDER BY ID) sub "
-            + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
-    private static final String SELECT_PAGING_USER_STATUS = "SELECT * FROM (SELECT ROWNUM rownumber, sub.*"
-            + "  FROM (SELECT * FROM tasks WHERE user_id = ? and status=? ORDER BY ID) sub "
-            + "WHERE ROWNUM <= ?) WHERE rownumber > ?";
     private static final String UPDATE = "UPDATE TASKS SET USER_ID = ?, "
             + "STATUS = ? WHERE ID = ?";
     private static final String ID = "ID";
@@ -258,6 +249,12 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     public List<Task> findByUser(int userId, int pageNumber, int pageSize) {
         List<Task> tasks = findWhere("WHERE USER_ID = ?", new Object[]{userId},
                 pageNumber, pageSize);
+        return tasks;
+    }
+
+    public List<Task> findByGroupStatus(int groupId, String status, int pageNumber, int pageSize) {
+        List<Task> tasks = findWhere("WHERE ROLE_ID = ? AND STATUS= ?",
+                new Object[]{groupId, status}, pageNumber, pageSize);
         return tasks;
     }
 

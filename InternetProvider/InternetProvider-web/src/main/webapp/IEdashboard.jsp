@@ -4,15 +4,15 @@
     Author     : Сашко & myshko
 --%>
 
+<%@ page import="com.netcracker.wind.paging.IExtendedPaginatedList"%>
 <%@page contentType="text/html" pageEncoding="windows-1251"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <!DOCTYPE html>
+
 <html>
     <head>
         <title> Dashboard IE menu</title>
-        <script>
-            
-        </script>
         <link rel="stylesheet" href="css/menu.css" type="text/css">
         <link rel="stylesheet" href="css/iedasb.css" type="text/css">
             <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
@@ -24,13 +24,13 @@
             <li>
                 <a href="#">Tasks</a>
                 <ul>
-                    <li><a href="#" onclick="IETasks('ie_get_group_tasks');">IE Group Tasks</a>
+                    <li><a href="#" onclick="">IE Group Tasks</a>
                     </li>
                     <li>
                         <a href="#">My Tasks</a>				
                         <ul>
-                            <li><a href="#" onclick="IETasks('ie_get_tasks');">All my tasks</a></li>
-                            <li><a href="#" onclick="IETasks('ie_get_completed_tasks');">Completed tasks</a></li>
+                            <li><a href="#" onclick="">All my tasks</a></li>
+                            <li><a href="#" onclick="">Completed tasks</a></li>
                             <li><a href="#">Taken tasks</a></li>
                         </ul>	
                     </li>
@@ -46,7 +46,7 @@
                         <a href="#" onclick="IETasks('get_active_ietasks', 'NEW_CABLE', 'Create Cable', 'new_cable');">Cable</a>		
                     </li>
                     <li>
-                                                <a href="#" onclick="IETasks('get_active_ietasks', 'NEW_DEVICE', 'Create Device', 'new_dev');">Device</a>
+                        <a href="#" onclick="IETasks('get_active_ietasks', 'NEW_DEVICE', 'Create Device', 'new_dev');">Device</a>
                     </li>
                 </ul>
             </li>
@@ -95,11 +95,13 @@
                     input3.setAttribute("type", "submit");
                     input3.setAttribute("value", buttonN);
                     var sel = document.createElement('select');
-                                        for (var i = 1; i !== data.length; i++){
-                            if (data[i]["type"] === typeT){
-                                var opt = document.createElement('option');
-                                opt.innerHTML = data[i]["id"];
-                                sel.appendChild(opt);
+                    if (data["type"] !== null){
+                        for (var i = 1; i !== data.length; i++){
+                                if (data[i]["type"] === typeT){
+                                    var opt = document.createElement('option');
+                                    opt.innerHTML = data[i]["id"];
+                                    sel.appendChild(opt);
+                            }
                         }
                     }
                     if (typeT === 'NEW_DEVICE'){
@@ -128,6 +130,7 @@
                 });
             }
             </script>
+            
                 
                         
         </div>

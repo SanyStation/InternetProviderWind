@@ -18,7 +18,7 @@
             <jsp:include page="cse-table-users.jsp" flush="true"/>
         </div>
         <div class="col-md-offset-3">
-            <button type="button" class="btn btn-default paddingtop"><span class="glyphicon glyphicon-remove-circle"></span> Add new customer</button>
+            <button type="button" class="btn btn-default margintop"><span class="glyphicon glyphicon-remove-circle"></span> Add new customer</button>
         </div>
     </div>
 </div>

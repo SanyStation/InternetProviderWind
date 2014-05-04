@@ -22,11 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 public class Registration implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        final String login = "login";
+        final String email = "email";
+        final String pass = "pass";
         User user = new User();
         Role userRole = new Role(5);
-        user.setName((String)request.getParameter("login"));
-        user.setEmail((String)request.getParameter("e-mail"));
-        user.setPassword((String)request.getParameter("pass"));
+        user.setName((String)request.getParameter(login));
+        user.setEmail((String)request.getParameter(email));
+        user.setPassword((String)request.getParameter(pass));
         user.setBlocked(false);
         user.setRole(userRole);
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();

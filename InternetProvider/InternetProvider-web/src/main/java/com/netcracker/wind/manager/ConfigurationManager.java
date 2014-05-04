@@ -1,6 +1,8 @@
 package com.netcracker.wind.manager;
 
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,10 +21,14 @@ public class ConfigurationManager {
     public static final String REPORT_SI_P = "REPORT_SI_P";
     public static final String REPORT_CIA_IPT = "REPORT_CIA_IPT";
     public static final String PAGE_PE_DASHBOARD = "PAGE_PE_DASHBOARD";
+    public static final String PAGE_ERROR = "PAGE_ERROR";
 
     private static final ConfigurationManager configurationManager
             = new ConfigurationManager();
     private final ResourceBundle bundle;
+
+    private static final Logger LOGGER
+            = Logger.getLogger(ConfigurationManager.class.getName());
 
     private ConfigurationManager() {
         bundle = ResourceBundle.getBundle(FILE_PROPERTIES);
@@ -33,6 +39,12 @@ public class ConfigurationManager {
     }
 
     public String getProperty(String key) {
-        return bundle.getString(key);
+        String property = null;
+        try {
+            property = bundle.getString(key);
+        } catch (MissingResourceException exception) {
+            LOGGER.error(null, exception);
+        }
+        return property;
     }
 }
