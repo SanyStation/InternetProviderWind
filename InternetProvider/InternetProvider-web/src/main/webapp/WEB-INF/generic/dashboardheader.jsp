@@ -7,12 +7,14 @@
 <div class="container">
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4>Customer Support Engineer's dashboard
-                    <button type="button" class="btn btn-default pull-right gobuttontop"><span class="glyphicon glyphicon-off"></span> Logout</button>
+            <div class="panel-heading"><h4>${param.dashboardText}
+                    <form action="logout" method="GET">
+                        <button type="submit" class="btn btn-default pull-right gobuttontop"><span class="glyphicon glyphicon-off"></span> Logout</button>
+                    </form>
                 </h4>
             </div>
             <div class="panel-body">
-                Logged in as <b>Ania Gergel</b> (ania.gergel@gmail.com)
+                Logged in as <b>${user.name}</b> (${user.email})
                 <!-- Standard button -->
                 <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span></button>
             </div><!--/panel-body-->

@@ -32,12 +32,12 @@
                 <div class="row">
 
                     <div class="col-md-3 header-item borderleft text-center">
-                        <a href="/">
+                        <a href="index.jsp">
                             <h2>Wind</h2>
                         </a>
                     </div>
                     <div class="col-md-3 header-item borderleft text-center">
-                        <a href="/profile">
+                        <a href="profile">
                             <h3><span class="glyphicon glyphicon-user pull-left">&nbsp;</span></h3>
                             <h3>Profile</h3>
                         </a>

@@ -21,7 +21,6 @@ public class PeTasksPaginatedList extends AbstractPaginatedList {
 
     @Override
     public List getList() {
-        System.out.println("tatattat");
         return taskDAO.findByGroup(Role.PE_GROUP_ID, pageNumber, pageSize);
     }
 

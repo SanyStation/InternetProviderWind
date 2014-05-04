@@ -25,7 +25,6 @@ public class CSEUsersPaginatedList extends AbstractPaginatedList {
     }
 
     public List getList() {
-        System.out.println("useruser");
         return userDAO.findByRole(Role.CU_GROUP_ID, pageNumber, pageSize);
     }
 

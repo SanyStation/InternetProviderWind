@@ -23,5 +23,4 @@ public class IEGetGroupTasks implements ICommand {
        int from = Integer.parseInt(request.getParameter("from"));
        return DashboardsUtilities.getGroupTaskJSON(Role.IE_GROUP_ID, from, number);
     }
-    
 }
