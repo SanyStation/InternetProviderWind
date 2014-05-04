@@ -12,7 +12,9 @@
 
 <div class="container">
     <div class="row">
-        <jsp:include page="cse-leftmenu.jsp" flush="true"/>
+        <jsp:include page="cse-leftmenu.jsp" flush="true">
+            <jsp:param name="active" value="add-user" />
+        </jsp:include>
 
         <div class="col-md-9 divitem">
             <form role="form">
