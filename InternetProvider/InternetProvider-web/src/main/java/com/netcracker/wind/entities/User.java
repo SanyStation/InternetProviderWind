@@ -140,6 +140,10 @@ public class User implements Serializable {
     public void setServiceOrdersList(List<ServiceOrder> serviceOrdersList) {
         this.serviceOrdersList = serviceOrdersList;
     }
+    
+    public ServiceInstance getServiceInstance(){
+        return getServiceInstancesList().get(0);
+    }
 
     @Override
     public int hashCode() {

@@ -265,7 +265,7 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('COMPLETED', 'SENDING_BILL', 1002, 4, a);
+		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
 		update service_orders set service_instance_id = a where id = a;

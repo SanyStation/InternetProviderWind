@@ -137,7 +137,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     @Override
     public List<User> findByRole(int roleId, int pageNumber, int pageSize) {
         List<User> users
-                = findWhere("WHERE ROLES_ID = ?", new Object[]{roleId},
+                = findWhere("WHERE ROLE_ID = ?", new Object[]{roleId},
                         pageNumber, pageSize);
         if (users.isEmpty()) {
             return null;

@@ -3,7 +3,7 @@ package com.netcracker.wind.commands.implementations.pedashboard;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
-import com.netcracker.wind.paging.TasksPaginatedList;
+import com.netcracker.wind.paging.PeTasksPaginatedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,7 +15,7 @@ public class Test implements ICommand {
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
-        IExtendedPaginatedList expl = new TasksPaginatedList(request, 
+        IExtendedPaginatedList expl = new PeTasksPaginatedList(request, 
                 IExtendedPaginatedList.DEFAULT_PAGE_SIZE);
         request.getSession().setAttribute("tasks", expl);
         return ConfigurationManager.getInstance().
