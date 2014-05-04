@@ -62,7 +62,7 @@
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
         <display:column property="id" title="ID" />
-        <display:column property="name" title="Name" />
+        <display:column property="name" title="Name" href="Controller?page=userpage" paramId="id" paramProperty="id"/>
         <display:column property="email" title="e-mail" />
         <display:column property="blocked" title="blocked" />
     </display:table>
