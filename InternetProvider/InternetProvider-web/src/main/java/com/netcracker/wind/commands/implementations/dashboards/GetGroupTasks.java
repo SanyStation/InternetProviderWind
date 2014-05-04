@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.wind.commands.implementations.csedashboard;
 
-import com.netcracker.wind.commands.DashboardsUtilities;
+package com.netcracker.wind.commands.implementations.dashboards;
+
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
@@ -15,24 +15,27 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *don't need any more
+ *
  * @author Oksana
  */
-public class CSEGetGroupTasks implements ICommand {
-      private static final String TASKS = "tasks";
-
-     
+public class GetGroupTasks implements ICommand{
+    private static final String TASKS = "tasks";
+    private int groupId;
+    private String pageForReturn;
+    
+    public GetGroupTasks(int groupId, String pageForReturn){
+        this.groupId=groupId;
+        this.pageForReturn=pageForReturn;
+    }
     public String execute(HttpServletRequest request, HttpServletResponse response) {
        IExtendedPaginatedList paginatedList = new TaskPaginationList(request, 
-                IExtendedPaginatedList.DEFAULT_PAGE_SIZE).setGroup(Role.CSE_GROUP_ID);
+                IExtendedPaginatedList.DEFAULT_PAGE_SIZE).setGroup(groupId);
         HttpSession session = request.getSession(false);
         if(session == null){
             return "";
         }
         session.setAttribute(TASKS, paginatedList);
-        return "/WEB-INF/cse/?";
+        return pageForReturn;
 
     }
-        
-
 }

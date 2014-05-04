@@ -4,15 +4,17 @@
     Author     : oneplayer
 --%>
 
-<jsp:include page="generic/header.jsp" flush="true">
+<jsp:include page="../generic/header.jsp" flush="true">
     <jsp:param name="titleText" value="Customer Support Engineer's dashboard"/>
 </jsp:include>
 
-<jsp:include page="generic/dashboardheader.jsp" flush="true"/>
+<jsp:include page="../generic/dashboardheader.jsp" flush="true"/>
 
 <div class="container">
     <div class="row">
-        <jsp:include page="cse-leftmenu.jsp" flush="true"/>
+        <jsp:include page="cse-leftmenu.jsp" flush="true">
+            <jsp:param name="active" value="add-user" />
+        </jsp:include>
 
         <div class="col-md-9 divitem">
             <form role="form">
@@ -60,11 +62,11 @@
                         </div>
 
                     </div>
-                    <jsp:include page="generic/gen-ordermap.jsp" flush="true"/>
+                    <jsp:include page="../generic/gen-ordermap.jsp" flush="true"/>
 
                 </div>
             </form>
         </div>
     </div>
 </div>
-<jsp:include page="generic/footer.jsp" flush="true"/>
+<jsp:include page="../generic/footer.jsp" flush="true"/>
