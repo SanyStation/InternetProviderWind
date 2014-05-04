@@ -12,7 +12,9 @@
 
 <div class="container">
     <div class="row">
-        <jsp:include page="cse-leftmenu.jsp" flush="true"/>
+        <jsp:include page="cse-leftmenu.jsp" flush="true">
+            <jsp:param name="active" value="users-list" />
+        </jsp:include>
 
         <div class="col-md-9 divitem">
             <jsp:include page="cse-table-users.jsp" flush="true"/>
@@ -22,3 +24,5 @@
         </div>
     </div>
 </div>
+        
+<jsp:include page="generic/footer.jsp" flush="true"/>
