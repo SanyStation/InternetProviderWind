@@ -6,20 +6,16 @@
 <%@ page import="com.netcracker.wind.paging.IExtendedPaginatedList"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%
-    IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("tasks");
+    IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("users");
     expl.setRequest(request);
 %>
 <h3>Customer users list</h3>
 <form role="form">
     <display:table name="sessionScope.tasks" sort="external" 
                            partialList="true" class="simple"
-                           pagesize="${sessionScope.tasks.objectsPerPage}" 
-                           size="${sessionScope.tasks.fullListSize}">
-                <display:column property="type" title="Type" />
-                <display:column property="status" title="Status" />
-                <display:column property="user.name" title="User name" />
-                <display:column property="serviceOrderId" title="Service order id" />
-                <display:column property="role.name" title="Role" />
+                           pagesize="${sessionScope.users.objectsPerPage}" 
+                           size="${sessionScope.users.fullListSize}">
+                <display:column property="name" title="Type" />
             </display:table>
     <table class="table table-striped table-hover nomargin">
         <tr>

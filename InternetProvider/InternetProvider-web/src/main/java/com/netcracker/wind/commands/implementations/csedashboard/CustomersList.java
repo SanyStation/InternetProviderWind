@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 public class CustomersList implements ICommand {
 
 //    private static final int CUSTOMER_GROUP_ID = 5;
-    private static final String TASKS = "tasks";
+    private static final String TASKS = "users";
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
