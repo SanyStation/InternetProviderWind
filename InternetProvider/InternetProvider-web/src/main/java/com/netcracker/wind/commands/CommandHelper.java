@@ -2,6 +2,7 @@ package com.netcracker.wind.commands;
 
 import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.SentMail;
+import com.netcracker.wind.commands.implementations.ToPage;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateCable;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateDevice;
@@ -59,6 +60,7 @@ public class CommandHelper {
     private static final String VALIDATION = "validation";
     private static final String REGISTRATION = "registration";
     private static final String GET_ACTIVE_IETASKS = "get_active_ietasks";
+    private static final String TO_PAGE = "to_page";
     
     private static final String TEST = "test";
 
@@ -89,7 +91,7 @@ public class CommandHelper {
         commands.put(VALIDATION, new Validation());
         commands.put(REGISTRATION, new Registration());
         commands.put(GET_ACTIVE_IETASKS, new GetActiveIETasks());
-
+        commands.put(TO_PAGE, new ToPage());
         
         commands.put(TEST, new Test());
     }
