@@ -9,6 +9,7 @@ package com.netcracker.wind.paging;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Role;
+import com.netcracker.wind.entities.Task;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,7 +26,7 @@ public class TaskPaginationList extends AbstractPaginatedList{
 
     public List getList() {
           System.out.println("useruser");
-        return taskDAO.findByGroup(groupId, pageNumber, pageSize);
+        return taskDAO.findByGroupStatus(groupId, Task.Status.NEW.toString(), pageNumber, pageSize);
     }
 
     public int getFullListSize() {
