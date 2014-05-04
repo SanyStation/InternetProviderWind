@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class CSEUsersPaginatedList extends AbstractPaginatedList {
 
-    ITaskDAO taskDAO = FactoryCreator.getInstance().getFactory().createTaskDAO();
     IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
 
     public CSEUsersPaginatedList(HttpServletRequest request, int pageSize) {
@@ -26,11 +25,12 @@ public class CSEUsersPaginatedList extends AbstractPaginatedList {
     }
 
     public List getList() {
+        System.out.println("useruser");
         return userDAO.findByRole(Role.CU_GROUP_ID, pageNumber, pageSize);
     }
 
     public int getFullListSize() {
-        return taskDAO.getRows();
+        return userDAO.getRows();
     }
 
 }

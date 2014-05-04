@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 public class CustomersList implements ICommand {
 
 //    private static final int CUSTOMER_GROUP_ID = 5;
-    private static final String TASKS = "users";
+    private static final String USERS = "users";
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
@@ -26,8 +26,7 @@ public class CustomersList implements ICommand {
         if(session == null){
             return "";
         }
-        
-        session.setAttribute(TASKS, paginatedList);
+        session.setAttribute(USERS, paginatedList);
         return "/WEB-INF/cse/cse-page-users-list.jsp";
 //         int number = Integer.parseInt(request.getParameter("size"));
 //         int from = Integer.parseInt(request.getParameter("from"));

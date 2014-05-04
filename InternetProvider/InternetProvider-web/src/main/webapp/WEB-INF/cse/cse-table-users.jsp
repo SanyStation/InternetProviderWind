@@ -11,7 +11,7 @@
 %>
 <h3>Customer users list</h3>
 <form role="form">
-    <display:table name="sessionScope.tasks" sort="external" 
+    <display:table name="sessionScope.users" sort="external" 
                            partialList="true" class="simple"
                            pagesize="${sessionScope.users.objectsPerPage}" 
                            size="${sessionScope.users.fullListSize}">
