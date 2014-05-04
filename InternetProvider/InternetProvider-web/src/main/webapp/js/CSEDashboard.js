@@ -69,7 +69,36 @@ CSEDashboard.prototype.getElementFromOffset = function(command, table, offset) {
             });
     
 };
+CSEDashboard.prototype.drawSITable = function(table) {
 
+    var size = this.elementCount[table];
+    var data = this.data[table];
+    var pages = Math.ceil(size / this.tableSize[table]);
+    var div = $("#sitable");
+    div.append("<table>");
+    div.append("<tr>");
+    div.append("<td> SI_id </td>");
+    div.append("<td> User_id </td>");
+    div.append("<td> User_name </td>");
+    div.append("<td> Service_order_id </td>");
+    div.append("<td> Service_id </td>");
+    div.append("<td> Service_name </td>");
+    div.append("<td> SI_status </td>");
+    div.append("</tr>");
+    for (var i = 0; i < pages; i++) {
+        div.append("<tr>");
+        div.append("<td>" + data[i]["SI_id"] + "</td>");
+        div.append("<td>" + data[i]["User_id "] + "</td>");
+        div.append("<td>" + data[i]["User_name"] + "</td>");
+        div.append("<td>" + data[i]["Service_order_id"] + "</td>");
+        div.append("<td>" + data[i]["Service_id"]+ "</td>");
+        div.append("<td>" + data[i]["Service_name"]+ "</td>");
+        div.append("<td>" + data[i]["SI_status"]+ "</td>");
+        div.append("</tr>");
+
+    }
+     div.append("</table>");
+};
 CSEDashboard.prototype.drawPaginationTable = function(table) {
     
     var size = this.elementCount[table];
