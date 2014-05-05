@@ -9,7 +9,7 @@
 
     <ul id="myTab" class="nav nav-pills nav-stacked">
         <li class="nav-header"></li>
-        <li class="${param.active eq 'tasks' ? ' active' : ''}"><a href="Controller?command=to_page&page=PAGE_PE_TASKS_LIST"><i class="glyphicon glyphicon-list"></i> Tasks</a></li>
+        <li class="${param.active eq 'tasks' ? ' active' : ''}"><a href="Controller?command=pe_get_tasks"><i class="glyphicon glyphicon-list"></i> Tasks</a></li>
     </ul>
     <hr>
 </div>
