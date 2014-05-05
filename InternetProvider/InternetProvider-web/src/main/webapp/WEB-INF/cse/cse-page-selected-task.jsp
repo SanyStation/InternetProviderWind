@@ -23,7 +23,7 @@
             <form action="Controller" method="POST">
                 <input type="hidden" name="command" value="send_bill"/>
                 <input type="hidden" name="task_id" value="${task.id}"/>
-                <input type="submit" value="Sent Bill"/>
+                <input type="submit" value="Send Bill"/>
             </form>
         </div>
         <div class="col-md-offset-3">

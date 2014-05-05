@@ -11,6 +11,7 @@ import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Circuit;
 import com.netcracker.wind.entities.Task;
+import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author �����
  */
 public class CreateCable implements ICommand {
-    
+
     public final String TASK_ID = "task_id";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -28,30 +29,30 @@ public class CreateCable implements ICommand {
             taskID = Integer.parseInt(request.getParameter(TASK_ID));
         } catch (NumberFormatException exception) {
             return "";
-        } 
+        }
         if (taskID == -1) {
             return "";
             //error
         }
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ICableDAO cableDAO = factoryDAO.createCableDAO();
-        IPortDAO portDAO  = factoryDAO.createPortDAO();
+        IPortDAO portDAO = factoryDAO.createPortDAO();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
         ICircuitDAO circuitDAO = factoryDAO.createCircuitDAO();
-        
+
         Cable cable = new Cable();
-        
+
         Task task = taskDAO.findById(taskID);
-        
-        Circuit circuit = circuitDAO.findByServInst(
-                serviceInstanceDAO.findByServiceOrder(task.getServiceOrderId()).getId());
+
+        Circuit circuit = task.getServiceOrder().getServiceInstance().getCircuit();
         cable.setServiceLocationId(task.getServiceOrder().getServiceLocation().getId());
         cable.setPortId(portDAO.findById(circuit.getPortId()).getId());
         cableDAO.add(cable);
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
-        return "/index.jsp";
+        Workflow.createTaskForPE(task.getServiceOrder(), Task.Type.MANAGE_CIRCUIT, taskDAO);
+        return "/WEB-INF/ie/ie-page-selected-task.jsp";
     }
-    
+
 }
