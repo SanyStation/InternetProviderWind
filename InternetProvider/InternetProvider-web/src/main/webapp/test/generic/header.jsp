@@ -12,6 +12,13 @@
         <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="../css/wind.css" rel="stylesheet" media="screen">
 
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="../js/bootstrap.min.js"></script>
+
+        <script src="../js/wind.js"></script>
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
@@ -20,7 +27,7 @@
 
     </head>
     <body>
-        <div class="navbar navbar-default navbar-static-top headercolor" role="navigation">
+        <div class="navbar navbar-default navbar-static-top headercolor boxshadow" role="navigation">
             <div class="container">
                 <div class="row">
 

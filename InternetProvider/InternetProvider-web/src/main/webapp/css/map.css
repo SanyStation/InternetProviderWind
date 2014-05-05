@@ -1,0 +1,143 @@
+#map_canvas {
+    height: 100%;
+    width: 100% ;
+}
+#map_canvas img {
+    max-width: none;
+
+}
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Calibri,sans-serif;
+}
+
+#map_canvas div {
+    -webkit-transform: translate3d(0,0,0);
+}
+#popup {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    background: rgba(255, 255, 255, 0.74);
+    border-radius: 7px;
+    padding: 10px;
+    width: 760px;
+    margin-left: -390px;
+    text-align: center;               
+    margin-top: -90px;
+    border: solid red 1px;
+    transition: 0.5s;
+}
+#popup.active {
+    border: solid white 1px;
+    margin-top: -100px;
+    top: 0%;
+}
+#side{
+    position: absolute;
+    right: 12px;
+    top: 0;
+    bottom: 0;
+    height: 220px;
+    margin: auto;
+    width: 250px;
+    background: white;
+    padding: 10px 20px;
+}
+#side > form {
+    font-size: 30px;
+}
+#side > form > label > span {
+    font-style: italic;
+}
+#side > form > label > span:after {
+    content: '$';
+    font-size: 20px;
+    color: #555;
+}
+.controls {
+    margin-top: 16px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+    background-color: #fff;
+    padding: 0 11px 0 13px;
+    width: 400px;
+    /*font-family: Roboto;*/
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+    margin-left: -1px;
+    padding-left: 14px;  /* Regular padding-left + 1. */
+    width: 401px;
+}
+
+.pac-container {
+    /*font-family: Roboto;*/
+}
+
+#type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+#side > form > input[type="submit"] {
+    font-size: 40px;
+    padding: 10px 30px;
+    display: block;
+    box-shadow: rgb(50, 122, 220) 0px 0px 10px -1px;
+    margin: 30px auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 260px;
+}
+#side > form > input[type="submit"]:hover {
+    box-shadow: rgb(50, 122, 220) 0px 0px 10px 1px;
+}
+#side > form > label {
+    display: block;
+}
+#side > form > input[disabled] {
+    box-shadow: rgb(159, 159, 159) 0px 0px 10px -1px;
+}
+#side > form > input[disabled]:hover {
+    box-shadow: rgb(159, 159, 159) 0px 0px 10px -2px;
+    opacity: 0.6;
+}
+#frame1 {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 200px;
+    margin: auto;
+    width: 400px;
+    background: white;
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 20px;
+}
