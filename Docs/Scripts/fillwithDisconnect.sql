@@ -1,3 +1,7 @@
+Alter Table service_locations ADD name VARCHAR(30);
+Alter Table service_orders ADD name VARCHAR(30);
+Alter Table cables ADD name VARCHAR(30);
+Alter Table service_instances ADD name VARCHAR(30);
 DECLARE
    a number;
    x number;
@@ -243,21 +247,21 @@ BEGIN
 		pr_date := Sysdate + (a/3)/24 + 1/24;
 		c_date := Sysdate + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 1);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -275,21 +279,21 @@ BEGIN
 		pr_date := Sysdate + 3 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 3 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 2, 1, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 2);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -307,21 +311,21 @@ BEGIN
 		pr_date := Sysdate + 8 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 8 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 3, 1, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 3);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -339,21 +343,21 @@ BEGIN
 		pr_date := Sysdate + 9 + (a)/24 + 1/24;
 		c_date := Sysdate + 9 + (a)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 3, 2, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 3);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -371,21 +375,21 @@ BEGIN
 		pr_date := Sysdate + 20 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 20 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 4, 2, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 4);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -403,21 +407,21 @@ BEGIN
 		pr_date := Sysdate + 25 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 25 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 5, 2, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 5);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -435,21 +439,21 @@ BEGIN
 		pr_date := Sysdate + 28 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 28 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 1, 3, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 1);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -467,21 +471,21 @@ BEGIN
 		pr_date := Sysdate + 30 + (a/2)/24 + 1/24;
 		c_date := Sysdate + 30 + (a/2)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 2, 3, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 2);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -499,21 +503,21 @@ BEGIN
 		pr_date := Sysdate + 32 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 32 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 3, 3, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 3);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -531,21 +535,21 @@ BEGIN
 		pr_date := Sysdate + 34 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 34 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 3, 4, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 3);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -563,21 +567,21 @@ BEGIN
 		pr_date := Sysdate + 40 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 40 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 4, 4, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 4);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -595,21 +599,21 @@ BEGIN
 		pr_date := Sysdate + 45 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 45 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 5, 4, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 5);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -627,21 +631,21 @@ BEGIN
 		pr_date := Sysdate + 48 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 48 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 1, 5, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 1);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -659,21 +663,21 @@ BEGIN
 		pr_date := Sysdate + 49 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 49 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 2, 5, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 2);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -691,21 +695,21 @@ BEGIN
 		pr_date := Sysdate + 49 + (a/3)/24 + 1/24;
 		c_date := Sysdate + 49 + (a/3)/24 + 1/24 + 1;
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
-		(e_date, pr_date, c_date, a, 5, 5, a, 'COMPLETED', 'NEW', null);
+		(e_date, pr_date, c_date, a, 1, 1, a, 'COMPLETED', 'NEW', null, concat('Service_order', a));
 		insert into service_instances
-		(user_id, service_order_id, status, service_id)
+		(user_id, service_order_id, status, service_id, name)
 		values
-		(a, a, 'ACTIVE', 5);
+		(a, a, 'ACTIVE', 1, concat('Service_instance', a));
 		insert into circuits 
 		(service_instance_id, port_id, name)
 		values 
 		(a, a, concat('Circuit', a));
 		insert into cables 
-		(service_location_id, port_id)
+		(service_location_id, port_id, name)
 		values 
-		(a, a);
+		(a, a, concat('Cable', a));
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -737,9 +741,9 @@ BEGIN
 		where service_orders.id = b;
 		
 		insert into service_orders
-		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario , service_instance_id)
+		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario , service_instance_id,  name)
 		values
-		(e_date, pr_date, c_date, b, c, d, b, 'COMPLETED', 'DISCONNECT', b);
+		(e_date, pr_date, c_date, b, c, d, b, 'COMPLETED', 'DISCONNECT', b, concat('Service_order', a));
 		
 		update service_instances
 		set status = 'DISCONNECT' where id = b;
