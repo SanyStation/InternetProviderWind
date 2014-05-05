@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Anatolii
  */
-public interface IUserDAO {
+public interface IUserDAO extends IRowsCounter {
 
     public void add(User user);
 
@@ -26,7 +26,5 @@ public interface IUserDAO {
     public boolean hasEmail(String email);
     
     public boolean hasLogin(String login);
-    
-    public int getRows();
 
 }

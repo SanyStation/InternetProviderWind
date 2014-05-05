@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface IServiceInstanceDAO {
+public interface IServiceInstanceDAO extends IRowsCounter {
 
     public void add(ServiceInstance serviceInstance);
 
@@ -26,7 +26,5 @@ public interface IServiceInstanceDAO {
             int pageSize);
 
     public void update(ServiceInstance serviceInstance);
-
-    public int getRows();
     
 }

@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface IServiceDAO {
+public interface IServiceDAO extends IRowsCounter {
 
     public void add(Service service);
 
@@ -18,7 +18,5 @@ public interface IServiceDAO {
     public List<Service> findAll(int pageNumber, int pageSize);
 
     public void update(Service role);
-    
-    public int getRows();
     
 }

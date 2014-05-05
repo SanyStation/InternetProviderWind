@@ -1,5 +1,6 @@
 package com.netcracker.wind.paging;
 
+import com.netcracker.wind.dao.interfaces.IRowsCounter;
 import javax.servlet.http.HttpServletRequest;
 import org.displaytag.properties.SortOrderEnum;
 
@@ -12,8 +13,7 @@ public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
     protected int pageNumber;
     protected int pageSize;
 
-    public AbstractPaginatedList(HttpServletRequest request,
-            int pageSize) {
+    public AbstractPaginatedList(HttpServletRequest request, int pageSize) {
         String page = (String) request.getParameter(ATTRIBUTE_PAGE);
         if (page == null) {
             page = "1";
@@ -47,12 +47,18 @@ public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
     }
 
     @Override
-    public String getSortCriterion() {return "";}
+    public String getSortCriterion() {
+        return "";
+    }
 
     @Override
-    public SortOrderEnum getSortDirection() {return SortOrderEnum.ASCENDING;}
+    public SortOrderEnum getSortDirection() {
+        return SortOrderEnum.ASCENDING;
+    }
 
     @Override
-    public String getSearchId() {return null;}
+    public String getSearchId() {
+        return null;
+    }
 
 }

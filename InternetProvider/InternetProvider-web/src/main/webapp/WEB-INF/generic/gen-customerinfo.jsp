@@ -8,7 +8,7 @@
     <table class="table table-bordered">
         <tr>
             <td colspan="2">
-                <h4>${user.name}<button type="button" class="btn btn-default pull-right gobuttontop"><span class="glyphicon glyphicon-cog"></span> Modify info</button></h2>
+                <h4>${customer.name}<button type="button" class="btn btn-default pull-right gobuttontop"><span class="glyphicon glyphicon-cog"></span> Modify info</button></h2>
             </td>
         </tr>
         <tr>
@@ -16,7 +16,7 @@
                 User's id
             </td>
             <td>
-                ${user.id}
+                ${customer.id}
             </td>
         </tr>
         <tr>
@@ -24,7 +24,7 @@
                 e-mail
             </td>
             <td>
-                ${user.email}
+                ${customer.email}
             </td>
         </tr>
     </table>

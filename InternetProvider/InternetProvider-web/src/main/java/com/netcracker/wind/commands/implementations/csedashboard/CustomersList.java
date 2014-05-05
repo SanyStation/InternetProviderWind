@@ -28,9 +28,5 @@ public class CustomersList implements ICommand {
         }
         session.setAttribute(USERS, paginatedList);
         return "/WEB-INF/cse/cse-page-users-list.jsp";
-//         int number = Integer.parseInt(request.getParameter("size"));
-//         int from = Integer.parseInt(request.getParameter("from"));
-//       return DashboardsUtilities.getUserRoleJSON(CUSTOMER_GROUP_ID, number,
-//               from);
     }
 }

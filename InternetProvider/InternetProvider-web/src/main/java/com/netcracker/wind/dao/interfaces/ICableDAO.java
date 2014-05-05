@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface ICableDAO {
+public interface ICableDAO extends IRowsCounter {
 
     public void add(Cable cable);
 
@@ -22,7 +22,5 @@ public interface ICableDAO {
     public Cable findByServiceLocation(int slId);
 
     public void update(Cable cable);
-    
-    public int getRows();
     
 }

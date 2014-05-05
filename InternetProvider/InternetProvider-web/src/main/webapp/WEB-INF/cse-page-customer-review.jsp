@@ -14,7 +14,7 @@
     <div class="row">
         <jsp:include page="cse-leftmenu.jsp" flush="true"/>      
         <div class="col-md-9 nopadding">
-            <jsp:include page="generic/gen-customerinfo.jsp" flush="true"/>
+            <jsp:include page="generic/gen-userinfo.jsp" flush="true"/>
             <div class="row divitem nomargin">
                 <jsp:include page="generic/gen-orderinfo.jsp" flush="true"/>
                 <jsp:include page="generic/gen-ordermap.jsp" flush="true"/>

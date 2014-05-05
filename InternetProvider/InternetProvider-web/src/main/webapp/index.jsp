@@ -24,6 +24,10 @@
         <form action="mail.jsp" method="POST">
             <input type="submit" value="show_sentmail"  />
         </form>
+        
+        <form action="dashboards/pedashboard/main.jsp" method="POST">
+            <input type="submit" value="Test"  />
+        </form>
 
         <h3>Reports</h3>
         <form action="report.jsp" method="POST">

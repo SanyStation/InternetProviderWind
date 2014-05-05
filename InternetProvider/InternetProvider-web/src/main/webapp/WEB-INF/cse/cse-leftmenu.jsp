@@ -16,15 +16,14 @@
             });
         </script>
         <li class="nav-header"></li>
-         <!--"../test/cse-page-users-list.jsp"--> 
+        <!--"../test/cse-page-users-list.jsp"--> 
         <li class="${param.active eq 'users-list' ? ' active' : ''}"><a href="Controller?command=customers_list" >
-               <!--data-toggle="pill"-->
-              <i class="glyphicon glyphicon-list"></i> Customer users</a></li>
-        <li class="${param.active eq 'add-user' ? ' active' : ''}"><a href="Controller?command=to_page&page=PAGE_ADD_USER"><i class="glyphicon glyphicon-plus"></i> Add user customer</a></li>
-        <li class="${param.active eq 'page-si' ? ' active' : ''}"><a href="../test/cse-page-service-instances.jsp" data-toggle="pill"><i class="glyphicon glyphicon-list"></i> Service instances</a></li>
-        <li class="${param.active eq 'reports' ? ' active' : ''}"><a href="#" data-toggle="pill"><i class="glyphicon glyphicon-list-alt"></i> Reports</a></li>
-        <li class="${param.active eq 'tasks' ? ' active' : ''}"><a href="#" data-toggle="pill"><i class="glyphicon glyphicon-briefcase"></i> Tasks<span class="badge">42</span></a></li>
+                <!--data-toggle="pill"-->
+                <i class="glyphicon glyphicon-list"></i> Customer users</a></li>
+        <li class="${param.active eq 'add-user' ? ' active' : ''}"><a href="Controller?command=to_page&page=PAGE_CSE_ADD_USER"><i class="glyphicon glyphicon-plus"></i> Add user customer</a></li>
+        <li class="${param.active eq 'page-si' ? ' active' : ''}"><a href="Controller?command=to_page&page=PAGE_CSE_SERVICE_INSTANCES"><i class="glyphicon glyphicon-list"></i> Service instances</a></li>
+        <li class="${param.active eq 'reports' ? ' active' : ''}"><a href="#"><i class="glyphicon glyphicon-list-alt"></i> Reports</a></li>
+        <li class="${param.active eq 'tasks' ? ' active' : ''}"><a href="Controller?command=cse_get_tasks"><i class="glyphicon glyphicon-briefcase"></i> Tasks<span class="badge">42</span></a></li>
     </ul>
-
     <hr>
 </div>

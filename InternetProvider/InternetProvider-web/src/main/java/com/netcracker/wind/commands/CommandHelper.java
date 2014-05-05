@@ -5,6 +5,7 @@ import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.ToPage;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
+import com.netcracker.wind.commands.implementations.dashboards.GetOwnTasks;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateCable;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateDevice;
 import com.netcracker.wind.commands.implementations.iedashboard.DeleteCable;
@@ -61,7 +62,10 @@ public class CommandHelper {
     private static final String VALIDATION = "validation";
     private static final String REGISTRATION = "registration";
     private static final String TO_PAGE = "to_page";
-    
+    private static final String CSE_GROUP_TASKS = "cse_group_tasks";
+    private static final String CSE_CUSTOMER_REVIEW = "customer_review";
+
+    private static final String CSE_SERVICES = "cse_get_services";
     private static final String TEST = "test";
 
     private final Map<String, ICommand> commands;
@@ -77,7 +81,7 @@ public class CommandHelper {
         commands.put(SI_PROF_BY_MONTH, new SiProfitReportGenerator());
         commands.put(CIA_IPT, new CiaIptReportGenerator());
         commands.put(SENT_MAIL, new SentMail());
-        commands.put(CSE_GROUP_TASK,new GetGroupTasks(Role.CSE_GROUP_ID,"/WEB-INF/cse/?"));
+        commands.put(CSE_GROUP_TASK, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());
         commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID,"/WEB-INF/pe/?"));
@@ -85,6 +89,10 @@ public class CommandHelper {
         commands.put(CSE_GET_TASKS, new CSEgetOwnTasks());
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
+        commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/?"));
+        commands.put(CSE_GET_TASKS, new GetOwnTasks("/WEB-INF/cse/cse-page-tasks-list.jsp"));
+        //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
+        // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
         commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
         commands.put(NEW_DEVICE, new CreateDevice());
         commands.put(NEW_CABLE, new CreateCable());
@@ -92,7 +100,11 @@ public class CommandHelper {
         commands.put(VALIDATION, new Validation());
         commands.put(REGISTRATION, new Registration());
         commands.put(TO_PAGE, new ToPage());
-        
+        commands.put(CSE_GET_ELEMENTS_COUNT, new CSEgetElementsCount());
+        commands.put(CSE_GET_ELEMENTS_FROM_OFFSET, new CSEGetElementsFromOffset());
+        commands.put(CSE_GROUP_TASKS, new CSEGetGroupTasks());
+        commands.put(CSE_CUSTOMER_REVIEW, new CustomerReview());
+
         commands.put(TEST, new Test());
     }
 

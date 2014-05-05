@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Oksana
  */
-public interface IServiceLocationDAO {
+public interface IServiceLocationDAO extends IRowsCounter {
 
     public void add(ServiceLocation serviceLocation);
 
@@ -18,7 +18,5 @@ public interface IServiceLocationDAO {
     public void update(ServiceLocation serviceLocation);
 
     public List<ServiceLocation> findAll(int pageNumber, int pageSize);
-    
-    public int getRows();
     
 }

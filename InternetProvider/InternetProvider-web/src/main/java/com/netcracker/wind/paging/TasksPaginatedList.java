@@ -2,7 +2,6 @@ package com.netcracker.wind.paging;
 
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
-import com.netcracker.wind.entities.Role;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,23 +9,26 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author Alexander Kovriga
  */
-public class PeTasksPaginatedList extends AbstractPaginatedList {
+public class TasksPaginatedList extends AbstractPaginatedList {
     
     private final ITaskDAO taskDAO
             = FactoryCreator.getInstance().getFactory().createTaskDAO();
+    private final int roleId;
 
-    public PeTasksPaginatedList(HttpServletRequest request, int pageSize) {
+    public TasksPaginatedList(HttpServletRequest request, int roleId, 
+            int pageSize) {
         super(request, pageSize);
+        this.roleId = roleId;
     }
 
     @Override
     public List getList() {
-        return taskDAO.findByGroup(Role.PE_GROUP_ID, pageNumber, pageSize);
+        return taskDAO.findByGroup(roleId, pageNumber, pageSize);
     }
 
     @Override
     public int getFullListSize() {
-        return taskDAO.getRows();
+        return taskDAO.countRows();
     }
     
 }

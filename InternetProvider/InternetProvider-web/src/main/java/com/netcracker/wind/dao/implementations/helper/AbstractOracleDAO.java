@@ -26,7 +26,7 @@ public abstract  class AbstractOracleDAO {
     protected static final String ROWS = "total_rows";
     protected int rows;
     
-    public int getRows() {
+    public int countRows() {
         return rows;
     }
     
@@ -86,12 +86,12 @@ public abstract  class AbstractOracleDAO {
     protected List findWhere(String query, Object[] param, int pageNumber,
             int pageSize) {
         if (pageNumber < 1) {
-            throw new IllegalArgumentException("Number of page must be "
-                    + "great than 0: " + pageNumber);
+            throw new IllegalArgumentException("Page number must be greater "
+                    + "than 0: " + pageNumber);
         }
         if (pageSize < 0) {
-            throw new IllegalArgumentException("Size of page must be "
-                    + "great or equal 0: " + pageSize);
+            throw new IllegalArgumentException("Page size must be greater or "
+                    + "equal 0: " + pageSize);
         }
         List p = new ArrayList();
         for (int i = 0; i < param.length; ++i) {

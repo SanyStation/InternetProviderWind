@@ -25,6 +25,4 @@ public interface IPriceDAO {
 
     public void update(Price price);
     
-    public int getRows();
-    
 }
