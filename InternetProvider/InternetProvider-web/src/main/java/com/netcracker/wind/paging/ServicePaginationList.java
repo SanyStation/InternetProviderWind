@@ -6,7 +6,7 @@
 package com.netcracker.wind.paging;
 
 import com.netcracker.wind.dao.factory.FactoryCreator;
-import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
+import com.netcracker.wind.dao.interfaces.IServiceDAO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,21 +14,21 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author Anna
  */
-public class ProviderLocationPaginationList extends AbstractPaginatedList {
+public class ServicePaginationList extends AbstractPaginatedList {
 
-    private final IProviderLocationDAO providerLocationDAO = FactoryCreator.getInstance().getFactory()
-            .createProviderLocationDAO();
+    private final IServiceDAO serviceDAO = FactoryCreator.getInstance().getFactory()
+            .createServiceDAO();
 
-    public ProviderLocationPaginationList(HttpServletRequest request, int pageSize) {
+    public ServicePaginationList(HttpServletRequest request, int pageSize) {
         super(request, pageSize);
     }
 
     public List getList() {
-      return  providerLocationDAO.findAll(pageNumber, pageSize);
+        return serviceDAO.findAll(pageNumber, pageSize);
     }
 
     public int getFullListSize() {
-         return  providerLocationDAO.countRows();
+        return serviceDAO.countRows();
     }
 
 }

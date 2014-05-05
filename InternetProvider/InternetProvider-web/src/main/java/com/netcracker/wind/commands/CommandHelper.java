@@ -65,7 +65,7 @@ public class CommandHelper {
     private static final String GET_ACTIVE_IETASKS = "get_active_ietasks";
     private static final String TO_PAGE = "to_page";
     private static final String CSE_GROUP_TASKS = "cse_group_tasks";
-
+    private static final String CSE_SERVICES ="cse_get_services";
     private static final String TEST = "test";
 
     private final Map<String, ICommand> commands;
@@ -99,6 +99,7 @@ public class CommandHelper {
         commands.put(CSE_GET_ELEMENTS_COUNT, new CSEgetElementsCount());
         commands.put(CSE_GET_ELEMENTS_FROM_OFFSET, new CSEGetElementsFromOffset());
         commands.put(CSE_GROUP_TASKS, new CSEGetGroupTasks());
+        commands.put(CSE_SERVICES, new CSEgetService());
 
         commands.put(TEST, new Test());
     }
