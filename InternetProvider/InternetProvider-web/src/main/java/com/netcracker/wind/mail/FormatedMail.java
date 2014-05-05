@@ -1,6 +1,7 @@
 package com.netcracker.wind.mail;
 
 import com.netcracker.wind.entities.Service;
+import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
@@ -105,6 +106,11 @@ public class FormatedMail {
         stringBuffer.append(DEAR).append(user.getName()).append(OK).append(ORDER)
                 .append(order.getId()).append(RECEIVED).append(SERVICE)
                 .append(service.getName()).append(WILLDISCONNECT).append(END_OF_MASSAGE);
+        return stringBuffer.toString();
+    }
+       public String getSentBillMassage(ServiceInstance serviceInstance,Service service, User user) {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("Sent Bill Massage");
         return stringBuffer.toString();
     }
 }
