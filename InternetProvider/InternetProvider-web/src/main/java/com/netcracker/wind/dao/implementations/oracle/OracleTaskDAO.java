@@ -44,7 +44,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, task.getUserId());
+            stat.setObject(1, task.getUserId() == 0 ? null : task.getUserId());
             stat.setString(2, task.getType().toString());
             stat.setString(3, task.getStatus().toString());
             stat.setInt(4, task.getRoleId());
