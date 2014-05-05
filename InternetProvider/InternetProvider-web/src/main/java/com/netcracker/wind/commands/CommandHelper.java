@@ -62,6 +62,7 @@ public class CommandHelper {
     private static final String CSE_GET_ELEMENTS_FROM_OFFSET
             = "cse_get_elements_from_offset";
     private static final String CSE_GET_TASKS = "cse_get_tasks";
+    private static final String IE_GET_TASKS = "ie_get_tasks";
     private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
     private static final String CSE_GET_UNCOMPLETED_TASKS = "cse_get_uncompleted_tasks";
     private static final String PROVIDER_LOCATION_LIST = "provider_location_list";
@@ -108,6 +109,7 @@ public class CommandHelper {
         commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
         commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/?"));
         commands.put(CSE_GET_TASKS, new GetOwnTasks("/WEB-INF/cse/cse-page-tasks-list.jsp"));
+        commands.put(IE_GET_TASKS, new GetGroupTasks(Role.IE_GROUP_ID,"/WEB-INF/ie/ie-page-tasks-list.jsp"));
         //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
         commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
