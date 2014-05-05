@@ -64,7 +64,7 @@
             value="table table-striped table-hover nomargin"/>
         <display:column property="id" title="ID" />
         <display:column property="type" title="Type"/>
-        <display:column property="status" title="Status" />
+        <display:column property="status" title="Status"  href="Controller?command=process_task" paramId="task_id" paramProperty="id"/>
        
     </display:table>
     
