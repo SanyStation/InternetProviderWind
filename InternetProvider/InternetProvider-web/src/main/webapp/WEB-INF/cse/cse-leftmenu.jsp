@@ -9,12 +9,12 @@
 
     <ul id="myTab" class="nav nav-pills nav-stacked">
         <script src="js/bootstrap-tab.js"></script>
-        <script type="text/javascript">
+<!--        <script type="text/javascript">
             $('#myTab a').click(function(e) {
                 e.preventDefault();
                 $(this).tab('show');
             });
-        </script>
+        </script>-->
         <li class="nav-header"></li>
         <!--"../test/cse-page-users-list.jsp"--> 
         <li class="${param.active eq 'users-list' ? ' active' : ''}"><a href="Controller?command=customers_list" >
