@@ -1,14 +1,14 @@
 <%-- 
-    Document   : customerinfo
-    Created on : 29.04.2014, 18:53:54
-    Author     : oneplayer
+    Document   : userinfo
+    Created on : 05.05.2014, 07:36:41
+    Author     : Anatolii
 --%>
 
 <div>
     <table class="table table-bordered">
         <tr>
             <td colspan="2">
-                <h4>${customer.name}<button type="button" class="btn btn-default pull-right gobuttontop"><span class="glyphicon glyphicon-cog"></span> Modify info</button></h2>
+                <h4>${user.name}<button type="button" class="btn btn-default pull-right gobuttontop"><span class="glyphicon glyphicon-cog"></span> Modify info</button></h2>
             </td>
         </tr>
         <tr>
@@ -16,7 +16,7 @@
                 User's id
             </td>
             <td>
-                ${customer.id}
+                ${user.id}
             </td>
         </tr>
         <tr>
@@ -24,7 +24,7 @@
                 e-mail
             </td>
             <td>
-                ${customer.email}
+                ${user.email}
             </td>
         </tr>
     </table>
