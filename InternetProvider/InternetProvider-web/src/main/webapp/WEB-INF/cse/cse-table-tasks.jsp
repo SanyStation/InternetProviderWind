@@ -12,7 +12,7 @@
 %>
 <h3>Customer users list</h3>
 <form role="form">
-    <display:table name="sessionScope.users" sort="external"  requestURI="Controller"
+    <display:table name="sessionScope.tasks" sort="external"  requestURI="Controller"
                    partialList="true" class="simple"
                    pagesize="${sessionScope.tasks.objectsPerPage}" 
                    size="${sessionScope.tasks.fullListSize}">

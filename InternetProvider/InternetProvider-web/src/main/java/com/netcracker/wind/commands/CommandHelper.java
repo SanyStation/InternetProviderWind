@@ -64,7 +64,8 @@ public class CommandHelper {
     private static final String REGISTRATION = "registration";
     private static final String GET_ACTIVE_IETASKS = "get_active_ietasks";
     private static final String TO_PAGE = "to_page";
-    
+    private static final String CSE_GROUP_TASKS = "cse_group_tasks";
+
     private static final String TEST = "test";
 
     private final Map<String, ICommand> commands;
@@ -80,13 +81,13 @@ public class CommandHelper {
         commands.put(SI_PROF_BY_MONTH, new SiProfitReportGenerator());
         commands.put(CIA_IPT, new CiaIptReportGenerator());
         commands.put(SENT_MAIL, new SentMail());
-        commands.put(CSE_GROUP_TASK,new GetGroupTasks(Role.CSE_GROUP_ID,"/WEB-INF/cse/cse-page-tasks-list.jsp"));
+        commands.put(CSE_GROUP_TASK, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());
-        commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID,"/WEB-INF/pe/?"));
+        commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/?"));
         commands.put(CSE_GET_TASKS, new GetOwnTasks("/WEB-INF/cse/cse-page-tasks-list.jsp"));
       //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
-       // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
+        // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
         commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
         commands.put(NEW_DEVICE, new CreateDevice());
         commands.put(NEW_CABLE, new CreateCable());
@@ -95,9 +96,10 @@ public class CommandHelper {
         commands.put(REGISTRATION, new Registration());
         commands.put(GET_ACTIVE_IETASKS, new GetActiveIETasks());
         commands.put(TO_PAGE, new ToPage());
-        commands.put(CSE_GET_ELEMENTS_COUNT, new CSEgetElementsCount() );
+        commands.put(CSE_GET_ELEMENTS_COUNT, new CSEgetElementsCount());
         commands.put(CSE_GET_ELEMENTS_FROM_OFFSET, new CSEGetElementsFromOffset());
-        
+        commands.put(CSE_GROUP_TASKS, new CSEGetGroupTasks());
+
         commands.put(TEST, new Test());
     }
 

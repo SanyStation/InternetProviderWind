@@ -21,7 +21,6 @@ public class OwnTasksPaginatedList extends AbstractPaginatedList {
 
     @Override
     public List getList() {
-        System.out.println("useruser");
         return taskDAO.findByPerformer(performerID, pageNumber, pageSize);
     }
 
