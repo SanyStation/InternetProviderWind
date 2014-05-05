@@ -154,7 +154,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     public List<Task> findByPerformer(int idPerformer, int pageNumber,
             int pageSize) {
         List<Task> tasks = findWhere("WHERE USER_ID = ?",
-                new Object[]{idPerformer}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                new Object[]{idPerformer}, pageNumber, pageSize);
         return tasks;
     }
 
