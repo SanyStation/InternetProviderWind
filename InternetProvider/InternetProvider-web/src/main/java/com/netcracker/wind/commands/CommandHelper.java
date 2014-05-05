@@ -85,8 +85,8 @@ public class CommandHelper {
         commands.put(CUSTOMERS_LIST, new CustomersList());
         commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID,"/WEB-INF/pe/?"));
         commands.put(CSE_GET_TASKS, new GetOwnTasks("/WEB-INF/cse/cse-page-tasks-list.jsp"));
-        commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
-        commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
+      //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
+       // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
         commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
         commands.put(NEW_DEVICE, new CreateDevice());
         commands.put(NEW_CABLE, new CreateCable());
