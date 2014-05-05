@@ -93,3 +93,7 @@ footer {
 iframe {
     border:0px;
 }
+
+body {
+    padding-bottom: 70px;
+}
