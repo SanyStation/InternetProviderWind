@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 5e7efc1c4c7f50bf812d18d784fca69482ce8937
 package com.netcracker.wind.commands.implementations.admindashboard;
 
 import com.netcracker.wind.commands.ICommand;

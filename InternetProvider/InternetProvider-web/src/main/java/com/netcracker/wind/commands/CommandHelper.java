@@ -6,6 +6,7 @@ import com.netcracker.wind.commands.implementations.ToPage;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
 import com.netcracker.wind.commands.implementations.dashboards.GetOwnTasks;
+import com.netcracker.wind.commands.implementations.dashboards.GetTasksByPerformerStatus;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateCable;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateDevice;
 import com.netcracker.wind.commands.implementations.iedashboard.DeleteCable;
@@ -21,6 +22,7 @@ import com.netcracker.wind.commands.implementations.reports.SiDiscOrdersReportGe
 import com.netcracker.wind.commands.implementations.reports.SiNewOrdersReportGenerator;
 import com.netcracker.wind.commands.implementations.reports.SiProfitReportGenerator;
 import com.netcracker.wind.entities.Role;
+import com.netcracker.wind.entities.Task;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +50,9 @@ public class CommandHelper {
     private static final String CUSTOMERS_LIST = "customers_list";
     private static final String PE_TASKS = "pe_tasks";
     private static final String IE_TASKS = "ie_tasks";
+    private static final String IE_USER_ACTIVE_TASKS = "ie_user_active_tasks";
+    private static final String IE_USER_COMPLETED_TASKS 
+            = "ie_user_completed_tasks";
     private static final String CSE_GET_ELEMENTS_COUNT
             = "cse_get_elements_count";
     private static final String CSE_GET_ELEMENTS_FROM_OFFSET
@@ -84,14 +89,15 @@ public class CommandHelper {
         commands.put(CSE_GROUP_TASK, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());
-<<<<<<< HEAD
         commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID,"/WEB-INF/pe/?"));
         commands.put(IE_TASKS, new GetGroupTasks(Role.IE_GROUP_ID,"/WEB-INF/ie/?"));
+        commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(
+                Task.Status.ACTIVE.toString(),"/WEB-INF/ie/?"));
+        commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(
+                Task.Status.COMPLETED.toString(),"/WEB-INF/ie/?"));
         commands.put(CSE_GET_TASKS, new CSEgetOwnTasks());
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
-=======
->>>>>>> 5e7efc1c4c7f50bf812d18d784fca69482ce8937
         commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/?"));
         commands.put(CSE_GET_TASKS, new GetOwnTasks("/WEB-INF/cse/cse-page-tasks-list.jsp"));
         //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
