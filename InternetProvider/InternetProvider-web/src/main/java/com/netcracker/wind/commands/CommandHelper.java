@@ -110,9 +110,9 @@ public class CommandHelper {
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
         commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/?"));
-        commands.put(CSE_GET_TASKS, new GetOwnTasks("/WEB-INF/cse/cse-page-tasks-list.jsp"));
+        commands.put(CSE_GET_TASKS, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(IE_GET_TASKS, new GetGroupTasks(Role.IE_GROUP_ID,"/WEB-INF/ie/ie-page-tasks-list.jsp"));
-        commands.put(PE_GET_TASKS, new GetGroupTasks(Role.IE_GROUP_ID,"/WEB-INF/pe/pe-page-tasks-list.jsp"));
+        commands.put(PE_GET_TASKS, new GetGroupTasks(Role.PE_GROUP_ID,"/WEB-INF/pe/pe-page-tasks-list.jsp"));
         //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
         commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());

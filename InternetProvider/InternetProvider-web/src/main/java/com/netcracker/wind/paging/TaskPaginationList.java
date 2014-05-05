@@ -22,7 +22,12 @@ public class TaskPaginationList extends AbstractPaginatedList {
     
     @Override
     public List getList() {
-        return taskDAO.findByGroupStatus(groupId, Task.Status.NEW.toString(), pageNumber, pageSize);
+        List l1 = taskDAO.findByGroupStatus(groupId, Task.Status.NEW.toString(), pageNumber, pageSize);
+        List l2 = taskDAO.findByGroupStatus(groupId, Task.Status.ACTIVE.toString(), pageNumber, pageSize);
+        List l3 = taskDAO.findByGroupStatus(groupId, Task.Status.COMPLETED.toString(), pageNumber, pageSize);
+        l1.addAll(l2);
+        l1.addAll(l3);
+        return l1;
     }
     
     @Override
