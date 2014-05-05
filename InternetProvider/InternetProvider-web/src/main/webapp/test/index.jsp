@@ -28,3 +28,6 @@
 
     </div>
 </div>
+
+
+<jsp:include page="generic/footer.jsp" flush="true"/>

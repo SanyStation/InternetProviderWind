@@ -38,7 +38,7 @@
         <div id="map_canvas" ></div>
         <div id="popup">Drag the marker<span id="coord"></span></div>
         <div id="side">
-            <h1>Choose desired service:</h1>
+            <h3 style="margin: 10px auto;">Choose desired service:</h3>
             <form id="order_form" action="Controller" method="POST">
                 <label style="font-size: 20px;">select your position first...</label>
                 <input type="submit" name="send_order" value="Send order" disabled=""/>
