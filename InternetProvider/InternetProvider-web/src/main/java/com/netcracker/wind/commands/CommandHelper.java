@@ -1,6 +1,7 @@
 package com.netcracker.wind.commands;
 
 import com.netcracker.wind.commands.implementations.NoCommand;
+import com.netcracker.wind.commands.implementations.ProcessTask;
 import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.ToPage;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
@@ -75,6 +76,7 @@ public class CommandHelper {
     private static final String CU_ORDERS = "cu_orders";
     private static final String CU_REVIEW_ORDER = "review_order";
     private static final String CU_CONFIRM_ORDER = "confirm_order";
+    private static final String PROCESS_TASK = "process_task";
 
     private static final String CSE_SERVICES = "cse_get_services";
     private static final String TEST = "test";
@@ -122,6 +124,7 @@ public class CommandHelper {
         commands.put(CU_ORDERS, new ListOrders());
         commands.put(CU_REVIEW_ORDER, new ReviewOrder());
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
+        commands.put(PROCESS_TASK, new ProcessTask());
 
         commands.put(TEST, new Test());
     }
