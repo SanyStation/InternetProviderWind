@@ -17,6 +17,7 @@
         </script>
         <li class="nav-header"></li>
         <li class="active"><a href="#" data-toggle="pill"><i class="glyphicon glyphicon-list"></i> Profile</a></li>
+        <li class="active"><a href="Controller?command=cu_orders"><i class="glyphicon glyphicon-list"></i> Orders</a></li>
     </ul>
 
     <hr>

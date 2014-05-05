@@ -63,8 +63,9 @@ public class Circuit implements Serializable {
         return serviceInstance;
     }
 
-    public void setServiceInstance(ServiceInstance serviceInstances) {
-        this.serviceInstance = serviceInstances;
+    public void setServiceInstance(ServiceInstance serviceInstance) {
+        this.serviceInstance = serviceInstance;
+        this.serviceInstanceId = serviceInstance.getId();
     }
 
     public int getPortId() {
@@ -82,8 +83,9 @@ public class Circuit implements Serializable {
         return port;
     }
 
-    public void setPort(Port ports) {
-        this.port = ports;
+    public void setPort(Port port) {
+        this.port = port;
+        this.portId = port.getId();
     }
 
     @Override

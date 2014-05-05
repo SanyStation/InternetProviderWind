@@ -42,7 +42,7 @@ public class ConfirmOrder implements ICommand {
 
         order.setStatus(ServiceOrder.Status.PROCESSING);
         order.setProcesdate(new Timestamp(System.currentTimeMillis()));
-        if (order.getScenario().equals(ServiceOrder.Scenario.NEW)) {
+        if (order.getScenario().toString().equals(ServiceOrder.Scenario.NEW.toString())) {
             ServiceInstance serviceInstance = new ServiceInstance();
             serviceInstance.setStatus(ServiceInstance.Status.PLANNED);
             serviceInstance.setUser(order.getUser());
@@ -62,7 +62,7 @@ public class ConfirmOrder implements ICommand {
         }
         serviceOrderDAO.update(order);
         //TODO redirect to next page
-        return "";
+        return "/WEB-INF/user/cu-orders-list.jsp";
     }
 
 }

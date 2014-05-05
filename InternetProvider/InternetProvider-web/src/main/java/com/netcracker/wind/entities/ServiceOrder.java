@@ -22,7 +22,11 @@ public class ServiceOrder implements Serializable {
     
     public static enum Status {
         
-        ENTERING, PROCESSING, CANCELLED
+        ENTERING, PROCESSING, CANCELLED;
+        
+        public String getStatus(){
+            return toString();
+        }
     }
     
     public static enum Scenario {
@@ -124,8 +128,9 @@ public class ServiceOrder implements Serializable {
         return serviceInstance;
     }
 
-    public void setServiceInstance(ServiceInstance serviceInstances) {
-        this.serviceInstance = serviceInstances;
+    public void setServiceInstance(ServiceInstance serviceInstance) {
+        this.serviceInstance = serviceInstance;
+        this.serviceInstanceId = serviceInstance.getId();
     }
     
     public List<Task> getTasksList() {

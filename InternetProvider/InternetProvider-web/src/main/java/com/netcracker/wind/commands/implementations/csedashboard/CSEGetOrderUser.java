@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  */
 public class CSEGetOrderUser implements ICommand {
 
-    private final String SO = "service_orders";
+    private static final String ORDERS = "orders";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
@@ -35,8 +35,7 @@ public class CSEGetOrderUser implements ICommand {
         int performerId = user.getId();
         IExtendedPaginatedList paginatedList = new OrderUserPaginatedList(request,
                 IExtendedPaginatedList.DEFAULT_PAGE_SIZE).setPerformer(performerId);
-        session.setAttribute(SO, paginatedList);
+        session.setAttribute(ORDERS, paginatedList);
         return "/WEB-INF/cse/cse-page-service-orders.jsp";
-
     }
 }

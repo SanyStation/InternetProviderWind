@@ -22,7 +22,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER
             = Logger.getLogger(OraclePortDAO.class.getName());
-    
+
     private static final String UPDATE = "UPDATE PORTS SET NAME = ?, "
             + "DEVICE_ID = ?, FREE = ? WHERE ID = ?";
     private static final String DELETE = "DELETE FROM PORTS WHERE ID = ?";
@@ -30,6 +30,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
             + "FREE) VALUES (?, ?, ?)";
     private static final String SELECT = "SELECT p.*, COUNT(*) OVER () AS "
             + ROWS + " FROM ports p ";
+    private static final String PRIME_SELECT = "SELECT * FROM PORTS ";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String DEVICE = "DEVICE_ID";
@@ -71,7 +72,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
     @Override
     public Port findById(int idPort) {
         List<Port> ports = findWhere("WHERE ID = ?", new Object[]{idPort},
-                        DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (ports.isEmpty()) {
             return null;
         } else {
@@ -130,7 +131,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         }
         return port;
     }
-    
+
     @Override
     protected List<Port> findWhere(String where, Object[] param,
             int pageNumber, int pageSize) {
@@ -201,7 +202,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
 
     @Override
     public List<Port> findByFree(boolean isFree, int pageNumber, int pageSize) {
-        return findWhere("WHERE free = ?", new Object[]{isFree}, pageNumber, 
+        return findWhere("WHERE free = ?", new Object[]{isFree}, pageNumber,
                 pageSize);
     }
 
@@ -213,10 +214,18 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
         Port port = null;
         try {
             connection.setAutoCommit(false);
-            psSelect = connection.prepareCall(SELECT + "WHERE FREE = ?");
+            psSelect = connection.prepareCall(PRIME_SELECT + "WHERE FREE = ?");
             psSelect.setBoolean(1, true);
             ResultSet rs = psSelect.executeQuery();
-            List<Port> ports = parseResult(rs);
+            List<Port> ports = new ArrayList<Port>();
+            while (rs.next()) {
+                Port portT = new Port();
+                portT.setId(rs.getInt(ID));
+                portT.setName(rs.getString(NAME));
+                portT.setDeviceId(rs.getInt(DEVICE));
+                portT.setFree(rs.getBoolean(FREE));
+                ports.add(port);
+            }
             if (ports.isEmpty()) {
                 return null;
             }

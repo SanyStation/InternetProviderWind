@@ -1,22 +1,22 @@
 <%-- 
-    Document   : cse-table-tasks
-    Created on : May 5, 2014, 5:17:35 AM
-    Author     : Oksana
+    Document   : cu-table-orders
+    Created on : May 5, 2014, 9:40:03 AM
+    Author     : Anatolii
 --%>
 
 <%@ page import="com.netcracker.wind.paging.IExtendedPaginatedList"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%
-    IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("tasks");
+    IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("orders");
     expl.setRequest(request);
 %>
-<h3>Customer tasks list</h3>
+<h3>Customer users list</h3>
 <form role="form">
-    <display:table name="sessionScope.tasks" sort="external"  requestURI="Controller"
+    <display:table name="sessionScope.orders" sort="external"  requestURI="Controller"
                    partialList="true" class="simple"
-                   pagesize="${sessionScope.tasks.objectsPerPage}" 
-                   size="${sessionScope.tasks.fullListSize}">
-        
+                   pagesize="${sessionScope.orders.objectsPerPage}" 
+                   size="${sessionScope.orders.fullListSize}">
+
         <display:setProperty 
             name="paging.banner.full" 
             value="<br/><ul class=\"pagination\">
@@ -62,13 +62,15 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID" />
-        <display:column property="type" title="Type"/>
-        <display:column property="status" title="Status" />
-       
+        <display:column property="id" title="ID" href="Controller?command=review_order" paramId="order_id" paramProperty="id"/>
+        <display:column property="enterdate" title="Enter date" />
+        <display:column property="completedate" title="Completed date" />
+        <display:column property="service.name" title="Service" />
+        <display:column property="status.status" title="Status" />
+        <display:column property="serviceLocation.address" title="Service Location" />
     </display:table>
-    
-    
+
+
 
     <!--button type="button" class="btn btn-default margin"><span class="glyphicon glyphicon-remove-circle"></span> Apply filter</button>
     <button type="button" class="btn btn-default margin"><span class="glyphicon glyphicon-remove-circle"></span> Clean filter</button-->

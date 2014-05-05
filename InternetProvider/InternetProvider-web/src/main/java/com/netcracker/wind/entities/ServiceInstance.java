@@ -73,8 +73,9 @@ public class ServiceInstance implements Serializable {
         return user;
     }
     
-    public void setUser(User users) {
-        this.user = users;
+    public void setUser(User user) {
+        this.user = user;
+        this.userId = user.getId();
     }
 
     public int getServiceOrderId() {
@@ -93,8 +94,9 @@ public class ServiceInstance implements Serializable {
         return serviceOrder;
     }
 
-    public void setServiceOrder(ServiceOrder serviceOrders) {
-        this.serviceOrder = serviceOrders;
+    public void setServiceOrder(ServiceOrder serviceOrder) {
+        this.serviceOrder = serviceOrder;
+        this.serviceOrderId = serviceOrder.getId();
     }
 
     public int getServiceId() {
@@ -112,8 +114,9 @@ public class ServiceInstance implements Serializable {
         return service;
     }
 
-    public void setService(Service services) {
-        this.service = services;
+    public void setService(Service service) {
+        this.service = service;
+        this.serviceId = service.getId();
     }
 
     public Circuit getCircuit() {

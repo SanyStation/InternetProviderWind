@@ -28,9 +28,9 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
             + "WHERE ID = ?";
     private static final String DELETE = "DELETE FROM SERVICE_INSTANCES WHERE "
             + "ID = ?";
-    private static final String INSERT = "INSERT INTO SERVICE_INSTANCES (ID, "
+    private static final String INSERT = "INSERT INTO SERVICE_INSTANCES ("
             + "USER_ID, SERVICE_ORDER_ID, STATUS, SERVICE_ID) "
-            + "VALUES(?, ?, ?, ?, ?)";
+            + "VALUES(?, ?, ?, ?)";
     private static final String SELECT = "SELECT si.*, COUNT(*) OVER () AS "
             + ROWS + " FROM service_instances si ";
     private static final String ID = "id";
@@ -50,11 +50,10 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT,
                     PreparedStatement.RETURN_GENERATED_KEYS);
-            stat.setInt(1, serviceInstance.getId());
-            stat.setInt(2, serviceInstance.getUserId());
-            stat.setInt(3, serviceInstance.getServiceOrderId());
-            stat.setString(4, serviceInstance.getStatus().toString());
-            stat.setInt(5, serviceInstance.getServiceId());
+            stat.setInt(1, serviceInstance.getUserId());
+            stat.setInt(2, serviceInstance.getServiceOrderId());
+            stat.setString(3, serviceInstance.getStatus().toString());
+            stat.setInt(4, serviceInstance.getServiceId());
             stat.executeUpdate();
             ResultSet insertedResultSet = stat.getGeneratedKeys();
             if (insertedResultSet != null && insertedResultSet.next()) {

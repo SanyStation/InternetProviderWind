@@ -10,8 +10,11 @@ import com.netcracker.wind.commands.implementations.iedashboard.CreateCable;
 import com.netcracker.wind.commands.implementations.iedashboard.CreateDevice;
 import com.netcracker.wind.commands.implementations.iedashboard.DeleteCable;
 import com.netcracker.wind.commands.implementations.iedashboard.GetActiveIETasks;
+import com.netcracker.wind.commands.implementations.order.ConfirmOrder;
+import com.netcracker.wind.commands.implementations.order.ListOrders;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
+import com.netcracker.wind.commands.implementations.order.ReviewOrder;
 import com.netcracker.wind.commands.implementations.pedashboard.Test;
 import com.netcracker.wind.commands.implementations.registration.Registration;
 import com.netcracker.wind.commands.implementations.registration.Validation;
@@ -65,6 +68,9 @@ public class CommandHelper {
     private static final String TO_PAGE = "to_page";
     private static final String CSE_GROUP_TASKS = "cse_group_tasks";
     private static final String CSE_CUSTOMER_REVIEW = "customer_review";
+    private static final String CU_ORDERS = "cu_orders";
+    private static final String CU_REVIEW_ORDER = "review_order";
+    private static final String CU_CONFIRM_ORDER = "confirm_order";
 
     private static final String CSE_SERVICES = "cse_get_services";
     private static final String TEST = "test";
@@ -101,6 +107,9 @@ public class CommandHelper {
         commands.put(CSE_GET_ELEMENTS_FROM_OFFSET, new CSEGetElementsFromOffset());
         commands.put(CSE_GROUP_TASKS, new CSEGetGroupTasks());
         commands.put(CSE_CUSTOMER_REVIEW, new CustomerReview());
+        commands.put(CU_ORDERS, new ListOrders());
+        commands.put(CU_REVIEW_ORDER, new ReviewOrder());
+        commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
 
         commands.put(TEST, new Test());
     }

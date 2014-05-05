@@ -84,8 +84,9 @@ public class Task implements Serializable {
         return user;
     }
 
-    public void setUser(User users) {
-        this.user = users;
+    public void setUser(User user) {
+        this.user = user;
+        this.userId = user.getId();
     }
 
     public int getServiceOrderId() {
@@ -104,8 +105,9 @@ public class Task implements Serializable {
         return serviceOrder;
     }
 
-    public void setServiceOrder(ServiceOrder serviceOrders) {
-        this.serviceOrder = serviceOrders;
+    public void setServiceOrder(ServiceOrder serviceOrder) {
+        this.serviceOrder = serviceOrder;
+        this.serviceOrderId = serviceOrder.getId();
     }
 
     public int getRoleId() {
@@ -123,8 +125,9 @@ public class Task implements Serializable {
         return role;
     }
 
-    public void setRole(Role roles) {
-        this.role = roles;
+    public void setRole(Role role) {
+        this.role = role;
+        this.roleId = role.getId();
     }
 
     @Override

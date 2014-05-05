@@ -27,5 +27,13 @@
                 ${customer.email}
             </td>
         </tr>
+                <tr>
+            <td>
+                blocked
+            </td>
+            <td>
+                ${customer.blocked}
+            </td>
+        </tr>
     </table>
 </div>
