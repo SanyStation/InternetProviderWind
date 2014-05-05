@@ -22,11 +22,8 @@ public class ServiceOrder implements Serializable {
     
     public static enum Status {
         
-        ENTERING, PROCESSING, CANCELLED, COMPLETED;
+        ENTERING, PROCESSING, CANCELLED, COMPLETED
         
-        public String getStatus(){
-            return toString();
-        }
     }
     
     public static enum Scenario {

@@ -16,15 +16,8 @@
                 Service:
             </td>
             <td>
-                Silver
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Provider:
-            </td>
-            <td>
-                KPI-Telecom
+                ${order.service.name}
+                <!--Silver-->
             </td>
         </tr>
         <tr>
@@ -40,7 +33,7 @@
                 Address:
             </td>
             <td>
-                ul. Politehnicheskaya 32, k.22
+                ${order.serviceLocation.address}
             </td>
         </tr>
         <tr>
@@ -48,7 +41,7 @@
                 Order status:
             </td>
             <td>
-                Completed
+                ${order.status}
             </td>
         </tr>
         <tr>
@@ -56,7 +49,7 @@
                 Service status:
             </td>
             <td>
-                Active
+                ${order.serviceInstance.status}
             </td>
         </tr>
     </table>

@@ -66,7 +66,7 @@
         <display:column property="enterdate" title="Enter date" />
         <display:column property="completedate" title="Completed date" />
         <display:column property="service.name" title="Service" />
-        <display:column property="status.status" title="Status" />
+        <display:column property="status" title="Status" />
         <display:column property="serviceLocation.address" title="Service Location" />
     </display:table>
 
