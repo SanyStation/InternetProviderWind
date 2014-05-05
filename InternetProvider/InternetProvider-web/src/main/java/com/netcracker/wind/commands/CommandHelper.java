@@ -16,6 +16,7 @@ import com.netcracker.wind.commands.implementations.order.ListOrders;
 import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
 import com.netcracker.wind.commands.implementations.order.RefreshService;
 import com.netcracker.wind.commands.implementations.order.ReviewOrder;
+import com.netcracker.wind.commands.implementations.pedashboard.SetupCircuit;
 import com.netcracker.wind.commands.implementations.pedashboard.Test;
 import com.netcracker.wind.commands.implementations.registration.Registration;
 import com.netcracker.wind.commands.implementations.registration.Validation;
@@ -80,6 +81,7 @@ public class CommandHelper {
     private static final String CU_CONFIRM_ORDER = "confirm_order";
     private static final String PROCESS_TASK = "process_task";
     private static final String SEND_BILL = "send_bill";
+    private static final String SETUP_CIRCUIT = "setup_circuit";
 
     private static final String CSE_SERVICES = "cse_get_services";
     private static final String TEST = "test";
@@ -131,6 +133,7 @@ public class CommandHelper {
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
         commands.put(PROCESS_TASK, new ProcessTask());
         commands.put(SEND_BILL, new SentBill());
+        commands.put(SETUP_CIRCUIT, new SetupCircuit());
 
         commands.put(TEST, new Test());
     }

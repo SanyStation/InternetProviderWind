@@ -51,6 +51,7 @@ public class CreateCable implements ICommand {
         cableDAO.add(cable);
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
+        request.setAttribute("task", task);
         Workflow.createTaskForPE(task.getServiceOrder(), Task.Type.MANAGE_CIRCUIT, taskDAO);
         return "/WEB-INF/ie/ie-page-selected-task.jsp";
     }

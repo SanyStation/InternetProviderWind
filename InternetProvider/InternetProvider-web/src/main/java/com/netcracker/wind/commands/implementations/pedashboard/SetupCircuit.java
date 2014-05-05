@@ -40,9 +40,10 @@ public class SetupCircuit implements ICommand {
         //Circuit circuit = task.getServiceOrder().getServiceInstance().getCircuit();
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
+        request.setAttribute("task", task);
         Workflow.createTaskForCSE(task.getServiceOrder(), taskDAO);
         //TODO return next page
-        return "";
+        return "/WEB-INF/pe/pe-page-selected-task.jsp";
     }
 
 }
