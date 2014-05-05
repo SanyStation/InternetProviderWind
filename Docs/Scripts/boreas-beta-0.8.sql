@@ -34,7 +34,7 @@ CREATE TABLE Circuits
      id NUMBER (8)  NOT NULL , 
      name VARCHAR2 (200) ,
      Service_Instance_id NUMBER (8)  NOT NULL , 
-     Port_id NUMBER (12)  NOT NULL 
+     Port_id NUMBER (12)
     ) 
 ;
 
@@ -240,7 +240,7 @@ ALTER TABLE Services
 CREATE TABLE Tasks 
     ( 
      id NUMBER (12)  NOT NULL , 
-     User_id NUMBER (8)  NOT NULL , 
+     User_id NUMBER (8), 
      type VARCHAR2 (30) , 
      Status VARCHAR2 (30) , 
      Role_id NUMBER (3)  NOT NULL , 
