@@ -35,32 +35,38 @@ public class ProcessTask implements ICommand {
         User user = (User) request.getSession(false).getAttribute(USER);
         String page = "";
         request.setAttribute(TASK, task);
-        
+
         switch (task.getStatus()) {
             case NEW:
                 task.setStatus(Task.Status.ACTIVE);
                 task.setUser(user);
                 taskDAO.update(task);
-                
+
                 if (user.getRoleId() == Role.CSE_GROUP_ID) {
                     page = "/WEB-INF/cse/cse-page-selected-task.jsp";
                 } else if (user.getRoleId() == Role.PE_GROUP_ID) {
-                    page = "";
+                    page = "/WEB-INF/pe/pe-page-selected-task.jsp";
                 } else if (user.getRoleId() == Role.IE_GROUP_ID) {
-                    page = "";
+                    page = "/WEB-INF/ie/ie-page-selected-task.jsp";
                 }
                 break;
             case ACTIVE:
                 if (user.getRoleId() == Role.CSE_GROUP_ID) {
                     page = "/WEB-INF/cse/cse-page-selected-task.jsp";
                 } else if (user.getRoleId() == Role.PE_GROUP_ID) {
-                    page = "";
+                    page = "/WEB-INF/pe/pe-page-selected-task.jsp";
                 } else if (user.getRoleId() == Role.IE_GROUP_ID) {
-                    page = "";
+                    page = "/WEB-INF/ie/ie-page-selected-task.jsp";
                 }
                 break;
             case COMPLETED:
-
+                if (user.getRoleId() == Role.CSE_GROUP_ID) {
+                    page = "/WEB-INF/cse/cse-page-selected-task.jsp";
+                } else if (user.getRoleId() == Role.PE_GROUP_ID) {
+                    page = "/WEB-INF/pe/pe-page-selected-task.jsp";
+                } else if (user.getRoleId() == Role.IE_GROUP_ID) {
+                    page = "/WEB-INF/ie/ie-page-selected-task.jsp";
+                }
                 break;
         }
         return page;
