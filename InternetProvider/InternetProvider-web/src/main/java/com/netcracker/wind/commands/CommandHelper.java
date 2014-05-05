@@ -55,7 +55,7 @@ public class CommandHelper {
     private static final String PE_TASKS = "pe_tasks";
     private static final String IE_TASKS = "ie_tasks";
     private static final String IE_USER_ACTIVE_TASKS = "ie_user_active_tasks";
-    private static final String IE_USER_COMPLETED_TASKS 
+    private static final String IE_USER_COMPLETED_TASKS
             = "ie_user_completed_tasks";
     private static final String CSE_GET_ELEMENTS_COUNT
             = "cse_get_elements_count";
@@ -78,6 +78,7 @@ public class CommandHelper {
     private static final String CU_REVIEW_ORDER = "review_order";
     private static final String CU_CONFIRM_ORDER = "confirm_order";
     private static final String PROCESS_TASK = "process_task";
+    private static final String SEND_BILL = "send_bill";
 
     private static final String CSE_SERVICES = "cse_get_services";
     private static final String TEST = "test";
@@ -98,12 +99,12 @@ public class CommandHelper {
         commands.put(CSE_GROUP_TASK, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());
-        commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID,"/WEB-INF/pe/?"));
-        commands.put(IE_TASKS, new GetGroupTasks(Role.IE_GROUP_ID,"/WEB-INF/ie/?"));
+        commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/?"));
+        commands.put(IE_TASKS, new GetGroupTasks(Role.IE_GROUP_ID, "/WEB-INF/ie/?"));
         commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(
-                Task.Status.ACTIVE.toString(),"/WEB-INF/ie/?"));
+                Task.Status.ACTIVE.toString(), "/WEB-INF/ie/?"));
         commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(
-                Task.Status.COMPLETED.toString(),"/WEB-INF/ie/?"));
+                Task.Status.COMPLETED.toString(), "/WEB-INF/ie/?"));
         commands.put(CSE_GET_TASKS, new CSEgetOwnTasks());
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
@@ -127,6 +128,7 @@ public class CommandHelper {
         commands.put(CU_REVIEW_ORDER, new ReviewOrder());
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
         commands.put(PROCESS_TASK, new ProcessTask());
+        commands.put(SEND_BILL, new SentBill());
 
         commands.put(TEST, new Test());
     }
