@@ -44,7 +44,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         try {
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT);
-            stat.setInt(1, task.getUserId());
+            stat.setObject(1, task.getUserId() == 0 ? null : task.getUserId());
             stat.setString(2, task.getType().toString());
             stat.setString(3, task.getStatus().toString());
             stat.setInt(4, task.getRoleId());
@@ -154,7 +154,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     public List<Task> findByPerformer(int idPerformer, int pageNumber,
             int pageSize) {
         List<Task> tasks = findWhere("WHERE USER_ID = ?",
-                new Object[]{idPerformer}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                new Object[]{idPerformer}, pageNumber, pageSize);
         return tasks;
     }
 

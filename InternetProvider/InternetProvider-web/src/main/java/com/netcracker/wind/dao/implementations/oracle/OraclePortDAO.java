@@ -224,7 +224,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
                 portT.setName(rs.getString(NAME));
                 portT.setDeviceId(rs.getInt(DEVICE));
                 portT.setFree(rs.getBoolean(FREE));
-                ports.add(port);
+                ports.add(portT);
             }
             if (ports.isEmpty()) {
                 return null;
@@ -232,8 +232,10 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
             port = ports.get(0);
             port.setFree(false);
             psUpdate = connection.prepareStatement(UPDATE);
-            psUpdate.setBoolean(1, port.isFree());
-            psUpdate.setInt(2, port.getId());
+            psUpdate.setString(1, port.getName());
+            psUpdate.setInt(2, port.getDeviceId());
+            psUpdate.setBoolean(3, port.isFree());
+            psUpdate.setInt(4, port.getId());
             psUpdate.executeUpdate();
             connection.commit();
         } catch (SQLException ex) {
