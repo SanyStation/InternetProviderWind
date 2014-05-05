@@ -66,6 +66,7 @@ public class CommandHelper {
     private static final String CSE_GROUP_TASKS = "cse_group_tasks";
     private static final String CSE_CUSTOMER_REVIEW = "customer_review";
 
+    private static final String CSE_SERVICES = "cse_get_services";
     private static final String TEST = "test";
 
     private final Map<String, ICommand> commands;
