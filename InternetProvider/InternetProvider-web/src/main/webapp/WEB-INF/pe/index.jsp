@@ -1,17 +1,26 @@
 <%-- 
-    Document   : private_article
-    Created on : 01.04.2014, 15:58:13
+    Document   : index
+    Created on : 29.04.2014, 17:22:20
     Author     : oneplayer
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Private Page</title>
-    </head>
-    <body>
-        <h1>Welcome to provisioning engineer menu, ${name}!</h1>
-    </body>
-</html>
+<jsp:include page="../generic/header.jsp" flush="true">
+    <jsp:param name="titleText" value="Customer Support Engineer's dashboard"/>
+</jsp:include>
+
+<jsp:include page="../generic/dashboardheader.jsp" flush="true">
+    <jsp:param name="dashboardText" value="Customer Support Engineer's dashboard"/>
+</jsp:include>
+
+<div class="container">
+    <div class="row">
+        <jsp:include page="pe-leftmenu.jsp" flush="true"/>      
+        <div class="col-md-9 nopadding">
+            <jsp:include page="../generic/gen-customerinfo.jsp" flush="true"/>
+        </div>
+
+
+    </div>
+</div>
+
+<jsp:include page="../generic/footer.jsp" flush="true"/>
