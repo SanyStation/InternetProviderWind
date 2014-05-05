@@ -6,8 +6,11 @@
 package com.netcracker.wind.commands.implementations.csedashboard;
 
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.paging.IExtendedPaginatedList;
+import com.netcracker.wind.paging.ProviderLocationPaginationList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -15,8 +18,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class GetProviderLocation implements ICommand {
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    private static final String PROVIDER_LOCATIONS = "provider_locations";
 
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        IExtendedPaginatedList paginatedList = new ProviderLocationPaginationList(request,
+                IExtendedPaginatedList.DEFAULT_PAGE_SIZE);
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "";
+        }
+        session.setAttribute(PROVIDER_LOCATIONS, paginatedList);
+        return "/WEB-INF/cse/?.jsp";
+    }
 }
