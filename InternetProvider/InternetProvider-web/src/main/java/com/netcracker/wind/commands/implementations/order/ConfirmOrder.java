@@ -42,7 +42,8 @@ public class ConfirmOrder implements ICommand {
 
         order.setStatus(ServiceOrder.Status.PROCESSING);
         order.setProcesdate(new Timestamp(System.currentTimeMillis()));
-        if (order.getScenario().toString().equals(ServiceOrder.Scenario.NEW.toString())) {
+        if (order.getScenario().toString().equals(
+                ServiceOrder.Scenario.NEW.toString())) {
             ServiceInstance serviceInstance = new ServiceInstance();
             serviceInstance.setStatus(ServiceInstance.Status.PLANNED);
             serviceInstance.setUser(order.getUser());
@@ -51,10 +52,14 @@ public class ConfirmOrder implements ICommand {
             serviceInstanceDAO.add(serviceInstance);
             order.setServiceInstance(serviceInstance);
             Workflow.createTaskForNewScnario(order);
-        } else if (order.getScenario().equals(ServiceOrder.Scenario.MODIFY)) {
+        } else if (order.getScenario().toString().equals(
+                ServiceOrder.Scenario.MODIFY.toString())) {
             Workflow.createTaskForModifyScenario(order);
-        } else if (order.getScenario().equals(
-                ServiceOrder.Scenario.DISCONNECT)) {
+        } else if (order.getScenario().toString().equals(
+                ServiceOrder.Scenario.DISCONNECT.toString())) {
+            ServiceInstance serviceInstance = order.getServiceInstance();
+            serviceInstance.setStatus(ServiceInstance.Status.PRE_DISCONNECTED);
+            serviceInstanceDAO.update(serviceInstance);
             Workflow.createTaskForDisconnectScenario(order);
         } else {
             //TODO return error page

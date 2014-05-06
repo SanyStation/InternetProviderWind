@@ -16,19 +16,20 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class ServiceOrder implements Serializable {
 
     private static final long serialVersionUID = 2972707714220134975L;
-    
+
     private final AbstractFactoryDAO factoryDAO
             = FactoryCreator.getInstance().getFactory();
-    
+
     public static enum Status {
-        
+
         ENTERING, PROCESSING, CANCELLED, COMPLETED
-        
+
     }
-    
+
     public static enum Scenario {
-        
+
         NEW, MODIFY, DISCONNECT
+
     }
 
     private Integer id;
@@ -116,7 +117,7 @@ public class ServiceOrder implements Serializable {
     public void setServiceInstanceId(int serviceInstanceId) {
         this.serviceInstanceId = serviceInstanceId;
     }
-    
+
     public ServiceInstance getServiceInstance() {
         if (serviceInstance == null) {
             serviceInstance = factoryDAO.createServiceInstanceDAO().
@@ -129,10 +130,10 @@ public class ServiceOrder implements Serializable {
         this.serviceInstance = serviceInstance;
         this.serviceInstanceId = serviceInstance.getId();
     }
-    
+
     public List<Task> getTasksList() {
         if (tasksList == null) {
-            tasksList = factoryDAO.createTaskDAO().findByServiceOrder(id, 
+            tasksList = factoryDAO.createTaskDAO().findByServiceOrder(id,
                     AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
                     AbstractOracleDAO.ALL_RECORDS);
         }
@@ -150,7 +151,7 @@ public class ServiceOrder implements Serializable {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-    
+
     public User getUser() {
         if (user == null) {
             user = factoryDAO.createUserDAO().findById(userId);
@@ -169,7 +170,7 @@ public class ServiceOrder implements Serializable {
     public void setServiceLocationId(int serviceLocationId) {
         this.serviceLocationId = serviceLocationId;
     }
-    
+
     public ServiceLocation getServiceLocation() {
         if (serviceLocation == null) {
             serviceLocation = factoryDAO.createServiceLocationDAO()
@@ -189,7 +190,7 @@ public class ServiceOrder implements Serializable {
     public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
     }
-    
+
     public Service getService() {
         if (service == null) {
             service = factoryDAO.createServiceDAO().findById(serviceId);
@@ -208,7 +209,7 @@ public class ServiceOrder implements Serializable {
     public void setProviderLocationId(int providerLocationId) {
         this.providerLocationId = providerLocationId;
     }
-    
+
     public ProviderLocation getProviderLocation() {
         if (providerLocation == null) {
             providerLocation = factoryDAO.createProviderLocationDAO()
