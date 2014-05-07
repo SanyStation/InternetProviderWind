@@ -148,6 +148,7 @@ ALTER TABLE Roles
 CREATE TABLE Service_Instances 
     ( 
      id NUMBER (8)  NOT NULL , 
+     name VARCHAR2 (200) , 
      User_id NUMBER (8)  NOT NULL , 
      Service_Order_id NUMBER (8)  NOT NULL , 
      Status VARCHAR2 (30) , 
@@ -191,6 +192,7 @@ ALTER TABLE Service_Locations
 CREATE TABLE Service_Orders 
     ( 
      id NUMBER (8)  NOT NULL , 
+     name VARCHAR2 (200) , 
      enterDate DATE , 
      procesDate DATE , 
      completeDate DATE , 

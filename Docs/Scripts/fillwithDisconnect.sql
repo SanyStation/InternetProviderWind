@@ -1,7 +1,3 @@
-Alter Table service_locations ADD name VARCHAR(30);
-Alter Table service_orders ADD name VARCHAR(30);
-Alter Table cables ADD name VARCHAR(30);
-Alter Table service_instances ADD name VARCHAR(30);
 DECLARE
    a number;
    x number;
@@ -238,7 +234,7 @@ BEGIN
     values (concat('Device', a));
     for b in 1..60 loop
       insert into ports (device_id, name)
-      values (a, concat('Port', (b * 60 - (60 - a))));
+      values (a, concat('Port', b));
     end loop;
   end loop;
 

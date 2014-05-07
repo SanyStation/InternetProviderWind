@@ -110,7 +110,7 @@
                         name="css.table" 
                         value="table table-striped table-hover nomargin"/>
 
-                    <display:column property="name" title="Service order" href="Controller?command=customer_review" paramId="id" paramProperty="id" />
+                    <display:column property="name" title="Service order" />
                     <display:column property="providerLocationName" title="Provider location" />
                     <display:column property="serviceLocationName" title="Service location" />
                     <display:column property="serviceName" title="Service name" />

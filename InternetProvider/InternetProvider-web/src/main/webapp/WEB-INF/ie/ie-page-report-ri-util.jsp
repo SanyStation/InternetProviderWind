@@ -5,7 +5,7 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 
 <jsp:include page="../generic/header.jsp" flush="false">
-    <jsp:param name="titleText" value="Customer Support Engineer's dashboard"/>
+    <jsp:param name="titleText" value="Installation Engineer's dashboard"/>
 </jsp:include>
 
 <jsp:include page="../generic/dashboardheader.jsp" flush="false"/>
