@@ -42,26 +42,24 @@ public class SiOrdersExport extends AbstractExcelExport {
                         super.tableModel.getHeaderCellList());
                 Column column;
                 column = columnIterator.nextColumn();
-                int id = (Integer) column.getValue(true);
-                column = columnIterator.nextColumn();
-                int providerLocationId = (Integer) column.getValue(true);
+                String serviceOrderName = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
                 String providerLocationName = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
-                int serviceLocationId = (Integer) column.getValue(true);
+                String serviceLocationName = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
                 String serviceName = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
-                Date completeDate = (Date) column.getValue(true);
+                Object obj = column.getValue(true);
                 
                 SiOrder order = new SiOrder();
-                order.setId(id);
-                order.setProviderLocationId(providerLocationId);
+                order.setName(serviceOrderName);
                 order.setProviderLocationName(providerLocationName);
-                order.setServiceLocationId(serviceLocationId);
+                order.setServiceLocationName(serviceLocationName);
                 order.setServiceName(serviceName);
-                order.setCompleteDate(completeDate);
-                
+                if (obj instanceof Date) {
+                     order.setCompleteDate((Date) obj);
+                }
                 orders.add(order);
             }
             beans.put("caption", super.tableModel.getCaption());

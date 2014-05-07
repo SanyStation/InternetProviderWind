@@ -6,6 +6,7 @@
 package com.netcracker.wind.commands.implementations.csedashboard;
 
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.ProviderLocationPaginationList;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ public class GetProviderLocation implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         IExtendedPaginatedList paginatedList = new ProviderLocationPaginationList(request,
-                IExtendedPaginatedList.DEFAULT_PAGE_SIZE);
+                AbstractOracleDAO.DEFAULT_PAGE_SIZE);
         HttpSession session = request.getSession(false);
         if (session == null) {
             return "";

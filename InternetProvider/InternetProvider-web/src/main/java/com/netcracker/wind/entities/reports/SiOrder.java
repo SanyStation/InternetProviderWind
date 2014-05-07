@@ -12,11 +12,14 @@ public class SiOrder implements Serializable {
     private static final long serialVersionUID = -570284085763707851L;
     
     private int id;
-    private Date completeDate;
+    private String name;
     private int providerLocationId;
     private String providerLocationName;
     private int serviceLocationId;
+    private String serviceLocationName;
+    private int serviceId;
     private String serviceName;
+    private Date completeDate;
 
     public SiOrder() {
     }
@@ -29,6 +32,14 @@ public class SiOrder implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public Date getCompleteDate() {
         return completeDate;
     }
@@ -57,10 +68,26 @@ public class SiOrder implements Serializable {
         return serviceLocationId;
     }
 
+    public String getServiceLocationName() {
+        return serviceLocationName;
+    }
+
+    public void setServiceLocationName(String serviceLocationName) {
+        this.serviceLocationName = serviceLocationName;
+    }
+    
     public void setServiceLocationId(int serviceLocationId) {
         this.serviceLocationId = serviceLocationId;
     }
 
+    public int getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
+    }
+    
     public String getServiceName() {
         return serviceName;
     }

@@ -9,55 +9,23 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
-        <title>NameGenerator</title>
+        <title>Start page</title>
     </head>
     <body>
-        <form action="CSEdashboard.jsp" method="POST">
-            <input type="submit" value="CSE dashboard"  />
-        </form>
-        
-        <form method="POST" action="IEdashboard.jsp">
-            <input type="submit" value="IE dashboard"  />
-        </form>
-
         <form action="mail.jsp" method="POST">
             <input type="submit" value="show_sentmail"  />
         </form>
-        
-        <form action="dashboards/pedashboard/main.jsp" method="POST">
-            <input type="submit" value="Test"  />
-        </form>
-
-        <h3>Reports</h3>
-        <form action="report.jsp" method="POST">
-            <input type="submit" value="Go to reports" name="report" />
-        </form>
-        <br>
         <form action="map.jsp" method="POST">
             <input type="submit" value="map"  />
         </form>
-
         <form action="Registration.jsp" method="POST">
-            <input type="submit" value="Registration"  />
+            <input type="submit" value="Registration" />
         </form>
-
         <div>
             <a href="profile">Login</a>
         </div>
-
         <div>
             <a href="logout">Logout</a>
         </div>
-
-        <div>
-            <form method="POST" action="Controller">
-                <input type="hidden" name="command" value="pe_tasks"/>
-                <input type="hidden" name="from" value="0"/>
-                <input type="hidden" name="number" value="25"/>
-                <input type="submit" value="Show List Tasks For PE">
-            </form>
-        </div>
-        
     </body>
 </html>

@@ -41,13 +41,10 @@ public class RiMostProfRouterExport extends AbstractExcelExport {
                         super.tableModel.getHeaderCellList());
                 Column column;
                 column = columnIterator.nextColumn();
-                int id = (Integer) column.getValue(true);
-                column = columnIterator.nextColumn();
                 String name = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
                 double profit = (Double) column.getValue(true);
                 RiMostProfRouter r = new RiMostProfRouter();
-                r.setId(id);
                 r.setName(name);
                 r.setProfit(profit);
                 routers.add(r);

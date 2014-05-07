@@ -19,6 +19,15 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/wind.css" rel="stylesheet" media="screen">
 
+        <!--DatePicker-->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/redmond/jquery-ui.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="js/jquery.ui.datepicker.validation.min.js"></script>
+        <!--Date validation-->
+        <script src="js/functions.js"></script>
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>

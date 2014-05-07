@@ -4,6 +4,7 @@ import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -20,7 +21,7 @@ public class Device implements Serializable {
             = FactoryCreator.getInstance().getFactory();
 
     private Integer id;
-    private transient List<Port> portsList;
+    private transient List<Port> portsList = new ArrayList();
     private String name;
 
     public Device() {

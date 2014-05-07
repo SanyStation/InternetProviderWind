@@ -44,37 +44,43 @@ public class CiaIptExport extends AbstractExcelExport {
                 Row row = rowIterator.next();
                 ColumnIterator columnIterator = row.getColumnIterator(
                         super.tableModel.getHeaderCellList());
-                
+
                 Column column;
                 column = columnIterator.nextColumn();
                 int deviceId = (Integer) column.getValue(true);
                 column = columnIterator.nextColumn();
                 String deviceName = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
-                int portId = (Integer) column.getValue(true);
+                String portName = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
-                int circuitId = (Integer) column.getValue(true);
+                String portStatus = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
-                int serviceInstanceId = (Integer) column.getValue(true);
+                String circuitName = (String) column.getValue(true);
+                column = columnIterator.nextColumn();
+                String serviceInstanceName = (String) column.getValue(true);
 
                 ServiceInstance si = new ServiceInstance();
-                si.setId(serviceInstanceId);
+                si.setName(serviceInstanceName);
+                si.setId(DEFAULT_ID);
 
                 Circuit circuit = new Circuit();
-                circuit.setId(circuitId);
+                circuit.setName(circuitName);
                 circuit.setServiceInstance(si);
+                circuit.setId(DEFAULT_ID);
 
                 Port port = new Port();
-                port.setId(portId);
+                port.setName(portName);
+                port.setFree(portStatus.equals("FREE"));
                 port.setCircuit(circuit);
-                
+                port.setId(DEFAULT_ID);
+
                 if (tmpId != deviceId) {
-                    device = new Device();
+                    device = new Device(deviceId);
+                    device.setName(deviceName);
+                    device.setPortsList(new ArrayList());
                     devices.add(device);
                     tmpId = deviceId;
                 }
-                device.setId(deviceId);
-                device.setName(deviceName);
                 device.getPortsList().add(port);
             }
         } catch (ObjectLookupException ex) {

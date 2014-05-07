@@ -18,6 +18,8 @@ import org.displaytag.model.TableModel;
  */
 public abstract class AbstractExcelExport extends ExcelHssfView {
     
+    protected static final int DEFAULT_ID = 0;
+    
     private static final Logger LOGGER
             = Logger.getLogger(AbstractExcelExport.class.getName());
     

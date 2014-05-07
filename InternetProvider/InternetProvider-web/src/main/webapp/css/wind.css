@@ -97,3 +97,7 @@ iframe {
 body {
     padding-bottom: 70px;
 }
+
+.error {
+    color: red;
+}

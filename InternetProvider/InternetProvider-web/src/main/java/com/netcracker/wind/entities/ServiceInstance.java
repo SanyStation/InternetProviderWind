@@ -25,6 +25,7 @@ public class ServiceInstance implements Serializable {
     }
 
     private Integer id;
+    private String name;
     private Status status;
     private int userId;
     private transient User user;
@@ -50,6 +51,14 @@ public class ServiceInstance implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public Status getStatus() {
         return status;
     }

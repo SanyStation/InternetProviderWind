@@ -41,20 +41,14 @@ public class SiProfitExport extends AbstractExcelExport {
                         super.tableModel.getHeaderCellList());
                 Column column;
                 column = columnIterator.nextColumn();
-                int providerLocationId = (Integer) column.getValue(true);
-                column = columnIterator.nextColumn();
                 String providerLocationName = (String) column.getValue(true);
-                column = columnIterator.nextColumn();
-                int serviceId = (Integer) column.getValue(true);
                 column = columnIterator.nextColumn();
                 String serviceName = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
                 double sum = (Double) column.getValue(true);
                 
                 SiProfit profit = new SiProfit();
-                profit.setProviderLocationId(providerLocationId);
                 profit.setProviderLocationName(providerLocationName);
-                profit.setServiceId(serviceId);
                 profit.setServiceName(serviceName);
                 profit.setSum(sum);
                 

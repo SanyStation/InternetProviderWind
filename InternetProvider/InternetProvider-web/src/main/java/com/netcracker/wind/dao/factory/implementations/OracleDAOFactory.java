@@ -109,7 +109,7 @@ public class OracleDAOFactory extends AbstractFactoryDAO {
     }
     
     @Override
-    public ISiOrdersDAO createSiDisconnOrdersDAO() {
+    public ISiOrdersDAO createSiDiscOrdersDAO() {
         return new OracleSiOrdersDAO(ISiOrdersDAO.Scenario.DISCONNECT);
     }
     

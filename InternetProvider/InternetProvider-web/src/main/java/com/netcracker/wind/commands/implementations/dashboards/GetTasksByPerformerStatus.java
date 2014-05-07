@@ -6,6 +6,7 @@
 package com.netcracker.wind.commands.implementations.dashboards;
 
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.User;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.OwnTasksPaginatedList;
@@ -40,7 +41,7 @@ public class GetTasksByPerformerStatus implements ICommand {
         }
         int performerId = user.getId();
         IExtendedPaginatedList paginatedList = new TasksByPerformerStatusPaginatedList(request,
-                IExtendedPaginatedList.DEFAULT_PAGE_SIZE).setPerformer(performerId).setStatus(status);
+                AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId).setStatus(status);
         session.setAttribute(TASKS, paginatedList);
         return pageForReturn;
     }

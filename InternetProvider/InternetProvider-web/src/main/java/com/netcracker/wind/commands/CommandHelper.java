@@ -6,26 +6,14 @@ import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.ToPage;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
-import com.netcracker.wind.commands.implementations.dashboards.GetOwnTasks;
 import com.netcracker.wind.commands.implementations.dashboards.GetTasksByPerformerStatus;
-import com.netcracker.wind.commands.implementations.iedashboard.CreateCable;
-import com.netcracker.wind.commands.implementations.iedashboard.CreateDevice;
-import com.netcracker.wind.commands.implementations.iedashboard.DeleteCable;
-import com.netcracker.wind.commands.implementations.order.ConfirmOrder;
-import com.netcracker.wind.commands.implementations.order.ListOrders;
-import com.netcracker.wind.commands.implementations.order.ProceedToOrder;
-import com.netcracker.wind.commands.implementations.order.RefreshService;
-import com.netcracker.wind.commands.implementations.order.ReviewOrder;
+import com.netcracker.wind.commands.implementations.iedashboard.*;
+import com.netcracker.wind.commands.implementations.order.*;
+import com.netcracker.wind.commands.implementations.pedashboard.PEgetReportCiaIpt;
 import com.netcracker.wind.commands.implementations.pedashboard.SetupCircuit;
-import com.netcracker.wind.commands.implementations.pedashboard.Test;
 import com.netcracker.wind.commands.implementations.registration.Registration;
 import com.netcracker.wind.commands.implementations.registration.Validation;
-import com.netcracker.wind.commands.implementations.reports.CiaIptReportGenerator;
-import com.netcracker.wind.commands.implementations.reports.RiMostProfRouterReportGenerator;
-import com.netcracker.wind.commands.implementations.reports.RiRoutersUtilNCapReportGenerator;
-import com.netcracker.wind.commands.implementations.reports.SiDiscOrdersReportGenerator;
-import com.netcracker.wind.commands.implementations.reports.SiNewOrdersReportGenerator;
-import com.netcracker.wind.commands.implementations.reports.SiProfitReportGenerator;
+import com.netcracker.wind.commands.implementations.reports.*;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Task;
 import java.util.HashMap;
@@ -43,12 +31,14 @@ public class CommandHelper {
 
     private static final String NO_COMMAND = "no_command";
     private static final String PROCEED_TO_ORDER = "proceed_to_order";
+    
     private static final String RI_UTIL_N_CAP = "ri_util_n_cap";
     private static final String RI_MOST_PROF = "ri_most_prof";
     private static final String SI_NEW_ORDERS = "si_new_orders";
     private static final String SI_PROF_BY_MONTH = "si_prof_by_month";
     private static final String SI_DISCONN_ORDERS = "si_disc_orders";
     private static final String CIA_IPT = "cia_ipt";
+    
     private static final String REFRESH_SERVICE = "refresh_service";
     private static final String SENT_MAIL = "sent_mail";
     private static final String CSE_GROUP_TASK = "cse_group_task";
@@ -84,7 +74,14 @@ public class CommandHelper {
     private static final String SETUP_CIRCUIT = "setup_circuit";
 
     private static final String CSE_SERVICES = "cse_get_services";
-    private static final String TEST = "test";
+    private static final String CSE_GET_REPORT_SI_NEW = "cse_get_report_si_new";
+    private static final String CSE_GET_REPORT_SI_DISC = "cse_get_report_si_disc";
+    private static final String CSE_GET_REPORT_SI_PROFIT = "cse_get_report_si_profit";
+    
+    private static final String IE_GET_REPORT_RI_UTIL = "ie_get_report_ri_util";
+    private static final String IE_GET_REPORT_RI_PROFIT = "ie_get_report_ri_profit";
+    
+    private static final String PE_GET_REPORT_CIA_IPT = "pe_get_report_cia_ipt";
 
     private final Map<String, ICommand> commands;
 
@@ -134,8 +131,15 @@ public class CommandHelper {
         commands.put(PROCESS_TASK, new ProcessTask());
         commands.put(SEND_BILL, new SentBill());
         commands.put(SETUP_CIRCUIT, new SetupCircuit());
-
-        commands.put(TEST, new Test());
+        
+        commands.put(CSE_GET_REPORT_SI_NEW, new CSEgetReportSiNew());
+        commands.put(CSE_GET_REPORT_SI_DISC, new CSEgetReportSiDisc());
+        commands.put(CSE_GET_REPORT_SI_PROFIT, new CSEgetReportSiProfit());
+        
+        commands.put(IE_GET_REPORT_RI_UTIL, new IEgetReportRiUtil());
+        commands.put(IE_GET_REPORT_RI_PROFIT, new IEgetReportRiProfit());
+        
+        commands.put(PE_GET_REPORT_CIA_IPT, new PEgetReportCiaIpt());
     }
 
     public static CommandHelper getInstance() {

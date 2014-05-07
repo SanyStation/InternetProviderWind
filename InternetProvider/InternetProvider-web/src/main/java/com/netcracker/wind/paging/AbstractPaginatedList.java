@@ -1,6 +1,6 @@
 package com.netcracker.wind.paging;
 
-import com.netcracker.wind.dao.interfaces.IRowsCounter;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import javax.servlet.http.HttpServletRequest;
 import org.displaytag.properties.SortOrderEnum;
 
@@ -16,9 +16,10 @@ public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
     public AbstractPaginatedList(HttpServletRequest request, int pageSize) {
         String page = (String) request.getParameter(ATTRIBUTE_PAGE);
         if (page == null) {
-            page = "1";
+            this.pageNumber = AbstractOracleDAO.DEFAULT_PAGE_NUMBER;
+        } else {
+            this.pageNumber = Integer.parseInt(page);
         }
-        this.pageNumber = Integer.parseInt(page);
         this.pageSize = pageSize;
     }
     
@@ -26,9 +27,10 @@ public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
     public void setRequest(HttpServletRequest request) {
         String page = (String) request.getParameter(ATTRIBUTE_PAGE);
         if (page == null) {
-            page = "1";
+            this.pageNumber = AbstractOracleDAO.DEFAULT_PAGE_NUMBER;
+        } else {
+            this.pageNumber = Integer.parseInt(page);
         }
-        pageNumber = Integer.parseInt(page);
     }
 
     @Override

@@ -186,13 +186,8 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
 
     @Override
     public List<Port> findByDevice(int deviceId, int pageNumber, int pageSize) {
-        List<Port> ports = findWhere("WHERE DEVICE_ID = ?",
+        return findWhere("WHERE DEVICE_ID = ?", 
                 new Object[]{deviceId}, pageNumber, pageSize);
-        if (ports.isEmpty()) {
-            return null;
-        } else {
-            return ports;
-        }
     }
 
     @Override

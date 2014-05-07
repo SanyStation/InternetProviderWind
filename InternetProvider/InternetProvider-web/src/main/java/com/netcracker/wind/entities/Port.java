@@ -96,6 +96,10 @@ public class Port implements Serializable {
     public void setCable(Cable cable) {
         this.cable = cable;
     }
+    
+    public String getStatus() {
+        return free ? "FREE" : "BUSY";
+    }
 
     @Override
     public int hashCode() {

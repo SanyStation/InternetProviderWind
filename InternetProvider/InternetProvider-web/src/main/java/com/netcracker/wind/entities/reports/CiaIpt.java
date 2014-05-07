@@ -13,8 +13,12 @@ public class CiaIpt implements Serializable {
     private int deviceId;
     private String deviceName;
     private int portId;
+    private String portName;
+    private String portStatus;
     private int circuitId;
+    private String circuitName;
     private int serviceInstanceId;
+    private String serviceInstanceName;
 
     public CiaIpt() {
     }
@@ -43,6 +47,22 @@ public class CiaIpt implements Serializable {
         this.portId = portId;
     }
 
+    public String getPortName() {
+        return portName;
+    }
+
+    public void setPortName(String portName) {
+        this.portName = portName;
+    }
+
+    public String getPortStatus() {
+        return portStatus;
+    }
+
+    public void setPortStatus(String portStatus) {
+        this.portStatus = portStatus;
+    }
+    
     public int getCircuitId() {
         return circuitId;
     }
@@ -51,12 +71,28 @@ public class CiaIpt implements Serializable {
         this.circuitId = circuitId;
     }
 
+    public String getCircuitName() {
+        return circuitName;
+    }
+
+    public void setCircuitName(String circuitName) {
+        this.circuitName = circuitName;
+    }
+    
     public int getServiceInstanceId() {
         return serviceInstanceId;
     }
 
     public void setServiceInstanceId(int serviceInstanceId) {
         this.serviceInstanceId = serviceInstanceId;
+    }
+
+    public String getServiceInstanceName() {
+        return serviceInstanceName;
+    }
+
+    public void setServiceInstanceName(String serviceInstanceName) {
+        this.serviceInstanceName = serviceInstanceName;
     }
     
 

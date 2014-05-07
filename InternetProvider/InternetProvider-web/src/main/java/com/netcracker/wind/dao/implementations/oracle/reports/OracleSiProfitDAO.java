@@ -38,7 +38,7 @@ public class OracleSiProfitDAO extends AbstractOracleDAO
             + "JOIN provider_locations pl ON so.provider_location_id = pl.id "
             + "JOIN services s ON so.service_id = s.id "
             + "WHERE completedate <= TO_DATE(?, 'YYYY-MM-DD') "
-            + "AND si.status = 'active' "
+            + "AND si.status = 'ACTIVE' "
             + "GROUP BY pl.id, pl.name, s.id, s.name "
             + "ORDER BY sum DESC";
 

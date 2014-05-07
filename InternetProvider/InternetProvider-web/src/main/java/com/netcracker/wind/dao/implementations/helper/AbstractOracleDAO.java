@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 public abstract  class AbstractOracleDAO {
     
     public static final int DEFAULT_PAGE_NUMBER = 1;
-    public static final int DEFAULT_PAGE_SIZE = 30;
+    public static final int DEFAULT_PAGE_SIZE = 15;
     public static final int ALL_RECORDS = 0;
     
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -43,7 +43,7 @@ public abstract  class AbstractOracleDAO {
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-//            LOGGER.info("### Query: " + query);
+            LOGGER.info("### Query: " + query);
             stat = con.prepareStatement(query);
             if (param != null) {
                 for (int i = 0; i < param.length; ++i) {

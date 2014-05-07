@@ -50,7 +50,7 @@ public abstract class AbstractFactoryDAO {
 
     public abstract ISiOrdersDAO createSiNewOrdersDAO();
 
-    public abstract ISiOrdersDAO createSiDisconnOrdersDAO();
+    public abstract ISiOrdersDAO createSiDiscOrdersDAO();
     
     public abstract ICSEDashboardDAO  createCSESITableDAO();
     

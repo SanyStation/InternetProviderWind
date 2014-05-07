@@ -8,6 +8,7 @@ package com.netcracker.wind.commands.implementations.iedashboard;
 
 import com.netcracker.wind.commands.DashboardsUtilities;
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.TaskPaginationList;
@@ -24,7 +25,7 @@ public class IEGetGroupTasks implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
            IExtendedPaginatedList paginatedList = new TaskPaginationList(request, 
-                IExtendedPaginatedList.DEFAULT_PAGE_SIZE).setGroup(Role.IE_GROUP_ID);
+                AbstractOracleDAO.DEFAULT_PAGE_SIZE).setGroup(Role.IE_GROUP_ID);
         HttpSession session = request.getSession(false);
         if(session == null){
             return "";
