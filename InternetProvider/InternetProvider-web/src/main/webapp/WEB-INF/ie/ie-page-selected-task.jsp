@@ -20,6 +20,12 @@
             <br/>Status:${task.status}
             <br/>Type:${task.type}
             <br/>Performer:${task.user.name}
+            <br/>Costumer Address: ${task.serviceOrder.serviceLocation.address}
+            <br/>Provider name: ${task.serviceOrder.providerLocation.name}
+            <br/>Provider Address: ${task.serviceOrder.providerLocation.address}
+            <br/>Port ID:${task.serviceOrder.serviceInstance.circuit.port.id}
+            <br/>Device ID:${task.serviceOrder.serviceInstance.circuit.port.device.id}
+            <br/>Device name:${task.serviceOrder.serviceInstance.circuit.port.device.name}
             <c:if test="${task.status=='ACTIVE'}">
                 <form action="Controller" method="POST">
                     <input type="hidden" name="task_id" value="${task.id}"/>

@@ -13,7 +13,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Circuit implements Serializable {
 
     private static final long serialVersionUID = 4851026000306784920L;
-    
+
     private final AbstractFactoryDAO factoryDAO
             = FactoryCreator.getInstance().getFactory();
 
@@ -46,7 +46,7 @@ public class Circuit implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public int getServiceInstanceId() {
         return serviceInstanceId;
     }
@@ -54,7 +54,7 @@ public class Circuit implements Serializable {
     public void setServiceInstanceId(int serviceInstanceId) {
         this.serviceInstanceId = serviceInstanceId;
     }
-    
+
     public ServiceInstance getServiceInstance() {
         if (serviceInstance == null) {
             serviceInstance = factoryDAO.createServiceInstanceDAO()
@@ -69,17 +69,17 @@ public class Circuit implements Serializable {
     }
 
     public int getPortId() {
-        if (port == null) {
-            port = factoryDAO.createPortDAO().findById(portId);
-        }
         return portId;
     }
 
     public void setPortId(int portId) {
         this.portId = portId;
     }
-    
+
     public Port getPort() {
+        if (port == null) {
+            port = factoryDAO.createPortDAO().findById(portId);
+        }
         return port;
     }
 
