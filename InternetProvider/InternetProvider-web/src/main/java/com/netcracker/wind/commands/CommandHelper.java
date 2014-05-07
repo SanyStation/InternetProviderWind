@@ -13,7 +13,6 @@ import com.netcracker.wind.commands.implementations.pedashboard.PEgetReportCiaIp
 import com.netcracker.wind.commands.implementations.pedashboard.SetupCircuit;
 import com.netcracker.wind.commands.implementations.registration.Registration;
 import com.netcracker.wind.commands.implementations.registration.Validation;
-import com.netcracker.wind.commands.implementations.reports.*;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Task;
 import java.util.HashMap;
@@ -31,32 +30,9 @@ public class CommandHelper {
 
     private static final String NO_COMMAND = "no_command";
     private static final String PROCEED_TO_ORDER = "proceed_to_order";
-    
-    private static final String RI_UTIL_N_CAP = "ri_util_n_cap";
-    private static final String RI_MOST_PROF = "ri_most_prof";
-    private static final String SI_NEW_ORDERS = "si_new_orders";
-    private static final String SI_PROF_BY_MONTH = "si_prof_by_month";
-    private static final String SI_DISCONN_ORDERS = "si_disc_orders";
-    private static final String CIA_IPT = "cia_ipt";
-    
     private static final String REFRESH_SERVICE = "refresh_service";
     private static final String SENT_MAIL = "sent_mail";
-    private static final String CSE_GROUP_TASK = "cse_group_task";
     private static final String CUSTOMERS_LIST = "customers_list";
-    private static final String PE_TASKS = "pe_tasks";
-    private static final String IE_TASKS = "ie_tasks";
-    private static final String IE_USER_ACTIVE_TASKS = "ie_user_active_tasks";
-    private static final String IE_USER_COMPLETED_TASKS
-            = "ie_user_completed_tasks";
-    private static final String CSE_GET_ELEMENTS_COUNT
-            = "cse_get_elements_count";
-    private static final String CSE_GET_ELEMENTS_FROM_OFFSET
-            = "cse_get_elements_from_offset";
-    private static final String CSE_GET_TASKS = "cse_get_tasks";
-    private static final String IE_GET_TASKS = "ie_get_tasks";
-    private static final String PE_GET_TASKS = "pe_get_tasks";
-    private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
-    private static final String CSE_GET_UNCOMPLETED_TASKS = "cse_get_uncompleted_tasks";
     private static final String PROVIDER_LOCATION_LIST = "provider_location_list";
     private static final String NEW_DEVICE = "new_device";
     private static final String NEW_CABLE = "new_cable";
@@ -64,24 +40,37 @@ public class CommandHelper {
     private static final String VALIDATION = "validation";
     private static final String REGISTRATION = "registration";
     private static final String TO_PAGE = "to_page";
-    private static final String CSE_GROUP_TASKS = "cse_group_tasks";
-    private static final String CSE_CUSTOMER_REVIEW = "customer_review";
-    private static final String CU_ORDERS = "cu_orders";
-    private static final String CU_REVIEW_ORDER = "review_order";
-    private static final String CU_CONFIRM_ORDER = "confirm_order";
     private static final String PROCESS_TASK = "process_task";
     private static final String SEND_BILL = "send_bill";
     private static final String SETUP_CIRCUIT = "setup_circuit";
-
-    private static final String CSE_SERVICES = "cse_get_services";
+    
+    private static final String CU_ORDERS = "cu_orders";
+    private static final String CU_REVIEW_ORDER = "review_order";
+    private static final String CU_CONFIRM_ORDER = "confirm_order";
+    
+    private static final String CSE_GET_ELEMENTS_COUNT = "cse_get_elements_count";
+    private static final String CSE_GET_ELEMENTS_FROM_OFFSET = "cse_get_elements_from_offset";
+    private static final String CSE_GET_TASKS = "cse_get_tasks";
+    private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
+    private static final String CSE_GET_UNCOMPLETED_TASKS = "cse_get_uncompleted_tasks";
+    private static final String CSE_GROUP_TASKS = "cse_group_tasks";
+    private static final String CSE_CUSTOMER_REVIEW = "customer_review";
     private static final String CSE_GET_REPORT_SI_NEW = "cse_get_report_si_new";
     private static final String CSE_GET_REPORT_SI_DISC = "cse_get_report_si_disc";
     private static final String CSE_GET_REPORT_SI_PROFIT = "cse_get_report_si_profit";
     
+    private static final String IE_USER_ACTIVE_TASKS = "ie_user_active_tasks";
+    private static final String IE_USER_COMPLETED_TASKS = "ie_user_completed_tasks";
+    private static final String IE_GET_TASKS = "ie_get_tasks";
     private static final String IE_GET_REPORT_RI_UTIL = "ie_get_report_ri_util";
     private static final String IE_GET_REPORT_RI_PROFIT = "ie_get_report_ri_profit";
     
+    private static final String PE_GET_TASKS = "pe_get_tasks";
     private static final String PE_GET_REPORT_CIA_IPT = "pe_get_report_cia_ipt";
+    private static final String PE_REVIEW_DEVICE = "pe_review_device";
+    private static final String PE_REVIEW_PORT = "pe_review_port";
+    private static final String PE_REVIEW_CIRCUIT = "pe_review_circuit";
+    private static final String PE_REVIEW_SERVICE_INSTANCE = "pe_review_service_instance";
 
     private final Map<String, ICommand> commands;
 
@@ -89,31 +78,9 @@ public class CommandHelper {
         commands = new HashMap<String, ICommand>();
         commands.put(NO_COMMAND, new NoCommand());
         commands.put(REFRESH_SERVICE, new RefreshService());
-        commands.put(RI_UTIL_N_CAP, new RiRoutersUtilNCapReportGenerator());
-        commands.put(RI_MOST_PROF, new RiMostProfRouterReportGenerator());
-        commands.put(SI_NEW_ORDERS, new SiNewOrdersReportGenerator());
-        commands.put(SI_DISCONN_ORDERS, new SiDiscOrdersReportGenerator());
-        commands.put(SI_PROF_BY_MONTH, new SiProfitReportGenerator());
-        commands.put(CIA_IPT, new CiaIptReportGenerator());
         commands.put(SENT_MAIL, new SentMail());
-        commands.put(CSE_GROUP_TASK, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CustomersList());
-        commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/?"));
-        commands.put(IE_TASKS, new GetGroupTasks(Role.IE_GROUP_ID, "/WEB-INF/ie/?"));
-        commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(
-                Task.Status.ACTIVE.toString(), "/WEB-INF/ie/?"));
-        commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(
-                Task.Status.COMPLETED.toString(), "/WEB-INF/ie/?"));
-        commands.put(CSE_GET_TASKS, new CSEgetOwnTasks());
-        commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
-        commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
-        commands.put(PE_TASKS, new GetGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/?"));
-        commands.put(CSE_GET_TASKS, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
-        commands.put(IE_GET_TASKS, new GetGroupTasks(Role.IE_GROUP_ID,"/WEB-INF/ie/ie-page-tasks-list.jsp"));
-        commands.put(PE_GET_TASKS, new GetGroupTasks(Role.PE_GROUP_ID,"/WEB-INF/pe/pe-page-tasks-list.jsp"));
-        //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
-        // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
         commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
         commands.put(NEW_DEVICE, new CreateDevice());
         commands.put(NEW_CABLE, new CreateCable());
@@ -121,24 +88,34 @@ public class CommandHelper {
         commands.put(VALIDATION, new Validation());
         commands.put(REGISTRATION, new Registration());
         commands.put(TO_PAGE, new ToPage());
+        commands.put(PROCESS_TASK, new ProcessTask());
+        commands.put(SEND_BILL, new SentBill());
+        commands.put(SETUP_CIRCUIT, new SetupCircuit());
+        //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
+        // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
+        
+        commands.put(CU_ORDERS, new ListOrders());
+        commands.put(CU_REVIEW_ORDER, new ReviewOrder());
+        commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
+        
+        commands.put(CSE_GET_TASKS, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
+        commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
+        commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
         commands.put(CSE_GET_ELEMENTS_COUNT, new CSEgetElementsCount());
         commands.put(CSE_GET_ELEMENTS_FROM_OFFSET, new CSEGetElementsFromOffset());
         commands.put(CSE_GROUP_TASKS, new CSEGetGroupTasks());
         commands.put(CSE_CUSTOMER_REVIEW, new CustomerReview());
-        commands.put(CU_ORDERS, new ListOrders());
-        commands.put(CU_REVIEW_ORDER, new ReviewOrder());
-        commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
-        commands.put(PROCESS_TASK, new ProcessTask());
-        commands.put(SEND_BILL, new SentBill());
-        commands.put(SETUP_CIRCUIT, new SetupCircuit());
-        
         commands.put(CSE_GET_REPORT_SI_NEW, new CSEgetReportSiNew());
         commands.put(CSE_GET_REPORT_SI_DISC, new CSEgetReportSiDisc());
         commands.put(CSE_GET_REPORT_SI_PROFIT, new CSEgetReportSiProfit());
         
+        commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE.toString(), "/WEB-INF/ie/?"));
+        commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED.toString(), "/WEB-INF/ie/?"));
+        commands.put(IE_GET_TASKS, new GetGroupTasks(Role.IE_GROUP_ID,"/WEB-INF/ie/ie-page-tasks-list.jsp"));
         commands.put(IE_GET_REPORT_RI_UTIL, new IEgetReportRiUtil());
         commands.put(IE_GET_REPORT_RI_PROFIT, new IEgetReportRiProfit());
         
+        commands.put(PE_GET_TASKS, new GetGroupTasks(Role.PE_GROUP_ID,"/WEB-INF/pe/pe-page-tasks-list.jsp"));
         commands.put(PE_GET_REPORT_CIA_IPT, new PEgetReportCiaIpt());
     }
 

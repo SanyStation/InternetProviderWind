@@ -23,10 +23,10 @@
                 <display:table name="sessionScope.devices" export="true" requestURI="Controller"
                                class="simple" pagesize="${pageSize}" >
 
-                    <display:setProperty name="export.rimpr" value="true"/>
-                    <display:setProperty name="export.rimpr.label" value="XLS"/>
-                    <display:setProperty name="export.crimpr" value="true"/>
-                    <display:setProperty name="export.crimpr.label" value="CSV"/>
+                    <display:setProperty name="export.riunc" value="true"/>
+                    <display:setProperty name="export.riunc.label" value="XLS"/>
+                    <display:setProperty name="export.criunc" value="true"/>
+                    <display:setProperty name="export.criunc.label" value="CSV"/>
 
                     <display:setProperty 
                         name="paging.banner.full" 

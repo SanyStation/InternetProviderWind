@@ -16,7 +16,7 @@
             <ul>
                 <li><a href="Controller?command=cse_get_report_si_new"><i class="glyphicon glyphicon-list-alt"></i> New orders</a></li>
                 <li><a href="Controller?command=cse_get_report_si_disc"><i class="glyphicon glyphicon-list-alt"></i> Disconnect orders</a></li>
-                <li><a href="Controller?command=cse_get_report_si_profit"><i class="glyphicon glyphicon-list-alt"></i> Routers' profitability</a></li>
+                <li><a href="Controller?command=cse_get_report_si_profit"><i class="glyphicon glyphicon-list-alt"></i> Profit</a></li>
             </ul>
         </li>
     </ul>

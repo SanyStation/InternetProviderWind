@@ -55,7 +55,7 @@ public class RiRouterUtilNCap implements Serializable {
     }
     
     public double getUtilizationPercent() {
-        return capacity > 0 ? (double) utilization / capacity : 0;
+        return capacity > 0 ? (double) utilization / capacity * 100 : 0;
     }
     
 }
