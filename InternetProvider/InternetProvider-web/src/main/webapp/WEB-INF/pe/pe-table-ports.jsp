@@ -1,20 +1,19 @@
 <%-- 
-    Document   : cse-table-users
-    Created on : 03.05.2014, 13:54:34
-    Author     : oneplayer
+    Author     : Alexander Kovriga
 --%>
+
 <%@ page import="com.netcracker.wind.paging.IExtendedPaginatedList"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%
-    IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("users");
+    IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("ports");
     expl.setRequest(request);
 %>
-<h3>Customer users list</h3>
+<h3>Ports</h3>
 <form role="form">
-    <display:table name="sessionScope.users" sort="external"  requestURI="Controller"
+    <display:table name="sessionScope.ports" sort="external"  requestURI="Controller"
                    partialList="true" class="simple"
-                   pagesize="${sessionScope.users.objectsPerPage}" 
-                   size="${sessionScope.users.fullListSize}">
+                   pagesize="${sessionScope.ports.objectsPerPage}" 
+                   size="${sessionScope.ports.fullListSize}">
 
         <display:setProperty 
             name="paging.banner.full" 
@@ -33,7 +32,7 @@
             name="paging.banner.first" 
             value="<br/><ul class=\"pagination\">
             <li class=\"active\"><a href=\"{1}\">First</a></li>
-            <li class=\"disabled\"><a>Prev</a></li>
+            <li class=\"disabled\"><a href=\"{2}\">Prev</a></li>
             {0}
             <li><a href=\"{3}\">Next</a></li>
             <li><a href=\"{4}\">Last</a></li>
@@ -44,7 +43,7 @@
             <li><a href=\"{1}\">First</a></li>
             <li><a href=\"{2}\">Prev</a></li>
             {0}
-            <li class=\"disabled\"><a>Next</a></li>
+            <li class=\"disabled\"><a href=\"{3}\">Next</a></li>
             <li class=\"active\"><a href=\"{4}\">Last</a></li>
             </ul>"/>
         <display:setProperty 
@@ -61,14 +60,10 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID" />
-        <display:column property="name" title="Name" href="Controller?command=customer_review" paramId="id" paramProperty="id" />
-        <display:column property="email" title="e-mail" />
-        <display:column property="blocked" title="blocked" />
+        
+        <display:column property="id" title="ID" href="Controller?command=pe_review_port" paramId="id" paramProperty="id" />
+        <display:column property="name" title="Name" href="Controller?command=pe_review_port" paramId="id" paramProperty="id" />
+        <display:column property="status" title="Status" />
+
     </display:table>
-
-
-
-    <!--button type="button" class="btn btn-default margin"><span class="glyphicon glyphicon-remove-circle"></span> Apply filter</button>
-    <button type="button" class="btn btn-default margin"><span class="glyphicon glyphicon-remove-circle"></span> Clean filter</button-->
 </form>

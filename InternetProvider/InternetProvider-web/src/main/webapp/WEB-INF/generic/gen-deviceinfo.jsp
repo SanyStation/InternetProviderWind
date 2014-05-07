@@ -6,7 +6,7 @@
     <table class="table table-bordered">
         <tr>
             <td colspan="2">
-                <h4>${device.name}<button type="button" class="btn btn-default pull-right gobuttontop"><span class="glyphicon glyphicon-cog"></span> Modify info</button></h2>
+                <h4>${device.name}<button type="button" class="btn btn-default pull-right gobuttontop"><span class="glyphicon glyphicon-cog"></span> Modify</button></h2>
             </td>
         </tr>
         <tr>

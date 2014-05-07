@@ -74,9 +74,9 @@
                         name="css.table" 
                         value="table table-striped table-hover nomargin"/>
 
-                    <display:column property="deviceId" title="Device ID" group="1" />
-                    <display:column property="deviceName" title="Device" group="1" />
-                    <display:column property="portName" title="Port" />
+                    <display:column property="deviceId" title="Device ID" group="1" href="Controller?command=pe_review_device" paramId="id" paramProperty="deviceId" />
+                    <display:column property="deviceName" title="Device" group="1" href="Controller?command=pe_review_device" paramId="id" paramProperty="deviceId" />
+                    <display:column property="portName" title="Port" href="Controller?command=pe_review_port" paramId="id" paramProperty="portId" />
                     <display:column property="portStatus" title="Port status" />
                     <display:column property="circuitName" title="Circuit" />
                     <display:column property="serviceInstanceName" title="Service instance" />

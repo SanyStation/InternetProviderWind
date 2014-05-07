@@ -9,8 +9,7 @@ import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
 import com.netcracker.wind.commands.implementations.dashboards.GetTasksByPerformerStatus;
 import com.netcracker.wind.commands.implementations.iedashboard.*;
 import com.netcracker.wind.commands.implementations.order.*;
-import com.netcracker.wind.commands.implementations.pedashboard.PEgetReportCiaIpt;
-import com.netcracker.wind.commands.implementations.pedashboard.SetupCircuit;
+import com.netcracker.wind.commands.implementations.pedashboard.*;
 import com.netcracker.wind.commands.implementations.registration.Registration;
 import com.netcracker.wind.commands.implementations.registration.Validation;
 import com.netcracker.wind.entities.Role;
@@ -117,6 +116,8 @@ public class CommandHelper {
         
         commands.put(PE_GET_TASKS, new GetGroupTasks(Role.PE_GROUP_ID,"/WEB-INF/pe/pe-page-tasks-list.jsp"));
         commands.put(PE_GET_REPORT_CIA_IPT, new PEgetReportCiaIpt());
+        commands.put(PE_REVIEW_DEVICE, new PEreviewDevice());
+        commands.put(PE_REVIEW_PORT, new PEreviewPort());
     }
 
     public static CommandHelper getInstance() {

@@ -5,7 +5,7 @@
 --%>
 
 <jsp:include page="../generic/header.jsp" flush="true">
-    <jsp:param name="titleText" value="Customer Support Engineer's dashboard"/>
+    <jsp:param name="titleText" value="Provisioning Engineer's dashboard"/>
 </jsp:include>
 
 <jsp:include page="../generic/dashboardheader.jsp" flush="true"/>
@@ -14,10 +14,7 @@
     <div class="row">
         <jsp:include page="pe-leftmenu.jsp" flush="true"/>      
         <div class="col-md-9 nopadding">
-            <jsp:include page="../generic/gen-deviceinfo.jsp" flush="true"/>
-            <div class="row divitem nomargin">
-                <%--<jsp:include page="pe-table-ports.jsp" flush="true"/>--%>
-            </div>
+            <jsp:include page="../generic/gen-portinfo.jsp" flush="true"/>
         </div>
 
     </div>
