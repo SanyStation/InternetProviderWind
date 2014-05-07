@@ -13,10 +13,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Task implements Serializable {
 
     private static final long serialVersionUID = -9049678772835215167L;
-    
+
     private final AbstractFactoryDAO factoryDAO
             = FactoryCreator.getInstance().getFactory();
-    
+
     public static enum Type {
 
         NEW_DEVICE, NEW_CABLE, DELETE_CABLE, MANAGE_CIRCUIT, DELETE_CIRCUIT,
@@ -25,7 +25,16 @@ public class Task implements Serializable {
 
     public static enum Status {
 
-        NEW, ACTIVE, SUSPENDED, COMPLETED
+        NEW("new"), ACTIVE("active"), SUSPENDED("suspended"), COMPLETED("completed");
+        private final String val;
+
+        Status(String val) {
+            this.val = val;
+        }
+
+        public String getStatus() {
+            return val;
+        }
     }
 
     private Integer id;
@@ -76,7 +85,7 @@ public class Task implements Serializable {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-    
+
     public User getUser() {
         if (user == null) {
             user = factoryDAO.createUserDAO().findById(userId);
@@ -96,7 +105,7 @@ public class Task implements Serializable {
     public void setServiceOrderId(int serviceOrderId) {
         this.serviceOrderId = serviceOrderId;
     }
-    
+
     public ServiceOrder getServiceOrder() {
         if (serviceOrder == null) {
             serviceOrder = factoryDAO.createServiceOrderDAO()
@@ -117,7 +126,7 @@ public class Task implements Serializable {
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
-    
+
     public Role getRole() {
         if (role == null) {
             role = factoryDAO.createRoleDAO().findById(roleId);
