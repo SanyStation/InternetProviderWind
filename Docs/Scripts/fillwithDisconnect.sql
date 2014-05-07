@@ -243,9 +243,9 @@ BEGIN
   end loop;
 
    FOR a in 1 .. 70 LOOP
-		e_date := Sysdate + (a/3)/24;
-		pr_date := Sysdate + (a/3)/24 + 1/24;
-		c_date := Sysdate + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + (a/3)/24 - 60;
+		pr_date := Sysdate + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -275,9 +275,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 71 .. 140 LOOP
-		e_date := Sysdate + 3 +(a/3)/24;
-		pr_date := Sysdate + 3 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 3 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 3 +(a/3)/24 - 60;
+		pr_date := Sysdate + 3 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 3 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -307,9 +307,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
    FOR a in 141 .. 200 LOOP
-		e_date := Sysdate + 8 +(a/3)/24;
-		pr_date := Sysdate + 8 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 8 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 8 +(a/3)/24 - 60;
+		pr_date := Sysdate + 8 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 8 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -339,9 +339,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 201 .. 270 LOOP
-		e_date := Sysdate + 9 +(a)/24;
-		pr_date := Sysdate + 9 + (a)/24 + 1/24;
-		c_date := Sysdate + 9 + (a)/24 + 1/24 + 1;
+		e_date := Sysdate + 9 +(a)/24 - 60;
+		pr_date := Sysdate + 9 + (a)/24 + 1/24 - 60;
+		c_date := Sysdate + 9 + (a)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -371,9 +371,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 271 .. 340 LOOP
-		e_date := Sysdate + 20 +(a/3)/24;
-		pr_date := Sysdate + 20 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 20 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 20 +(a/3)/24 - 60;
+		pr_date := Sysdate + 20 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 20 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -403,9 +403,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 341 .. 400 LOOP
-		e_date := Sysdate + 25 +(a/3)/24;
-		pr_date := Sysdate + 25 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 25 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 25 +(a/3)/24 - 60;
+		pr_date := Sysdate + 25 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 25 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -435,9 +435,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 401 .. 470 LOOP
-		e_date := Sysdate + 28 +(a/3)/24;
-		pr_date := Sysdate + 28 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 28 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 28 +(a/3)/24 - 60;
+		pr_date := Sysdate + 28 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 28 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -467,9 +467,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 471 .. 540 LOOP
-		e_date := Sysdate + 30 +(a/2)/24;
-		pr_date := Sysdate + 30 + (a/2)/24 + 1/24;
-		c_date := Sysdate + 30 + (a/2)/24 + 1/24 + 1;
+		e_date := Sysdate + 30 +(a/2)/24 - 60;
+		pr_date := Sysdate + 30 + (a/2)/24 + 1/24 - 60;
+		c_date := Sysdate + 30 + (a/2)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -499,9 +499,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 541 .. 600 LOOP
-		e_date := Sysdate + 32 +(a/3)/24;
-		pr_date := Sysdate + 32 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 32 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 32 +(a/3)/24 - 60;
+		pr_date := Sysdate + 32 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 32 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -531,9 +531,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 601 .. 670 LOOP
-		e_date := Sysdate + 34 +(a/3)/24;
-		pr_date := Sysdate + 34 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 34 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 34 +(a/3)/24 - 60;
+		pr_date := Sysdate + 34 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 34 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -563,9 +563,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 671 .. 740 LOOP
-		e_date := Sysdate + 40 +(a/3)/24;
-		pr_date := Sysdate + 40 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 40 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 40 +(a/3)/24 - 60;
+		pr_date := Sysdate + 40 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 40 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -595,9 +595,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 741 .. 800 LOOP
-		e_date := Sysdate + 45 +(a/3)/24;
-		pr_date := Sysdate + 45 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 45 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 45 +(a/3)/24 - 60;
+		pr_date := Sysdate + 45 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 45 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -627,9 +627,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 801 .. 870 LOOP
-		e_date := Sysdate + 48 +(a/3)/24;
-		pr_date := Sysdate + 48 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 48 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 48 +(a/3)/24 - 60;
+		pr_date := Sysdate + 48 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 48 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -659,9 +659,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 871 .. 940 LOOP
-		e_date := Sysdate + 49 +(a/3)/24;
-		pr_date := Sysdate + 49 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 49 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 49 +(a/3)/24 - 60;
+		pr_date := Sysdate + 49 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 49 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -691,9 +691,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
   FOR a in 941 .. 1000 LOOP
-		e_date := Sysdate + 49 +(a/3)/24;
-		pr_date := Sysdate + 49 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 49 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 49 +(a/3)/24 - 60;
+		pr_date := Sysdate + 49 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 49 + (a/3)/24 + 1/24 + 1 - 60;
 		insert into service_orders
 		(enterdate, procesdate, completedate, user_id, service_id, provider_location_id, service_location_id, status, scenario, service_instance_id, name)
 		values
@@ -723,9 +723,9 @@ BEGIN
 		update service_orders set service_instance_id = a where id = a;
   END LOOP;
 		FOR a in 1001 .. 1100 LOOP
-		e_date := Sysdate + 55 +(a/3)/24;
-		pr_date := Sysdate + 55 + (a/3)/24 + 1/24;
-		c_date := Sysdate + 55 + (a/3)/24 + 1/24 + 1;
+		e_date := Sysdate + 55 +(a/3)/24 - 60;
+		pr_date := Sysdate + 55 + (a/3)/24 + 1/24 - 60;
+		c_date := Sysdate + 55 + (a/3)/24 + 1/24 + 1 - 60;
 		b := a - 950 + (a - 1000);
 		
 		select services.id 
