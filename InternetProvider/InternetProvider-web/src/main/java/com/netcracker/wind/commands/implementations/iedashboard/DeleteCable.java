@@ -16,37 +16,37 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author �����
  */
-public class DeleteCable implements ICommand{
-    
-    public final String TASK_ID = "task_id";
+public class DeleteCable implements ICommand {
+
+    public static final String TASK_ID = "task_id";
+    public static final String TASK = "task";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        
+
         int taskID;
         try {
             taskID = Integer.parseInt(request.getParameter(TASK_ID));
         } catch (NumberFormatException exception) {
             return "";
-        } 
-        
+        }
+
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ICableDAO cableDAO = factoryDAO.createCableDAO();
         IPortDAO portDAO = factoryDAO.createPortDAO();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
-        
+
         Task task = taskDAO.findById(taskID);
-        Cable cable = cableDAO.findByServiceLocation(
-                task.getServiceOrder().getProviderLocationId());
-        
+        Cable cable = task.getServiceOrder().getServiceLocation().getCable();
+
         Port port = cable.getPort();
         port.setFree(true);
         portDAO.update(port);
         cableDAO.delete(cable.getId());
-        
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
-        
-        return "/index.jsp"; 
+        request.getSession(false).setAttribute(TASK, task);
+
+        return "/WEB-INF/ie/ie-page-selected-task.jsp";
     }
-    
+
 }
