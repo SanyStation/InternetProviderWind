@@ -4,7 +4,7 @@
     Author     : Anatolii
 --%>
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../generic/header.jsp" flush="true">
     <jsp:param name="titleText" value="Installation Engineer's dashboard"/>
 </jsp:include>
@@ -20,15 +20,27 @@
             <br/>Status:${task.status}
             <br/>Type:${task.type}
             <br/>Performer:${task.user.name}
-            <form action="Controller" method="POST">
-                <input type="hidden" name="command" value="new_cable"/>
-                <input type="hidden" name="task_id" value="${task.id}"/>
-                <input type="submit" value="Create cable"/>
-            </form>
+            <c:if test="${task.status=='ACTIVE'}">
+                <form action="Controller" method="POST">
+                    <input type="hidden" name="task_id" value="${task.id}"/>
+                    <c:if test="${task.type=='NEW_CABLE'}">
+                        <input type="hidden" name="command" value="new_cable"/>
+                        <input type="submit" value="Create cable"/>
+                    </c:if>
+                    <c:if test="${task.type=='DELETE_CABLE'}">
+                        <input type="hidden" name="command" value="delete_cable"/>
+                        <input type="submit" value="Delete cable"/>
+                    </c:if>
+                    <c:if test="${task.type=='NEW_DEVICE'}">
+                        <input type="hidden" name="command" value="new_device"/>
+                        <input type="submit" value="Create device"/>
+                    </c:if>
+                </form>
+            </c:if>
         </div>
         <div class="col-md-offset-3">
         </div>
     </div>
 </div>
-        
+
 <jsp:include page="../generic/footer.jsp" flush="true"/>
