@@ -20,21 +20,12 @@ public class Task implements Serializable {
     public static enum Type {
 
         NEW_DEVICE, NEW_CABLE, DELETE_CABLE, MANAGE_CIRCUIT, DELETE_CIRCUIT,
-        MODIFY_CIRCUIT, SEND_BILL, CREATE_CIRCUIT, CREATE_CABLE
+        MODIFY_CIRCUIT, SEND_BILL, CREATE_CIRCUIT
     }
 
     public static enum Status {
 
-        NEW("new"), ACTIVE("active"), SUSPENDED("suspended"), COMPLETED("completed");
-        private final String val;
-
-        Status(String val) {
-            this.val = val;
-        }
-
-        public String getStatus() {
-            return val;
-        }
+        NEW, ACTIVE, SUSPENDED, COMPLETED;
     }
 
     private Integer id;
