@@ -89,15 +89,15 @@ public class Workflow {
                 Task.Type.SEND_BILL, Task.Status.NEW, order);
         taskDAO.add(task);
         List<User> users = FactoryCreator.getInstance().getFactory().createUserDAO().findByRole(Role.CSE_GROUP_ID);
-       // if(users!=null)
-       // new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
+        // if(users!=null)
+        // new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
     }
 
     private static boolean isNotComletetdTaskNewDevice(ITaskDAO taskDAO) {
         List<Task> tasks = taskDAO.
                 findByTypeAndStatus(AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
                         AbstractOracleDAO.ALL_RECORDS, Task.Type.NEW_DEVICE,
-                        Task.Status.NEW, Task.Status.ACTIVE, 
+                        Task.Status.NEW, Task.Status.ACTIVE,
                         Task.Status.SUSPENDED);
         return !tasks.isEmpty();
     }

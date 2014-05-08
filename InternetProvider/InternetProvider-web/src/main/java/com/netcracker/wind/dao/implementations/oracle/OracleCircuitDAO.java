@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 /**
@@ -23,6 +24,8 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
     private static final Logger LOGGER
             = Logger.getLogger(OracleCircuitDAO.class.getName());
 
+    private static final String SELECT_BY_NULL_PORT
+            = "SELECT * FROM CIRCUIT WHERE PORT_ID IS NULL";
     private static final String DELETE = "DELETE FROM CIRCUITS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO CIRCUITS (NAME, "
             + "SERVICE_INSTANCE_ID, PORT_ID) VALUES(?, ?, ?)";
@@ -135,8 +138,12 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
 
     @Override
     public Circuit findByPort(int idPort) {
+        Object param = null;
+        if (idPort > 0) {
+            param = idPort;
+        }
         List<Circuit> circuits
-                = findWhere("WHERE PORT_ID = ?", new Object[]{idPort},
+                = findWhere("WHERE PORT_ID = ?", new Object[]{param},
                         DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (circuits.isEmpty()) {
             return null;
@@ -159,6 +166,42 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
     @Override
     public List<Circuit> findAll(int pageNumber, int pageSize) {
         return findWhere("", new Object[]{}, pageNumber, pageSize);
+    }
+
+    public List<Circuit> findByNullPort() {
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Circuit> circuits = null;
+        try {
+            ps = connection.prepareStatement(SELECT_BY_NULL_PORT);
+            rs = ps.executeQuery();
+            circuits = new ArrayList<Circuit>();
+            try {
+                while (rs.next()) {
+                    Circuit circuit = new Circuit();
+                    circuit.setId(rs.getInt(ID));
+                    circuit.setName(rs.getString(NAME));
+                    circuit.setServiceInstanceId(rs.getInt(SIID));
+                    circuit.setPortId(rs.getInt(PORT));
+                    circuits.add(circuit);
+                }
+            } catch (SQLException ex) {
+                LOGGER.error(null, ex);
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(OracleCircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    java.util.logging.Logger.getLogger(OracleCircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            connectionPool.close(connection);
+        }
+        return circuits;
     }
 
 }
