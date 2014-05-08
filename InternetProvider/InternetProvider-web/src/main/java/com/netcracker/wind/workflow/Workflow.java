@@ -22,6 +22,8 @@ import java.util.List;
  */
 public class Workflow {
 
+    private static final int PORT_ON_DEVICE = 60;
+    
     public static void createTaskForNewScnario(ServiceOrder order) {
         AbstractFactoryDAO factoryDAO
                 = FactoryCreator.getInstance().getFactory();
@@ -99,7 +101,9 @@ public class Workflow {
                         AbstractOracleDAO.ALL_RECORDS, Task.Type.NEW_DEVICE,
                         Task.Status.NEW, Task.Status.ACTIVE,
                         Task.Status.SUSPENDED);
-        return !tasks.isEmpty();
+        ICircuitDAO circuitDAO = FactoryCreator.getInstance().getFactory().createCircuitDAO();
+        List<Circuit> circuits = circuitDAO.findByNullPort();
+        return !tasks.isEmpty() && circuits.size() < PORT_ON_DEVICE;
     }
 
     public static void createTaskForModifyScenario(ServiceOrder order) {

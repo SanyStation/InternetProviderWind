@@ -23,19 +23,13 @@ public class ConfirmOrder implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String sOrderId = request.getParameter(ORDER);
-        int orderId;
-        try {
-            orderId = Integer.parseInt(sOrderId);
-        } catch (NumberFormatException exception) {
-            //TODO logging
-            //TODO return error page
-            return "";
-        }
+        int orderId = Integer.parseInt(sOrderId);
+
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IServiceOrderDAO serviceOrderDAO = factoryDAO.createServiceOrderDAO();
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
         ServiceOrder order = serviceOrderDAO.findById(orderId);
-        if (order == null) {
+        if (order == null || !order.getStatus().equals(ServiceOrder.Status.ENTERING)) {
             //TODO return error page
             return "";
         }

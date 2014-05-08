@@ -69,17 +69,18 @@ public class CreateDevice implements ICommand {
         Workflow.createTaskForNewScnario(task.getServiceOrder());
         List<Circuit> circuits = circuitDAO.findByNullPort();
         for (Circuit nullPortCircuit : circuits) {
-            Port occupiedPort = portDAO.occupyFreePort();
-            if (occupiedPort != null) {
-                nullPortCircuit.setPortId(occupiedPort.getId());
-                circuitDAO.update(nullPortCircuit);
-            } else {
-                Workflow.createTaskForIE(
-                        nullPortCircuit.getServiceInstance().getServiceOrder(),
-                        Task.Type.NEW_DEVICE,
-                        taskDAO);
-                break;
-            }
+            Workflow.createTaskForNewScnario(nullPortCircuit.getServiceInstance().getServiceOrder());
+//            Port occupiedPort = portDAO.occupyFreePort();
+//            if (occupiedPort != null) {
+//                nullPortCircuit.setPortId(occupiedPort.getId());
+//                circuitDAO.update(nullPortCircuit);
+//            } else {
+//                Workflow.createTaskForIE(
+//                        nullPortCircuit.getServiceInstance().getServiceOrder(),
+//                        Task.Type.NEW_DEVICE,
+//                        taskDAO);
+//                break;
+//            }
         }
         return "/WEB-INF/ie/ie-page-selected-task.jsp";
     }

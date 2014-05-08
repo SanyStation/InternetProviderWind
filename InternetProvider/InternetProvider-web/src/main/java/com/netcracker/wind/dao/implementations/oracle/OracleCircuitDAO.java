@@ -25,7 +25,7 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
             = Logger.getLogger(OracleCircuitDAO.class.getName());
 
     private static final String SELECT_BY_NULL_PORT
-            = "SELECT * FROM CIRCUIT WHERE PORT_ID IS NULL";
+            = "SELECT * FROM CIRCUITS WHERE PORT_ID IS NULL";
     private static final String DELETE = "DELETE FROM CIRCUITS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO CIRCUITS (NAME, "
             + "SERVICE_INSTANCE_ID, PORT_ID) VALUES(?, ?, ?)";
