@@ -55,29 +55,29 @@ BEGIN
   values('admin', concat('admin', '@i.ua'), 'pass', 1);
 
   insert into provider_locations
-  (pos_x, pos_y, name)
+  (pos_x, pos_y, name, address)
   values
-  (50.467476, 30.413128, 'NyvkiLoc');
+  (50.467476, 30.413128, 'NyvkiLoc', 'Krasnodarska St, 32 Kyiv');
 
   insert into provider_locations
-  (pos_x, pos_y, name)
+  (pos_x, pos_y, name, address)
   values
-  (50.422445, 30.468119, 'SolomyankaLoc');
+  (50.422445, 30.468119, 'SolomyankaLoc', 'Maksyma Kryvonosa St, 14 Kyiv');
 
   insert into provider_locations
-  (pos_x, pos_y, name)
+  (pos_x, pos_y, name, address)
   values
-  (50.395804, 30.644089, 'PoznyakiLoc');
+  (50.395804, 30.644089, 'PoznyakiLoc', 'Larysy Rudenko St, 17 Kyiv');
 
   insert into provider_locations
-  (pos_x, pos_y, name)
+  (pos_x, pos_y, name, address)
   values
-  (50.526232, 30.6020479, 'TroyeshchinaLoc');
+  (50.526232, 30.6020479, 'TroyeshchinaLoc', 'Radunska St, 32 Kyiv');
 
   insert into provider_locations
-  (pos_x, pos_y, name)
+  (pos_x, pos_y, name, address)
   values
-  (50.501261, 30.766728, 'BrovaryLoc');
+  (50.501261, 30.766728, 'BrovaryLoc', '21A, Shchorsa St, 21А Brovary, Kyivska oblast');
 
   insert into services 
   (name)
