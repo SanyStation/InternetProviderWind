@@ -16,20 +16,21 @@ import javax.servlet.http.HttpServletResponse;
  * @author myshko
  */
 public class Validation implements ICommand {
+        private static final String LOGIN = "login";
+        private static final String EMAIL = "e-mail";
+        private static final String PASSWORD = "pass";
+        private static final String CONFPASS = "confpass";
+        
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        final String login = "login";
-        final String email = "e-mail";
-        final String password = "pass";
-        final String confpass = "confpass";
-        
+       
         //Getting parameters from request
         HashMap<String, String> newUserData = new HashMap();
         StringBuilder returnedMessage = new StringBuilder("");
-        newUserData.put(login, request.getParameter(login));
-        newUserData.put(email, request.getParameter(email));
-        newUserData.put(password, request.getParameter(password));
-        newUserData.put(confpass, request.getParameter(confpass));
+        newUserData.put(LOGIN, request.getParameter(LOGIN));
+        newUserData.put(EMAIL, request.getParameter(EMAIL));
+        newUserData.put(PASSWORD, request.getParameter(PASSWORD));
+        newUserData.put(CONFPASS, request.getParameter(CONFPASS));
         
         //Validation
         Validator validator = new Validator(newUserData);
