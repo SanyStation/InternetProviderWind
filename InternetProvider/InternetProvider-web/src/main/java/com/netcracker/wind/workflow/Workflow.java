@@ -43,7 +43,7 @@ public class Workflow {
             circuit.setServiceInstance(order.getServiceInstance());
             circuitDAO.add(circuit);
         } else {
-            createTaskForPE(order, Task.Type.MANAGE_CIRCUIT, taskDAO);
+            createTaskForPE(order, Task.Type.CREATE_CIRCUIT, taskDAO);
         }
     }
 
