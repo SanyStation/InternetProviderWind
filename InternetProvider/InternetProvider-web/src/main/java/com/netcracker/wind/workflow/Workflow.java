@@ -13,6 +13,7 @@ import com.netcracker.wind.entities.Port;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.Task;
+import com.netcracker.wind.entities.User;
 import java.util.List;
 
 /**
@@ -68,6 +69,9 @@ public class Workflow {
         Task task = TaskCreator.createTask(Role.IE_GROUP_ID, taskType,
                 Task.Status.NEW, order);
         taskDAO.add(task);
+        List<User> users = FactoryCreator.getInstance().getFactory().createUserDAO().findByRole(Role.IE_GROUP_ID);
+        //if(users!=null)
+        //new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
     }
 
     public static void createTaskForPE(ServiceOrder order, Task.Type type,
@@ -75,19 +79,25 @@ public class Workflow {
         Task task = TaskCreator.createTask(Role.PE_GROUP_ID, type,
                 Task.Status.NEW, order);
         taskDAO.add(task);
+        List<User> users = FactoryCreator.getInstance().getFactory().createUserDAO().findByRole(Role.PE_GROUP_ID);
+        //if(users!=null)
+        //new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
     }
 
     public static void createTaskForCSE(ServiceOrder order, ITaskDAO taskDAO) {
         Task task = TaskCreator.createTask(Role.CSE_GROUP_ID,
                 Task.Type.SEND_BILL, Task.Status.NEW, order);
         taskDAO.add(task);
+        List<User> users = FactoryCreator.getInstance().getFactory().createUserDAO().findByRole(Role.CSE_GROUP_ID);
+       // if(users!=null)
+       // new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
     }
 
     private static boolean isNotComletetdTaskNewDevice(ITaskDAO taskDAO) {
         List<Task> tasks = taskDAO.
                 findByTypeAndStatus(AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
                         AbstractOracleDAO.ALL_RECORDS, Task.Type.NEW_DEVICE,
-                        Task.Status.NEW, Task.Status.ACTIVE,
+                        Task.Status.NEW, Task.Status.ACTIVE, 
                         Task.Status.SUSPENDED);
         return !tasks.isEmpty();
     }

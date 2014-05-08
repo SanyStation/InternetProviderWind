@@ -18,13 +18,15 @@ public interface IUserDAO extends IRowsCounter {
     public User findByEmail(String email);
 
     public void update(User user);
-    
+
     public List<User> findAll(int pageNumber, int pageSize);
-    
+
+    public List<User> findByRole(int roleID);
+
     public List<User> findByRole(int roleID, int pageNumber, int pageSize);
-    
+
     public boolean hasEmail(String email);
-    
+
     public boolean hasLogin(String login);
 
 }
