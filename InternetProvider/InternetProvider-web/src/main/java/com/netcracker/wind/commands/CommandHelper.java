@@ -57,6 +57,7 @@ public class CommandHelper {
     private static final String CSE_GET_REPORT_SI_NEW = "cse_get_report_si_new";
     private static final String CSE_GET_REPORT_SI_DISC = "cse_get_report_si_disc";
     private static final String CSE_GET_REPORT_SI_PROFIT = "cse_get_report_si_profit";
+    private static final String CSE_ADD_CUSTOMER = "cse_add_customer";
 
     private static final String IE_USER_ACTIVE_TASKS = "ie_user_active_tasks";
     private static final String IE_USER_COMPLETED_TASKS = "ie_user_completed_tasks";
@@ -109,6 +110,7 @@ public class CommandHelper {
         commands.put(CSE_GET_REPORT_SI_NEW, new CSEgetReportSiNew());
         commands.put(CSE_GET_REPORT_SI_DISC, new CSEgetReportSiDisc());
         commands.put(CSE_GET_REPORT_SI_PROFIT, new CSEgetReportSiProfit());
+        commands.put(CSE_ADD_CUSTOMER, new CSEaddCustomer());
 
         commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
         commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/ie/ie-page-tasks-list.jsp"));

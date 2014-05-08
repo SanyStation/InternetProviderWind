@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <td>
-                User's id
+                ID
             </td>
             <td>
                 ${customer.id}
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>
-                e-mail
+                E-mail
             </td>
             <td>
                 ${customer.email}
@@ -29,10 +29,10 @@
         </tr>
                 <tr>
             <td>
-                blocked
+                Status
             </td>
             <td>
-                ${customer.blocked}
+                ${customer.status}
             </td>
         </tr>
     </table>

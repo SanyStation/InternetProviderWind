@@ -82,6 +82,10 @@ public class User implements Serializable {
         this.blocked = blocked;
     }
     
+    public String getStatus() {
+        return blocked ? "Blocked" : "Unblocked";
+    }
+    
     public List<ServiceInstance> getServiceInstancesList() {
         if (serviceInstancesList == null) {
             serviceInstancesList = factoryDAO.createServiceInstanceDAO()

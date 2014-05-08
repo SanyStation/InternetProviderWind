@@ -10,6 +10,7 @@ $(function() {
             vdTo: 'Please enter a valid date (yyyy-mm-dd)'
         }
     });
+    
     $("#vdFrom").datepicker({dateFormat: 'yy-mm-dd'});
     $("#vdTo").datepicker({dateFormat: 'yy-mm-dd'});
 

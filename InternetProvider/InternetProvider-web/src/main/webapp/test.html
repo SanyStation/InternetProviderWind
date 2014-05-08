@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <title>Guided Registration Form - Design Shack Demo</title>
+  <meta name="author" content="Jake Rocheleau">
+  <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
+  <link rel="icon" href="http://designshack.net/favicon.ico">
+  <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" media="all" href="css/progression.min.css">
+  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="js/progression.min.js"></script>
+  <script type="text/javascript" src="js/registration.validation.js"></script>
+</head>
+
+<body>
+  <div id="topbar">
+  <a href="http://designshack.net">Back to Design Shack</a>
+  </div>
+  
+  <div id="w">
+    <div id="content">
+      <h1>Simple Guided Registration Form</h1>
+      
+      <form id="registerform" method="post" action="#">
+        <div class="formrow">
+          <label for="username">Username</label>
+          <input data-progression="" type="text" name="username" id="username" class="basetxt" tabindex="1" data-helper="Any name with at least 6 characters.">
+          <p class="errmsg">Please add some more characters</p>
+        </div>
+        
+        <div class="formrow">
+          <label for="email">Email Address</label>
+          <input data-progression="" type="email" name="email" id="email" class="basetxt" tabindex="2" data-helper="Where do we send your verification email?">
+          <p class="errmsg">Please enter a proper e-mail</p>
+        </div>
+        
+        <div class="formrow">
+          <label for="password1">Password</label>
+          <input data-progression="" type="password" name="password1" id="password1" class="basetxt" tabindex="3" data-helper="Make sure you can remember it!">
+        </div>
+        
+        <div class="formrow">
+          <label for="password2">Password(again)</label>
+          <input data-progression="" type="password" name="password2" id="password2" class="basetxt" tabindex="4" data-helper="Please re-enter the password again.">
+          <p class="errmsg">Passwords do not match!</p>
+        </div>
+        
+        <input type="submit" id="submitformbtn" class="submitbtn" value="Sign Up">
+      </form>
+    </div>
+  </div>
+</body>
+</html>

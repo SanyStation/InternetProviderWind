@@ -26,7 +26,7 @@
         <script src="js/jquery.validate.min.js"></script>
         <script src="js/jquery.ui.datepicker.validation.min.js"></script>
         <!--Date validation-->
-        <script src="js/functions.js"></script>
+        <script src="js/date.validation.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>

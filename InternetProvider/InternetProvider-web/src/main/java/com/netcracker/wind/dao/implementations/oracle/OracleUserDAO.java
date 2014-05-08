@@ -35,20 +35,31 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     private static final String PASSWORD = "PASSWORD";
     private static final String BLOCKED = "BLOCKED";
     private static final String ROLE = "ROLE_ID";
-    
+
     @Override
-    public void add(User user) {
+    public int add(User user) {
         Connection connection = null;
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
             stat.setString(1, user.getName());
             stat.setString(2, user.getEmail());
             stat.setString(3, user.getPassword());
             stat.setBoolean(4, user.getBlocked());
             stat.setInt(5, user.getRole().getId());
             stat.executeUpdate();
+            ResultSet insertedResultSet = stat.getGeneratedKeys();
+            if (insertedResultSet != null && insertedResultSet.next()) {
+                String s = insertedResultSet.getString(1);
+                PreparedStatement ps = connection.prepareStatement("SELECT * "
+                        + "FROM users WHERE rowid = ?");
+                ps.setString(1, s);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                return rs.getInt(ID);
+            }
         } catch (SQLException ex) {
             LOGGER.error(null, ex);
         } finally {
@@ -61,13 +72,14 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
             }
             connectionPool.close(connection);
         }
+        return -1;
     }
 
     @Override
     public void delete(int id) {
         super.delete(DELETE, id);
     }
-    
+
     @Override
     public User findById(int id) {
         List<User> users = findWhere("WHERE ID = ?", new Object[]{id},
@@ -78,7 +90,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
             return users.get(0);
         }
     }
-    
+
     @Override
     protected List<User> findWhere(String where, Object[] param,
             int pageNumber, int pageSize) {
@@ -164,7 +176,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
                 DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         return !users.isEmpty();
     }
-    
+
     @Override
     public boolean hasLogin(String login) {
         List<User> users = findWhere("WHERE name = ?", new Object[]{login},
@@ -176,5 +188,5 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     public List<User> findAll(int pageNumber, int pageSize) {
         return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
-    
+
 }

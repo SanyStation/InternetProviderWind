@@ -18,6 +18,7 @@ public abstract  class AbstractOracleDAO {
     public static final int DEFAULT_PAGE_NUMBER = 1;
     public static final int DEFAULT_PAGE_SIZE = 15;
     public static final int ALL_RECORDS = 0;
+    public static final int WRONG_ID = -1;
     
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER

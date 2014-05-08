@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IUserDAO extends IRowsCounter {
 
-    public void add(User user);
+    public int add(User user);
 
     public void delete(int id);
 
