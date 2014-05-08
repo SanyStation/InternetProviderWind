@@ -29,6 +29,7 @@
                         </td>
                         <td colspan="3">
                             <input type="text" id="vdFrom" name="vdFrom" value="${dateFrom}">
+                            <label for="vdFrom" class="error" style="display: none;"></label>
                         </td>
                     </tr>
                     <tr>
@@ -37,20 +38,13 @@
                         </td>
                         <td colspan="3">
                             <input type="text" id="vdTo" name="vdTo" value="${dateTo}">
+                            <label for="vdTo" class="error" style="display: none;"></label>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="6">
                             <input type="hidden" value="${command}" name="command" />
                             <input type="submit" value="Generate">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <label for="vdFrom" class="error" style="display: none;"></label>
-                        </td>
-                        <td colspan="3">
-                            <label for="vdTo" class="error" style="display: none;"></label>
                         </td>
                     </tr>
                 </table>
