@@ -10,13 +10,13 @@
     IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("tasks");
     expl.setRequest(request);
 %>
-<h3>Customer tasks list</h3>
+<h3>Tasks</h3>
 <form role="form">
     <display:table name="sessionScope.tasks" sort="external"  requestURI="Controller"
                    partialList="true" class="simple"
                    pagesize="${sessionScope.tasks.objectsPerPage}" 
                    size="${sessionScope.tasks.fullListSize}">
-        
+
         <display:setProperty 
             name="paging.banner.full" 
             value="<br/><ul class=\"pagination\">
@@ -62,14 +62,9 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID" />
+        <display:column property="id" title="ID" href="Controller?command=process_task" paramId="task_id" paramProperty="id" />
         <display:column property="type" title="Type"/>
-        <display:column property="status" title="Status"  href="Controller?command=process_task" paramId="task_id" paramProperty="id"/>
-       
-    </display:table>
-    
-    
+        <display:column property="status" title="Status" />
 
-    <!--button type="button" class="btn btn-default margin"><span class="glyphicon glyphicon-remove-circle"></span> Apply filter</button>
-    <button type="button" class="btn btn-default margin"><span class="glyphicon glyphicon-remove-circle"></span> Clean filter</button-->
+    </display:table>
 </form>

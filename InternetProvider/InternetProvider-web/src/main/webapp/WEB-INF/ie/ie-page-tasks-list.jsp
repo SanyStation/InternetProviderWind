@@ -17,7 +17,7 @@
         </jsp:include>
 
         <div class="col-md-9 divitem">
-            <jsp:include page="ie-table-tasks.jsp" flush="true"/>
+            <jsp:include page="../generic/gen-table-tasks.jsp" flush="true"/>
         </div>
         <div class="col-md-offset-3">
             <!--<button type="button" class="btn btn-default paddingtop"><span class="glyphicon glyphicon-remove-circle"></span> Add new customer</button>-->
