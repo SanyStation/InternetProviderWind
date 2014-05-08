@@ -4,11 +4,13 @@
 
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 
-<jsp:include page="../generic/header.jsp" flush="false">
+<jsp:include page="../generic/header.jsp" flush="true">
     <jsp:param name="titleText" value="Installation Engineer's dashboard"/>
 </jsp:include>
 
-<jsp:include page="../generic/dashboardheader.jsp" flush="false"/>
+<jsp:include page="../generic/dashboardheader.jsp" flush="true">
+    <jsp:param name="dashboardText" value="Installation Engineer's dashboard"/>
+</jsp:include>
 
 <div class="container">
     <div class="row">

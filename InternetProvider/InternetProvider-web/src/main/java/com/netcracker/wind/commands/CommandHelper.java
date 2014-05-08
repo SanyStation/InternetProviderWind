@@ -42,11 +42,11 @@ public class CommandHelper {
     private static final String PROCESS_TASK = "process_task";
     private static final String SEND_BILL = "send_bill";
     private static final String SETUP_CIRCUIT = "setup_circuit";
-    
+
     private static final String CU_ORDERS = "cu_orders";
     private static final String CU_REVIEW_ORDER = "review_order";
     private static final String CU_CONFIRM_ORDER = "confirm_order";
-    
+
     private static final String CSE_GET_ELEMENTS_COUNT = "cse_get_elements_count";
     private static final String CSE_GET_ELEMENTS_FROM_OFFSET = "cse_get_elements_from_offset";
     private static final String CSE_GET_TASKS = "cse_get_tasks";
@@ -57,13 +57,15 @@ public class CommandHelper {
     private static final String CSE_GET_REPORT_SI_NEW = "cse_get_report_si_new";
     private static final String CSE_GET_REPORT_SI_DISC = "cse_get_report_si_disc";
     private static final String CSE_GET_REPORT_SI_PROFIT = "cse_get_report_si_profit";
-    
+
     private static final String IE_USER_ACTIVE_TASKS = "ie_user_active_tasks";
     private static final String IE_USER_COMPLETED_TASKS = "ie_user_completed_tasks";
     private static final String IE_GET_TASKS = "ie_get_tasks";
     private static final String IE_GET_REPORT_RI_UTIL = "ie_get_report_ri_util";
     private static final String IE_GET_REPORT_RI_PROFIT = "ie_get_report_ri_profit";
-    
+
+    private static final String PE_USER_ACTIVE_TASKS = "pe_user_active_tasks";
+    private static final String PE_USER_COMPLETED_TASKS = "pe_user_completed_tasks";
     private static final String PE_GET_TASKS = "pe_get_tasks";
     private static final String PE_GET_REPORT_CIA_IPT = "pe_get_report_cia_ipt";
     private static final String PE_REVIEW_DEVICE = "pe_review_device";
@@ -92,11 +94,11 @@ public class CommandHelper {
         commands.put(SETUP_CIRCUIT, new SetupCircuit());
         //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
-        
+
         commands.put(CU_ORDERS, new ListOrders());
         commands.put(CU_REVIEW_ORDER, new ReviewOrder());
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
-        
+
         commands.put(CSE_GET_TASKS, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
@@ -107,14 +109,16 @@ public class CommandHelper {
         commands.put(CSE_GET_REPORT_SI_NEW, new CSEgetReportSiNew());
         commands.put(CSE_GET_REPORT_SI_DISC, new CSEgetReportSiDisc());
         commands.put(CSE_GET_REPORT_SI_PROFIT, new CSEgetReportSiProfit());
-        
-        commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE.toString(), "/WEB-INF/ie/ie-page-tasks-list.jsp"));
-        commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED.toString(), "/WEB-INF/ie/ie-page-tasks-list.jsp"));
-        commands.put(IE_GET_TASKS, new GetGroupTasks(Role.IE_GROUP_ID,"/WEB-INF/ie/ie-page-tasks-list.jsp"));
+
+        commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
+        commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
+        commands.put(IE_GET_TASKS, new GetGroupTasks(Role.IE_GROUP_ID, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
         commands.put(IE_GET_REPORT_RI_UTIL, new IEgetReportRiUtil());
         commands.put(IE_GET_REPORT_RI_PROFIT, new IEgetReportRiProfit());
-        
-        commands.put(PE_GET_TASKS, new GetGroupTasks(Role.PE_GROUP_ID,"/WEB-INF/pe/pe-page-tasks-list.jsp"));
+
+        commands.put(PE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/pe/pe-page-tasks-list.jsp"));
+        commands.put(PE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/pe/pe-page-tasks-list.jsp"));
+        commands.put(PE_GET_TASKS, new GetGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/pe-page-tasks-list.jsp"));
         commands.put(PE_GET_REPORT_CIA_IPT, new PEgetReportCiaIpt());
         commands.put(PE_REVIEW_DEVICE, new PEreviewDevice());
         commands.put(PE_REVIEW_PORT, new PEreviewPort());

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 public class GetOwnTasks implements ICommand {
 
     private static final String TASKS = "tasks";
-    private String pageForReturn;
+    private final String pageForReturn;
 
     public GetOwnTasks(String pageForReturn) {
         this.pageForReturn = pageForReturn;

@@ -5,11 +5,11 @@
 --%>
 
 <jsp:include page="../generic/header.jsp" flush="true">
-    <jsp:param name="titleText" value="Customer Support Engineer's dashboard"/>
+    <jsp:param name="titleText" value="Provisioning Engineer's dashboard"/>
 </jsp:include>
 
 <jsp:include page="../generic/dashboardheader.jsp" flush="true">
-    <jsp:param name="dashboardText" value="Customer Support Engineer's dashboard"/>
+    <jsp:param name="dashboardText" value="Provisioning Engineer's dashboard"/>
 </jsp:include>
 
 <div class="container">

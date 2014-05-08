@@ -2,6 +2,8 @@ package com.netcracker.wind.paging;
 
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
+import com.netcracker.wind.entities.Task;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,19 +14,24 @@ import javax.servlet.http.HttpServletRequest;
 public class TasksByPerformerStatusPaginatedList extends AbstractPaginatedList {
 
     private int performerId;
-    private String status;
+    private List<Task.Status> statuses;
     private final ITaskDAO taskDAO = FactoryCreator.getInstance().getFactory().
             createTaskDAO();
 
     public TasksByPerformerStatusPaginatedList(HttpServletRequest request,
             int pageSize) {
         super(request, pageSize);
+        statuses = new ArrayList<Task.Status>(4);
     }
 
     @Override
     public List getList() {
-        return taskDAO.findByPerformerStatus(performerId, status, pageNumber, 
-                pageSize);
+        List result = new ArrayList();
+        for(Task.Status status : statuses){
+            result.addAll(taskDAO.findByPerformerStatus(performerId, status.toString(), pageNumber, 
+                pageSize));
+        }
+        return result;
     }
 
     @Override
@@ -37,8 +44,8 @@ public class TasksByPerformerStatusPaginatedList extends AbstractPaginatedList {
         return this;
     }
 
-    public TasksByPerformerStatusPaginatedList setStatus(String status) {
-        this.status = status;
+    public TasksByPerformerStatusPaginatedList addStatus(Task.Status status) {
+        this.statuses.add(status);
         return this;
     }
 }
