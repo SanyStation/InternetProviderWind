@@ -23,12 +23,7 @@ public class DeleteCable implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int taskID;
-        try {
-            taskID = Integer.parseInt(request.getParameter(TASK_ID));
-        } catch (NumberFormatException exception) {
-            return "";
-        }
+        int taskID = Integer.parseInt(request.getParameter(TASK_ID));
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ICableDAO cableDAO = factoryDAO.createCableDAO();
@@ -36,6 +31,9 @@ public class DeleteCable implements ICommand {
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
 
         Task task = taskDAO.findById(taskID);
+        if (!task.getStatus().equals(Task.Status.ACTIVE)) {
+            return "/WEB-INF/ie/ie-page-selected-task.jsp";
+        }
         Cable cable = task.getServiceOrder().getServiceLocation().getCable();
 
         Port port = cable.getPort();

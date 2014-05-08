@@ -13,11 +13,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Cable implements Serializable {
 
     private static final long serialVersionUID = -589654569642300050L;
-    
+
     private final AbstractFactoryDAO factoryDAO
             = FactoryCreator.getInstance().getFactory();
 
     private Integer id;
+    private String name;
     private int serviceLocationId;
     private transient ServiceLocation serviceLocation;
     private int portId;
@@ -38,6 +39,14 @@ public class Cable implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getServiceLocationId() {
         return serviceLocationId;
     }
@@ -45,7 +54,7 @@ public class Cable implements Serializable {
     public void setServiceLocationId(int serviceLocationId) {
         this.serviceLocationId = serviceLocationId;
     }
-    
+
     public ServiceLocation getServiceLocation() {
         if (serviceLocation == null) {
             serviceLocation = factoryDAO.createServiceLocationDAO()
@@ -65,7 +74,7 @@ public class Cable implements Serializable {
     public void setPortId(int portId) {
         this.portId = portId;
     }
-    
+
     public Port getPort() {
         if (port == null) {
             port = factoryDAO.createPortDAO().findById(portId);

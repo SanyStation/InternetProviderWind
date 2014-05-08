@@ -35,7 +35,7 @@ public class CommandHelper {
     private static final String PROVIDER_LOCATION_LIST = "provider_location_list";
     private static final String NEW_DEVICE = "new_device";
     private static final String NEW_CABLE = "new_cable";
-    private static final String DEL_CABLE = "del_cable";
+    private static final String DEL_CABLE = "delete_cable";
     private static final String VALIDATION = "validation";
     private static final String REGISTRATION = "registration";
     private static final String TO_PAGE = "to_page";

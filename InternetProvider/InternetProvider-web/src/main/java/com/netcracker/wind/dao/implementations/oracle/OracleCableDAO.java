@@ -24,12 +24,13 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
 
     private static final String DELETE = "DELETE FROM CABLES WHERE ID = ?";
     private static final String INSERT = "INSERT INTO CABLES (PORT_ID, "
-            + "SERVICE_LOCATION_ID) VALUES(?, ?)";
+            + "SERVICE_LOCATION_ID, NAME) VALUES(?, ?, ?)";
     private static final String SELECT = "SELECT c.*, COUNT(*) OVER () AS "
             + ROWS + " FROM cables c ";
     private static final String UPDATE = "UPDATE CABLES SET PORT_ID = ?,"
             + "SERVICE_INSTANCE_ID = ? WHERE ID = ?";
     private static final String ID = "ID";
+    private static final String NAME = "NAME";
     private static final String PORT = "PORT_ID";
     private static final String SLID = "SERVICE_LOCATION_ID";
 
@@ -41,6 +42,7 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
             stat = connection.prepareStatement(INSERT);
             stat.setInt(1, cable.getPortId());
             stat.setInt(2, cable.getServiceLocationId());
+            stat.setString(3, cable.getName());
             stat.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error(null, ex);
@@ -96,6 +98,7 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
             while (rs.next()) {
                 Cable cable = new Cable();
                 cable.setId(rs.getInt(ID));
+                cable.setName(rs.getString(NAME));
                 cable.setPortId(rs.getInt(PORT));
                 cable.setServiceLocationId(rs.getInt(SLID));
                 super.rows = rs.getInt(ROWS);
@@ -147,7 +150,7 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
     @Override
     public Cable findByServiceLocation(int idSL) {
         List<Cable> cables = findWhere("WHERE SERVICE_LOCATION_ID = ?",
-                        new Object[]{idSL}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                new Object[]{idSL}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (cables.isEmpty()) {
             return null;
         } else {
@@ -159,5 +162,5 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
     public List<Cable> findAll(int pageNumber, int pageSize) {
         return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
-    
+
 }
