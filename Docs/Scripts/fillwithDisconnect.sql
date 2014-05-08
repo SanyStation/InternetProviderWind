@@ -57,27 +57,27 @@ BEGIN
   insert into provider_locations
   (pos_x, pos_y, name, address)
   values
-  (50.467476, 30.413128, 'NyvkiLoc', 'Krasnodarska St, 32 Kyiv');
+  (50.467476, 30.413128, 'NyvkiLoc', 'Krasnodarska St, 32 Kyiv, Kyiv city, Ukraine');
 
   insert into provider_locations
   (pos_x, pos_y, name, address)
   values
-  (50.422445, 30.468119, 'SolomyankaLoc', 'Maksyma Kryvonosa St, 14 Kyiv');
+  (50.422445, 30.468119, 'SolomyankaLoc', 'Maksyma Kryvonosa St, 14 Kyiv, Kyiv city, Ukraine');
 
   insert into provider_locations
   (pos_x, pos_y, name, address)
   values
-  (50.395804, 30.644089, 'PoznyakiLoc', 'Larysy Rudenko St, 17 Kyiv');
+  (50.395804, 30.644089, 'PoznyakiLoc', 'Larysy Rudenko St, 17 Kyiv, Kyiv city, Ukraine');
 
   insert into provider_locations
   (pos_x, pos_y, name, address)
   values
-  (50.526232, 30.6020479, 'TroyeshchinaLoc', 'Radunska St, 32 Kyiv');
+  (50.526232, 30.6020479, 'TroyeshchinaLoc', 'Radunska St, 32 Kyiv, Kyiv city, Ukraine');
 
   insert into provider_locations
   (pos_x, pos_y, name, address)
   values
-  (50.501261, 30.766728, 'BrovaryLoc', '21A, Shchorsa St, 21А Brovary, Kyivska oblast');
+  (50.501261, 30.766728, 'BrovaryLoc', '21A, Shchorsa St, 21А Brovary, Kyivska oblast, Ukraine');
 
   insert into services 
   (name)
