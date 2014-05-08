@@ -23,7 +23,20 @@
                     <li><i class="glyphicon glyphicon-home"></i> Address:<br>Borshahivska str. 33, office 13</li>
                 </ul>
             </div>
-            
+
+            <div class="largefont paddingleftright nomargin headercolor whitetext borderleft borderright boxshadow margintop">
+                Temp-block
+                <form action="mail.jsp" method="POST">
+                    <button class="btn btn-default" type="submit">show_sentmail</button>
+                </form>
+                <form action="map.jsp" method="POST">
+                    <button class="btn btn-default" type="submit">map</button>
+                </form>
+                <form action="Registration.jsp" method="POST">
+                    <button class="btn btn-default" type="submit">registration</button>
+                </form>
+            </div>
+
         </div>
 
     </div>

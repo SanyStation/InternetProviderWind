@@ -24,32 +24,32 @@
             <form id="validation" action="Controller" method="POST">
                 <table>
                     <tr>
-                        <td>
+                        <td colspan="3">
                             From date:
                         </td>
-                        <td>
+                        <td colspan="3">
                             <input type="text" id="vdFrom" name="vdFrom" value="${dateFrom}">
                         </td>
-                        <td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
                             To date:
                         </td>
-                        <td>
+                        <td colspan="3">
                             <input type="text" id="vdTo" name="vdTo" value="${dateTo}">
                         </td>
-                        <td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
                             <input type="hidden" value="${command}" name="command" />
                             <input type="submit" value="Generate">
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                        </td>
-                        <td>
+                        <td colspan="3">
                             <label for="vdFrom" class="error" style="display: none;"></label>
                         </td>
-                        <td>
-                        </td>
-                        <td>
+                        <td colspan="3">
                             <label for="vdTo" class="error" style="display: none;"></label>
                         </td>
                     </tr>
@@ -58,7 +58,7 @@
 
             <form role="form">
                 <display:table name="sessionScope.orders" export="true" requestURI="Controller"
-                               class="simple" pagesize="${pageSize}" >
+                                class="simple table table-striped" pagesize="${pageSize}" >
 
                     <display:caption media="sio csio">${title}</display:caption>
                     <display:setProperty name="export.sio" value="true"/>
