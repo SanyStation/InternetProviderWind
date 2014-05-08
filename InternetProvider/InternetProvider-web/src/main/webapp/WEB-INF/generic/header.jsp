@@ -6,27 +6,18 @@
 
 <html>
     <head>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <!--<script src="//code.jquery.com/jquery.js"></script>-->
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/jquery.1.7.2.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-
-        <script src="js/wind.js"></script>
         <title>${param.titleText}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/wind.css" rel="stylesheet" media="screen">
 
-        <!--DatePicker-->
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/redmond/jquery-ui.css">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-        <script src="js/jquery.validate.min.js"></script>
-        <script src="js/jquery.ui.datepicker.validation.min.js"></script>
-        <!--Date validation-->
-        <script src="js/functions.js"></script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <script src="js/wind.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -36,7 +27,7 @@
 
     </head>
     <body>
-        <div class="navbar navbar-default navbar-static-top headercolor" role="navigation">
+        <div class="navbar navbar-default navbar-static-top headercolor boxshadow" role="navigation">
             <div class="container">
                 <div class="row">
 
@@ -63,7 +54,6 @@
                             <h3>Call me back</h3>
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>
