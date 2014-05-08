@@ -22,10 +22,10 @@ import javax.servlet.http.HttpSession;
 public class GetTasksByPerformerStatus implements ICommand {
 
     private static final String TASKS = "tasks";
-    private String pageForReturn;
-    private String status;
+    private final String pageForReturn;
+    private final String status;
 
-    public GetTasksByPerformerStatus(String pageForReturn, String status) {
+    public GetTasksByPerformerStatus(String status, String pageForReturn) {
         this.pageForReturn = pageForReturn;
         this.status = status;
     }
