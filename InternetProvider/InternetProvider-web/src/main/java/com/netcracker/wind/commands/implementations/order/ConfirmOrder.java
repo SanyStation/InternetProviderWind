@@ -76,7 +76,7 @@ public class ConfirmOrder implements ICommand {
         }
         serviceOrderDAO.update(order);
         //TODO redirect to next page
-        return "/WEB-INF/user/cu-orders-list.jsp";
+        return "/WEB-INF/user/cu-page-orders-list.jsp";
     }
 
 }

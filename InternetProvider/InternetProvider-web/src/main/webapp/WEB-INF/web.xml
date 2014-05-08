@@ -5,10 +5,6 @@
         <servlet-name>Controller</servlet-name>
         <servlet-class>com.netcracker.wind.controllers.Controller</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>Test</servlet-name>
-        <servlet-class>com.netcracker.wind.paging.Test</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/Controller</url-pattern>
@@ -24,10 +20,6 @@
         <servlet-name>private_controller</servlet-name>
         <url-pattern>/profile</url-pattern>
         <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Test</servlet-name>
-        <url-pattern>/Test</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -37,6 +37,6 @@ public class ListOrders implements ICommand {
         IExtendedPaginatedList paginatedList = new OrderUserPaginatedList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId);
         session.setAttribute(ORDERS, paginatedList);
-        return "/WEB-INF/user/cu-orders-list.jsp";
+        return "/WEB-INF/user/cu-page-orders-list.jsp";
     }
 }
