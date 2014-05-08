@@ -7,12 +7,16 @@ import com.netcracker.wind.dao.interfaces.ICableDAO;
 import com.netcracker.wind.dao.interfaces.ICircuitDAO;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
+import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Circuit;
 import com.netcracker.wind.entities.Port;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.Task;
+import com.netcracker.wind.entities.User;
+import com.netcracker.wind.mail.FormatedMail;
+import com.netcracker.wind.mail.MailSendler;
 import java.util.List;
 
 /**
@@ -20,6 +24,7 @@ import java.util.List;
  * @author Anatolii
  */
 public class Workflow {
+    private final static String TASK_INFORMATION = "Boreas information about new task";
 
     public static void createTaskForNewScnario(ServiceOrder order) {
         AbstractFactoryDAO factoryDAO
@@ -60,6 +65,9 @@ public class Workflow {
         Task task = TaskCreator.createTask(Role.IE_GROUP_ID, taskType,
                 Task.Status.NEW, order);
         taskDAO.add(task);
+        List<User> users = FactoryCreator.getInstance().getFactory().createUserDAO().findByRole(Role.IE_GROUP_ID);
+        //if(users!=null)
+        //new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
     }
 
     public static void createTaskForPE(ServiceOrder order, Task.Type type,
@@ -67,12 +75,18 @@ public class Workflow {
         Task task = TaskCreator.createTask(Role.PE_GROUP_ID, type,
                 Task.Status.NEW, order);
         taskDAO.add(task);
+        List<User> users = FactoryCreator.getInstance().getFactory().createUserDAO().findByRole(Role.PE_GROUP_ID);
+        //if(users!=null)
+        //new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
     }
 
     public static void createTaskForCSE(ServiceOrder order, ITaskDAO taskDAO) {
         Task task = TaskCreator.createTask(Role.CSE_GROUP_ID,
                 Task.Type.SEND_BILL, Task.Status.NEW, order);
         taskDAO.add(task);
+        List<User> users = FactoryCreator.getInstance().getFactory().createUserDAO().findByRole(Role.CSE_GROUP_ID);
+       // if(users!=null)
+       // new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
     }
 
     private static boolean isNotComletetdTaskNewDevice(ITaskDAO taskDAO) {
