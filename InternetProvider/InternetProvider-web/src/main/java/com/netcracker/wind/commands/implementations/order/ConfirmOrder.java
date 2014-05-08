@@ -7,8 +7,13 @@ import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
 import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.ServiceOrder;
+import com.netcracker.wind.entities.User;
+import com.netcracker.wind.mail.FormatedMail;
+import com.netcracker.wind.mail.MailSendler;
 import com.netcracker.wind.workflow.Workflow;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ConfirmOrder implements ICommand {
 
     private static final String ORDER = "order_id";
+    private static final String ORDER_MESSAGE = "Boreas order information";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -46,15 +52,24 @@ public class ConfirmOrder implements ICommand {
             serviceInstanceDAO.add(serviceInstance);
             order.setServiceInstance(serviceInstance);
             Workflow.createTaskForNewScnario(order);
+            List<User> users = new ArrayList<User>();
+             users.add(order.getUser());
+             //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getNewSOTakeMassage(order, order.getService(), order.getUser()));
         } else if (order.getScenario().toString().equals(
                 ServiceOrder.Scenario.MODIFY.toString())) {
             Workflow.createTaskForModifyScenario(order);
+            List<User> users = new ArrayList<User>();
+             users.add(order.getUser());
+            //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getModifySOTakeMassage(order, order.getService(), order.getUser()));
         } else if (order.getScenario().toString().equals(
                 ServiceOrder.Scenario.DISCONNECT.toString())) {
             ServiceInstance serviceInstance = order.getServiceInstance();
             serviceInstance.setStatus(ServiceInstance.Status.PRE_DISCONNECTED);
             serviceInstanceDAO.update(serviceInstance);
             Workflow.createTaskForDisconnectScenario(order);
+             List<User> users = new ArrayList<User>();
+             users.add(order.getUser());
+            //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getDiscSOTakeMassage(order, order.getService(), order.getUser()));
         } else {
             //TODO return error page
             return "";
