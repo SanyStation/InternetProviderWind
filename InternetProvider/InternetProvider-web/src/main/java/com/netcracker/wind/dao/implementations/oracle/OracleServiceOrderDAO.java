@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -95,7 +96,7 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
             return serviceOrders.get(0);
         }
     }
-    
+
     @Override
     protected List<ServiceOrder> findWhere(String where, Object[] param,
             int pageNumber, int pageSize) {
@@ -145,7 +146,11 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
             ps.setInt(7, serviceOrder.getServiceLocationId());
             ps.setString(8, serviceOrder.getStatus().toString());
             ps.setString(9, serviceOrder.getScenario().toString());
-            ps.setInt(10, serviceOrder.getServiceInstanceId());
+            if (serviceOrder.getServiceInstanceId() > 0) {
+                ps.setInt(10, serviceOrder.getServiceInstanceId());
+            } else {
+                ps.setNull(10, Types.INTEGER);
+            }
             ps.setInt(11, serviceOrder.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -194,7 +199,7 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     }
 
     @Override
-    public List<ServiceOrder> findByServiceInstance(int serviceInstanceId, 
+    public List<ServiceOrder> findByServiceInstance(int serviceInstanceId,
             int pageNumber, int pageSize) {
         List<ServiceOrder> serviceOrders
                 = findWhere("WHERE SERVICE_INSTANCE_ID = ?",

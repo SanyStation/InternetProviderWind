@@ -16,6 +16,8 @@ public interface ICircuitDAO extends IRowsCounter {
     public Circuit findById(int id);
 
     public Circuit findByPort(int portId);
+    
+    public List<Circuit> findByNullPort();
 
     public Circuit findByServInst(int siId);
 

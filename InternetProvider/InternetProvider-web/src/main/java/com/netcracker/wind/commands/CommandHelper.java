@@ -35,7 +35,7 @@ public class CommandHelper {
     private static final String PROVIDER_LOCATION_LIST = "provider_location_list";
     private static final String NEW_DEVICE = "new_device";
     private static final String NEW_CABLE = "new_cable";
-    private static final String DEL_CABLE = "del_cable";
+    private static final String DEL_CABLE = "delete_cable";
     private static final String VALIDATION = "validation";
     private static final String REGISTRATION = "registration";
     private static final String TO_PAGE = "to_page";
@@ -46,6 +46,7 @@ public class CommandHelper {
     private static final String CU_ORDERS = "cu_orders";
     private static final String CU_REVIEW_ORDER = "review_order";
     private static final String CU_CONFIRM_ORDER = "confirm_order";
+    private static final String CU_CANCEL_ORDER = "cancel_order";
 
     private static final String CSE_GET_ELEMENTS_COUNT = "cse_get_elements_count";
     private static final String CSE_GET_ELEMENTS_FROM_OFFSET = "cse_get_elements_from_offset";
@@ -99,6 +100,7 @@ public class CommandHelper {
         commands.put(CU_ORDERS, new ListOrders());
         commands.put(CU_REVIEW_ORDER, new ReviewOrder());
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
+        commands.put(CU_CANCEL_ORDER, new CancelOrder());
 
         commands.put(CSE_GET_TASKS, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());

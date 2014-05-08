@@ -229,12 +229,11 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         }
         sqlWhere.append("status = ?)");
         Object[] parameters = new Object[status.length + 1];
-        parameters[0] = type;
+        parameters[0] = type.toString();
         for (int i = 1; i < parameters.length; i++) {
-            parameters[i] = status[i - 1];
+            parameters[i] = status[i - 1].toString();
         }
-        System.out.println(sqlWhere.toString());
-        return findWhere(sqlWhere.toString(), new Object[]{type, status},
+        return findWhere(sqlWhere.toString(), parameters,
                 pageNumber, pageSize);
     }
 

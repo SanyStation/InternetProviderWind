@@ -19,17 +19,7 @@ public class SetupCircuit implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        int taskID = -1;
-        try {
-            taskID = Integer.parseInt(request.getParameter(TASK_ID));
-        } catch (NumberFormatException exception) {
-            //TODO log
-            //TODO redirecct to error page
-            return "";
-        }
-        if (taskID == -1) {
-            //TODO return to error page
-        }
+        int taskID = Integer.parseInt(request.getParameter(TASK_ID));
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();

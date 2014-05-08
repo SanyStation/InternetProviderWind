@@ -13,6 +13,7 @@ import com.netcracker.wind.entities.Port;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.Task;
+import com.netcracker.wind.entities.User;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ import java.util.List;
  */
 public class Workflow {
 
+    private static final int PORT_ON_DEVICE = 60;
+    
     public static void createTaskForNewScnario(ServiceOrder order) {
         AbstractFactoryDAO factoryDAO
                 = FactoryCreator.getInstance().getFactory();
@@ -33,17 +36,25 @@ public class Workflow {
                 order.getServiceLocation().getId());
         if (cable == null) {
             Port port = portDAO.occupyFreePort();
+            int portId = 0;
             if (port == null) {
                 createTaskForIE(order, Task.Type.NEW_DEVICE, taskDAO);
             } else {
                 createTaskForIE(order, Task.Type.NEW_CABLE, taskDAO);
+                portId = port.getId();
             }
-            Circuit circuit = new Circuit();
-            circuit.setPort(port);
-            circuit.setServiceInstance(order.getServiceInstance());
-            circuitDAO.add(circuit);
+            Circuit circuit = order.getServiceInstance().getCircuit();
+            if (circuit == null) {
+                circuit = new Circuit();
+                circuit.setServiceInstance(order.getServiceInstance());
+                circuit.setPortId(portId);
+                circuitDAO.add(circuit);
+            } else {
+                circuit.setPortId(portId);
+                circuitDAO.update(circuit);
+            }
         } else {
-            createTaskForPE(order, Task.Type.MANAGE_CIRCUIT, taskDAO);
+            createTaskForPE(order, Task.Type.CREATE_CIRCUIT, taskDAO);
         }
     }
 
@@ -60,6 +71,9 @@ public class Workflow {
         Task task = TaskCreator.createTask(Role.IE_GROUP_ID, taskType,
                 Task.Status.NEW, order);
         taskDAO.add(task);
+        List<User> users = FactoryCreator.getInstance().getFactory().createUserDAO().findByRole(Role.IE_GROUP_ID);
+        //if(users!=null)
+        //new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
     }
 
     public static void createTaskForPE(ServiceOrder order, Task.Type type,
@@ -67,21 +81,29 @@ public class Workflow {
         Task task = TaskCreator.createTask(Role.PE_GROUP_ID, type,
                 Task.Status.NEW, order);
         taskDAO.add(task);
+        List<User> users = FactoryCreator.getInstance().getFactory().createUserDAO().findByRole(Role.PE_GROUP_ID);
+        //if(users!=null)
+        //new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
     }
 
     public static void createTaskForCSE(ServiceOrder order, ITaskDAO taskDAO) {
         Task task = TaskCreator.createTask(Role.CSE_GROUP_ID,
                 Task.Type.SEND_BILL, Task.Status.NEW, order);
         taskDAO.add(task);
+        List<User> users = FactoryCreator.getInstance().getFactory().createUserDAO().findByRole(Role.CSE_GROUP_ID);
+        // if(users!=null)
+        // new MailSendler().sendEmail(users, TASK_INFORMATION, new FormatedMail().getInformGroupAboutTaskMessage(task));
     }
 
     private static boolean isNotComletetdTaskNewDevice(ITaskDAO taskDAO) {
         List<Task> tasks = taskDAO.
                 findByTypeAndStatus(AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
                         AbstractOracleDAO.ALL_RECORDS, Task.Type.NEW_DEVICE,
-                        Task.Status.NEW, Task.Status.ACTIVE, 
+                        Task.Status.NEW, Task.Status.ACTIVE,
                         Task.Status.SUSPENDED);
-        return !tasks.isEmpty();
+        ICircuitDAO circuitDAO = FactoryCreator.getInstance().getFactory().createCircuitDAO();
+        List<Circuit> circuits = circuitDAO.findByNullPort();
+        return !tasks.isEmpty() && circuits.size() < PORT_ON_DEVICE;
     }
 
     public static void createTaskForModifyScenario(ServiceOrder order) {
