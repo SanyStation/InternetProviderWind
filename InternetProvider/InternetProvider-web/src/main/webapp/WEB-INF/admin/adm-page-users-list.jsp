@@ -9,7 +9,7 @@
 </jsp:include>
 
 <jsp:include page="../generic/dashboardheader.jsp" flush="true">
-    <jsp:param name="dashboardText" value="Provisioning Engineer's dashboard"/>
+    <jsp:param name="dashboardText" value="Administrator's dashboard"/>
 </jsp:include>
 
 <div class="container">

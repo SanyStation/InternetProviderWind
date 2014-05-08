@@ -19,25 +19,19 @@ public class CancelOrder implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String sOrderId = request.getParameter(ORDER);
-        int orderId;
-        try {
-            orderId = Integer.parseInt(sOrderId);
-        } catch (NumberFormatException exception) {
-            //TODO logging
-            //TODO return error page
-            return "";
-        }
+        int orderId = Integer.parseInt(sOrderId);
+
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IServiceOrderDAO serviceOrderDAO = factoryDAO.createServiceOrderDAO();
         ServiceOrder order = serviceOrderDAO.findById(orderId);
-        if (order == null) {
+        if (order == null || !order.getStatus().equals(ServiceOrder.Status.ENTERING)) {
             //TODO return error page
             return "";
         }
         order.setStatus(ServiceOrder.Status.CANCELLED);
         serviceOrderDAO.update(order);
         //TODO redirect to next page
-        return "";
+        return "/WEB-INF/user/cu-orders-list.jsp";
     }
 
 }
