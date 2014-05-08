@@ -81,8 +81,7 @@ public class ProceedToOrder implements ICommand {
         orderDAO.add(order);
         try {
             jsono.put("auth", true);
-            jsono.put("nextPage", ConfigurationManager.getInstance().
-                    getProperty(ConfigurationManager.PAGE_CONFIRM_ORDER));
+            jsono.put("nextPage", "/WEB-INF/cu/cu-review-order.jsp");
         } catch (JSONException ex) {
             Logger.getLogger(ProceedToOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
