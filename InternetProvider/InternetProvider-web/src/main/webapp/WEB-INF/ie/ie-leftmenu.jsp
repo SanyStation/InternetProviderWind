@@ -16,7 +16,7 @@
                 <li><a href="Controller?command=ie_user_active_tasks"><i class="glyphicon glyphicon-briefcase"></i>Active tasks</a></li>
                 <li><a href="Controller?command=ie_user_completed_tasks"><i class="glyphicon glyphicon-briefcase"></i>Completed tasks</a></li>
             </ul>
-        </li>        
+        </li>
         <li class="${param.active eq 'reports' ? ' active' : ''}"><a href="#"><i class="glyphicon glyphicon-list-alt"></i> Reports</a>
             <ul>
                 <li><a href="Controller?command=ie_get_report_ri_util"><i class="glyphicon glyphicon-list-alt"></i> Routers' utilization</a></li>

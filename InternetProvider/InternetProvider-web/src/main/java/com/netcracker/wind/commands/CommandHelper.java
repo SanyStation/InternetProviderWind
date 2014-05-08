@@ -50,6 +50,8 @@ public class CommandHelper {
 
     private static final String CSE_GET_ELEMENTS_COUNT = "cse_get_elements_count";
     private static final String CSE_GET_ELEMENTS_FROM_OFFSET = "cse_get_elements_from_offset";
+    private static final String CSE_USER_ACTIVE_TASKS = "cse_user_active_tasks";
+    private static final String CSE_USER_COMPLETED_TASKS = "cse_user_completed_tasks";
     private static final String CSE_GET_TASKS = "cse_get_tasks";
     private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
     private static final String CSE_GET_UNCOMPLETED_TASKS = "cse_get_uncompleted_tasks";
@@ -102,6 +104,8 @@ public class CommandHelper {
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
         commands.put(CU_CANCEL_ORDER, new CancelOrder());
 
+        commands.put(CSE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
+        commands.put(CSE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(CSE_GET_TASKS, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());

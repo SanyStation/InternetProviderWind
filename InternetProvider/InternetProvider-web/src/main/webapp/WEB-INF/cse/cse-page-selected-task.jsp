@@ -19,10 +19,8 @@
         <jsp:include page="cse-leftmenu.jsp" flush="true"/>
 
         <div class="col-md-9 divitem">
-            <br/>ID:${task.id}
-            <br/>Status:${task.status}
-            <br/>Type:${task.type}
-            <br/>Performer:${task.user.name}
+            <jsp:include page="../generic/gen-taskinfo.jsp" flush="true"/>
+            
             <c:if test="${task.status=='ACTIVE'}">
                 <form action="Controller" method="POST">
                     <input type="hidden" name="task_id" value="${task.id}"/>
@@ -30,8 +28,6 @@
                     <input type="submit" value="Send Bill"/>
                 </form>
             </c:if>
-        </div>
-        <div class="col-md-offset-3">
         </div>
     </div>
 </div>

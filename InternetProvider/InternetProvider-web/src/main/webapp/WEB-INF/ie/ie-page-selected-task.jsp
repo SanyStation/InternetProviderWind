@@ -18,16 +18,8 @@
         <jsp:include page="ie-leftmenu.jsp" flush="true"/>
 
         <div class="col-md-9 divitem">
-            <br/>ID:${task.id}
-            <br/>Status:${task.status}
-            <br/>Type:${task.type}
-            <br/>Performer:${task.user.name}
-            <br/>Costumer Address: ${task.serviceOrder.serviceLocation.address}
-            <br/>Provider name: ${task.serviceOrder.providerLocation.name}
-            <br/>Provider Address: ${task.serviceOrder.providerLocation.address}
-            <br/>Port ID:${task.serviceOrder.serviceInstance.circuit.port.id}
-            <br/>Device ID:${task.serviceOrder.serviceInstance.circuit.port.device.id}
-            <br/>Device name:${task.serviceOrder.serviceInstance.circuit.port.device.name}
+            <jsp:include page="../generic/gen-taskinfo.jsp" flush="true"/>
+            
             <c:if test="${task.status=='ACTIVE'}">
                 <div id="error" style="color: red">
                     ${error}
