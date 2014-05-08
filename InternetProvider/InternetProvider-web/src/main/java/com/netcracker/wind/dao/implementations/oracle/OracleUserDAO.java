@@ -188,7 +188,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     public List<User> findAll(int pageNumber, int pageSize) {
         return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
-    
+
     public List<User> findByRole(int roleID) {
           List<User> users
                 = findWhere("WHERE ROLE_ID = ?", new Object[]{roleID},DEFAULT_PAGE_NUMBER,ALL_RECORDS);
