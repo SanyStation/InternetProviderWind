@@ -24,6 +24,8 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     private static final Logger LOGGER
             = Logger.getLogger(OracleServiceOrderDAO.class.getName());
 
+    private static final String SELECT_FOR_GET_GENERATED_ID = "SELECT * FROM "
+            + "root.service_orders WHERE rowid = ?";
     private static final String UPDATE = "UPDATE SERVICE_ORDERS SET "
             + "ENTERDATE = ?, PROCESDATE = ?, COMPLETEDATE = ?, USER_ID = ?, "
             + "SERVICE_ID = ?, PROVIDER_LOCATION_ID = ?,"
@@ -55,7 +57,7 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
         PreparedStatement stat = null;
         try {
             connection = connectionPool.getConnection();
-            stat = connection.prepareStatement(INSERT);
+            stat = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
             stat.setTimestamp(1, serviceOrder.getEnterdate());
             stat.setTimestamp(2, serviceOrder.getProcesdate());
             stat.setTimestamp(3, serviceOrder.getCompletedate());
@@ -66,6 +68,16 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
             stat.setString(8, serviceOrder.getStatus().toString());
             stat.setString(9, serviceOrder.getScenario().toString());
             stat.executeUpdate();
+            ResultSet insertedResultSet = stat.getGeneratedKeys();
+            if (insertedResultSet != null && insertedResultSet.next()) {
+                String s = insertedResultSet.getString(1);
+                PreparedStatement ps = connection.prepareStatement(
+                        SELECT_FOR_GET_GENERATED_ID);
+                ps.setObject(1, s);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                serviceOrder.setId(rs.getInt(ID));
+            }
         } catch (SQLException ex) {
             LOGGER.error(null, ex);
         } finally {
