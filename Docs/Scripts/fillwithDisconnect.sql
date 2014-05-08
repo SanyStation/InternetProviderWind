@@ -293,10 +293,6 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
@@ -322,10 +318,6 @@ BEGIN
 		(service_location_id, port_id, name)
 		values 
 		(a, a, concat('Cable', a));
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -357,10 +349,6 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
@@ -386,10 +374,6 @@ BEGIN
 		(service_location_id, port_id, name)
 		values 
 		(a, a, concat('Cable', a));
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -421,10 +405,6 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
@@ -450,10 +430,6 @@ BEGIN
 		(service_location_id, port_id, name)
 		values 
 		(a, a, concat('Cable', a));
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -485,10 +461,6 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
@@ -514,10 +486,6 @@ BEGIN
 		(service_location_id, port_id, name)
 		values 
 		(a, a, concat('Cable', a));
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -549,10 +517,6 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
@@ -578,10 +542,6 @@ BEGIN
 		(service_location_id, port_id, name)
 		values 
 		(a, a, concat('Cable', a));
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -613,10 +573,6 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
@@ -642,10 +598,6 @@ BEGIN
 		(service_location_id, port_id, name)
 		values 
 		(a, a, concat('Cable', a));
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
@@ -677,10 +629,6 @@ BEGIN
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
 		('COMPLETED', 'SEND_BILL', 1002, 4, a);
 		update ports
 		set free = 0 where id = a;
@@ -706,10 +654,6 @@ BEGIN
 		(service_location_id, port_id, name)
 		values 
 		(a, a, concat('Cable', a));
-		insert into tasks 
-		(status, type, user_id, role_id, service_orders_id)
-		values 
-		('COMPLETED', 'MANAGE_CIRCUIT', 1001, 2, a);
 		insert into tasks 
 		(status, type, user_id, role_id, service_orders_id)
 		values 
