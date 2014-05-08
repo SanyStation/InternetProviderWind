@@ -108,8 +108,8 @@ public class CommandHelper {
         commands.put(CSE_GET_REPORT_SI_DISC, new CSEgetReportSiDisc());
         commands.put(CSE_GET_REPORT_SI_PROFIT, new CSEgetReportSiProfit());
         
-        commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE.toString(), "/WEB-INF/ie/ie-page-tasks-list.jsp"));
-        commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED.toString(), "/WEB-INF/ie/ie-page-tasks-list.jsp"));
+        commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
+        commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
         commands.put(IE_GET_TASKS, new GetGroupTasks(Role.IE_GROUP_ID,"/WEB-INF/ie/ie-page-tasks-list.jsp"));
         commands.put(IE_GET_REPORT_RI_UTIL, new IEgetReportRiUtil());
         commands.put(IE_GET_REPORT_RI_PROFIT, new IEgetReportRiProfit());
