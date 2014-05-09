@@ -30,15 +30,17 @@
                         <span class="input-group-addon">Select new service</span>
                         <select name="service_id" class="form-control">
                             <c:forEach var="i" items="${instance.serviceOrder.providerLocation.pricesList}">
-                                <option value="${i.serviceId}">${i.service.name} - ${i.price} $</option>
+                                <c:if test="${i.serviceId != instance.serviceId}">
+                                    <option value="${i.serviceId}">${i.service.name} - ${i.price} $</option>
+                                </c:if>
                             </c:forEach>
                         </select>
                     </div>
                 </div>
-                 <div class="col-md-6">
-                <button type="submit" name="command" value="${param.modify_command}" class="btn btn-info">Modify instance</button>
-                <button type="submit" name="command" value="${param.disconnect_command}" class="btn btn-danger pull-right">Disconnect instance</button>
-                 </div>
+                <div class="col-md-6">
+                    <button type="submit" name="command" value="${param.modify_command}" class="btn btn-info">Modify instance</button>
+                    <button type="submit" name="command" value="${param.disconnect_command}" class="btn btn-danger pull-right">Disconnect instance</button>
+                </div>
             </form>
         </div>
     </c:if>
