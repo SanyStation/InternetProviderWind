@@ -34,8 +34,8 @@
                         </div>
                         <!-- Remake to SELECT -->
                         <div class="input-group paddingtop">
-                            <span class="input-group-addon">Role</span>
-                            <input type="text" class="form-control" placeholder="Select role">
+                            <span class="input-group-addon">Group</span>
+                            <input type="text" class="form-control" placeholder="Select group">
                         </div>
                         <button type="button" class="btn btn-default margintop"><span class="glyphicon glyphicon-plus"></span> Add user</button>
                     </div>

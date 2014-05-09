@@ -19,7 +19,6 @@
             <jsp:include page="../generic/gen-userinfo.jsp" flush="true"/>
         </div>
 
-
     </div>
 </div>
 
