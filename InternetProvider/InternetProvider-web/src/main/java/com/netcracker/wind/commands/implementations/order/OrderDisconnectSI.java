@@ -51,6 +51,7 @@ public class OrderDisconnectSI implements ICommand {
         IServiceOrderDAO serviceOrderDAO = factoryDAO.createServiceOrderDAO();
 
         ServiceInstance serviceInstance = serviceInstanceDAO.findById(serviceInstanceId);
+        ServiceOrder oldOrder = serviceInstance.getServiceOrder();
 
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Timestamp(System.currentTimeMillis()));
@@ -58,6 +59,8 @@ public class OrderDisconnectSI implements ICommand {
         order.setUser(user);
         order.setServiceInstance(serviceInstance);
         order.setStatus(ServiceOrder.Status.ENTERING);
+        order.setProviderLocation(oldOrder.getProviderLocation());
+        order.setServiceLocation(oldOrder.getServiceLocation());
         serviceOrderDAO.add(order);
         request.setAttribute(ORDER, order);
         //TODO return next page
