@@ -75,6 +75,7 @@ public class CommandHelper {
     private static final String CSE_USER_COMPLETED_TASKS = "cse_user_completed_tasks";
     private static final String CSE_GET_TASKS = "cse_get_tasks";
     private static final String CSE_GET_SI = "cse_get_si";
+    private static final String CSE_GET_SO = "cse_get_so";
 //    private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
 //    private static final String CSE_GET_UNCOMPLETED_TASKS = "cse_get_uncompleted_tasks";
 //    private static final String CSE_GROUP_TASKS = "cse_group_tasks";
@@ -140,7 +141,7 @@ public class CommandHelper {
         commands.put(CU_MODIFY_INSTANCE, new OrderModifySI("/WEB-INF/user/cu-review-order.jsp"));
         commands.put(CU_DISCONNECT_INSTANCE, new OrderDisconnectSI("/WEB-INF/user/cu-review-order.jsp"));
         commands.put(CU_ORDERS, new ListOrders());
-        commands.put(CU_REVIEW_ORDER, new ReviewOrder());
+        commands.put(CU_REVIEW_ORDER, new ReviewOrder("/WEB-INF/user/cu-review-order.jsp"));
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
         commands.put(CU_CANCEL_ORDER, new CancelOrder());
 
@@ -158,7 +159,9 @@ public class CommandHelper {
         commands.put(CSE_GET_REPORT_SI_PROFIT, new CSEgetReportSiProfit());
         commands.put(CSE_ADD_CUSTOMER, new CSEaddCustomer());
         commands.put(CSE_GET_SI, new CSEGetServiceInstanceForUser());
+        commands.put(CSE_GET_SO, new CSEgetOrdersForUser());
         commands.put(CSE_REVIEW_INSTANCE, new InstanceReview("/WEB-INF/cse/cse-page-review-instance.jsp"));
+        commands.put(CSE_REVIEW_ORDER, new ReviewOrder("/WEB-INF/cse/cse-page-review-order.jsp"));
         commands.put(CSE_MODIFY_INSTANCE, new OrderModifySI("/WEB-INF/cse/cse-page-review-order.jsp"));
         commands.put(CSE_DISCONNECT_INSTANCE, new OrderDisconnectSI("/WEB-INF/cse/cse-page-review-order.jsp"));
 

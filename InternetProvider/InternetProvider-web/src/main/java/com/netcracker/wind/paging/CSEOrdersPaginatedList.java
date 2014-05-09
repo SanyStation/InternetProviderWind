@@ -13,6 +13,7 @@ public class CSEOrdersPaginatedList extends AbstractPaginatedList {
 
     private final IServiceOrderDAO orderDAO = FactoryCreator.getInstance().
             getFactory().createServiceOrderDAO();
+    private int userId;
 
     public CSEOrdersPaginatedList(HttpServletRequest request, int pageSize) {
         super(request, pageSize);
@@ -20,12 +21,17 @@ public class CSEOrdersPaginatedList extends AbstractPaginatedList {
 
     @Override
     public List getList() {
-        return orderDAO.findAll(pageNumber, pageSize);
+        return orderDAO.findByUser(userId, pageNumber, pageSize);
     }
 
     @Override
     public int getFullListSize() {
         return orderDAO.countRows();
+    }
+
+    public CSEOrdersPaginatedList setUser(int userId) {
+        this.userId = userId;
+        return this;
     }
 
 }
