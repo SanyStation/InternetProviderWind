@@ -113,8 +113,8 @@ public class CommandHelper {
         commands.put(REGISTRATION, new Registration());
         commands.put(TO_PAGE, new ToPage());
         commands.put(PROCESS_TASK, new ProcessTask());
-        commands.put(UNASSIGN_TASK, new UnassignTask());        
         commands.put(CHANGE_PASSWORD, new ChangePassword());
+        commands.put(UNASSIGN_TASK, new UnassignTask());
         commands.put(SEND_BILL, new SentBill());
         commands.put(SETUP_CIRCUIT, new SetupCircuit());
         commands.put(MODIFY_CIRCUIT, new ModifyServiceInstance());
