@@ -9,6 +9,7 @@ import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Port;
 import com.netcracker.wind.entities.Task;
+import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,7 +44,7 @@ public class DeleteCable implements ICommand {
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
         request.getSession(false).setAttribute(TASK, task);
-
+        Workflow.createTaskForCSE(task.getServiceOrder(), taskDAO);
         return "/WEB-INF/ie/ie-page-selected-task.jsp";
     }
 

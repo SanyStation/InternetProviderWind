@@ -57,8 +57,10 @@ public class SentBill implements ICommand {
         order.setCompletedate(new Timestamp(System.currentTimeMillis()));
         order.setStatus(ServiceOrder.Status.COMPLETED);
         orderDAO.update(order);
-        serviceInstance.setStatus(ServiceInstance.Status.ACTIVE);
-        serviceInstanceDAO.update(serviceInstance);
+        if (order.getScenario().equals(ServiceOrder.Scenario.NEW)) {
+            serviceInstance.setStatus(ServiceInstance.Status.ACTIVE);
+            serviceInstanceDAO.update(serviceInstance);
+        }
         taskDAO.update(task);
         request.setAttribute("task", task);
 //        new MailSendler().sendEmail(users, "Boreas Bill", new FormatedMail().getSentBillMassage(null, null, user));

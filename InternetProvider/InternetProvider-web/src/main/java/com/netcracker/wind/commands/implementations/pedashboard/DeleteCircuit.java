@@ -5,9 +5,10 @@ import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ICircuitDAO;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
+import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Circuit;
-import com.netcracker.wind.entities.Port;
+import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
@@ -29,20 +30,21 @@ public class DeleteCircuit implements ICommand {
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         ICircuitDAO circuitDAO = factoryDAO.createCircuitDAO();
         IPortDAO portDAO = factoryDAO.createPortDAO();
+        IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
 
         Task task = taskDAO.findById(taskId);
 
-        Circuit circuit = task.getServiceOrder().getServiceInstance().getCircuit();
-        Port port = circuit.getPort();
-        port.setFree(true);
-        portDAO.update(port);
+        ServiceInstance serviceInstance = task.getServiceOrder().getServiceInstance();
+        serviceInstance.setStatus(ServiceInstance.Status.DISCONNECTED);
+        Circuit circuit = serviceInstance.getCircuit();
         circuitDAO.delete(circuit.getId());
+        serviceInstanceDAO.update(serviceInstance);
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
         request.setAttribute(TASK, task);
         Workflow.createTaskForIE(task.getServiceOrder(),
                 Task.Type.DELETE_CABLE, taskDAO);
-        
+
         return "/WEB-INF/pe/pe-page-selected-task.jsp";
     }
 

@@ -25,7 +25,7 @@
                 Price:
             </td>
             <td>
-                25$/mnth.
+                ${order.price.price} $
             </td>
         </tr>
         <tr>
