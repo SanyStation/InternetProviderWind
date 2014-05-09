@@ -27,12 +27,12 @@
                         <input type="hidden" name="command" value="setup_circuit"/>
                         <input type="submit" value="Setup circuit"/>
                     </c:if>
-                    <%--<c:if test="${task.type=='MODIFY_CIRCUIT'}">--%>
-                    <!--<input type="hidden" name="command" value=""/>-->
-                    <!--<input type="submit" value="Modify circuit"/>-->
-                    <%--</c:if>--%>
+                    <c:if test="${task.type=='MODIFY_CIRCUIT'}">
+                        <input type="hidden" name="command" value="modify_circuit"/>
+                        <input type="submit" value="Modify circuit"/>
+                    </c:if>
                     <c:if test="${task.type=='DELETE_CIRCUIT'}">
-                        <input type="hidden" name="command" value=""/>
+                        <input type="hidden" name="command" value="delete_circuit"/>
                         <input type="submit" value="Delete circuite"/>
                     </c:if>
                 </form>
