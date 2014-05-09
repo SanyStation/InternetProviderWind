@@ -1,5 +1,8 @@
 $(window).load(function() {
     function initialize() {
+        if (window.parent.customer > 0) {
+            $("#side form").append('<input type="hidden" name="customer_id" value="' + window.parent.customer + '"/>')
+        }
         var marker;
         var plocation;
         var myLatlng = new google.maps.LatLng(50.447321657486334, 30.456885522842413);
@@ -65,6 +68,7 @@ $(window).load(function() {
             $("#side form input[name=x]").attr('value', '');
             $("#side form input[name=y]").attr('value', '');
             $("#side form input[name=address]").attr('value', '');
+
             $.ajax({
                 type: 'POST',
                 url: 'Controller',

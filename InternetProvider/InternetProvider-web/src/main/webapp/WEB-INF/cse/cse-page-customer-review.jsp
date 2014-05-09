@@ -18,6 +18,9 @@
         <div class="col-md-9 nopadding">
             <jsp:include page="../generic/gen-customerinfo.jsp" flush="true"/>
             <div class="row divitem nomargin">
+                <script type="text/javascript">                    
+                    var customer = ${customer.id};
+                </script>
                 <iframe src="map.jsp" width="100%" height="75%"></iframe>
             </div>
         </div>
