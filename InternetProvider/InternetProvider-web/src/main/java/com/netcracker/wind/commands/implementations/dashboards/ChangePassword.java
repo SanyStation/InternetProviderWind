@@ -8,6 +8,7 @@ package com.netcracker.wind.commands.implementations.dashboards;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ public class ChangePassword implements ICommand {
     private static final String PASSWORD = "password";
     private static final String CONF_PASSWORD = "conf_password";
     private static final String USER = "user";
+    private static final String USER_ID = "user_id";
     private static final String ANSWER = "answer";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -40,8 +42,15 @@ public class ChangePassword implements ICommand {
             return answer.toString();
         }
 
+        
         User user = (User) request.getSession(false).getAttribute(USER);
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
+        int userId = Integer.parseInt(USER_ID);
+        if(user.getRoleId() != Role.CSE_GROUP_ID && userId != user.getId()){
+            //TODO return to error page
+            return "";
+        } 
+        user = userDAO.findById(userId);
         user.setPassword(pass);
         int result = userDAO.updatePass(user);
         try {
