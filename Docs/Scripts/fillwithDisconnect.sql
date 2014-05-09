@@ -97,7 +97,7 @@ BEGIN
   insert into services 
   (name)
   values 
-  ('plutinum internet');
+  ('platinum internet');
 
   insert into services 
   ( name)
