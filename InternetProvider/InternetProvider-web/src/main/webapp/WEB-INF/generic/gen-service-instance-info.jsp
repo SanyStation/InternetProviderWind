@@ -4,8 +4,8 @@
     Author     : Anatolii
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="col-md-9 divitem">
- <table class="table table-striped table-bordered">
+<div class="col-md-9">
+    <table class="table table-striped table-bordered">
         <tr><td colspan="2">
                 <h4>Service info</h4></td></tr><tr>
             <td>ID:</td>
@@ -24,13 +24,13 @@
     <c:if test="${instance.status == 'ACTIVE'}">
         <form action="Controller" method="POST">
             <input type="hidden" name="service_instance_id" value="${instance.id}"/>
-            <select name="service_id">
-                <c:forEach var="i" items="${instance.serviceOrder.providerLocation.pricesList}">
-                    <option value="${i.serviceId}">${i.service.name} - ${i.price} $</option>
-                </c:forEach>
-            </select>
-            <button type="submit" name="command" value="${param.modify_command}">Modify instance</button>
-            <button type="submit" name="command" value="${param.disconnect_command}">Disconnect instance</button>
+            <div class="col-md-4"><select name="service_id" class="form-control">
+                    <c:forEach var="i" items="${instance.serviceOrder.providerLocation.pricesList}">
+                        <option value="${i.serviceId}">${i.service.name} - ${i.price} $</option>
+                    </c:forEach>
+                </select></div>
+            <button type="submit" name="command" value="${param.modify_command}" class="btn btn-info">Modify instance</button>
+            <button type="submit" name="command" value="${param.disconnect_command}" class="btn btn-danger">Disconnect instance</button>
         </form>
     </c:if>
 </div>

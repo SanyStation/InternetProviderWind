@@ -24,8 +24,8 @@
             <c:if test="${order.status == 'ENTERING'}">
                 <form action="Controller" method="POST">
                     <input type="hidden" name="order_id" value="${order.id}"/>
-                    <button type="submit" value="confirm_order">Confirm order</button>
-                    <button type="submit" value="cancel_order">Cancel order</button>
+                    <button type="submit" value="confirm_order" class="btn btn-success">Confirm order</button>
+                    <button type="submit" value="cancel_order" class="btn btn-danger">Cancel order</button>
                 </form>
             </c:if>
         </div>
