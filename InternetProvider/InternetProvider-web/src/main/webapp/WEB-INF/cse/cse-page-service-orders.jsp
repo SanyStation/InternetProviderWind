@@ -17,9 +17,9 @@
             <jsp:param name="active" value="orders" />
         </jsp:include>
         <div class="col-md-9 divitem">
-            <jsp:include page="../generic/gen-table-service-orders.jsp" flush="true">
-                <jsp:param name="command" value="cse_review_order"/>
-            </jsp:include>
+            <jsp:include page="../generic/gen-table-service-orders.jsp" flush="true"/>
+                <%--<jsp:param name="command" value="cse_review_order"/>--%>
+            <%--</jsp:include>--%>
         </div>
         <div class="col-md-offset-3">
         </div>

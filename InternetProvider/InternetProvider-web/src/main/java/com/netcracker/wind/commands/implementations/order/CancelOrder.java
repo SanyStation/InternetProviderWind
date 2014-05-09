@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CancelOrder implements ICommand {
 
-    private static final String ORDER = "order_id";
+    private static final String ORDER_ID = "order_id";
+    private static final String ORDER = "order";
     private final String page;
 
     public CancelOrder(String page) {
@@ -23,7 +24,7 @@ public class CancelOrder implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String sOrderId = request.getParameter(ORDER);
+        String sOrderId = request.getParameter(ORDER_ID);
         int orderId = Integer.parseInt(sOrderId);
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
@@ -35,6 +36,7 @@ public class CancelOrder implements ICommand {
         }
         order.setStatus(ServiceOrder.Status.CANCELLED);
         serviceOrderDAO.update(order);
+        request.setAttribute(ORDER, order);
         //TODO redirect to next page
         return page;
     }

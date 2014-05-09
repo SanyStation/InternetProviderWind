@@ -4,14 +4,22 @@
     Author     : Anatolii
 --%>
 
+<%@page import="com.netcracker.wind.entities.Role"%>
 <%@ page import="com.netcracker.wind.paging.IExtendedPaginatedList"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("orders");
     expl.setRequest(request);
 %>
 <h3>Customer users list</h3>
 <form role="form">
+    <c:if test="${user.roleId == 4}">
+        <c:set var="comm" value="cse_review_order"/>
+    </c:if>
+    <c:if test="${user.roleId == 5}">
+        <c:set var="comm" value="review_order"/>
+    </c:if>
     <display:table name="sessionScope.orders" sort="external"  requestURI="Controller"
                    partialList="true" class="simple"
                    pagesize="${sessionScope.orders.objectsPerPage}" 
@@ -62,7 +70,7 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID" href="Controller?command=${param.command}" paramId="order_id" paramProperty="id"/>
+        <display:column property="id" title="ID" href="Controller?command=${comm}" paramId="order_id" paramProperty="id"/>
         <display:column property="enterdate" title="Enter date" />
         <display:column property="completedate" title="Completed date" />
         <display:column property="service.name" title="Service" />
