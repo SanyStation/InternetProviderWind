@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Anatolii
  */
-public class CustomerReview implements ICommand {
+public class CSEreviewCustomer implements ICommand {
 
     private static final String ID = "id";
 

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : cse-users-list
-    Created on : 30.04.2014, 20:36:41
+    Document   : index
+    Created on : 29.04.2014, 17:22:20
     Author     : oneplayer
 --%>
 
@@ -17,12 +17,11 @@
         <jsp:include page="adm-leftmenu.jsp" flush="true">
             <jsp:param name="active" value="users-list" />
         </jsp:include>
+        
+        <div class="col-md-9 nopadding">
+            <jsp:include page="adm-userinfo.jsp" flush="true"/>
+        </div>
 
-        <div class="col-md-9 divitem">
-            <jsp:include page="adm-table-users.jsp" flush="true"/>
-        </div>
-        <div class="col-md-offset-3">
-        </div>
     </div>
 </div>
 

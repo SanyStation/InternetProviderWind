@@ -14,7 +14,9 @@
 
 <div class="container">
     <div class="row">
-        <jsp:include page="adm-leftmenu.jsp" flush="true"/>
+        <jsp:include page="adm-leftmenu.jsp" flush="true">
+            <jsp:param name="active" value="add-user" />
+        </jsp:include>
 
         <div class="col-md-9 divitem">
             <form role="form">
@@ -23,29 +25,17 @@
                     <div class="col-md-7">
                         <h3>Adding new user:</h3>
                         <div class="input-group paddingtop">
-                            <span class="input-group-addon">Firstname</span>
-                            <input type="text" class="form-control" placeholder="Write firstname...">
+                            <span class="input-group-addon">Name</span>
+                            <input type="text" class="form-control" placeholder="Enter full name">
                         </div>
                         <div class="input-group paddingtop">
-                            <span class="input-group-addon">Lastname</span>
-                            <input type="text" class="form-control" placeholder="Write lastname...">
-                        </div>
-                        <div class="input-group paddingtop">
-                            <span class="input-group-addon">e-mail</span>
-                            <input type="text" class="form-control" placeholder="Write e-mail...">
+                            <span class="input-group-addon">E-mail</span>
+                            <input type="text" class="form-control" placeholder="Enter e-mail">
                         </div>
                         <!-- Remake to SELECT -->
                         <div class="input-group paddingtop">
                             <span class="input-group-addon">Role</span>
-                            <input type="text" class="form-control" placeholder="Write role...">
-                        </div>
-                        <div class="input-group paddingtop">
-                            <span class="input-group-addon">Password</span>
-                            <input type="text" class="form-control" placeholder="Choose password...">
-                        </div>
-                        <div class="input-group paddingtop">
-                            <span class="input-group-addon">Password (repeat)</span>
-                            <input type="text" class="form-control" placeholder="Repeat your password...">
+                            <input type="text" class="form-control" placeholder="Select role">
                         </div>
                         <button type="button" class="btn btn-default margintop"><span class="glyphicon glyphicon-plus"></span> Add user</button>
                     </div>

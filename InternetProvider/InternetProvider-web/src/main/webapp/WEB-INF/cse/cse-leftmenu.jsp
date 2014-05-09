@@ -7,7 +7,6 @@
 <div class="col-md-3 leftmenu">
 
     <ul id="myTab" class="nav nav-pills nav-stacked">
-        <script src="js/bootstrap-tab.js"></script>
         <li class="${param.active eq 'users-list' ? ' active' : ''}"><a href="Controller?command=customers_list" ><i class="glyphicon glyphicon-list"></i> Customers</a></li>
         <li class="${param.active eq 'add-user' ? ' active' : ''}"><a href="Controller?command=to_page&page=PAGE_CSE_ADD_USER"><i class="glyphicon glyphicon-plus"></i> Add customer</a></li>
         <li class="${param.active eq 'tasks' ? ' active' : ''}"><a href="#"><i class="glyphicon glyphicon-briefcase"></i> Tasks</a>

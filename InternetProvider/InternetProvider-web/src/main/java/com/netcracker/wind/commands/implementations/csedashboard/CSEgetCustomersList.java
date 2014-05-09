@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Anna
  */
-public class CustomersList implements ICommand {
+public class CSEgetCustomersList implements ICommand {
 
 //    private static final int CUSTOMER_GROUP_ID = 5;
     private static final String USERS = "users";
