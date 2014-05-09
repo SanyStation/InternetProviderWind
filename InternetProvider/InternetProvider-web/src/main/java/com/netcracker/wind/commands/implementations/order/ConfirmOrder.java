@@ -23,12 +23,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ConfirmOrder implements ICommand {
 
-    private static final String ORDER = "order_id";
+    private static final String ORDER_ID = "order_id";
+    private static final String ORDER = "order";
     private static final String ORDER_MESSAGE = "Boreas order information";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String sOrderId = request.getParameter(ORDER);
+        String sOrderId = request.getParameter(ORDER_ID);
         int orderId = Integer.parseInt(sOrderId);
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
@@ -78,6 +79,7 @@ public class ConfirmOrder implements ICommand {
             return "";
         }
         serviceOrderDAO.update(order);
+        request.setAttribute(ORDER, order);
         //TODO redirect to next page
         return "/WEB-INF/user/cu-review-order.jsp";
     }

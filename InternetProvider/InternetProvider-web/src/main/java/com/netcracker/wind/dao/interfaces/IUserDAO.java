@@ -19,6 +19,8 @@ public interface IUserDAO extends IRowsCounter {
 
     public void update(User user);
 
+    public int updatePass(User user);
+
     public List<User> findAll(int pageNumber, int pageSize);
 
     public List<User> findByRole(int roleID);

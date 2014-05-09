@@ -7,6 +7,7 @@ import com.netcracker.wind.commands.implementations.ToPage;
 import com.netcracker.wind.commands.implementations.UnassignTask;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.CUGetServiceInstanceForUser;
+import com.netcracker.wind.commands.implementations.dashboards.ChangePassword;
 import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
 import com.netcracker.wind.commands.implementations.dashboards.GetTasksByPerformerStatus;
 import com.netcracker.wind.commands.implementations.dashboards.InstanceReview;
@@ -48,7 +49,9 @@ public class CommandHelper {
     private static final String SETUP_CIRCUIT = "setup_circuit";
     private static final String MODIFY_CIRCUIT = "modify_circuit";
     private static final String DELETE_CIRCUIT = "delete_circuit";
-
+    
+    private static final String CHANGE_PASSWORD = "change_password";
+    
     private static final String CU_INSTANCES = "cu_instances";
     private static final String CU_REVIEW_INSTANCE = "review_instance";
     private static final String CU_MODIFY_INSTANCE = "modify_instance";
@@ -106,6 +109,8 @@ public class CommandHelper {
         
         commands.put(PROCESS_TASK, new ProcessTask());
         commands.put(UNASSIGN_TASK, new UnassignTask());
+        
+        commands.put(CHANGE_PASSWORD, new ChangePassword());
         
         commands.put(SEND_BILL, new SentBill());
         commands.put(SETUP_CIRCUIT, new SetupCircuit());
