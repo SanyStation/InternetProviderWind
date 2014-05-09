@@ -24,6 +24,8 @@ import javax.servlet.http.HttpSession;
 public class ModifyServiceInstance implements ICommand {
 
     private static final String TASK_ID = "task_id";
+    private static final String TASK = "task";
+    
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
@@ -31,17 +33,7 @@ public class ModifyServiceInstance implements ICommand {
             return "";
         }
 
-        int taskId = -1;
-        try {
-            taskId = Integer.parseInt(request.getParameter(TASK_ID));
-        } catch (NumberFormatException exception) {
-            //TODO logging
-            //TODO return error page
-        }
-        if (taskId == -1) {
-            //TODO return error page
-            return "";
-        }
+        int taskId = Integer.parseInt(request.getParameter(TASK_ID));
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
@@ -55,13 +47,14 @@ public class ModifyServiceInstance implements ICommand {
 
         ServiceInstance serviceInstance = task.getServiceOrder().getServiceInstance();
         serviceInstance.setService(task.getServiceOrder().getService());
+        serviceInstance.setServiceOrder(task.getServiceOrder());
         serviceInstanceDAO.update(serviceInstance);
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
+        request.setAttribute(TASK, task);
         Workflow.createTaskForCSE(task.getServiceOrder(), taskDAO);
 
-        //TODO return next page
-        return "";
+        return "/WEB-INF/pe/pe-page-selected-task.jsp";
     }
 
 }

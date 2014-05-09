@@ -20,19 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteCircuit implements ICommand {
 
     private static final String TASK_ID = "task_id";
+    private static final String TASK = "task";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        int taskId = -1;
-        try {
-            taskId = Integer.parseInt(request.getParameter(TASK_ID));
-        } catch (NumberFormatException exception) {
-            //TODO return error page
-            return "";
-        }
-        if (taskId == -1) {
-            //TODO return error page
-            return "";
-        }
+        int taskId = Integer.parseInt(request.getParameter(TASK_ID));
+
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         ICircuitDAO circuitDAO = factoryDAO.createCircuitDAO();
@@ -47,10 +39,11 @@ public class DeleteCircuit implements ICommand {
         circuitDAO.delete(circuit.getId());
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
+        request.setAttribute(TASK, task);
         Workflow.createTaskForIE(task.getServiceOrder(),
                 Task.Type.DELETE_CABLE, taskDAO);
-        //TODO return to next page
-        return "";
+        
+        return "/WEB-INF/pe/pe-page-selected-task.jsp";
     }
 
 }
