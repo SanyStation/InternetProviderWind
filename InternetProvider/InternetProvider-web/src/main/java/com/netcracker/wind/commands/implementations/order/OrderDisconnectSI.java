@@ -22,6 +22,13 @@ public class OrderDisconnectSI implements ICommand {
     private static final String SERVICE_INSTANCE_ID = "service_instance_id";
     private static final String USER = "user";
     private static final String ORDER = "order";
+    private final String page;
+
+    public OrderDisconnectSI(String page) {
+        this.page = page;
+    }
+    
+    
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
@@ -44,7 +51,6 @@ public class OrderDisconnectSI implements ICommand {
             //TODO return error page
             return "";
         }
-        User user = (User) session.getAttribute(USER);
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
@@ -52,6 +58,7 @@ public class OrderDisconnectSI implements ICommand {
 
         ServiceInstance serviceInstance = serviceInstanceDAO.findById(serviceInstanceId);
         ServiceOrder oldOrder = serviceInstance.getServiceOrder();
+        User user = serviceInstance.getUser();
 
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Timestamp(System.currentTimeMillis()));
@@ -64,7 +71,7 @@ public class OrderDisconnectSI implements ICommand {
         serviceOrderDAO.add(order);
         request.setAttribute(ORDER, order);
         //TODO return next page
-        return "/WEB-INF/user/cu-review-order.jsp";
+        return page;
     }
 
 }

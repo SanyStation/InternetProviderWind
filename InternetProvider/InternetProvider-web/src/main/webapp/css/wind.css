@@ -101,3 +101,6 @@ body {
 .error {
     color: red;
 }
+#pop-cont .popover {
+    max-width: 400px;
+}

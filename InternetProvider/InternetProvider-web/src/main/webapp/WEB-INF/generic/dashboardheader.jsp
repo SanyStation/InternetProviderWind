@@ -13,10 +13,11 @@
                     </form>
                 </h4>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="pop-cont">
                 Logged in as <b>${user.name}</b> (${user.email})
                 <!-- Standard button -->
-                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span></button>
+                <button type="button" class="btn btn-default" id="password-changer-init"><span class="glyphicon glyphicon-cog"></span></button>
+                <jsp:include page="gen-modify-password.jsp"/>
             </div><!--/panel-body-->
         </div>
     </div>
