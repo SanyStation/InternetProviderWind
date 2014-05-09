@@ -8,6 +8,7 @@ import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.CUGetServiceInstanceForUser;
 import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
 import com.netcracker.wind.commands.implementations.dashboards.GetTasksByPerformerStatus;
+import com.netcracker.wind.commands.implementations.dashboards.InstanceReview;
 import com.netcracker.wind.commands.implementations.iedashboard.*;
 import com.netcracker.wind.commands.implementations.order.*;
 import com.netcracker.wind.commands.implementations.pedashboard.*;
@@ -45,6 +46,9 @@ public class CommandHelper {
     private static final String SETUP_CIRCUIT = "setup_circuit";
 
     private static final String CU_INSTANCES = "cu_instances";
+    private static final String CU_REVIEW_INSTANCE = "review_instance";
+    private static final String CU_MODIFY_INSTANCE = "modify_instance";
+    private static final String CU_DISCONNECT_INSTANCE = "disconnect_instance";
     private static final String CU_ORDERS = "cu_orders";
     private static final String CU_REVIEW_ORDER = "review_order";
     private static final String CU_CONFIRM_ORDER = "confirm_order";
@@ -102,6 +106,9 @@ public class CommandHelper {
         // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
 
         commands.put(CU_INSTANCES, new CUGetServiceInstanceForUser());
+        commands.put(CU_REVIEW_INSTANCE, new InstanceReview());
+        commands.put(CU_MODIFY_INSTANCE, new OrderModifySI());
+        commands.put(CU_DISCONNECT_INSTANCE, new OrderDisconnectSI());
         commands.put(CU_ORDERS, new ListOrders());
         commands.put(CU_REVIEW_ORDER, new ReviewOrder());
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());

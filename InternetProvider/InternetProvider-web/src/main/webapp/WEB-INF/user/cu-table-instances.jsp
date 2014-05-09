@@ -62,7 +62,7 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID" href="Controller?command=review_order" paramId="order_id" paramProperty="id"/>        
+        <display:column property="id" title="ID" href="Controller?command=review_instance" paramId="id" paramProperty="id"/>        
         <display:column property="status" title="Status" />
         <display:column property="name" title="Name" />
         <display:column property="service.name" title="Service" />
