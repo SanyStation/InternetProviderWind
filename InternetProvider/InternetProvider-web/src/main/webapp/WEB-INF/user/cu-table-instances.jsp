@@ -66,7 +66,7 @@
         <display:column property="status" title="Status" />
         <display:column property="name" title="Name" />
         <display:column property="service.name" title="Service" />
-        <display:column property="serviceOrder.price.price" title="Service" />
+        <display:column property="serviceOrder.price.price" title="Price" />
     </display:table>
 
 

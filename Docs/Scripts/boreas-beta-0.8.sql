@@ -197,7 +197,7 @@ CREATE TABLE Service_Orders
      procesDate DATE , 
      completeDate DATE , 
      User_id NUMBER (8)  NOT NULL , 
-     Service_id NUMBER (5)  NOT NULL , 
+     Service_id NUMBER (5), 
      Provider_Location_id NUMBER (8)  NOT NULL , 
      Service_Location_id NUMBER (12)  NOT NULL , 
      Status VARCHAR2 (30) DEFAULT 'Entering' , 
@@ -211,6 +211,10 @@ CREATE TABLE Service_Orders
 ALTER TABLE Service_Orders 
     ADD CONSTRAINT srv_ord_to_srv_inst_id_check 
     CHECK (UPPER(Scenario) = 'NEW' OR Service_Instance_id IS NOT NULL)
+;
+ALTER TABLE Service_Orders 
+    ADD CONSTRAINT srv_ord_to_srv__id_check 
+    CHECK (UPPER(Scenario) = 'DISCONNECT' OR Service_id IS NOT NULL)
 ;
 
 CREATE INDEX so_indx_user ON Service_Orders 
