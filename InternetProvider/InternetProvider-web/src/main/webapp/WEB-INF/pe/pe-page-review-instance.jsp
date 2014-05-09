@@ -1,7 +1,5 @@
 <%-- 
-    Document   : index
-    Created on : 29.04.2014, 17:22:20
-    Author     : oneplayer
+    Author     : Alexander Kovriga
 --%>
 
 <jsp:include page="../generic/header.jsp" flush="true">
@@ -14,11 +12,12 @@
 
 <div class="container">
     <div class="row">
-        <jsp:include page="pe-leftmenu.jsp" flush="true"/>      
-        <div class="col-md-9 nopadding">
-            <jsp:include page="../generic/gen-port-info.jsp" flush="true"/>
-        </div>
+        <jsp:include page="pe-leftmenu.jsp" flush="true" />
 
+        <jsp:include page="../generic/gen-service-instance-info.jsp" />
+
+        <div class="col-md-offset-3">
+        </div>
     </div>
 </div>
 

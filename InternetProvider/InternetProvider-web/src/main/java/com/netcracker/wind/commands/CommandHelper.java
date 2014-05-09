@@ -174,6 +174,8 @@ public class CommandHelper {
         commands.put(PE_GET_REPORT_CIA_IPT, new PEgetReportCiaIpt());
         commands.put(PE_REVIEW_DEVICE, new PEreviewDevice());
         commands.put(PE_REVIEW_PORT, new PEreviewPort());
+        commands.put(PE_REVIEW_CIRCUIT, new PEreviewCircuit());
+        commands.put(PE_REVIEW_SERVICE_INSTANCE, new PEreviewSI());
     }
 
     public static CommandHelper getInstance() {

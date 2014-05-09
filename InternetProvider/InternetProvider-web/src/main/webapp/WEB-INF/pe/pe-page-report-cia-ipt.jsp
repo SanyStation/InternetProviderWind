@@ -80,8 +80,8 @@
                     <display:column property="deviceName" title="Device" group="1" href="Controller?command=pe_review_device" paramId="id" paramProperty="deviceId" />
                     <display:column property="portName" title="Port" href="Controller?command=pe_review_port" paramId="id" paramProperty="portId" />
                     <display:column property="portStatus" title="Port status" />
-                    <display:column property="circuitName" title="Circuit" />
-                    <display:column property="serviceInstanceName" title="Service instance" />
+                    <display:column property="circuitName" title="Circuit" href="Controller?command=pe_review_circuit" paramId="id" paramProperty="circuitId" />
+                    <display:column property="serviceInstanceName" title="Service instance" href="Controller?command=pe_review_service_instance" paramId="id" paramProperty="serviceInstanceId" />
                 </display:table>
             </form>
         </div>
