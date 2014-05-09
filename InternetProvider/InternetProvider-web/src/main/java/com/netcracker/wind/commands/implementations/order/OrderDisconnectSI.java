@@ -21,6 +21,7 @@ public class OrderDisconnectSI implements ICommand {
 
     private static final String SERVICE_INSTANCE_ID = "service_instance_id";
     private static final String USER = "user";
+    private static final String ORDER = "order";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
@@ -58,8 +59,9 @@ public class OrderDisconnectSI implements ICommand {
         order.setServiceInstance(serviceInstance);
         order.setStatus(ServiceOrder.Status.ENTERING);
         serviceOrderDAO.add(order);
+        request.setAttribute(ORDER, order);
         //TODO return next page
-        return "";
+        return "/WEB-INF/user/cu-review-order.jsp";
     }
 
 }

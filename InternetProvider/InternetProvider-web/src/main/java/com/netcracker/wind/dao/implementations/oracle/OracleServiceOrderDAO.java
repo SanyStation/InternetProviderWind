@@ -62,13 +62,21 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
             stat.setTimestamp(2, serviceOrder.getProcesdate());
             stat.setTimestamp(3, serviceOrder.getCompletedate());
             stat.setInt(4, serviceOrder.getUser().getId());
-            stat.setInt(5, serviceOrder.getService().getId());
+            if (serviceOrder.getServiceId() > 0) {
+                stat.setInt(5, serviceOrder.getServiceId());
+            } else {
+                stat.setNull(5, Types.INTEGER);
+            }
             if (serviceOrder.getProviderLocationId() > 0) {
                 stat.setInt(6, serviceOrder.getProviderLocationId());
             } else {
                 stat.setNull(6, Types.INTEGER);
             }
-            stat.setInt(7, serviceOrder.getServiceLocation().getId());
+            if (serviceOrder.getServiceLocationId() > 0) {
+                stat.setInt(7, serviceOrder.getServiceLocationId());
+            } else {
+                stat.setNull(7, Types.INTEGER);
+            }
             stat.setString(8, serviceOrder.getStatus().toString());
             stat.setString(9, serviceOrder.getScenario().toString());
             if (serviceOrder.getServiceInstanceId() > 0) {

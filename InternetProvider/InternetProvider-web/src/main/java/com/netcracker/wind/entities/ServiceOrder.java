@@ -181,8 +181,9 @@ public class ServiceOrder implements Serializable {
         return serviceLocation;
     }
 
-    public void setServiceLocation(ServiceLocation serviceLocations) {
-        this.serviceLocation = serviceLocations;
+    public void setServiceLocation(ServiceLocation serviceLocation) {
+        this.serviceLocation = serviceLocation;
+        this.serviceLocationId = serviceLocation.getId();
     }
 
     public int getServiceId() {
@@ -202,6 +203,7 @@ public class ServiceOrder implements Serializable {
 
     public void setService(Service services) {
         this.service = services;
+        this.serviceId = service.getId();
     }
 
     public int getProviderLocationId() {
@@ -220,15 +222,16 @@ public class ServiceOrder implements Serializable {
         return providerLocation;
     }
 
-    public void setProviderLocation(ProviderLocation providerLocations) {
-        this.providerLocation = providerLocations;
+    public void setProviderLocation(ProviderLocation providerLocation) {
+        this.providerLocation = providerLocation;
         this.providerLocationId = providerLocation.getId();
     }
+
     public Price getPrice() {
         if (price == null) {
             List<Price> prices = getProviderLocation().getPricesList();
             for (Price price1 : prices) {
-                if (price1.getServiceId() == this.getServiceId()){
+                if (price1.getServiceId() == this.getServiceId()) {
                     price = price1;
                     break;
                 }
