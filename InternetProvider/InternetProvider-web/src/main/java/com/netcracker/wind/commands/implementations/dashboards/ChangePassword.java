@@ -36,7 +36,8 @@ public class ChangePassword implements ICommand {
                 answer.put(ANSWER, false);
             } catch (JSONException ex) {
                 Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
-            } 
+            }
+            return answer.toString();
         }
 
         User user = (User) request.getSession(false).getAttribute(USER);
@@ -47,8 +48,8 @@ public class ChangePassword implements ICommand {
             if (result == 1) {
                 answer.put(ANSWER, true);
             } else {
+                answer.put(ANSWER, false);
             }
-            answer.put(ANSWER, false);
         } catch (JSONException ex) {
             Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
         }

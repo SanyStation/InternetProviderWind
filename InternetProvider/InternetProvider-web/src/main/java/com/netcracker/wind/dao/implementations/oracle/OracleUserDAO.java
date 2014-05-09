@@ -208,6 +208,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE_PASS);
             stat.setString(1, user.getPassword());
+            stat.setInt(2, user.getId());
             result = stat.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error(null, ex);
