@@ -9,7 +9,7 @@
     IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("users");
     expl.setRequest(request);
 %>
-<h3>Customer users list</h3>
+<h3>Customers</h3>
 <form role="form">
     <display:table name="sessionScope.users" sort="external"  requestURI="Controller"
                    partialList="true" class="simple"
@@ -64,7 +64,7 @@
         <display:column property="id" title="ID" />
         <display:column property="name" title="Name" href="Controller?command=customer_review" paramId="id" paramProperty="id" />
         <display:column property="email" title="e-mail" />
-        <display:column property="blocked" title="blocked" />
+        <display:column property="status" title="Status" />
     </display:table>
 
 </form>

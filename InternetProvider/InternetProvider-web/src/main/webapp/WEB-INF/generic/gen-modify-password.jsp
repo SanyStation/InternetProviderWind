@@ -10,7 +10,7 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h3>Modify user's info:</h3>
+                <h3>Change password:</h3>
                 <div class="input-group paddingtop">
                     <span class="input-group-addon">Password</span>
                     <input type="hidden" name="command" value="change_password"/>

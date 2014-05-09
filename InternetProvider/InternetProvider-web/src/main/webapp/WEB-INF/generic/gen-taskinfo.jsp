@@ -43,7 +43,7 @@
         </tr>
         <tr>
             <td>
-                Customer address
+                Customer location
             </td>
             <td>
                 ${task.serviceOrder.serviceLocation.address}
@@ -51,18 +51,10 @@
         </tr>
         <tr>
             <td>
-                Provider
+                Provider location
             </td>
             <td>
-                ${task.serviceOrder.providerLocation.name}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Provider address
-            </td>
-            <td>
-                ${task.serviceOrder.providerLocation.address}
+                ${task.serviceOrder.providerLocation.address} (${task.serviceOrder.providerLocation.name})
             </td>
         </tr>
         <tr>

@@ -10,7 +10,7 @@
     IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("service_instances");
     expl.setRequest(request);
 %>
-<h3>Customer users list</h3>
+<h3>Service instances</h3>
 <form role="form">
     <display:table name="sessionScope.service_instances" sort="external"  requestURI="Controller"
                    partialList="true" class="simple"
@@ -66,7 +66,7 @@
         <display:column property="status" title="Status" />
         <display:column property="name" title="Name" />
         <display:column property="service.name" title="Service" />
-        <display:column property="serviceOrder.price.price" title="Price" />
+        <display:column property="serviceOrder.price.price" title="Price, $" />
     </display:table>
 
 </form>

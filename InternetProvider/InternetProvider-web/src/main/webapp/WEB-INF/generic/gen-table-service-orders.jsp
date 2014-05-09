@@ -12,7 +12,7 @@
     IExtendedPaginatedList expl = (IExtendedPaginatedList) session.getAttribute("orders");
     expl.setRequest(request);
 %>
-<h3>Customer users list</h3>
+<h3>Orders</h3>
 <form role="form">
     <c:if test="${user.roleId == 4}">
         <c:set var="comm" value="cse_review_order"/>
@@ -71,8 +71,8 @@
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
         <display:column property="id" title="ID" href="Controller?command=${comm}" paramId="order_id" paramProperty="id"/>
-        <display:column property="enterdate" title="Enter date" />
-        <display:column property="completedate" title="Completed date" />
+        <display:column property="dateEnter" title="Enter date" />
+        <display:column property="dateComplete" title="Completed date" />
         <display:column property="service.name" title="Service" />
         <display:column property="status" title="Status" />
         <display:column property="serviceLocation.address" title="Service Location" />

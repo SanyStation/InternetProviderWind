@@ -102,7 +102,7 @@ BEGIN
   insert into services 
   ( name)
   values 
-  ('Putinum internet');
+  ('PUTINUM internet');
 
   insert into prices
   (provider_location_id, service_id, price)

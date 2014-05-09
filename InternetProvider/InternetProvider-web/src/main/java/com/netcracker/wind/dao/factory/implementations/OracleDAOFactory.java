@@ -2,15 +2,12 @@ package com.netcracker.wind.dao.factory.implementations;
 
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.implementations.oracle.*;
-import com.netcracker.wind.dao.implementations.oracle.csedashboard.OracleCSESITableDAO;
-import com.netcracker.wind.dao.implementations.oracle.csedashboard.OracleCSESIbyProviderLocationTableDAO;
 import com.netcracker.wind.dao.implementations.oracle.reports.OracleCiaIptDAO;
 import com.netcracker.wind.dao.implementations.oracle.reports.OracleRiMostProfRouterDAO;
 import com.netcracker.wind.dao.implementations.oracle.reports.OracleRiRoutersUtilNCapDAO;
 import com.netcracker.wind.dao.implementations.oracle.reports.OracleSiOrdersDAO;
 import com.netcracker.wind.dao.implementations.oracle.reports.OracleSiProfitDAO;
 import com.netcracker.wind.dao.interfaces.*;
-import com.netcracker.wind.dao.interfaces.csedashboard.ICSEDashboardDAO;
 import com.netcracker.wind.dao.interfaces.reports.ICiaIptDAO;
 import com.netcracker.wind.dao.interfaces.reports.IRiMostProfRouterDAO;
 import com.netcracker.wind.dao.interfaces.reports.IRiRoutersUtilNCapDAO;
@@ -116,16 +113,6 @@ public class OracleDAOFactory extends AbstractFactoryDAO {
     @Override
     public ISiProfitDAO createSiProfByMonthDAO() {
         return new OracleSiProfitDAO();
-    }
-  
-    @Override
-    public ICSEDashboardDAO createCSESITableDAO() {
-        return new OracleCSESITableDAO();
-    }
-
-    @Override
-    public ICSEDashboardDAO createCSESIbyProviderLocationTableDAO() {
-        return new OracleCSESIbyProviderLocationTableDAO();
     }
 
 }

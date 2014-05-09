@@ -5,7 +5,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Iterator;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -16,10 +16,13 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class ServiceOrder implements Serializable {
 
-    private static final long serialVersionUID = 2972707714220134975L;
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
+    private static final long serialVersionUID = 2972707714220134975L;
     private final AbstractFactoryDAO factoryDAO
             = FactoryCreator.getInstance().getFactory();
+    private static final SimpleDateFormat simpleDateFormat
+            = new SimpleDateFormat(DATE_TIME_FORMAT);
 
     public static enum Status {
 
@@ -79,6 +82,11 @@ public class ServiceOrder implements Serializable {
     public void setEnterdate(Timestamp enterdate) {
         this.enterdate = enterdate;
     }
+    
+    public String getDateEnter() {
+        return enterdate != null ? simpleDateFormat.format(enterdate)
+                : "";
+    }
 
     public Timestamp getProcesdate() {
         return procesdate;
@@ -87,6 +95,11 @@ public class ServiceOrder implements Serializable {
     public void setProcesdate(Timestamp procesdate) {
         this.procesdate = procesdate;
     }
+    
+    public String getDateProces() {
+        return procesdate != null ? simpleDateFormat.format(procesdate)
+                : "";
+    }
 
     public Timestamp getCompletedate() {
         return completedate;
@@ -94,6 +107,11 @@ public class ServiceOrder implements Serializable {
 
     public void setCompletedate(Timestamp completedate) {
         this.completedate = completedate;
+    }
+
+    public String getDateComplete() {
+        return completedate != null ? simpleDateFormat.format(completedate)
+                : "";
     }
 
     public Status getStatus() {

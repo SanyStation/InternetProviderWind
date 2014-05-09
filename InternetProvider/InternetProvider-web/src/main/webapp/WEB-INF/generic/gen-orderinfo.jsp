@@ -16,11 +16,11 @@
             <td>Provider Location</td>
             <td>${order.providerLocation.address} (${order.providerLocation.name})</td></tr><tr>
             <td>Entering date</td>
-            <td>${order.enterdate}</td></tr><tr>
+            <td>${order.dateEnter}</td></tr><tr>
             <td>Processing date</td>
-            <td>${order.procesdate}</td></tr><tr>
+            <td>${order.dateProces}</td></tr><tr>
             <td>Complete date</td>
-            <td>${order.completedate}</td></tr><tr>
+            <td>${order.dateComplete}</td></tr><tr>
             <td>Type</td>
             <td>${order.scenario}</td></tr><tr>
             <td>Order status:</td>
