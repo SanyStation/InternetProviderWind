@@ -82,17 +82,7 @@ BEGIN
   insert into services 
   (name)
   values 
-  ('business internet');
-
-  insert into services 
-  (name)
-  values 
-  ('silver internet');
-
-  insert into services 
-  (name)
-  values
- ('gold internet');
+  ('gold internet');
 
   insert into services 
   (name)
@@ -100,9 +90,19 @@ BEGIN
   ('platinum internet');
 
   insert into services 
+  (name)
+  values
+  ('plutinum internet');
+
+  insert into services 
+  (name)
+  values 
+  ('royal internet');
+
+  insert into services 
   ( name)
   values 
-  ('unlimited internet');
+  ('putinum internet');
 
   insert into prices
   (provider_location_id, service_id, price)
