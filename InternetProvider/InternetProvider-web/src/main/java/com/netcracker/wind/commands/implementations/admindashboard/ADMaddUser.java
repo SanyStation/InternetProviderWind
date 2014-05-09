@@ -16,12 +16,14 @@ import javax.servlet.http.HttpSession;
  */
 public class ADMaddUser implements ICommand {
 
+    private static final String USER_TO_VIEW = "us";
+
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
-        
+
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        
+
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
         User user = userDAO.findByEmail(email);
         if (user != null || email.isEmpty()) {
@@ -38,8 +40,7 @@ public class ADMaddUser implements ICommand {
             return "/WEB-INF/admim/adm-page-add-user.jsp";
         }
         user.setId(id);
-        HttpSession hs = request.getSession(false);
-        hs.setAttribute("customer", user);
+        request.setAttribute(USER_TO_VIEW, user);
         return "/WEB-INF/admin/adm-page-review-user.jsp";
     }
 

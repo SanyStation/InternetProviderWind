@@ -6,7 +6,13 @@
     <table class="table table-bordered">
         <tr>
             <td colspan="2">
-                <h4>${us.name}<button type="button" class="btn btn-default pull-right gobuttontop"><span class="glyphicon glyphicon-cog"></span> Modify</button></h2>
+                <form action="Controller" method="POST">
+                    <input type="hidden" name="command" value="block_user"/>
+                    <input type="hidden" name="user_id" value="${us.id}"
+                    <h4>${us.name}<button type="submit" class="btn btn-default pull-right gobuttontop">
+                            <span class="glyphicon glyphicon-cog"></span> Block</button>
+                    </h4>
+                </form>
             </td>
         </tr>
         <tr>

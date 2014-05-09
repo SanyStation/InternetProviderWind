@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BlockUser implements ICommand {
 
     private static final String USER_ID = "user_id";
+    private static final String USER_TO_VIEW = "us";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int userId = Integer.parseInt(request.getParameter(USER_ID));
@@ -26,8 +27,9 @@ public class BlockUser implements ICommand {
             user.setBlocked(true);
             userDAO.update(user);
         }
+        request.setAttribute(USER_TO_VIEW, user);
         //TODO return next page
-        return "";
+        return "/WEB-INF/admin/adm-page-review-user.jsp";
     }
 
 }
