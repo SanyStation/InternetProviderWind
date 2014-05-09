@@ -53,8 +53,8 @@
                     <option value="${i.serviceId}">${i.service.name} - ${i.price} $</option>
                 </c:forEach>
             </select>
-            <button type="submit" name="command" value="modify_instance">Modify instance</button>
-            <button type="submit" name="command" value="disconnect_instance">Disconnect instance</button>
+            <button type="submit" name="command" value="${param.modify_command}">Modify instance</button>
+            <button type="submit" name="command" value="${param.disconnect_command}">Disconnect instance</button>
         </form>
     </c:if>
 </div>

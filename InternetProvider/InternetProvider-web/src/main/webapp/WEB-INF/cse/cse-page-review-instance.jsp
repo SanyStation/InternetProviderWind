@@ -18,8 +18,11 @@
         <jsp:include page="cse-leftmenu.jsp" flush="true">
             <jsp:param name="active" value="users-list" />
         </jsp:include>
-        
-        <jsp:include page="../generic/gen-service-instance-info.jsp"/>
+
+        <jsp:include page="../generic/gen-service-instance-info.jsp">
+            <jsp:param name="modify_command" value="cse_modify_instance"/>
+            <jsp:param name="disconnect_command" value="cse_disconnect_instance"/>
+        </jsp:include>
 
         <div class="col-md-offset-3">
             <!--<button type="button" class="btn btn-default paddingtop"><span class="glyphicon glyphicon-remove-circle"></span> Add new customer</button>-->

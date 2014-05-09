@@ -84,6 +84,12 @@ public class CommandHelper {
     private static final String CSE_GET_REPORT_SI_PROFIT = "cse_get_report_si_profit";
     private static final String CSE_ADD_CUSTOMER = "cse_add_customer";
     private static final String CSE_REVIEW_INSTANCE = "cse_review_instance";
+    private static final String CSE_MODIFY_INSTANCE = "cse_modify_instance";
+    private static final String CSE_DISCONNECT_INSTANCE = "cse_disconnect_instance";
+    private static final String CSE_ORDERS = "cse_cu_orders";
+    private static final String CSE_REVIEW_ORDER = "cse_review_order";
+    private static final String CSE_CONFIRM_ORDER = "cse_confirm_order";
+    private static final String CSE_CANCEL_ORDER = "cse_cancel_order";
 
     private static final String IE_USER_ACTIVE_TASKS = "ie_user_active_tasks";
     private static final String IE_USER_COMPLETED_TASKS = "ie_user_completed_tasks";
@@ -131,8 +137,8 @@ public class CommandHelper {
 
         commands.put(CU_INSTANCES, new CUGetServiceInstanceForUser());
         commands.put(CU_REVIEW_INSTANCE, new InstanceReview("/WEB-INF/user/cu-page-review-instance.jsp"));
-        commands.put(CU_MODIFY_INSTANCE, new OrderModifySI());
-        commands.put(CU_DISCONNECT_INSTANCE, new OrderDisconnectSI());
+        commands.put(CU_MODIFY_INSTANCE, new OrderModifySI("/WEB-INF/user/cu-review-order.jsp"));
+        commands.put(CU_DISCONNECT_INSTANCE, new OrderDisconnectSI("/WEB-INF/user/cu-review-order.jsp"));
         commands.put(CU_ORDERS, new ListOrders());
         commands.put(CU_REVIEW_ORDER, new ReviewOrder());
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
@@ -153,6 +159,8 @@ public class CommandHelper {
         commands.put(CSE_ADD_CUSTOMER, new CSEaddCustomer());
         commands.put(CSE_GET_SI, new CSEGetServiceInstanceForUser());
         commands.put(CSE_REVIEW_INSTANCE, new InstanceReview("/WEB-INF/cse/cse-page-review-instance.jsp"));
+        commands.put(CSE_MODIFY_INSTANCE, new OrderModifySI("/WEB-INF/cse/cse-page-review-order.jsp"));
+        commands.put(CSE_DISCONNECT_INSTANCE, new OrderDisconnectSI("/WEB-INF/cse/cse-page-review-order.jsp"));
 
         commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
         commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
