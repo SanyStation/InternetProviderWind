@@ -19,7 +19,7 @@ public class ListServiceInstance implements ICommand {
             HttpServletResponse response) {
         IExtendedPaginatedList expl = new TasksPaginatedList(request, 
                 Role.PE_GROUP_ID, AbstractOracleDAO.DEFAULT_PAGE_SIZE);
-        request.getSession().setAttribute("tasks", expl);
+        request.getSession().setAttribute("instances", expl);
         return ConfigurationManager.getInstance().
                 getProperty(ConfigurationManager.PAGE_PE_DASHBOARD);
     }

@@ -5,6 +5,7 @@ import com.netcracker.wind.commands.implementations.ProcessTask;
 import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.ToPage;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
+import com.netcracker.wind.commands.implementations.dashboards.CUGetServiceInstanceForUser;
 import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
 import com.netcracker.wind.commands.implementations.dashboards.GetTasksByPerformerStatus;
 import com.netcracker.wind.commands.implementations.iedashboard.*;
@@ -43,6 +44,7 @@ public class CommandHelper {
     private static final String SEND_BILL = "send_bill";
     private static final String SETUP_CIRCUIT = "setup_circuit";
 
+    private static final String CU_INSTANCES = "cu_instances";
     private static final String CU_ORDERS = "cu_orders";
     private static final String CU_REVIEW_ORDER = "review_order";
     private static final String CU_CONFIRM_ORDER = "confirm_order";
@@ -99,6 +101,7 @@ public class CommandHelper {
         //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
 
+        commands.put(CU_INSTANCES, new CUGetServiceInstanceForUser());
         commands.put(CU_ORDERS, new ListOrders());
         commands.put(CU_REVIEW_ORDER, new ReviewOrder());
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());

@@ -5,6 +5,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -49,6 +50,7 @@ public class ServiceOrder implements Serializable {
     private transient Service service;
     private int providerLocationId;
     private transient ProviderLocation providerLocation;
+    private transient Price price;
 
     public ServiceOrder() {
     }
@@ -220,6 +222,22 @@ public class ServiceOrder implements Serializable {
 
     public void setProviderLocation(ProviderLocation providerLocations) {
         this.providerLocation = providerLocations;
+    }
+    public Price getPrice() {
+        if (price == null) {
+            List<Price> prices = getProviderLocation().getPricesList();
+            for (Price price1 : prices) {
+                if (price1.getServiceId() == this.getServiceId()){
+                    price = price1;
+                    break;
+                }
+            }
+        }
+        return price;
+    }
+
+    public void setPrice(Price price) {
+        this.price = price;
     }
 
     @Override
