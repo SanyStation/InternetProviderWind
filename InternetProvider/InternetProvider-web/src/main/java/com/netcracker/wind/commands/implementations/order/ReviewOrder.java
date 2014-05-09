@@ -20,14 +20,19 @@ public class ReviewOrder implements ICommand {
 
     private static final String ORDER_ID = "order_id";
     private static final String ORDER = "order";
+    private final String page;
 
+    public ReviewOrder(String page) {
+        this.page = page;
+    }
+    
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int orderId = Integer.parseInt(request.getParameter(ORDER_ID));
         IServiceOrderDAO orderDAO
                 = FactoryCreator.getInstance().getFactory().createServiceOrderDAO();
         ServiceOrder order = orderDAO.findById(orderId);
         request.setAttribute(ORDER, order);
-        return "/WEB-INF/user/cu-review-order.jsp";
+        return page;
     }
 
 }
