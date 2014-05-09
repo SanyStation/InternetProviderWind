@@ -44,6 +44,8 @@ public class CommandHelper {
     private static final String PROCESS_TASK = "process_task";
     private static final String SEND_BILL = "send_bill";
     private static final String SETUP_CIRCUIT = "setup_circuit";
+    private static final String MODIFY_CIRCUIT = "modify_circuit";
+    private static final String DELETE_CIRCUIT = "delete_circuit";
 
     private static final String CU_INSTANCES = "cu_instances";
     private static final String CU_REVIEW_INSTANCE = "review_instance";
@@ -102,6 +104,8 @@ public class CommandHelper {
         commands.put(PROCESS_TASK, new ProcessTask());
         commands.put(SEND_BILL, new SentBill());
         commands.put(SETUP_CIRCUIT, new SetupCircuit());
+        commands.put(MODIFY_CIRCUIT, new ModifyServiceInstance());
+        commands.put(DELETE_CIRCUIT, new DeleteCircuit());
         //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
         // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
 
