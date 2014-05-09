@@ -7,7 +7,9 @@ import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IProviderLocationDAO;
 import com.netcracker.wind.dao.interfaces.IServiceLocationDAO;
 import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
+import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.ProviderLocation;
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Service;
 import com.netcracker.wind.entities.ServiceLocation;
 import com.netcracker.wind.entities.ServiceOrder;
@@ -30,6 +32,7 @@ import org.json.JSONObject;
 public class ProceedToOrder implements ICommand {
 
     private static final String USER = "user";
+    private static final String CUSTOMER_ID = "customer_id";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         JSONObject jsono = new JSONObject();
@@ -42,6 +45,15 @@ public class ProceedToOrder implements ICommand {
             return processError(jsono);
         }
         User user = (User) session.getAttribute(USER);
+        AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
+        IServiceOrderDAO orderDAO = factoryDAO.createServiceOrderDAO();
+        IServiceLocationDAO serviceLocationDAO = factoryDAO.createServiceLocationDAO();
+        IProviderLocationDAO providerLocationDAO = factoryDAO.createProviderLocationDAO();
+        IUserDAO userDAO = factoryDAO.createUserDAO();
+        if(user.getRoleId() == Role.CSE_GROUP_ID){
+            int customerId = Integer.parseInt(request.getParameter(CUSTOMER_ID));
+            user = userDAO.findById(customerId);
+        }
 
         String sX = request.getParameter("x");
         String sY = request.getParameter("y");
@@ -50,11 +62,6 @@ public class ProceedToOrder implements ICommand {
         double actualX = Double.parseDouble(sX);
         double actualY = Double.parseDouble(sY);
         int serviceId = Integer.parseInt(sID);
-
-        AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
-        IServiceOrderDAO orderDAO = factoryDAO.createServiceOrderDAO();
-        IServiceLocationDAO serviceLocationDAO = factoryDAO.createServiceLocationDAO();
-        IProviderLocationDAO providerLocationDAO = factoryDAO.createProviderLocationDAO();
 
         //Find nearest ProviderLocation
         List<ProviderLocation> providerLocations = providerLocationDAO.findAll(
