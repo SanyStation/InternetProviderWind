@@ -35,8 +35,8 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
             + "ID = ?";
     private static final String INSERT = "INSERT INTO SERVICE_ORDERS ("
             + "ENTERDATE, PROCESDATE, COMPLETEDATE, USER_ID, SERVICE_ID, "
-            + "PROVIDER_LOCATION_ID, SERVICE_LOCATION_ID, STATUS, SCENARIO"
-            + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + "PROVIDER_LOCATION_ID, SERVICE_LOCATION_ID, STATUS, SCENARIO, SERVICE_INSTANCE_ID"
+            + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT so.*, COUNT(*) OVER () AS "
             + ROWS + " FROM service_orders so ";
     private static final String ID = "ID";
@@ -71,6 +71,11 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
             stat.setInt(7, serviceOrder.getServiceLocation().getId());
             stat.setString(8, serviceOrder.getStatus().toString());
             stat.setString(9, serviceOrder.getScenario().toString());
+            if (serviceOrder.getServiceInstanceId() > 0) {
+                stat.setInt(10, serviceOrder.getServiceInstanceId());
+            } else {
+                stat.setNull(10, Types.INTEGER);
+            }
             stat.executeUpdate();
             ResultSet insertedResultSet = stat.getGeneratedKeys();
             if (insertedResultSet != null && insertedResultSet.next()) {
