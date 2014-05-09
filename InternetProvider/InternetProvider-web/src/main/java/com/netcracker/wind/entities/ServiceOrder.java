@@ -222,6 +222,7 @@ public class ServiceOrder implements Serializable {
 
     public void setProviderLocation(ProviderLocation providerLocations) {
         this.providerLocation = providerLocations;
+        this.providerLocationId = providerLocation.getId();
     }
     public Price getPrice() {
         if (price == null) {

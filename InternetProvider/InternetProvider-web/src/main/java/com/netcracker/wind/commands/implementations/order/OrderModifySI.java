@@ -24,22 +24,15 @@ public class OrderModifySI implements ICommand {
     private static final String SERVICE_INSTANCE_ID = "service_instance_id";
     private static final String SERVICE_ID = "service_id";
     private static final String USER = "user";
+    private static final String ORDER = "order";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        int serviceInstanceId = -1;
-        int serviceId = -1;
-        try {
-            serviceInstanceId = Integer.parseInt(request.getParameter(SERVICE_INSTANCE_ID));
-            serviceId = Integer.parseInt(request.getParameter(SERVICE_ID));
-        } catch (NumberFormatException exception) {
-            //TODO logging
-            //TODO return error page
-            return "";
-        }
+        int serviceInstanceId = Integer.parseInt(request.getParameter(SERVICE_INSTANCE_ID));;
+        int serviceId = Integer.parseInt(request.getParameter(SERVICE_ID));
 
         HttpSession session = request.getSession();
-        if (session == null || serviceInstanceId == -1 || serviceId == -1) {
+        if (session == null) {
             //TODO return error page
             return "";
         }
@@ -64,10 +57,13 @@ public class OrderModifySI implements ICommand {
         order.setUser(user);
         order.setServiceInstance(serviceInstance);
         order.setStatus(ServiceOrder.Status.ENTERING);
+        order.setServiceLocation(serviceInstance.getServiceOrder().getServiceLocation());
+        order.setProviderLocation(serviceInstance.getServiceOrder().getProviderLocation());
         order.setService(service);
         serviceOrderDAO.add(order);
+        request.setAttribute(ORDER, order);
         //TODO return next page
-        return "";
+        return "/WEB-INF/user/cu-review-order.jsp";
     }
 
 }
