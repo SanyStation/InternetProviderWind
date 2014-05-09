@@ -18,8 +18,7 @@
         <div class="col-md-9 nopadding">
             <jsp:include page="../generic/gen-customerinfo.jsp" flush="true"/>
             <div class="row divitem nomargin">
-                <jsp:include page="../generic/gen-orderinfo.jsp" flush="true"/>
-                <jsp:include page="../generic/gen-ordermap.jsp" flush="true"/>
+                <iframe src="map.jsp" width="100%" height="75%"></iframe>
             </div>
         </div>
 

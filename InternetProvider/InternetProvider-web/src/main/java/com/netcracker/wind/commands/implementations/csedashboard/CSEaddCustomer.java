@@ -40,8 +40,8 @@ public class CSEaddCustomer implements ICommand {
         }
         user.setId(id);
         HttpSession hs = request.getSession(false);
-        hs.setAttribute("customer", user);
-        return "/WEB-INF/cse/cse-page-add-customer-location.jsp";
+        request.setAttribute("customer", user);
+        return "/WEB-INF/cse/cse-page-customer-review.jsp";
     }
 
 }
