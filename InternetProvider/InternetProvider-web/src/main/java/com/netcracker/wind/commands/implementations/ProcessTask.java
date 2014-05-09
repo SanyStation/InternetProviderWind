@@ -69,6 +69,9 @@ public class ProcessTask implements ICommand {
                 }
                 break;
         }
+        if (user.getId() != task.getUserId()) {
+           page = "/WEB-INF/generic/wrong-selected-task.jsp";
+        }
         return page;
     }
 
