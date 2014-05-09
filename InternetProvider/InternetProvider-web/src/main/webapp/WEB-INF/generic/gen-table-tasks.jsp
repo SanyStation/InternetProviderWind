@@ -4,6 +4,7 @@
     Author     : Oksana
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.netcracker.wind.paging.IExtendedPaginatedList"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%
@@ -12,7 +13,7 @@
 %>
 <h3>Tasks</h3>
 <form role="form">
-    <display:table name="sessionScope.tasks" sort="external"  requestURI="Controller"
+    <display:table id="row" name="sessionScope.tasks" sort="external"  requestURI="Controller"
                    partialList="true" class="simple"
                    pagesize="${sessionScope.tasks.objectsPerPage}" 
                    size="${sessionScope.tasks.fullListSize}">
@@ -64,7 +65,18 @@
             value="table table-striped table-hover nomargin"/>
         <display:column property="id" title="ID"/>
         <display:column property="type" title="Type"/>
-        <display:column property="status" title="Status" href="Controller?command=process_task" paramId="task_id" paramProperty="id" />
+        <display:column property="status" title="Status"/>
+        <display:column title="Action">
+            <c:if test="${row.status=='NEW'}">
+                <a href="Controller?command=process_task&task_id=${row.id}" class="btn btn-primary">Select task</a>
+            </c:if>
+            <c:if test="${row.status=='ACTIVE'}">
+                <a href="Controller?command=process_task&task_id=${row.id}" class="btn btn-info">Review task</a>
+            </c:if>
+            <c:if test="${row.status=='COMPLETED'}">
+                <a href="Controller?command=process_task&task_id=${row.id}" class="btn btn-success">Review task</a>
+            </c:if>
+        </display:column>
 
     </display:table>
 </form>
