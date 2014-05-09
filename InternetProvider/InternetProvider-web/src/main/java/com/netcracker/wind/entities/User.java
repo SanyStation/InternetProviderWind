@@ -74,7 +74,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public boolean getBlocked() {
+    public boolean isBlocked() {
         return blocked;
     }
 
@@ -188,7 +188,7 @@ public class User implements Serializable {
         builder.append(name, rhs.getName());
         builder.append(email, rhs.getEmail());
         builder.append(password, rhs.getPassword());
-        builder.append(blocked, rhs.getBlocked());
+        builder.append(blocked, rhs.isBlocked());
         builder.append(serviceInstancesList, rhs.getServiceInstancesList());
         builder.append(tasksList, rhs.getTasksList());
         builder.append(role, rhs.getRole());

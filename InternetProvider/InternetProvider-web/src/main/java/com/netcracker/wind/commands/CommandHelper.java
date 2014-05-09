@@ -8,7 +8,7 @@ import com.netcracker.wind.commands.implementations.UnassignTask;
 import com.netcracker.wind.commands.implementations.admindashboard.ADMaddUser;
 import com.netcracker.wind.commands.implementations.admindashboard.ADMgetUsersList;
 import com.netcracker.wind.commands.implementations.admindashboard.ADMreviewUser;
-import com.netcracker.wind.commands.implementations.admindashboard.BlockUser;
+import com.netcracker.wind.commands.implementations.admindashboard.ADMsetBlockUser;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.CUGetServiceInstanceForUser;
 import com.netcracker.wind.commands.implementations.dashboards.ChangePassword;
@@ -58,7 +58,7 @@ public class CommandHelper {
     private static final String ADM_ADD_USER = "adm_add_user";
     private static final String ADM_GET_USERS = "adm_get_users";
     private static final String ADM_REVIEW_USER = "adm_review_user";
-    private static final String ADM_BLOCK_USER = "block_user";
+    private static final String ADM_SET_BLOCK_USER = "adm_set_block_user";
 
     private static final String CU_INSTANCES = "cu_instances";
     private static final String CU_REVIEW_INSTANCE = "cu_review_instance";
@@ -127,7 +127,7 @@ public class CommandHelper {
         commands.put(ADM_ADD_USER, new ADMaddUser());
         commands.put(ADM_GET_USERS, new ADMgetUsersList());
         commands.put(ADM_REVIEW_USER, new ADMreviewUser());
-        commands.put(ADM_BLOCK_USER, new BlockUser());
+        commands.put(ADM_SET_BLOCK_USER, new ADMsetBlockUser());
 
         commands.put(CU_INSTANCES, new CUGetServiceInstanceForUser());
         commands.put(CU_REVIEW_INSTANCE, new InstanceReview("/WEB-INF/user/cu-page-review-instance.jsp"));

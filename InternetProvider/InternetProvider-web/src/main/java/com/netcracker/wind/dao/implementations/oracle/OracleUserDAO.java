@@ -49,7 +49,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
             stat.setString(1, user.getName());
             stat.setString(2, user.getEmail());
             stat.setString(3, user.getPassword());
-            stat.setBoolean(4, user.getBlocked());
+            stat.setBoolean(4, user.isBlocked());
             stat.setInt(5, user.getRole().getId());
             stat.executeUpdate();
             ResultSet insertedResultSet = stat.getGeneratedKeys();
@@ -129,7 +129,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
             stat.setString(1, user.getEmail());
-            stat.setBoolean(2, user.getBlocked());
+            stat.setBoolean(2, user.isBlocked());
             stat.setInt(3, user.getId());
 
             stat.executeUpdate();

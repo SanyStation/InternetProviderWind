@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Anatolii
  */
-public class BlockUser implements ICommand {
+public class ADMsetBlockUser implements ICommand {
 
     private static final String USER_ID = "user_id";
     private static final String USER_TO_VIEW = "us";
@@ -24,7 +24,7 @@ public class BlockUser implements ICommand {
         
         User user = userDAO.findById(userId);
         if (user != null) {
-            user.setBlocked(true);
+            user.setBlocked(!user.isBlocked());
             userDAO.update(user);
         }
         request.setAttribute(USER_TO_VIEW, user);
