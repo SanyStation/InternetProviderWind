@@ -5,6 +5,9 @@ import com.netcracker.wind.commands.implementations.ProcessTask;
 import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.ToPage;
 import com.netcracker.wind.commands.implementations.UnassignTask;
+import com.netcracker.wind.commands.implementations.admindashboard.ADMaddUser;
+import com.netcracker.wind.commands.implementations.admindashboard.ADMgetUsersList;
+import com.netcracker.wind.commands.implementations.admindashboard.ADMreviewUser;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.CUGetServiceInstanceForUser;
 import com.netcracker.wind.commands.implementations.dashboards.ChangePassword;
@@ -49,9 +52,12 @@ public class CommandHelper {
     private static final String SETUP_CIRCUIT = "setup_circuit";
     private static final String MODIFY_CIRCUIT = "modify_circuit";
     private static final String DELETE_CIRCUIT = "delete_circuit";
-    
     private static final String CHANGE_PASSWORD = "change_password";
     
+    private static final String ADM_ADD_USER = "adm_add_user";
+    private static final String ADM_GET_USERS = "adm_get_users";
+    private static final String ADM_REVIEW_USER = "adm_review_user";
+
     private static final String CU_INSTANCES = "cu_instances";
     private static final String CU_REVIEW_INSTANCE = "review_instance";
     private static final String CU_MODIFY_INSTANCE = "modify_instance";
@@ -61,14 +67,14 @@ public class CommandHelper {
     private static final String CU_CONFIRM_ORDER = "confirm_order";
     private static final String CU_CANCEL_ORDER = "cancel_order";
 
-    private static final String CSE_GET_ELEMENTS_COUNT = "cse_get_elements_count";
-    private static final String CSE_GET_ELEMENTS_FROM_OFFSET = "cse_get_elements_from_offset";
+//    private static final String CSE_GET_ELEMENTS_COUNT = "cse_get_elements_count";
+//    private static final String CSE_GET_ELEMENTS_FROM_OFFSET = "cse_get_elements_from_offset";
     private static final String CSE_USER_ACTIVE_TASKS = "cse_user_active_tasks";
     private static final String CSE_USER_COMPLETED_TASKS = "cse_user_completed_tasks";
     private static final String CSE_GET_TASKS = "cse_get_tasks";
-    private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
-    private static final String CSE_GET_UNCOMPLETED_TASKS = "cse_get_uncompleted_tasks";
-    private static final String CSE_GROUP_TASKS = "cse_group_tasks";
+//    private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
+//    private static final String CSE_GET_UNCOMPLETED_TASKS = "cse_get_uncompleted_tasks";
+//    private static final String CSE_GROUP_TASKS = "cse_group_tasks";
     private static final String CSE_CUSTOMER_REVIEW = "customer_review";
     private static final String CSE_GET_REPORT_SI_NEW = "cse_get_report_si_new";
     private static final String CSE_GET_REPORT_SI_DISC = "cse_get_report_si_disc";
@@ -98,7 +104,7 @@ public class CommandHelper {
         commands.put(REFRESH_SERVICE, new RefreshService());
         commands.put(SENT_MAIL, new SentMail());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
-        commands.put(CUSTOMERS_LIST, new CustomersList());
+        commands.put(CUSTOMERS_LIST, new CSEgetCustomersList());
         commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
         commands.put(NEW_DEVICE, new CreateDevice());
         commands.put(NEW_CABLE, new CreateCable());
@@ -106,19 +112,19 @@ public class CommandHelper {
         commands.put(VALIDATION, new Validation());
         commands.put(REGISTRATION, new Registration());
         commands.put(TO_PAGE, new ToPage());
-        
         commands.put(PROCESS_TASK, new ProcessTask());
-        commands.put(UNASSIGN_TASK, new UnassignTask());
-        
         commands.put(CHANGE_PASSWORD, new ChangePassword());
-        
+        commands.put(UNASSIGN_TASK, new UnassignTask());
+        commands.put(CHANGE_PASSWORD, new ChangePassword());
         commands.put(SEND_BILL, new SentBill());
         commands.put(SETUP_CIRCUIT, new SetupCircuit());
         commands.put(MODIFY_CIRCUIT, new ModifyServiceInstance());
         commands.put(DELETE_CIRCUIT, new DeleteCircuit());
-        //  commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
-        // commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
 
+        commands.put(ADM_ADD_USER, new ADMaddUser());
+        commands.put(ADM_GET_USERS, new ADMgetUsersList());
+        commands.put(ADM_REVIEW_USER, new ADMreviewUser());
+        
         commands.put(CU_INSTANCES, new CUGetServiceInstanceForUser());
         commands.put(CU_REVIEW_INSTANCE, new InstanceReview());
         commands.put(CU_MODIFY_INSTANCE, new OrderModifySI());
@@ -131,12 +137,12 @@ public class CommandHelper {
         commands.put(CSE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(CSE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(CSE_GET_TASKS, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
-        commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
-        commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
-        commands.put(CSE_GET_ELEMENTS_COUNT, new CSEgetElementsCount());
-        commands.put(CSE_GET_ELEMENTS_FROM_OFFSET, new CSEGetElementsFromOffset());
-        commands.put(CSE_GROUP_TASKS, new CSEGetGroupTasks());
-        commands.put(CSE_CUSTOMER_REVIEW, new CustomerReview());
+//        commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
+//        commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
+//        commands.put(CSE_GET_ELEMENTS_COUNT, new CSEgetElementsCount());
+//        commands.put(CSE_GET_ELEMENTS_FROM_OFFSET, new CSEGetElementsFromOffset());
+//        commands.put(CSE_GROUP_TASKS, new CSEGetGroupTasks());
+        commands.put(CSE_CUSTOMER_REVIEW, new CSEreviewCustomer());
         commands.put(CSE_GET_REPORT_SI_NEW, new CSEgetReportSiNew());
         commands.put(CSE_GET_REPORT_SI_DISC, new CSEgetReportSiDisc());
         commands.put(CSE_GET_REPORT_SI_PROFIT, new CSEgetReportSiProfit());

@@ -8,7 +8,6 @@
     <!-- Left column -->
 
     <ul id="myTab" class="nav nav-pills nav-stacked">
-        <script src="js/bootstrap-tab.js"></script>
         <li class="nav-header"></li>
         <li class="${param.active eq 'tasks' ? ' active' : ''}"><a href="#"><i class="glyphicon glyphicon-briefcase"></i> Tasks</a>
             <ul>

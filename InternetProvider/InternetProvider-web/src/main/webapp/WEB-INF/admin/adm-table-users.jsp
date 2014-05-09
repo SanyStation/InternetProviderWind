@@ -1,7 +1,5 @@
 <%-- 
-    Document   : cse-table-users
-    Created on : 03.05.2014, 13:54:34
-    Author     : oneplayer
+    Author     : Alexander Kovriga
 --%>
 
 <%@ page import="com.netcracker.wind.paging.IExtendedPaginatedList"%>
@@ -62,8 +60,8 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID" />
-        <display:column property="name" title="Name" href="Controller?command=customer_review" paramId="id" paramProperty="id" />
+        <display:column property="id" title="ID" href="Controller?command=adm_review_user" paramId="id" paramProperty="id" />
+        <display:column property="name" title="Name" href="Controller?command=adm_review_user" paramId="id" paramProperty="id" />
         <display:column property="email" title="e-mail" />
         <display:column property="blocked" title="blocked" />
     </display:table>
