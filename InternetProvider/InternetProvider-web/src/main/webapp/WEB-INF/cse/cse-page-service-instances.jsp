@@ -19,7 +19,9 @@
         </jsp:include>
 
         <div class="col-md-9 divitem">
-            <jsp:include page="cse-table-service-instances.jsp" flush="true"/>
+            <jsp:include page="../generic/gen-table-service-instances.jsp" flush="true">
+                <jsp:param name="command" value="cse_review_instance"/>
+            </jsp:include>
         </div>
     </div>
 </div>

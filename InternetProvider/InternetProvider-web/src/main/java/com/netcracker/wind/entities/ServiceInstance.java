@@ -21,7 +21,7 @@ public class ServiceInstance implements Serializable {
 
     public static enum Status {
 
-        ACTIVE, ACTIVE_MODIFY, PLANNED, PRE_DISCONNECTED, DISCONNECTED
+        ACTIVE, ACTIVE_MODIFY, PLANNED, PRE_DISCONNECTED, DISCONNECT
     }
 
     private Integer id;

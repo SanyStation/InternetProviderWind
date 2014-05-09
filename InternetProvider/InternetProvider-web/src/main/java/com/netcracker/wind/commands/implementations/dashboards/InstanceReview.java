@@ -17,9 +17,15 @@ public class InstanceReview implements ICommand {
 
     private static final String ID = "id";
 
+    private final String page;
+
+    public InstanceReview(String page) {
+        this.page = page;
+    }
+
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String parameter = request.getParameter(ID);
-        if(parameter == null){
+        if (parameter == null) {
             return "";
         }
         int instanceId = Integer.parseInt(parameter);
@@ -29,7 +35,7 @@ public class InstanceReview implements ICommand {
             return "";
         }
         request.setAttribute("instance", serviceInstance);
-        return "/WEB-INF/user/cu-page-review-instance.jsp";
+        return page;
     }
 
 }

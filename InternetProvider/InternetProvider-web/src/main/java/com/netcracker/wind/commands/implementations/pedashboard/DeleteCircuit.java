@@ -37,7 +37,7 @@ public class DeleteCircuit implements ICommand {
         }
 
         ServiceInstance serviceInstance = task.getServiceOrder().getServiceInstance();
-        serviceInstance.setStatus(ServiceInstance.Status.DISCONNECTED);
+        serviceInstance.setStatus(ServiceInstance.Status.DISCONNECT);
         Circuit circuit = serviceInstance.getCircuit();
         circuitDAO.delete(circuit.getId());
         serviceInstanceDAO.update(serviceInstance);

@@ -27,12 +27,20 @@
                 ${customer.email}
             </td>
         </tr>
-                <tr>
+        <tr>
             <td>
                 Status
             </td>
             <td>
                 ${customer.status}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Service Instances
+            </td>
+            <td>
+                <a href="Controller?command=cse_get_si&customer_id=${customer.id}">${customer.countServiceInstances}</a>
             </td>
         </tr>
     </table>

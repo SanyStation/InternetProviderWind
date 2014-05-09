@@ -54,14 +54,14 @@ public class CommandHelper {
     private static final String MODIFY_CIRCUIT = "modify_circuit";
     private static final String DELETE_CIRCUIT = "delete_circuit";
     private static final String CHANGE_PASSWORD = "change_password";
-    
+
     private static final String ADM_ADD_USER = "adm_add_user";
     private static final String ADM_GET_USERS = "adm_get_users";
     private static final String ADM_REVIEW_USER = "adm_review_user";
     private static final String ADM_BLOCK_USER = "block_user";
 
     private static final String CU_INSTANCES = "cu_instances";
-    private static final String CU_REVIEW_INSTANCE = "review_instance";
+    private static final String CU_REVIEW_INSTANCE = "cu_review_instance";
     private static final String CU_MODIFY_INSTANCE = "modify_instance";
     private static final String CU_DISCONNECT_INSTANCE = "disconnect_instance";
     private static final String CU_ORDERS = "cu_orders";
@@ -74,6 +74,7 @@ public class CommandHelper {
     private static final String CSE_USER_ACTIVE_TASKS = "cse_user_active_tasks";
     private static final String CSE_USER_COMPLETED_TASKS = "cse_user_completed_tasks";
     private static final String CSE_GET_TASKS = "cse_get_tasks";
+    private static final String CSE_GET_SI = "cse_get_si";
 //    private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
 //    private static final String CSE_GET_UNCOMPLETED_TASKS = "cse_get_uncompleted_tasks";
 //    private static final String CSE_GROUP_TASKS = "cse_group_tasks";
@@ -82,6 +83,7 @@ public class CommandHelper {
     private static final String CSE_GET_REPORT_SI_DISC = "cse_get_report_si_disc";
     private static final String CSE_GET_REPORT_SI_PROFIT = "cse_get_report_si_profit";
     private static final String CSE_ADD_CUSTOMER = "cse_add_customer";
+    private static final String CSE_REVIEW_INSTANCE = "cse_review_instance";
 
     private static final String IE_USER_ACTIVE_TASKS = "ie_user_active_tasks";
     private static final String IE_USER_COMPLETED_TASKS = "ie_user_completed_tasks";
@@ -126,9 +128,9 @@ public class CommandHelper {
         commands.put(ADM_GET_USERS, new ADMgetUsersList());
         commands.put(ADM_REVIEW_USER, new ADMreviewUser());
         commands.put(ADM_BLOCK_USER, new BlockUser());
-        
+
         commands.put(CU_INSTANCES, new CUGetServiceInstanceForUser());
-        commands.put(CU_REVIEW_INSTANCE, new InstanceReview());
+        commands.put(CU_REVIEW_INSTANCE, new InstanceReview("/WEB-INF/user/cu-page-review-instance.jsp"));
         commands.put(CU_MODIFY_INSTANCE, new OrderModifySI());
         commands.put(CU_DISCONNECT_INSTANCE, new OrderDisconnectSI());
         commands.put(CU_ORDERS, new ListOrders());
@@ -149,6 +151,8 @@ public class CommandHelper {
         commands.put(CSE_GET_REPORT_SI_DISC, new CSEgetReportSiDisc());
         commands.put(CSE_GET_REPORT_SI_PROFIT, new CSEgetReportSiProfit());
         commands.put(CSE_ADD_CUSTOMER, new CSEaddCustomer());
+        commands.put(CSE_GET_SI, new CSEGetServiceInstanceForUser());
+        commands.put(CSE_REVIEW_INSTANCE, new InstanceReview("/WEB-INF/cse/cse-page-review-instance.jsp"));
 
         commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
         commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/ie/ie-page-tasks-list.jsp"));

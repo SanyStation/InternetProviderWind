@@ -15,7 +15,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 6475947738102035160L;
-    
+
     private final AbstractFactoryDAO factoryDAO
             = FactoryCreator.getInstance().getFactory();
 
@@ -81,28 +81,27 @@ public class User implements Serializable {
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }
-    
+
     public String getStatus() {
         return blocked ? "Blocked" : "Unblocked";
     }
-    
+
     public List<ServiceInstance> getServiceInstancesList() {
         if (serviceInstancesList == null) {
             serviceInstancesList = factoryDAO.createServiceInstanceDAO()
                     .findByUser(id, AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
-                    AbstractOracleDAO.ALL_RECORDS);
+                            AbstractOracleDAO.ALL_RECORDS);
         }
         return serviceInstancesList;
     }
 
-    public void setServiceInstancesList(List<ServiceInstance>
-            serviceInstancesList) {
+    public void setServiceInstancesList(List<ServiceInstance> serviceInstancesList) {
         this.serviceInstancesList = serviceInstancesList;
     }
-    
+
     public List<Task> getTasksList() {
         if (tasksList == null) {
-            tasksList = factoryDAO.createTaskDAO().findByUser(id, 
+            tasksList = factoryDAO.createTaskDAO().findByUser(id,
                     AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
                     AbstractOracleDAO.ALL_RECORDS);
         }
@@ -120,7 +119,7 @@ public class User implements Serializable {
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
-    
+
     public Role getRole() {
         if (role == null) {
             role = factoryDAO.createRoleDAO().findById(roleId);
@@ -131,12 +130,12 @@ public class User implements Serializable {
     public void setRole(Role roles) {
         this.role = roles;
     }
-    
+
     public List<ServiceOrder> getServiceOrdersList() {
         if (serviceOrdersList == null) {
             serviceOrdersList = factoryDAO.createServiceOrderDAO()
                     .findByUser(id, AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
-                    AbstractOracleDAO.ALL_RECORDS);
+                            AbstractOracleDAO.ALL_RECORDS);
         }
         return serviceOrdersList;
     }
@@ -144,9 +143,17 @@ public class User implements Serializable {
     public void setServiceOrdersList(List<ServiceOrder> serviceOrdersList) {
         this.serviceOrdersList = serviceOrdersList;
     }
-    
-    public ServiceInstance getServiceInstance(){
+
+    public ServiceInstance getServiceInstance() {
         return getServiceInstancesList().get(0);
+    }
+
+    public int getCountServiceInstances() {
+        return getServiceInstancesList().size();
+    }
+
+    public int getCountServiceOrders() {
+        return getServiceOrdersList().size();
     }
 
     @Override
