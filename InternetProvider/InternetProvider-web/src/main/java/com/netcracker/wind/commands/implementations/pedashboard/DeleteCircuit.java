@@ -29,10 +29,12 @@ public class DeleteCircuit implements ICommand {
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         ICircuitDAO circuitDAO = factoryDAO.createCircuitDAO();
-        IPortDAO portDAO = factoryDAO.createPortDAO();
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
 
         Task task = taskDAO.findById(taskId);
+        if (!task.getStatus().equals(Task.Status.ACTIVE)) {
+            return "/WEB-INF/pe/pe-page-selected-task.jsp";
+        }
 
         ServiceInstance serviceInstance = task.getServiceOrder().getServiceInstance();
         serviceInstance.setStatus(ServiceInstance.Status.DISCONNECTED);

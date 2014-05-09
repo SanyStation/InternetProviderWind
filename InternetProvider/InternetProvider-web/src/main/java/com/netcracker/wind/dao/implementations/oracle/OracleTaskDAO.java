@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -87,7 +88,11 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, task.getUser().getId());
+            if (task.getUserId() > 0) {
+                stat.setInt(1, task.getUserId());
+            } else {
+                stat.setNull(1, Types.INTEGER);
+            }
             stat.setString(2, task.getStatus().toString());
             stat.setInt(3, task.getId());
             stat.executeUpdate();
@@ -104,7 +109,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
             connectionPool.close(con);
         }
     }
-    
+
     @Override
     protected List<Task> findWhere(String where, Object[] param,
             int pageNumber, int pageSize) {
@@ -137,7 +142,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     public List<Task> findAll(int pageNumber, int pageSize) {
         return findWhere("", new Object[]{}, pageNumber, pageSize);
     }
-    
+
     @Override
     public List<Task> findByGroup(int idGroup) {
         return findByGroup(idGroup, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
@@ -174,7 +179,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         Task task = null;
         try {
             connection.setAutoCommit(false);
-            psSelect = connection.prepareCall(SELECT + "WHERE ID = ?");
+            psSelect = connection.prepareStatement(SELECT + "WHERE ID = ?");
             psSelect.setInt(1, taskId);
             ResultSet rs = psSelect.executeQuery();
             List<Task> tasks = parseResult(rs);

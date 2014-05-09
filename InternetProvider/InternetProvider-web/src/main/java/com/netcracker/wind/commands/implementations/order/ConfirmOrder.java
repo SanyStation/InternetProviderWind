@@ -57,6 +57,9 @@ public class ConfirmOrder implements ICommand {
              //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getNewSOTakeMassage(order, order.getService(), order.getUser()));
         } else if (order.getScenario().toString().equals(
                 ServiceOrder.Scenario.MODIFY.toString())) {
+            ServiceInstance serviceInstance = order.getServiceInstance();
+            serviceInstance.setStatus(ServiceInstance.Status.ACTIVE_MODIFY);
+            serviceInstanceDAO.update(serviceInstance);
             Workflow.createTaskForModifyScenario(order);
             List<User> users = new ArrayList<User>();
              users.add(order.getUser());
@@ -76,7 +79,7 @@ public class ConfirmOrder implements ICommand {
         }
         serviceOrderDAO.update(order);
         //TODO redirect to next page
-        return "/WEB-INF/user/cu-page-orders-list.jsp";
+        return "/WEB-INF/user/cu-review-order.jsp";
     }
 
 }

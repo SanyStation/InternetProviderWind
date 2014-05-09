@@ -4,6 +4,7 @@ import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.ProcessTask;
 import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.ToPage;
+import com.netcracker.wind.commands.implementations.UnassignTask;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.CUGetServiceInstanceForUser;
 import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
@@ -42,6 +43,7 @@ public class CommandHelper {
     private static final String REGISTRATION = "registration";
     private static final String TO_PAGE = "to_page";
     private static final String PROCESS_TASK = "process_task";
+    private static final String UNASSIGN_TASK = "unassign_task";
     private static final String SEND_BILL = "send_bill";
     private static final String SETUP_CIRCUIT = "setup_circuit";
     private static final String MODIFY_CIRCUIT = "modify_circuit";
@@ -101,7 +103,10 @@ public class CommandHelper {
         commands.put(VALIDATION, new Validation());
         commands.put(REGISTRATION, new Registration());
         commands.put(TO_PAGE, new ToPage());
+        
         commands.put(PROCESS_TASK, new ProcessTask());
+        commands.put(UNASSIGN_TASK, new UnassignTask());
+        
         commands.put(SEND_BILL, new SentBill());
         commands.put(SETUP_CIRCUIT, new SetupCircuit());
         commands.put(MODIFY_CIRCUIT, new ModifyServiceInstance());

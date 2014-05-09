@@ -36,6 +36,11 @@
                         <input type="submit" value="Delete circuite"/>
                     </c:if>
                 </form>
+                <form action="Controller" method="POST">
+                    <input type="hidden" name="task_id" value="${task.id}"/>
+                    <input type="hidden" name="command" value="unassign_task"/>
+                    <input type="submit" value="Unassign task"/>
+                </form>
             </c:if>
         </div>
         <div class="col-md-offset-3">

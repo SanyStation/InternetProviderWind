@@ -47,6 +47,9 @@ public class SentBill implements ICommand {
         int taskId = Integer.parseInt(request.getParameter("task_id"));
 
         Task task = taskDAO.findById(taskId);
+        if (!task.getStatus().equals(Task.Status.ACTIVE)) {
+            return "/WEB-INF/ie/ie-page-selected-task.jsp";
+        }
         List<User> users = new ArrayList<User>();
         users.add(user);
 

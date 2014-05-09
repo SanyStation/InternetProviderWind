@@ -25,7 +25,6 @@ public class ModifyServiceInstance implements ICommand {
 
     private static final String TASK_ID = "task_id";
     private static final String TASK = "task";
-    
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
@@ -40,14 +39,14 @@ public class ModifyServiceInstance implements ICommand {
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
 
         Task task = taskDAO.findById(taskId);
-        if (!task.getType().equals(Task.Type.MODIFY_CIRCUIT)) {
-            //TODO return error page
-            return "";
+        if (!task.getStatus().equals(Task.Status.ACTIVE)) {
+            return "/WEB-INF/ie/ie-page-selected-task.jsp";
         }
 
         ServiceInstance serviceInstance = task.getServiceOrder().getServiceInstance();
         serviceInstance.setService(task.getServiceOrder().getService());
         serviceInstance.setServiceOrder(task.getServiceOrder());
+        serviceInstance.setStatus(ServiceInstance.Status.ACTIVE);
         serviceInstanceDAO.update(serviceInstance);
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);

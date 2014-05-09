@@ -20,14 +20,20 @@
 
         <div class="col-md-9 divitem">
             <jsp:include page="../generic/gen-taskinfo.jsp" flush="true"/>
-            
+
             <c:if test="${task.status=='ACTIVE'}">
                 <form action="Controller" method="POST">
                     <input type="hidden" name="task_id" value="${task.id}"/>
                     <input type="hidden" name="command" value="send_bill"/>
                     <input type="submit" value="Send Bill"/>
                 </form>
+                <form action="Controller" method="POST">
+                    <input type="hidden" name="task_id" value="${task.id}"/>
+                    <input type="hidden" name="command" value="unassign_task"/>
+                    <input type="submit" value="Unassign task"/>
+                </form>
             </c:if>
+
         </div>
     </div>
 </div>
