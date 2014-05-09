@@ -23,16 +23,18 @@ public class ADMaddUser implements ICommand {
 
         String name = request.getParameter("name");
         String email = request.getParameter("email");
+        int role_id = Integer.parseInt(request.getParameter("role_id"));
 
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
         User user = userDAO.findByEmail(email);
-        if (user != null || email.isEmpty()) {
+        if (user != null || email.isEmpty() || !(role_id>1)) {
             return "/WEB-INF/admim/adm-page-add-user.jsp";
         }
         user = new User();
         user.setName(name);
         user.setEmail(email);
         user.setBlocked(false);
+        user.setRoleId(role_id);
         user.setPassword(PasswordGenerator.generatePassword());
 //        user.setRoleId(Role.CU_GROUP_ID);
         int id = userDAO.add(user);

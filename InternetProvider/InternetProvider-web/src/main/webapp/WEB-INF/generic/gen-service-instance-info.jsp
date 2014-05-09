@@ -22,15 +22,24 @@
             <td>${instance.serviceOrder.providerLocation.address} (${instance.serviceOrder.providerLocation.name})</td></tr>
     </table>
     <c:if test="${instance.status == 'ACTIVE'}">
-        <form action="Controller" method="POST">
-            <input type="hidden" name="service_instance_id" value="${instance.id}"/>
-            <div class="col-md-4"><select name="service_id" class="form-control">
-                    <c:forEach var="i" items="${instance.serviceOrder.providerLocation.pricesList}">
-                        <option value="${i.serviceId}">${i.service.name} - ${i.price} $</option>
-                    </c:forEach>
-                </select></div>
-            <button type="submit" name="command" value="${param.modify_command}" class="btn btn-info">Modify instance</button>
-            <button type="submit" name="command" value="${param.disconnect_command}" class="btn btn-danger">Disconnect instance</button>
-        </form>
+        <div class="row">
+            <form action="Controller" method="POST">
+                <input type="hidden" name="service_instance_id" value="${instance.id}"/>
+                <div class="col-md-6">
+                    <div class="input-group ">
+                        <span class="input-group-addon">Select new service</span>
+                        <select name="service_id" class="form-control">
+                            <c:forEach var="i" items="${instance.serviceOrder.providerLocation.pricesList}">
+                                <option value="${i.serviceId}">${i.service.name} - ${i.price} $</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+                 <div class="col-md-6">
+                <button type="submit" name="command" value="${param.modify_command}" class="btn btn-info">Modify instance</button>
+                <button type="submit" name="command" value="${param.disconnect_command}" class="btn btn-danger pull-right">Disconnect instance</button>
+                 </div>
+            </form>
+        </div>
     </c:if>
 </div>
