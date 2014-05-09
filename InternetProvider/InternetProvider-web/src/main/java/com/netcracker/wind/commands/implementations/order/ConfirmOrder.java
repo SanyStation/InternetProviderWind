@@ -26,6 +26,11 @@ public class ConfirmOrder implements ICommand {
     private static final String ORDER_ID = "order_id";
     private static final String ORDER = "order";
     private static final String ORDER_MESSAGE = "Boreas order information";
+    private final String page;
+
+    public ConfirmOrder(String page) {
+        this.page = page;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -54,8 +59,8 @@ public class ConfirmOrder implements ICommand {
             order.setServiceInstance(serviceInstance);
             Workflow.createTaskForNewScnario(order);
             List<User> users = new ArrayList<User>();
-             users.add(order.getUser());
-             //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getNewSOTakeMassage(order, order.getService(), order.getUser()));
+            users.add(order.getUser());
+            //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getNewSOTakeMassage(order, order.getService(), order.getUser()));
         } else if (order.getScenario().toString().equals(
                 ServiceOrder.Scenario.MODIFY.toString())) {
             ServiceInstance serviceInstance = order.getServiceInstance();
@@ -63,7 +68,7 @@ public class ConfirmOrder implements ICommand {
             serviceInstanceDAO.update(serviceInstance);
             Workflow.createTaskForModifyScenario(order);
             List<User> users = new ArrayList<User>();
-             users.add(order.getUser());
+            users.add(order.getUser());
             //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getModifySOTakeMassage(order, order.getService(), order.getUser()));
         } else if (order.getScenario().toString().equals(
                 ServiceOrder.Scenario.DISCONNECT.toString())) {
@@ -71,8 +76,8 @@ public class ConfirmOrder implements ICommand {
             serviceInstance.setStatus(ServiceInstance.Status.PRE_DISCONNECTED);
             serviceInstanceDAO.update(serviceInstance);
             Workflow.createTaskForDisconnectScenario(order);
-             List<User> users = new ArrayList<User>();
-             users.add(order.getUser());
+            List<User> users = new ArrayList<User>();
+            users.add(order.getUser());
             //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getDiscSOTakeMassage(order, order.getService(), order.getUser()));
         } else {
             //TODO return error page
@@ -81,7 +86,7 @@ public class ConfirmOrder implements ICommand {
         serviceOrderDAO.update(order);
         request.setAttribute(ORDER, order);
         //TODO redirect to next page
-        return "/WEB-INF/user/cu-review-order.jsp";
+        return page;
     }
 
 }

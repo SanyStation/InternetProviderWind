@@ -43,5 +43,13 @@
                 <a href="Controller?command=cse_get_si&customer_id=${customer.id}">${customer.countServiceInstances}</a>
             </td>
         </tr>
+        <tr>
+            <td>
+                Service Orders
+            </td>
+            <td>
+                <a href="Controller?command=cse_get_so&customer_id=${customer.id}">${customer.countServiceOrders}</a>
+            </td>
+        </tr>
     </table>
 </div>

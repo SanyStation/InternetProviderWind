@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 public class CancelOrder implements ICommand {
 
     private static final String ORDER = "order_id";
+    private final String page;
+
+    public CancelOrder(String page) {
+        this.page = page;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -31,7 +36,7 @@ public class CancelOrder implements ICommand {
         order.setStatus(ServiceOrder.Status.CANCELLED);
         serviceOrderDAO.update(order);
         //TODO redirect to next page
-        return "/WEB-INF/user/cu-page-orders-list.jsp";
+        return page;
     }
 
 }
