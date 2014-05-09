@@ -12,18 +12,20 @@ import javax.servlet.http.HttpSession;
  *
  * @author Oksana
  */
-public class CSEgetOrders implements ICommand {
+public class CSEgetOrdersForUser implements ICommand {
 
     private static final String ORDERS = "orders";
+    private static final String CUSTOMER_ID = "customer_id";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-         IExtendedPaginatedList paginatedList = new CSEOrdersPaginatedList(request, 
-                AbstractOracleDAO.DEFAULT_PAGE_SIZE);
+        int userId = Integer.parseInt(request.getParameter(CUSTOMER_ID));
+        IExtendedPaginatedList paginatedList = new CSEOrdersPaginatedList(request,
+                AbstractOracleDAO.DEFAULT_PAGE_SIZE).setUser(userId);
         HttpSession session = request.getSession(false);
-        if(session == null){
+        if (session == null) {
             return "";
         }
         session.setAttribute(ORDERS, paginatedList);
-        return "/WEB-INF/cse/?.jsp";
+        return "/WEB-INF/cse/cse-page-service-orders.jsp";
     }
 }

@@ -4,8 +4,8 @@
     Author     : Anatolii
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="col-md-12 divitem">
-    <table class="table table-striped">
+<div class="col-md-9 divitem">
+    <table class="table table-striped table-bordered">
         <tr><td colspan="2">
                 <h4>Service info</h4></td></tr><tr>
             <td>ID:</td>
