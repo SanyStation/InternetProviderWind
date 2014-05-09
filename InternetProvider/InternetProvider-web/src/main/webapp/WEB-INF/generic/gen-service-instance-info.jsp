@@ -5,7 +5,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="col-md-9 divitem">
-    <table class="table table-striped">
+    <table class="table table-bordered">
         <tr>
             <td colspan="2">
                 <h4>Service info</h2>
@@ -42,6 +42,22 @@
             </td>
             <td>
                 ${instance.serviceOrder.price.price} $
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Provider location address
+            </td>
+            <td>
+                ${instance.serviceOrder.providerLocation.address}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Service location address
+            </td>
+            <td>
+                ${instance.serviceOrder.serviceLocation.address}
             </td>
         </tr>
     </table>
