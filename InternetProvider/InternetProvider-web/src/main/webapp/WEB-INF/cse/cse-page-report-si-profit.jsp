@@ -18,25 +18,21 @@
             <jsp:param name="active" value="reports" />
         </jsp:include>
 
+        <div class="col-md-4 divitem">
+            <form id="validation" action="Controller" method="POST">
+                <div class="input-group paddingtop">
+                    <span class="input-group-addon">Month</span>
+                    <input type="text" id="vdByMonth" class="form-control" name="vdByMonth" value="${date}" placeholder="Enter a month">
+                </div>
+                <hr>
+                <div>
+                    <button type="submit" name="command" value="cse_get_report_si_profit" class="btn btn-default paddingtop"><span class="glyphicon glyphicon-refresh"></span> Generate</button>
+                </div>
+            </form>
+        </div>
+        
         <div class="col-md-9 divitem">
             <h3>${title}</h3>
-
-            <form action="Controller" method="POST">
-                <table>
-                    <tr>
-                        <td>
-                            Month:
-                        </td>
-                        <td>
-                            <input type="text" id="vdByMonth" name="vdByMonth" value="${date}">
-                        </td>
-                        <td>
-                            <input type="hidden" value="cse_get_report_si_profit" name="command" />
-                            <input type="submit" value="Generate">
-                        </td>
-                    </tr>
-                </table>
-            </form>
 
             <form role="form">
                 <display:table name="sessionScope.profits" export="true" requestURI="Controller"

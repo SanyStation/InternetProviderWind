@@ -18,41 +18,31 @@
             <jsp:param name="active" value="reports" />
         </jsp:include>
 
+        <div class="col-md-4 divitem">
+            <form id="validation" action="Controller" method="POST">
+                <div class="input-group paddingtop">
+                    <span class="input-group-addon">Date from</span>
+                    <input type="text" id="vdFrom" class="form-control" name="vdFrom" value="${dateFrom}" placeholder="Enter date from">
+                    <label for="vdFrom" class="error" style="display: none;"></label>
+                </div>
+                <div class="input-group paddingtop">
+                    <span class="input-group-addon">Date to</span>
+                    <input type="text" id="vdTo" class="form-control" name="vdTo" value="${dateTo}" placeholder="Enter date to">
+                    <label for="vdTo" class="error" style="display: none;"></label>
+                </div>
+                <hr>
+                <div>
+                    <button type="submit" name="command" value="${command}" class="btn btn-default paddingtop"><span class="glyphicon glyphicon-refresh"></span> Generate</button>
+                </div>
+            </form>
+        </div>
+
         <div class="col-md-9 divitem">
             <h3>${title}</h3>
 
-            <form id="validation" action="Controller" method="POST">
-                <table>
-                    <tr>
-                        <td colspan="3">
-                            From date:
-                        </td>
-                        <td colspan="3">
-                            <input type="text" id="vdFrom" name="vdFrom" value="${dateFrom}">
-                            <label for="vdFrom" class="error" style="display: none;"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            To date:
-                        </td>
-                        <td colspan="3">
-                            <input type="text" id="vdTo" name="vdTo" value="${dateTo}">
-                            <label for="vdTo" class="error" style="display: none;"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="6">
-                            <input type="hidden" value="${command}" name="command" />
-                            <input type="submit" value="Generate">
-                        </td>
-                    </tr>
-                </table>
-            </form>
-
             <form role="form">
                 <display:table name="sessionScope.orders" export="true" requestURI="Controller"
-                                class="simple table table-striped" pagesize="${pageSize}" >
+                               class="simple table table-striped" pagesize="${pageSize}" >
 
                     <display:caption media="sio csio">${title}</display:caption>
                     <display:setProperty name="export.sio" value="true"/>
