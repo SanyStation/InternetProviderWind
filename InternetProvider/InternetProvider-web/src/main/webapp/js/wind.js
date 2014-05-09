@@ -67,9 +67,36 @@ return this}}(window.jQuery);
  * and open the template in the editor.
  */
 $(function() {
-    $('#password-changer-init').popover({content: $('#password-changer').parent().html(), html: true});
+    $('#password-changer-init').popover({content: $('#pop-cont #password-changer').parent().html(), html: true});
     var $alert = null;
     $(document).on('submit', '#pop-cont .popover form', function() {
+        var $form = $(this);
+        if(!$alert) $alert =  $('<div class="alert"></div>').hide().appendTo($form.parent());
+       
+        $.ajax({
+            type: "POST",
+            url: 'Controller',
+            data: $form.serialize(), // serializes the form's elements.
+            dataType: 'json',
+            success: function(data) {
+                if(data.answer){
+                     $alert.removeClass('alert-danger').addClass('alert-success').html('<strong>Password has been changed!</strong>').slideDown(300).delay(1500).fadeOut(300);
+                }else{                    
+                    $alert.removeClass('alert-success').addClass('alert-danger').html('<strong>Passwords doesn\'t match!</strong> Retype them again.').slideDown(400).delay(1500).fadeOut(300);
+                }
+            },
+            error: function(){
+                $alert.removeClass('alert-success').addClass('alert-danger').html('<strong>Unknown error occured!</strong> Try again.').slideDown(300).delay(1500).fadeOut(300);
+            }
+        });
+        return false;
+    });
+});
+
+$(function() {
+    $('#password-changer-init2').popover({placement:'left',content: $('#customerinfo #password-changer').parent().html(), html: true});
+    var $alert = null;
+    $(document).on('submit', '#customerinfo .popover form', function() {
         var $form = $(this);
         if(!$alert) $alert =  $('<div class="alert"></div>').hide().appendTo($form.parent());
        

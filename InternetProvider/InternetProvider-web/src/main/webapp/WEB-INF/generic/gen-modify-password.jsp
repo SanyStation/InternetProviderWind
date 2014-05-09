@@ -14,6 +14,8 @@
                 <div class="input-group paddingtop">
                     <span class="input-group-addon">Password</span>
                     <input type="hidden" name="command" value="change_password"/>
+                    
+                    <input type="hidden" name="user_id" value="${param.userid}"/>
                     <input type="password" name="password" class="form-control" placeholder="Choose password...">
                 </div>
                 <div class="input-group paddingtop">

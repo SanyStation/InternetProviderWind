@@ -45,7 +45,7 @@ public class ChangePassword implements ICommand {
         
         User user = (User) request.getSession(false).getAttribute(USER);
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
-        int userId = Integer.parseInt(USER_ID);
+        int userId = Integer.parseInt(((String)request.getParameter(USER_ID)));
         if(user.getRoleId() != Role.CSE_GROUP_ID && userId != user.getId()){
             //TODO return to error page
             return "";
