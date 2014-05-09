@@ -10,6 +10,7 @@ import com.netcracker.wind.commands.implementations.admindashboard.ADMgetUsersLi
 import com.netcracker.wind.commands.implementations.admindashboard.ADMreviewUser;
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.CUGetServiceInstanceForUser;
+import com.netcracker.wind.commands.implementations.dashboards.ChangePassword;
 import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
 import com.netcracker.wind.commands.implementations.dashboards.GetTasksByPerformerStatus;
 import com.netcracker.wind.commands.implementations.dashboards.InstanceReview;
@@ -51,6 +52,7 @@ public class CommandHelper {
     private static final String SETUP_CIRCUIT = "setup_circuit";
     private static final String MODIFY_CIRCUIT = "modify_circuit";
     private static final String DELETE_CIRCUIT = "delete_circuit";
+    private static final String CHANGE_PASSWORD = "change_password";
     
     private static final String ADM_ADD_USER = "adm_add_user";
     private static final String ADM_GET_USERS = "adm_get_users";
@@ -111,7 +113,8 @@ public class CommandHelper {
         commands.put(REGISTRATION, new Registration());
         commands.put(TO_PAGE, new ToPage());
         commands.put(PROCESS_TASK, new ProcessTask());
-        commands.put(UNASSIGN_TASK, new UnassignTask());
+        commands.put(UNASSIGN_TASK, new UnassignTask());        
+        commands.put(CHANGE_PASSWORD, new ChangePassword());
         commands.put(SEND_BILL, new SentBill());
         commands.put(SETUP_CIRCUIT, new SetupCircuit());
         commands.put(MODIFY_CIRCUIT, new ModifyServiceInstance());

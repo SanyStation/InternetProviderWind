@@ -24,11 +24,13 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
     private static final String DELETE = "DELETE FROM USERS WHERE ID = ?";
     private static final String INSERT = "INSERT INTO USERS (NAME, EMAIL, "
-            + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, ?, ?, ?)";
+            + "PASSWORD, BLOCKED, ROLE_ID) VALUES(?, ?, md5(?), ?, ?)";
     private static final String SELECT = "SELECT u.*, COUNT(*) OVER () AS "
             + ROWS + " FROM users u ";
     private static final String UPDATE = "UPDATE USERS SET EMAIL = ?, "
-            + "PASSWORD = ?, BLOCKED WHERE ID = ?";
+            + "BLOCKED = ? WHERE ID = ?";
+    private static final String UPDATE_PASS
+            = "UPDATE USERS SET PASSWORD = md5(?) WHERE ID = ?";
     private static final String ID = "ID";
     private static final String NAME = "NAME";
     private static final String EMAIL = "EMAIL";
@@ -127,9 +129,8 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
             stat.setString(1, user.getEmail());
-            stat.setString(2, user.getPassword());
-            stat.setBoolean(3, user.getBlocked());
-            stat.setInt(4, user.getId());
+            stat.setBoolean(2, user.getBlocked());
+            stat.setInt(3, user.getId());
 
             stat.executeUpdate();
         } catch (SQLException ex) {
@@ -190,13 +191,37 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     }
 
     public List<User> findByRole(int roleID) {
-          List<User> users
-                = findWhere("WHERE ROLE_ID = ?", new Object[]{roleID},DEFAULT_PAGE_NUMBER,ALL_RECORDS);
+        List<User> users
+                = findWhere("WHERE ROLE_ID = ?", new Object[]{roleID}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
         if (users.isEmpty()) {
             return null;
         } else {
             return users;
         }
     }
-    
+
+    public int updatePass(User user) {
+        Connection con = null;
+        PreparedStatement stat = null;
+        int result = -1;
+        try {
+            con = connectionPool.getConnection();
+            stat = con.prepareStatement(UPDATE_PASS);
+            stat.setString(1, user.getPassword());
+            result = stat.executeUpdate();
+        } catch (SQLException ex) {
+            LOGGER.error(null, ex);
+        } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                LOGGER.error(null, ex);
+            }
+            connectionPool.close(con);
+        }
+        return result;
+    }
+
 }

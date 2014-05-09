@@ -266,7 +266,7 @@ CREATE TABLE Users
      id NUMBER (8)  NOT NULL , 
      Name VARCHAR2 (50) , 
      email VARCHAR2 (50) , 
-     password VARCHAR2 (20)  NOT NULL , 
+     password VARCHAR2 (32)  NOT NULL , 
      blocked CHAR (1) DEFAULT '0' , 
      Role_id NUMBER (3)  NOT NULL 
     ) 
@@ -695,6 +695,15 @@ BEGIN
     SELECT usr_id_SEQ.NEXTVAL INTO :NEW.id FROM DUAL; 
 END;
 /
+CREATE OR REPLACE FUNCTION md5(input_string IN VARCHAR2) RETURN VARCHAR2
+  IS
+  hex_digest varchar2(32);
+  digest varchar2(16);
+  BEGIN
+  digest := DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT_STRING => input_string);
+  SELECT Lower(RAWTOHEX(digest)) INTO hex_digest FROM dual;
+  RETURN hex_digest;
+  END;
 
 
 

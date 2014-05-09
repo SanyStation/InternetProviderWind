@@ -39,20 +39,20 @@ BEGIN
    FOR a in 1 .. 1000 LOOP
 		insert into users
 		(name, email, password, role_id)
-		values(CONCAT('user', a), concat('usr', concat(a, '@i.ua')), concat(a,a), 5);
+		values(CONCAT('user', a), concat('usr', concat(a, '@i.ua')), md5(concat(a,a)), 5);
   END LOOP;
   insert into users
  (name, email, password, role_id)
-  values('engineer', concat('engineer', '@i.ua'), 'pass', 2);
+  values('engineer', concat('engineer', '@i.ua'), md5('pass'), 2);
   insert into users
  (name, email, password, role_id)
-  values('supporter', concat('supporter', '@i.ua'), 'pass', 4);
+  values('supporter', concat('supporter', '@i.ua'), md5('pass'), 4);
   insert into users
  (name, email, password, role_id)
-  values('iengineer', concat('iengineer', '@i.ua'), 'pass', 3);
+  values('iengineer', concat('iengineer', '@i.ua'), md5('pass'), 3);
   insert into users
  (name, email, password, role_id)
-  values('admin', concat('admin', '@i.ua'), 'pass', 1);
+  values('admin', concat('admin', '@i.ua'), md5('pass'), 1);
 
   insert into provider_locations
   (pos_x, pos_y, name, address)

@@ -16,15 +16,15 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3 divitem"></div>
+        <div class="col-md-3 "></div>
 
 
 
-        <div class="col-md-9 divitem">
-            <div class="alert alert-error">
+        <div class="col-md-9 ">
+            <div class="alert alert-danger">
                 <h4>Wrong task selected!</h4>
-                It seems that someone took it right before you...<br/>
-                <button type="button" class="btn"  onclick="window.history.back()" >Back</button>
+                It seems that someone took it right before you...<br><br>
+                <button type="button" class="btn btn-danger" onclick="window.history.back()">Back</button>
             </div>
         </div>
     </div>
