@@ -142,8 +142,8 @@ public class CommandHelper {
         commands.put(CU_DISCONNECT_INSTANCE, new OrderDisconnectSI("/WEB-INF/user/cu-review-order.jsp"));
         commands.put(CU_ORDERS, new ListOrders());
         commands.put(CU_REVIEW_ORDER, new ReviewOrder("/WEB-INF/user/cu-review-order.jsp"));
-        commands.put(CU_CONFIRM_ORDER, new ConfirmOrder());
-        commands.put(CU_CANCEL_ORDER, new CancelOrder());
+        commands.put(CU_CONFIRM_ORDER, new ConfirmOrder("/WEB-INF/user/cu-review-order.jsp"));
+        commands.put(CU_CANCEL_ORDER, new CancelOrder("/WEB-INF/user/cu-review-order.jsp"));
 
         commands.put(CSE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(CSE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
@@ -164,6 +164,8 @@ public class CommandHelper {
         commands.put(CSE_REVIEW_ORDER, new ReviewOrder("/WEB-INF/cse/cse-page-review-order.jsp"));
         commands.put(CSE_MODIFY_INSTANCE, new OrderModifySI("/WEB-INF/cse/cse-page-review-order.jsp"));
         commands.put(CSE_DISCONNECT_INSTANCE, new OrderDisconnectSI("/WEB-INF/cse/cse-page-review-order.jsp"));
+        commands.put(CSE_CONFIRM_ORDER, new ConfirmOrder("/WEB-INF/cse/cse-page-review-order.jsp"));
+        commands.put(CSE_CANCEL_ORDER, new CancelOrder("/WEB-INF/cse/cse-page-review-order.jsp"));
 
         commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
         commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
