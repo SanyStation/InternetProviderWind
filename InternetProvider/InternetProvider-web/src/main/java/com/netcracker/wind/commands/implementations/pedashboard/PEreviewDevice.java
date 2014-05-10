@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Alexander Kovriga
  */
-@RolesAllowed(roles = Role.Roles.InstallationEngineer)
+@RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
 public class PEreviewDevice implements ICommand {
 
     private static final String ID = "id";

@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Anatolii
  */
-@RolesAllowed(roles = Role.Roles.InstallationEngineer)
+@RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
 public class ModifyServiceInstance implements ICommand {
 
     private static final String TASK_ID = "task_id";

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Alexander Kovriga
  */
-@RolesAllowed(roles = Role.Roles.InstallationEngineer)
+@RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
 public class PEreviewCircuit implements ICommand {
     
     private static final String ID = "id";

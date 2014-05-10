@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Anatolii
  */
-@RolesAllowed(roles = Role.Roles.InstallationEngineer)
+@RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
 public class SetupCircuit implements ICommand {
 
     private static final String TASK_ID = "task_id";

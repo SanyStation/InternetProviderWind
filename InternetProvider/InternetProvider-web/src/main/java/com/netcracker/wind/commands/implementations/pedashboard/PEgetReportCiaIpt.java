@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Alexander Kovriga
  */
-@RolesAllowed(roles = Role.Roles.InstallationEngineer)
+@RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
 public class PEgetReportCiaIpt implements ICommand {
 
     public String execute(HttpServletRequest request,
