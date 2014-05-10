@@ -58,14 +58,53 @@ BEGIN
   (name, email, password, role_id)
   values('user', 'xottabut@gmail.com', md5('pass'), 5);
   insert into users
+  (name, email, password, role_id)
+  values('user01', 'henry.hurst.cu@rambler.ru', md5('pass'), 5);
+  insert into users
+  (name, email, password, role_id)
+  values('user02', 'barbara.leslie.cu@rambler.ru', md5('pass'), 5);
+  insert into users
+  (name, email, password, role_id)
+  values('user03', 'thaddeus.harris.cu@i.ua', md5('pass'), 5);
+  insert into users
  (name, email, password, role_id)
   values('pro_engineer', 'alex_sanya@i.ua', md5('pass'), 2);
+  insert into users
+ (name, email, password, role_id)
+  values('pro_engineer1', 'pe_valera@i.ua', md5('pass'), 2);
+  insert into users
+ (name, email, password, role_id)
+  values('pro_engineer2', 'pe_sweety@i.ua', md5('pass'), 2);
+  insert into users
+ (name, email, password, role_id)
+  values('pro_engineer3', 'pe_donatello@i.ua', md5('pass'), 2);
   insert into users
  (name, email, password, role_id)
   values('cust_supporter', 'sanystation@gmail.com', md5('pass'), 4);
   insert into users
  (name, email, password, role_id)
+  values('cust_supporter1', 'leonardocse1@gmail.com', md5('pass'), 4);
+  insert into users
+ (name, email, password, role_id)
+  values('cust_supporter2', 'michelangelo.cse@gmail.com', md5('pass'), 4);
+  insert into users
+ (name, email, password, role_id)
+  values('cust_supporter3', ' april.oneil.cse@yandex.ru', md5('pass'), 4);
+  insert into users
+ (name, email, password, role_id)
+  values('cust_supporter4', 'shredder.cse@yandex.ru', md5('pass'), 4);
+  insert into users
+ (name, email, password, role_id)
   values('inst_engineer', 'sanystation@i.ua', md5('pass'), 3);
+  insert into users
+ (name, email, password, role_id)
+  values('inst_engineer1', 'carey.mahoney.ie@yandex.ru', md5('pass'), 3);
+  insert into users
+ (name, email, password, role_id)
+  values('inst_engineer2', 'laverne.hooks.ie@rambler.ru', md5('pass'), 3);
+  insert into users
+ (name, email, password, role_id)
+  values('inst_engineer3', 'eugene.tackleberry.ie@rambler.ru', md5('pass'), 3);
 
   insert into provider_locations
   (pos_x, pos_y, name, address)
