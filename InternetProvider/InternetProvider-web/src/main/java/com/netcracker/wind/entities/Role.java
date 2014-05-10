@@ -14,8 +14,13 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class Role implements Serializable {
 
+    public enum Roles {
+
+        Administrator, CustomerUser, CustomerSupportEngineer, ProvisioningEngineer, InstallationEngineer
+    }
+
     private static final long serialVersionUID = 4491197292843435012L;
-    
+
     private final AbstractFactoryDAO factoryDAO
             = FactoryCreator.getInstance().getFactory();
 
@@ -23,6 +28,7 @@ public class Role implements Serializable {
     public static final int PE_GROUP_ID = 2;
     public static final int IE_GROUP_ID = 3;
     public static final int CSE_GROUP_ID = 4;
+    public static final int ADM_GROUP_ID = 1;
 
     private Integer id;
     private String name;
@@ -56,7 +62,7 @@ public class Role implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public List<Task> getTasksList() {
         if (tasksList == null) {
             tasksList = factoryDAO.createTaskDAO().findByGroup(id);
@@ -67,10 +73,10 @@ public class Role implements Serializable {
     public void setTasksList(List<Task> tasksList) {
         this.tasksList = tasksList;
     }
-    
+
     public List<User> getUsersList() {
         if (usersList == null) {
-            usersList = factoryDAO.createUserDAO().findByRole(id, 
+            usersList = factoryDAO.createUserDAO().findByRole(id,
                     AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
                     AbstractOracleDAO.ALL_RECORDS);
         }

@@ -1,7 +1,9 @@
 package com.netcracker.wind.controllers;
 
+import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.CommandHelper;
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.entities.Role;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,19 +31,21 @@ public class Controller extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, 
-            HttpServletResponse response )
+    protected void processRequest(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String page;
+            String page = "/logout";
             ICommand command = helper.getCommand(request);
-            page = command.execute(request, response);
+            if (isInRole(request, response, command)) {
+                page = command.execute(request, response);
+            }
             if (AJAX_REQUEST_HEADER.equals(request.getHeader(HEADER))) {
                 response.getWriter().write(page);
             } else {
-                RequestDispatcher dispatcher =
-                        getServletContext().getRequestDispatcher(page);
+                RequestDispatcher dispatcher
+                        = getServletContext().getRequestDispatcher(page);
                 dispatcher.forward(request, response);
             }
         } catch (ServletException se) {
@@ -49,6 +53,20 @@ public class Controller extends HttpServlet {
         } catch (IOException ioe) {
             //TODO Log4j IOException
         }
+    }
+
+    private boolean isInRole(HttpServletRequest request, HttpServletResponse response, ICommand command) {
+
+        RolesAllowed annotation = command.getClass().getAnnotation(RolesAllowed.class);
+        if (annotation == null) {
+            return true;
+        }
+        for (Role.Roles s : annotation.roles()) {
+            if(request.isUserInRole(s.toString())){
+                return true;
+            }
+        }
+        return false;
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
