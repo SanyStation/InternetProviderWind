@@ -1,6 +1,7 @@
 package com.netcracker.wind.controllers;
 
 import com.netcracker.wind.annotations.RolesAllowed;
+import com.netcracker.wind.annotations.RolesForbidden;
 import com.netcracker.wind.commands.CommandHelper;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.entities.Role;
@@ -60,8 +61,18 @@ public class Controller extends HttpServlet {
 
     private boolean isInRole(HttpServletRequest request, HttpServletResponse response, ICommand command) {
 
-        RolesAllowed annotation = command.getClass().getAnnotation(RolesAllowed.class);
-        if (annotation == null) {
+        RolesAllowed allowed = command.getClass().getAnnotation(RolesAllowed.class);
+        RolesForbidden forbidden = command.getClass().getAnnotation(RolesForbidden.class);
+
+        if (forbidden != null) {
+            for (Role.Roles s : forbidden.roles()) {
+                if (request.isUserInRole(s.toString())) {
+                    return false;
+                }
+            }
+        }
+
+        if (allowed == null) {
             return true;
         } else {
             HttpSession session = request.getSession(false);
@@ -74,7 +85,7 @@ public class Controller extends HttpServlet {
                 }
             }
         }
-        for (Role.Roles s : annotation.roles()) {
+        for (Role.Roles s : allowed.roles()) {
             if (request.isUserInRole(s.toString())) {
                 return true;
             }

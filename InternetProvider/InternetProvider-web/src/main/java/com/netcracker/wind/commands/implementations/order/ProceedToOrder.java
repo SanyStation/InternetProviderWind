@@ -1,5 +1,6 @@
 package com.netcracker.wind.commands.implementations.order;
 
+import com.netcracker.wind.annotations.RolesForbidden;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
@@ -29,9 +30,13 @@ import org.json.JSONObject;
  *
  * @author Anatolii
  */
+@RolesForbidden(roles = {Role.Roles.Administrator,
+    Role.Roles.InstallationEngineer,
+    Role.Roles.ProvisioningEngineer})
 public class ProceedToOrder implements ICommand {
 
     private static final String USER = "user";
+    private static final String ERROR = "error";
     private static final String CUSTOMER_ID = "customer_id";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -50,8 +55,18 @@ public class ProceedToOrder implements ICommand {
         IServiceLocationDAO serviceLocationDAO = factoryDAO.createServiceLocationDAO();
         IProviderLocationDAO providerLocationDAO = factoryDAO.createProviderLocationDAO();
         IUserDAO userDAO = factoryDAO.createUserDAO();
-        if(user.getRoleId() == Role.CSE_GROUP_ID){
-            int customerId = Integer.parseInt(request.getParameter(CUSTOMER_ID));
+        if (user.getRoleId() == Role.CSE_GROUP_ID) {
+            int customerId = -1;
+            try {
+                Integer.parseInt(request.getParameter(CUSTOMER_ID));
+            } catch (NumberFormatException exception) {
+                try {
+                    jsono.put(ERROR, true);
+                } catch (JSONException ex) {
+                    Logger.getLogger(ProceedToOrder.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return jsono.toString();
+            }
             user = userDAO.findById(customerId);
         }
 

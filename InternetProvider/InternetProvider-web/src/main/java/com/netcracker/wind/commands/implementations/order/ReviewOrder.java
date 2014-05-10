@@ -38,7 +38,6 @@ public class ReviewOrder implements ICommand {
         ServiceOrder order = orderDAO.findById(orderId);
         User user = (User) request.getSession(false).getAttribute(USER);
         if (order == null
-                || !order.getStatus().equals(ServiceOrder.Status.ENTERING)
                 || (user.getId() != order.getUserId() && user.getRoleId() != Role.CSE_GROUP_ID)) {
             //TODO return error page
             return "";

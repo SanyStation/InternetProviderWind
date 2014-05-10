@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.netcracker.wind.annotations;
 
 import com.netcracker.wind.entities.Role;
@@ -17,7 +18,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface RolesAllowed {
-
+public @interface RolesForbidden {
     public Role.Roles[] roles();
 }

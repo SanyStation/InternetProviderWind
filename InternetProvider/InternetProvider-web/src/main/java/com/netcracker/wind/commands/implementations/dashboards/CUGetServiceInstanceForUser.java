@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.netcracker.wind.commands.implementations.dashboards;
 
 import com.netcracker.wind.commands.implementations.csedashboard.*;
@@ -20,14 +19,14 @@ import javax.servlet.http.HttpSession;
  *
  * @author j_mart
  */
-public class CUGetServiceInstanceForUser implements ICommand{
-    private final String SI="service_instances";
+public class CUGetServiceInstanceForUser implements ICommand {
+
+    private final String SI = "service_instances";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-       
-    
+
         HttpSession session = request.getSession(false);
-        if(session == null){
+        if (session == null) {
             return "";
         }
         User user = (User) session.getAttribute("user");
@@ -35,11 +34,11 @@ public class CUGetServiceInstanceForUser implements ICommand{
             return "";
         }
         int performerId = user.getId();
-          IExtendedPaginatedList paginatedList = new SIUserPaginationList(request, 
+        IExtendedPaginatedList paginatedList = new SIUserPaginationList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId);
         session.setAttribute(SI, paginatedList);
         return "/WEB-INF/user/cu-page-instances-list.jsp";
 
     }
-    
+
 }
