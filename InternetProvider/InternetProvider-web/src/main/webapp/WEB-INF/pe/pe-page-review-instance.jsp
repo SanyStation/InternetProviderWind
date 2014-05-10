@@ -14,9 +14,8 @@
     <div class="row">
         <jsp:include page="pe-leftmenu.jsp" flush="true" />
 
-        <jsp:include page="../generic/gen-service-instance-info.jsp" />
-
-        <div class="col-md-offset-3">
+        <div class="col-md-9 nopadding">
+            <jsp:include page="../generic/gen-table-service-instance.jsp" flush="true" />
         </div>
     </div>
 </div>

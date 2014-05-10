@@ -18,19 +18,14 @@
     <div class="row">
         <jsp:include page="cse-leftmenu.jsp" flush="true"/>
 
-        <div class="col-md-9 divitem">
+        <div class="col-md-9 nopadding">
             <jsp:include page="../generic/gen-taskinfo.jsp" flush="true"/>
 
             <c:if test="${task.status=='ACTIVE'}">
                 <form action="Controller" method="POST">
                     <input type="hidden" name="task_id" value="${task.id}"/>
-                    <input type="hidden" name="command" value="send_bill"/>
-                    <input type="submit" value="Send Bill"/>
-                </form>
-                <form action="Controller" method="POST">
-                    <input type="hidden" name="task_id" value="${task.id}"/>
-                    <input type="hidden" name="command" value="unassign_task"/>
-                    <input type="submit" value="Unassign task"/>
+                    <button type="submit" name="command" value="send_bill" class="btn btn-success">Send bill</button>
+                    <button type="submit" name="command" value="unassign_task" class="btn btn-danger pull-right">Unassign task</button>
                 </form>
             </c:if>
 

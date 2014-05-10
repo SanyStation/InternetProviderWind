@@ -25,12 +25,11 @@
                 <form action="Controller" method="POST">
                     <input type="hidden" name="order_id" value="${order.id}"/>
                     <button type="submit" name="command" value="confirm_order" class="btn btn-success">Confirm order</button>
-                    <button type="submit" name="command" value="cancel_order" class="btn btn-danger">Cancel order</button>
+                    <button type="submit" name="command" value="cancel_order" class="btn btn-danger pull-right">Cancel order</button>
                 </form>
             </c:if>
         </div>
         <div class="col-md-offset-3">
-            <!--<button type="button" class="btn btn-default paddingtop"><span class="glyphicon glyphicon-remove-circle"></span> Add new customer</button>-->
         </div>
     </div>
 </div>

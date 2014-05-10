@@ -3,7 +3,7 @@
 --%>
 
 <div>
-    <table class="table table-bordered">
+    <table class="table table-striped table-bordered">
         <tr>
             <td colspan="2">
                 <h4>Task</h4>
@@ -38,7 +38,7 @@
                 Performer
             </td>
             <td>
-                ${task.user.name}
+                ${task.user.name} (${task.user.email})
             </td>
         </tr>
         <tr>

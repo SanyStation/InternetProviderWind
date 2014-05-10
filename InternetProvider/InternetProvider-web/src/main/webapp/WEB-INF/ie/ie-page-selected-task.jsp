@@ -27,24 +27,25 @@
                 <form action="Controller" method="POST">
                     <input type="hidden" name="task_id" value="${task.id}"/>
                     <c:if test="${task.type=='NEW_CABLE'}">
-                        <input type="hidden" name="command" value="new_cable"/>
-                        <input type="text" name="name" value=""/>
-                        <input type="submit" value="Create cable"/>
+                        <div class="col-md-5 input-group paddingtop">
+                            <span class="input-group-addon">Cable name</span>
+                            <input type="text" class="form-control" name="name" value="" placeholder="Enter the cable name">
+                        </div>
+                        <hr>
+                        <button type="submit" name="command" value="new_cable" class="btn btn-success">Create cable</button>
                     </c:if>
                     <c:if test="${task.type=='DELETE_CABLE'}">
-                        <input type="hidden" name="command" value="delete_cable"/>
-                        <input type="submit" value="Delete cable"/>
+                        <button type="submit" name="command" value="delete_cable" class="btn btn-danger">Delete cable</button>
                     </c:if>
                     <c:if test="${task.type=='NEW_DEVICE'}">
-                        <input type="hidden" name="command" value="new_device"/>
-                        <input type="text" name="name" value=""/>
-                        <input type="submit" value="Create device"/>
+                        <div class="col-md-5 input-group paddingtop">
+                            <span class="input-group-addon">Device name</span>
+                            <input type="text" class="form-control" name="name" value="" placeholder="Enter the device name">
+                        </div>
+                        <hr>
+                        <button type="submit" name="command" value="new_device" class="btn btn-success">Create device</button>
                     </c:if>
-                </form>
-                <form action="Controller" method="POST">
-                    <input type="hidden" name="task_id" value="${task.id}"/>
-                    <input type="hidden" name="command" value="unassign_task"/>
-                    <input type="submit" value="Unassign task"/>
+                    <button type="submit" name="command" value="unassign_task" class="btn btn-danger pull-right">Unassign task</button>
                 </form>
             </c:if>
         </div>

@@ -10,7 +10,6 @@ import com.netcracker.wind.entities.User;
 import com.netcracker.wind.workflow.generator.PasswordGenerator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,7 +40,6 @@ public class CSEaddCustomer implements ICommand {
             return "/WEB-INF/cse/cse-page-add-customer.jsp";
         }
         user.setId(id);
-        HttpSession hs = request.getSession(false);
         request.setAttribute("customer", user);
         return "/WEB-INF/cse/cse-page-customer-review.jsp";
     }

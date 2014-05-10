@@ -40,6 +40,9 @@ public class MailSendler {
     public boolean sendEmail(List<User> users, String subject, String body) {
 
         try {
+            if (true) {      //comment this block 
+                return true; //when deploying to 
+            }                //production server
 
             MimeMessage message = new MimeMessage(mailSession);
 

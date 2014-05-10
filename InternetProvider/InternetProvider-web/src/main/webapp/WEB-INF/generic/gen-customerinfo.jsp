@@ -5,7 +5,7 @@
 --%>
 
 <div id="customerinfo">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <tr>
             <td colspan="2">
                 <h4>${customer.name}<button type="button" class="btn btn-default pull-right gobuttontop" id="password-changer-init2"><span class="glyphicon glyphicon-cog"></span> Modify</button></h2>
@@ -52,7 +52,7 @@
             </td>
         </tr>
     </table>
-                <jsp:include page="gen-modify-password.jsp">
-                    <jsp:param name="userid" value="${customer.id}"/>
-                </jsp:include>
+    <jsp:include page="gen-modify-password.jsp">
+        <jsp:param name="userid" value="${customer.id}"/>
+    </jsp:include>
 </div>

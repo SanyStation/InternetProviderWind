@@ -17,33 +17,24 @@
     <div class="row">
         <jsp:include page="pe-leftmenu.jsp" flush="true"/>
 
-        <div class="col-md-9 divitem">
+        <div class="col-md-9 nopadding">
             <jsp:include page="../generic/gen-taskinfo.jsp" flush="true"/>
 
             <c:if test="${task.status=='ACTIVE'}">
                 <form action="Controller" method="POST">
                     <input type="hidden" name="task_id" value="${task.id}"/>
                     <c:if test="${task.type=='CREATE_CIRCUIT'}">
-                        <input type="hidden" name="command" value="setup_circuit"/>
-                        <input type="submit" value="Setup circuit"/>
+                        <button type="submit" name="command" value="setup_circuit" class="btn btn-success">Setup circuit</button>
                     </c:if>
                     <c:if test="${task.type=='MODIFY_CIRCUIT'}">
-                        <input type="hidden" name="command" value="modify_circuit"/>
-                        <input type="submit" value="Modify circuit"/>
+                        <button type="submit" name="command" value="modify_circuit" class="btn btn-info">Modify circuit</button>
                     </c:if>
                     <c:if test="${task.type=='DELETE_CIRCUIT'}">
-                        <input type="hidden" name="command" value="delete_circuit"/>
-                        <input type="submit" value="Delete circuite"/>
+                        <button type="submit" name="command" value="delete_circuit" class="btn btn-danger">Delete circuit</button>
                     </c:if>
-                </form>
-                <form action="Controller" method="POST">
-                    <input type="hidden" name="task_id" value="${task.id}"/>
-                    <input type="hidden" name="command" value="unassign_task"/>
-                    <input type="submit" value="Unassign task"/>
+                    <button type="submit" name="command" value="unassign_task" class="btn btn-danger pull-right">Unassign task</button>
                 </form>
             </c:if>
-        </div>
-        <div class="col-md-offset-3">
         </div>
     </div>
 </div>

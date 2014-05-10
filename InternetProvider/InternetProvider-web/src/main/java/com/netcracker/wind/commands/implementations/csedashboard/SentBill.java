@@ -53,8 +53,6 @@ public class SentBill implements ICommand {
         if (!task.getStatus().equals(Task.Status.ACTIVE)) {
             return "/WEB-INF/ie/ie-page-selected-task.jsp";
         }
-        List<User> users = new ArrayList<User>();
-        users.add(user);
 
         task.setStatus(Task.Status.COMPLETED);
 
@@ -67,9 +65,14 @@ public class SentBill implements ICommand {
             serviceInstance.setStatus(ServiceInstance.Status.ACTIVE);
             serviceInstanceDAO.update(serviceInstance);
         }
+
         taskDAO.update(task);
         request.setAttribute("task", task);
-//        new MailSendler().sendEmail(users, "Boreas Bill", new FormatedMail().getSentBillMassage(null, null, user));
+        
+        List<User> users = new ArrayList<User>();
+        users.add(order.getUser());
+        
+        new MailSendler().sendEmail(users, "Boreas Bill", new FormatedMail().getSentBillMassage(null, null, order.getUser()));
         return "/WEB-INF/cse/cse-page-selected-task.jsp";
     }
 
