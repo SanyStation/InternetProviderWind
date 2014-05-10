@@ -23,9 +23,6 @@
                 <jsp:param name="command" value="cu_review_instance"/>
             </jsp:include>
         </div>
-        <div class="col-md-offset-3">
-            <!--<button type="button" class="btn btn-default paddingtop"><span class="glyphicon glyphicon-remove-circle"></span> Add new customer</button>-->
-        </div>
     </div>
 </div>
         

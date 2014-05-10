@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations;
 
 import com.netcracker.wind.annotations.RolesAllowed;
@@ -12,6 +7,9 @@ import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.mail.FormatedMail;
+import com.netcracker.wind.mail.MailSendler;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,6 +41,14 @@ public class UnassignTask implements ICommand {
         task.setStatus(Task.Status.NEW);
         task.setUserId(0);
         taskDAO.update(task);
+        
+        List<User> users = FactoryCreator.getInstance().getFactory().
+                createUserDAO().findByRole(task.getRoleId());
+        if (users != null) {
+            new MailSendler().sendEmail(users, task.getType().toString(),
+                    new FormatedMail().getInformGroupAboutTaskMessage(task));
+        }
+        
         return "/profile";
     }
 }

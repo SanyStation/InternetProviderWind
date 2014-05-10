@@ -17,7 +17,7 @@
         <jsp:include page="pe-leftmenu.jsp" flush="true"/>      
         <div class="col-md-9 nopadding">
             <jsp:include page="../generic/gen-device-info.jsp" flush="true"/>
-            <div class="row divitem nomargin">
+            <div class="col-md-12 divitem paddingleftright">
                 <jsp:include page="pe-table-ports.jsp" flush="true"/>
             </div>
         </div>

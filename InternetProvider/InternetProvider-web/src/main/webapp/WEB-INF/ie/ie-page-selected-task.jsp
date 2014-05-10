@@ -17,7 +17,7 @@
     <div class="row">
         <jsp:include page="ie-leftmenu.jsp" flush="true"/>
 
-        <div class="col-md-9 divitem">
+        <div class="col-md-9 nopadding">
             <jsp:include page="../generic/gen-taskinfo.jsp" flush="true"/>
 
             <c:if test="${task.status=='ACTIVE'}">

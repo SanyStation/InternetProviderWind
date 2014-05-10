@@ -19,7 +19,7 @@
             <jsp:param name="active" value="users-list" />
         </jsp:include>
 
-        <div class="col-md-9">
+        <div class="col-md-9 nopadding">
             <jsp:include page="../generic/gen-orderinfo.jsp" flush="true"/>
             <c:if test="${order.status == 'ENTERING'}">
                 <form action="Controller" method="POST">

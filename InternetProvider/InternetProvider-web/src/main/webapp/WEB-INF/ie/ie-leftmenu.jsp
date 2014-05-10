@@ -11,7 +11,7 @@
         <li class="nav-header"></li>
         <li class="${param.active eq 'tasks' ? ' active' : ''}"><a href="#"><i class="glyphicon glyphicon-briefcase"></i> Tasks</a>
             <ul>
-                <li><a href="Controller?command=ie_get_tasks"><i class="glyphicon glyphicon-briefcase"></i>New tasks <span class="badge">42</span></a></li>
+                <li><a href="Controller?command=ie_get_tasks"><i class="glyphicon glyphicon-briefcase"></i>New tasks</a></li>
                 <li><a href="Controller?command=ie_user_active_tasks"><i class="glyphicon glyphicon-briefcase"></i>Active tasks</a></li>
                 <li><a href="Controller?command=ie_user_completed_tasks"><i class="glyphicon glyphicon-briefcase"></i>Completed tasks</a></li>
             </ul>

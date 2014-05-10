@@ -35,6 +35,7 @@ public class FormatedMail {
             + "Your login is : ";
     private final String HOPE_PLEASED="\n\t We hope that you will be pleased with our service!";
     private final String END_OF_MASSAGE="\nSincerely,\n\tboreas staff.";
+    
     public String getUserRegistrationMassage(User user) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(HELLO).append(CONGRATULATION).append(user.getName()).append(OK)

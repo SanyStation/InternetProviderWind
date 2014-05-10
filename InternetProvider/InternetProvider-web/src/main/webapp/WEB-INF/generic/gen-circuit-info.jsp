@@ -6,7 +6,7 @@
     <table class="table table-bordered table-striped">
         <tr>
             <td colspan="2">
-                <h4>${circuit.name}
+                <h4>${circuit.name}</h4>
             </td>
         </tr>
         <tr>
