@@ -5,6 +5,7 @@
  */
 package com.netcracker.wind.commands.implementations;
 
+import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
@@ -18,6 +19,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Anatolii
  */
+@RolesAllowed(roles
+        = {Role.Roles.CustomerSupportEngineer,
+            Role.Roles.InstallationEngineer,
+            Role.Roles.ProvisioningEngineer})
 public class ProcessTask implements ICommand {
 
     private static final String TASK_ID = "task_id";
@@ -28,21 +33,19 @@ public class ProcessTask implements ICommand {
         int taskId = Integer.parseInt(request.getParameter(TASK_ID));
         ITaskDAO taskDAO = FactoryCreator.getInstance().getFactory().createTaskDAO();
         Task task = taskDAO.findById(taskId);
-        if (task == null) {
-            return "";
-        }
 
         User user = (User) request.getSession(false).getAttribute(USER);
+        if (task == null || user.getRoleId() != task.getRoleId()) {
+            return "/WEB-INF/generic/wrong-selected-task.jsp";
+        }
         String page = "";
-        request.setAttribute(TASK, task);
 
         switch (task.getStatus()) {
             case NEW:
-                task.setStatus(Task.Status.ACTIVE);
-                task.setUser(user);
-                taskDAO.update(task);
-
-                if (user.getRoleId() == Role.CSE_GROUP_ID) {
+                task = taskDAO.occupyTaskByID(taskId, user.getId());
+                if (task == null) {
+                    page = "/WEB-INF/generic/wrong-selected-task.jsp";
+                } else if (user.getRoleId() == Role.CSE_GROUP_ID) {
                     page = "/WEB-INF/cse/cse-page-selected-task.jsp";
                 } else if (user.getRoleId() == Role.PE_GROUP_ID) {
                     page = "/WEB-INF/pe/pe-page-selected-task.jsp";
@@ -50,6 +53,7 @@ public class ProcessTask implements ICommand {
                     page = "/WEB-INF/ie/ie-page-selected-task.jsp";
                 }
                 break;
+
             case ACTIVE:
                 if (user.getRoleId() == Role.CSE_GROUP_ID) {
                     page = "/WEB-INF/cse/cse-page-selected-task.jsp";
@@ -69,8 +73,10 @@ public class ProcessTask implements ICommand {
                 }
                 break;
         }
-        if (user.getId() != task.getUserId()) {
-           page = "/WEB-INF/generic/wrong-selected-task.jsp";
+        if (task != null && user.getId() != task.getUserId()) {
+            page = "/WEB-INF/generic/wrong-selected-task.jsp";
+        } else {
+            request.setAttribute(TASK, task); 
         }
         return page;
     }

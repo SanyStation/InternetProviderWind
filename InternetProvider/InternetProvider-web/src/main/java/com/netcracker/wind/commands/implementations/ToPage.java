@@ -5,7 +5,9 @@
  */
 package com.netcracker.wind.commands.implementations;
 
+import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.manager.ConfigurationManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Anatolii
  */
+@RolesAllowed(roles = Role.Roles.Administrator)
 public class ToPage implements ICommand {
 
     private static final String PAGE = "page";
@@ -22,7 +25,6 @@ public class ToPage implements ICommand {
         String pageParameter = request.getParameter(PAGE);
         ConfigurationManager manager = ConfigurationManager.getInstance();
         String toPage = manager.getProperty(pageParameter);
-        System.out.println(pageParameter + " = " + toPage);
         if(toPage == null){
             toPage = manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }

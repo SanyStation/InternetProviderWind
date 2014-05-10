@@ -8,7 +8,7 @@
 
     <ul id="myTab" class="nav nav-pills nav-stacked">
         <li class="${param.active eq 'users-list' ? ' active' : ''}"><a href="Controller?command=customers_list" ><i class="glyphicon glyphicon-list"></i> Customers</a></li>
-        <li class="${param.active eq 'add-user' ? ' active' : ''}"><a href="Controller?command=to_page&page=PAGE_CSE_ADD_USER"><i class="glyphicon glyphicon-plus"></i> Add customer</a></li>
+        <li class="${param.active eq 'add-user' ? ' active' : ''}"><a href="Controller?command=cse_add_customer_page"><i class="glyphicon glyphicon-plus"></i> Add customer</a></li>
         <li class="${param.active eq 'tasks' ? ' active' : ''}"><a href="#"><i class="glyphicon glyphicon-briefcase"></i> Tasks</a>
             <ul>
                 <li><a href="Controller?command=cse_get_tasks"><i class="glyphicon glyphicon-briefcase"></i>New tasks</a></li>

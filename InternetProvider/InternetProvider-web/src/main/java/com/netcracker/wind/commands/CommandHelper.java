@@ -2,7 +2,6 @@ package com.netcracker.wind.commands;
 
 import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.ProcessTask;
-import com.netcracker.wind.commands.implementations.SentMail;
 import com.netcracker.wind.commands.implementations.ToPage;
 import com.netcracker.wind.commands.implementations.UnassignTask;
 import com.netcracker.wind.commands.implementations.admindashboard.ADMaddUser;
@@ -38,7 +37,6 @@ public class CommandHelper {
     private static final String NO_COMMAND = "no_command";
     private static final String PROCEED_TO_ORDER = "proceed_to_order";
     private static final String REFRESH_SERVICE = "refresh_service";
-    private static final String SENT_MAIL = "sent_mail";
     private static final String CUSTOMERS_LIST = "customers_list";
     private static final String PROVIDER_LOCATION_LIST = "provider_location_list";
     private static final String NEW_DEVICE = "new_device";
@@ -84,6 +82,7 @@ public class CommandHelper {
     private static final String CSE_GET_REPORT_SI_DISC = "cse_get_report_si_disc";
     private static final String CSE_GET_REPORT_SI_PROFIT = "cse_get_report_si_profit";
     private static final String CSE_ADD_CUSTOMER = "cse_add_customer";
+    private static final String CSE_ADD_CUSTOMER_PAGE = "cse_add_customer_page";
     private static final String CSE_REVIEW_INSTANCE = "cse_review_instance";
     private static final String CSE_MODIFY_INSTANCE = "cse_modify_instance";
     private static final String CSE_DISCONNECT_INSTANCE = "cse_disconnect_instance";
@@ -113,7 +112,6 @@ public class CommandHelper {
         commands = new HashMap<String, ICommand>();
         commands.put(NO_COMMAND, new NoCommand());
         commands.put(REFRESH_SERVICE, new RefreshService());
-        commands.put(SENT_MAIL, new SentMail());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CSEgetCustomersList());
         commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
@@ -157,6 +155,7 @@ public class CommandHelper {
         commands.put(CSE_GET_REPORT_SI_NEW, new CSEgetReportSiNew());
         commands.put(CSE_GET_REPORT_SI_DISC, new CSEgetReportSiDisc());
         commands.put(CSE_GET_REPORT_SI_PROFIT, new CSEgetReportSiProfit());
+        commands.put(CSE_ADD_CUSTOMER_PAGE, new CSEToAddUserPage());
         commands.put(CSE_ADD_CUSTOMER, new CSEaddCustomer());
         commands.put(CSE_GET_SI, new CSEGetServiceInstanceForUser());
         commands.put(CSE_GET_SO, new CSEgetOrdersForUser());

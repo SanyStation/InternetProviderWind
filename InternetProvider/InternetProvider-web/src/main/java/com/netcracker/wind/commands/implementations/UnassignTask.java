@@ -5,9 +5,11 @@
  */
 package com.netcracker.wind.commands.implementations;
 
+import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Anatolii
  */
+@RolesAllowed(roles
+        = {Role.Roles.CustomerSupportEngineer,
+            Role.Roles.InstallationEngineer,
+            Role.Roles.ProvisioningEngineer})
 public class UnassignTask implements ICommand {
 
     private static final String TASK_ID = "task_id";
@@ -31,7 +37,7 @@ public class UnassignTask implements ICommand {
             return "";
         }
         User user = (User) request.getSession(false).getAttribute(USER);
-        if(task.getUserId() != user.getId()){
+        if (task.getUserId() != user.getId()) {
             return "/WEB-INF/generic/wrong-selected-task.jsp";
         }
         task.setStatus(Task.Status.NEW);

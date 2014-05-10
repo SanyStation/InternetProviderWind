@@ -29,6 +29,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
             + " STATUS, ROLE_ID, SERVICE_ORDERS_ID) VALUES(?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT t.*, COUNT(*) OVER () AS "
             + ROWS + " FROM tasks t ";
+    private static final String SELECT_FOR_OCCUPY = "SELECT * FROM TASKS WHERE ID = ?";
     private static final String UPDATE = "UPDATE TASKS SET USER_ID = ?, "
             + "STATUS = ? WHERE ID = ?";
     private static final String ID = "ID";
@@ -179,20 +180,28 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         Task task = null;
         try {
             connection.setAutoCommit(false);
-            psSelect = connection.prepareStatement(SELECT + "WHERE ID = ?");
+            psSelect = connection.prepareStatement(SELECT_FOR_OCCUPY);
             psSelect.setInt(1, taskId);
             ResultSet rs = psSelect.executeQuery();
-            List<Task> tasks = parseResult(rs);
-            if (tasks.isEmpty()) {
+            if (rs.next()) {
+                task = new Task();
+                task.setId(rs.getInt(ID));
+                task.setUserId(rs.getInt(USER));
+                task.setType(Task.Type.valueOf(rs.getString(TYPE)));
+                task.setStatus(Task.Status.valueOf(rs.getString(STATUS)));
+                task.setRoleId(rs.getInt(ROLE));
+                task.setServiceOrderId(rs.getInt(SO));
+            }
+            if (task == null) {
                 return null;
             }
-            task = tasks.get(0);
             if (!task.getStatus().equals(Task.Status.NEW)) {
                 return null;
             }
             task.setStatus(Task.Status.ACTIVE);
+            task.setUserId(userId);
             psUpdate = connection.prepareStatement(UPDATE);
-            psUpdate.setInt(1, userId);
+            psUpdate.setInt(1, task.getUserId());
             psUpdate.setString(2, task.getStatus().toString());
             psUpdate.setInt(3, task.getId());
             psUpdate.executeUpdate();
