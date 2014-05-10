@@ -5,10 +5,7 @@
  */
 package com.netcracker.wind.commands.implementations.dashboards;
 
-import com.netcracker.wind.annotations.RolesAllowed;
-import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
-import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.TaskPaginationList;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Oksana
  */
-public class GetGroupTasks implements ICommand {
+public class GetGroupTasks{
 
     private static final String TASKS = "tasks";
     private final int groupId;

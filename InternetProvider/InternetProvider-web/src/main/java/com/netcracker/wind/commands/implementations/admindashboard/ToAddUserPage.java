@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.netcracker.wind.commands.implementations;
+package com.netcracker.wind.commands.implementations.admindashboard;
 
 import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
@@ -17,17 +17,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author Anatolii
  */
 @RolesAllowed(roles = Role.Roles.Administrator)
-public class ToPage implements ICommand {
-
-    private static final String PAGE = "page";
+public class ToAddUserPage implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String pageParameter = request.getParameter(PAGE);
         ConfigurationManager manager = ConfigurationManager.getInstance();
-        String toPage = manager.getProperty(pageParameter);
-        if(toPage == null){
-            toPage = manager.getProperty(ConfigurationManager.PAGE_ERROR);
-        }
+        String toPage = manager.getProperty(ConfigurationManager.PAGE_ADM_ADD_USER);
         return toPage;
     }
 

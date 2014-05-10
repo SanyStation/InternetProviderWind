@@ -35,8 +35,6 @@ public class OrderDisconnectSI implements ICommand {
 
         int serviceInstanceId = Integer.parseInt(request.getParameter(SERVICE_INSTANCE_ID));
 
-        HttpSession session = request.getSession(false);
-
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
         IServiceOrderDAO serviceOrderDAO = factoryDAO.createServiceOrderDAO();

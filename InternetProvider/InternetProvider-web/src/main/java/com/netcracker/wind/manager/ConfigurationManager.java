@@ -22,6 +22,7 @@ public class ConfigurationManager {
     public static final String REPORT_CIA_IPT = "REPORT_CIA_IPT";
     public static final String PAGE_PE_DASHBOARD = "PAGE_PE_DASHBOARD";
     public static final String PAGE_ERROR = "PAGE_ERROR";
+    public static final String PAGE_ADM_ADD_USER = "PAGE_ADM_ADD_USER";
 
     private static final ConfigurationManager configurationManager
             = new ConfigurationManager();

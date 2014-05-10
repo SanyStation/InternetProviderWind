@@ -6,6 +6,7 @@
 package com.netcracker.wind.commands.implementations.pedashboard;
 
 import com.netcracker.wind.annotations.RolesAllowed;
+import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.commands.implementations.dashboards.GetTasksByPerformerStatus;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Task;
@@ -15,7 +16,7 @@ import com.netcracker.wind.entities.Task;
  * @author Anatolii
  */
 @RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
-public class PETasksByPerformerStatus extends GetTasksByPerformerStatus {
+public class PETasksByPerformerStatus extends GetTasksByPerformerStatus implements ICommand{
 
     public PETasksByPerformerStatus(Task.Status status, String pageForReturn) {
         super(status, pageForReturn);

@@ -2,7 +2,7 @@ package com.netcracker.wind.commands;
 
 import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.ProcessTask;
-import com.netcracker.wind.commands.implementations.ToPage;
+import com.netcracker.wind.commands.implementations.admindashboard.ToAddUserPage;
 import com.netcracker.wind.commands.implementations.UnassignTask;
 import com.netcracker.wind.commands.implementations.admindashboard.ADMaddUser;
 import com.netcracker.wind.commands.implementations.admindashboard.ADMgetUsersList;
@@ -41,7 +41,7 @@ public class CommandHelper {
     private static final String DEL_CABLE = "delete_cable";
     private static final String VALIDATION = "validation";
     private static final String REGISTRATION = "registration";
-    private static final String TO_PAGE = "to_page";
+    private static final String ADM_ADD_USER_PAGE = "adm_add_user_page";
     private static final String PROCESS_TASK = "process_task";
     private static final String UNASSIGN_TASK = "unassign_task";
     private static final String SEND_BILL = "send_bill";
@@ -64,16 +64,11 @@ public class CommandHelper {
     private static final String CU_CONFIRM_ORDER = "confirm_order";
     private static final String CU_CANCEL_ORDER = "cancel_order";
 
-//    private static final String CSE_GET_ELEMENTS_COUNT = "cse_get_elements_count";
-//    private static final String CSE_GET_ELEMENTS_FROM_OFFSET = "cse_get_elements_from_offset";
     private static final String CSE_USER_ACTIVE_TASKS = "cse_user_active_tasks";
     private static final String CSE_USER_COMPLETED_TASKS = "cse_user_completed_tasks";
     private static final String CSE_GET_TASKS = "cse_get_tasks";
     private static final String CSE_GET_SI = "cse_get_si";
     private static final String CSE_GET_SO = "cse_get_so";
-//    private static final String CSE_GET_COMPLETED_TASKS = "cse_get_completed_tasks";
-//    private static final String CSE_GET_UNCOMPLETED_TASKS = "cse_get_uncompleted_tasks";
-//    private static final String CSE_GROUP_TASKS = "cse_group_tasks";
     private static final String CSE_CUSTOMER_REVIEW = "customer_review";
     private static final String CSE_GET_REPORT_SI_NEW = "cse_get_report_si_new";
     private static final String CSE_GET_REPORT_SI_DISC = "cse_get_report_si_disc";
@@ -115,7 +110,7 @@ public class CommandHelper {
         commands.put(DEL_CABLE, new DeleteCable());
         commands.put(VALIDATION, new Validation());
         commands.put(REGISTRATION, new Registration());
-        commands.put(TO_PAGE, new ToPage());
+        commands.put(ADM_ADD_USER_PAGE, new ToAddUserPage());
         commands.put(PROCESS_TASK, new ProcessTask());
         commands.put(CHANGE_PASSWORD, new ChangePassword());
         commands.put(UNASSIGN_TASK, new UnassignTask());
@@ -141,11 +136,6 @@ public class CommandHelper {
         commands.put(CSE_USER_ACTIVE_TASKS, new CSETasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(CSE_USER_COMPLETED_TASKS, new CSETasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
         commands.put(CSE_GET_TASKS, new CSEGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
-//        commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
-//        commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
-//        commands.put(CSE_GET_ELEMENTS_COUNT, new CSEgetElementsCount());
-//        commands.put(CSE_GET_ELEMENTS_FROM_OFFSET, new CSEGetElementsFromOffset());
-//        commands.put(CSE_GROUP_TASKS, new CSEGetGroupTasks());
         commands.put(CSE_CUSTOMER_REVIEW, new CSEreviewCustomer());
         commands.put(CSE_GET_REPORT_SI_NEW, new CSEgetReportSiNew());
         commands.put(CSE_GET_REPORT_SI_DISC, new CSEgetReportSiDisc());

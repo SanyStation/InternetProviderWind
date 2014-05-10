@@ -5,9 +5,10 @@
  */
 package com.netcracker.wind.commands.implementations.dashboards;
 
-import com.netcracker.wind.commands.implementations.csedashboard.*;
+import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.SIUserPaginationList;
@@ -19,20 +20,16 @@ import javax.servlet.http.HttpSession;
  *
  * @author j_mart
  */
+@RolesAllowed(roles = Role.Roles.CustomerUser)
 public class CUGetServiceInstanceForUser implements ICommand {
 
     private final String SI = "service_instances";
+    private static final String USER = "user";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "";
-        }
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "";
-        }
+        User user = (User) session.getAttribute(USER);
         int performerId = user.getId();
         IExtendedPaginatedList paginatedList = new SIUserPaginationList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId);

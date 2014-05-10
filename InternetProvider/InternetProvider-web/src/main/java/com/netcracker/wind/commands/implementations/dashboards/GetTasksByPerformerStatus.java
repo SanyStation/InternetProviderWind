@@ -10,7 +10,6 @@ import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
-import com.netcracker.wind.paging.OwnTasksPaginatedList;
 import com.netcracker.wind.paging.TasksByPerformerStatusPaginatedList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Oksana
  */
-public class GetTasksByPerformerStatus implements ICommand {
+public class GetTasksByPerformerStatus {
 
     private static final String TASKS = "tasks";
     private final String pageForReturn;

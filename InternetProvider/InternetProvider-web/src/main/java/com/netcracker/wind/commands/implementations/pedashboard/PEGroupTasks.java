@@ -7,6 +7,7 @@
 package com.netcracker.wind.commands.implementations.pedashboard;
 
 import com.netcracker.wind.annotations.RolesAllowed;
+import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
 import com.netcracker.wind.entities.Role;
 
@@ -15,7 +16,7 @@ import com.netcracker.wind.entities.Role;
  * @author Anatolii
  */
 @RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
-public class PEGroupTasks extends GetGroupTasks{
+public class PEGroupTasks extends GetGroupTasks implements ICommand{
 
     public PEGroupTasks(int groupId, String pageForReturn) {
         super(groupId, pageForReturn);
