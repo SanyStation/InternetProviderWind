@@ -53,6 +53,19 @@ BEGIN
   insert into users
  (name, email, password, role_id)
   values('admin', concat('admin', '@i.ua'), md5('pass'), 1);
+  
+  insert into users
+  (name, email, password, role_id)
+  values('user', 'xottabut@gmail.com', md5('pass'), 5);
+  insert into users
+ (name, email, password, role_id)
+  values('pro_engineer', 'alex_sanya@i.ua', md5('pass'), 2);
+  insert into users
+ (name, email, password, role_id)
+  values('cust_supporter', 'sanystation@gmail.com', md5('pass'), 4);
+  insert into users
+ (name, email, password, role_id)
+  values('inst_engineer', 'sanystation@i.ua', md5('pass'), 3);
 
   insert into provider_locations
   (pos_x, pos_y, name, address)
