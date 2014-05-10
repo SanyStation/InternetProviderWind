@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Oksana
  */
+@Deprecated
 public class GetOwnTasks implements ICommand {
 
     private static final String TASKS = "tasks";

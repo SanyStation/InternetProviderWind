@@ -6,6 +6,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceInstance;
+import com.netcracker.wind.entities.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class InstanceReview implements ICommand {
 
     private static final String ID = "id";
+    private static final String USER = "user";
 
     private final String page;
 
@@ -25,14 +27,12 @@ public class InstanceReview implements ICommand {
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String parameter = request.getParameter(ID);
-        if (parameter == null) {
-            return "";
-        }
-        int instanceId = Integer.parseInt(parameter);
+        int instanceId = Integer.parseInt(request.getParameter(ID));
         IServiceInstanceDAO serviceInstanceDAO = FactoryCreator.getInstance().getFactory().createServiceInstanceDAO();
         ServiceInstance serviceInstance = serviceInstanceDAO.findById(instanceId);
-        if (serviceInstance == null) {
+        User user = (User)request.getSession(false).getAttribute(USER);
+        if (serviceInstance == null || (user.getRoleId() != Role.CSE_GROUP_ID 
+                && serviceInstance.getUserId() != user.getId())) {
             return "";
         }
         request.setAttribute("instance", serviceInstance);

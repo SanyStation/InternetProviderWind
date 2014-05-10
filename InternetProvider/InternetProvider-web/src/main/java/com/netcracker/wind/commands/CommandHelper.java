@@ -11,8 +11,6 @@ import com.netcracker.wind.commands.implementations.admindashboard.ADMsetBlockUs
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.CUGetServiceInstanceForUser;
 import com.netcracker.wind.commands.implementations.dashboards.ChangePassword;
-import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
-import com.netcracker.wind.commands.implementations.dashboards.GetTasksByPerformerStatus;
 import com.netcracker.wind.commands.implementations.dashboards.InstanceReview;
 import com.netcracker.wind.commands.implementations.iedashboard.*;
 import com.netcracker.wind.commands.implementations.order.*;
@@ -38,7 +36,6 @@ public class CommandHelper {
     private static final String PROCEED_TO_ORDER = "proceed_to_order";
     private static final String REFRESH_SERVICE = "refresh_service";
     private static final String CUSTOMERS_LIST = "customers_list";
-    private static final String PROVIDER_LOCATION_LIST = "provider_location_list";
     private static final String NEW_DEVICE = "new_device";
     private static final String NEW_CABLE = "new_cable";
     private static final String DEL_CABLE = "delete_cable";
@@ -86,7 +83,6 @@ public class CommandHelper {
     private static final String CSE_REVIEW_INSTANCE = "cse_review_instance";
     private static final String CSE_MODIFY_INSTANCE = "cse_modify_instance";
     private static final String CSE_DISCONNECT_INSTANCE = "cse_disconnect_instance";
-    private static final String CSE_ORDERS = "cse_cu_orders";
     private static final String CSE_REVIEW_ORDER = "cse_review_order";
     private static final String CSE_CONFIRM_ORDER = "cse_confirm_order";
     private static final String CSE_CANCEL_ORDER = "cse_cancel_order";
@@ -114,7 +110,6 @@ public class CommandHelper {
         commands.put(REFRESH_SERVICE, new RefreshService());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
         commands.put(CUSTOMERS_LIST, new CSEgetCustomersList());
-        commands.put(PROVIDER_LOCATION_LIST, new GetProviderLocation());
         commands.put(NEW_DEVICE, new CreateDevice());
         commands.put(NEW_CABLE, new CreateCable());
         commands.put(DEL_CABLE, new DeleteCable());
@@ -143,9 +138,9 @@ public class CommandHelper {
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder("/WEB-INF/user/cu-review-order.jsp"));
         commands.put(CU_CANCEL_ORDER, new CancelOrder("/WEB-INF/user/cu-review-order.jsp"));
 
-        commands.put(CSE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
-        commands.put(CSE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
-        commands.put(CSE_GET_TASKS, new GetGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
+        commands.put(CSE_USER_ACTIVE_TASKS, new CSETasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
+        commands.put(CSE_USER_COMPLETED_TASKS, new CSETasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
+        commands.put(CSE_GET_TASKS, new CSEGroupTasks(Role.CSE_GROUP_ID, "/WEB-INF/cse/cse-page-tasks-list.jsp"));
 //        commands.put(CSE_GET_COMPLETED_TASKS, new CSEgetOwnCompletedTasks());
 //        commands.put(CSE_GET_UNCOMPLETED_TASKS, new CSEgetOwnUncompletedTasks());
 //        commands.put(CSE_GET_ELEMENTS_COUNT, new CSEgetElementsCount());
@@ -166,15 +161,15 @@ public class CommandHelper {
         commands.put(CSE_CONFIRM_ORDER, new ConfirmOrder("/WEB-INF/cse/cse-page-review-order.jsp"));
         commands.put(CSE_CANCEL_ORDER, new CancelOrder("/WEB-INF/cse/cse-page-review-order.jsp"));
 
-        commands.put(IE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
-        commands.put(IE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
-        commands.put(IE_GET_TASKS, new GetGroupTasks(Role.IE_GROUP_ID, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
+        commands.put(IE_USER_ACTIVE_TASKS, new IETasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
+        commands.put(IE_USER_COMPLETED_TASKS, new IETasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
+        commands.put(IE_GET_TASKS, new IEGroupTasks(Role.IE_GROUP_ID, "/WEB-INF/ie/ie-page-tasks-list.jsp"));
         commands.put(IE_GET_REPORT_RI_UTIL, new IEgetReportRiUtil());
         commands.put(IE_GET_REPORT_RI_PROFIT, new IEgetReportRiProfit());
 
-        commands.put(PE_USER_ACTIVE_TASKS, new GetTasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/pe/pe-page-tasks-list.jsp"));
-        commands.put(PE_USER_COMPLETED_TASKS, new GetTasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/pe/pe-page-tasks-list.jsp"));
-        commands.put(PE_GET_TASKS, new GetGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/pe-page-tasks-list.jsp"));
+        commands.put(PE_USER_ACTIVE_TASKS, new PETasksByPerformerStatus(Task.Status.ACTIVE, "/WEB-INF/pe/pe-page-tasks-list.jsp"));
+        commands.put(PE_USER_COMPLETED_TASKS, new PETasksByPerformerStatus(Task.Status.COMPLETED, "/WEB-INF/pe/pe-page-tasks-list.jsp"));
+        commands.put(PE_GET_TASKS, new PEGroupTasks(Role.PE_GROUP_ID, "/WEB-INF/pe/pe-page-tasks-list.jsp"));
         commands.put(PE_GET_REPORT_CIA_IPT, new PEgetReportCiaIpt());
         commands.put(PE_REVIEW_DEVICE, new PEreviewDevice());
         commands.put(PE_REVIEW_PORT, new PEreviewPort());
