@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Oksana
  */
+@Deprecated
 public class CSEgetOwnCompletedTasks implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
  */
 public class CSEgetCustomersList implements ICommand {
 
-//    private static final int CUSTOMER_GROUP_ID = 5;
     private static final String USERS = "users";
 
     public String execute(HttpServletRequest request,

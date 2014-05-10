@@ -8,7 +8,6 @@ package com.netcracker.wind.commands.implementations.csedashboard;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
-import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.TaskPaginationList;
 import javax.servlet.http.HttpServletRequest;

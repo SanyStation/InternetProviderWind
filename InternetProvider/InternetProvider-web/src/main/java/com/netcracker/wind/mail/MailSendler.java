@@ -31,7 +31,7 @@ public class MailSendler {
 
     /**
      *
-     * @param to array of destination email addresses
+     * @param users list of destination email addresses
      * @param subject string for the subject of sending email
      * @param body is actually a message
      * @return true when massage has been sent; - false - when

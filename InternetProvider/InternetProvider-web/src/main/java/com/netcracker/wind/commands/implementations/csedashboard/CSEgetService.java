@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Anna
  */
+@Deprecated
 public class CSEgetService implements ICommand{
      private static final String SERVICES = "services";
 

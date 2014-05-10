@@ -10,7 +10,6 @@ import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.User;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.OrderUserPaginatedList;
-import com.netcracker.wind.paging.SIUserPaginationList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;

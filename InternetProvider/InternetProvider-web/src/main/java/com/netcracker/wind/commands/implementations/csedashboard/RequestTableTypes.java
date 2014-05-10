@@ -9,6 +9,7 @@ package com.netcracker.wind.commands.implementations.csedashboard;
  *
  * @author Anna
  */
+@Deprecated
 public class RequestTableTypes {
 
     public enum RequestTableType {

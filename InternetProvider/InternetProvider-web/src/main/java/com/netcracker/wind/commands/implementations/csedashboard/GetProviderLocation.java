@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Anna
  */
+@Deprecated
 public class GetProviderLocation implements ICommand {
 
     private static final String PROVIDER_LOCATIONS = "provider_locations";

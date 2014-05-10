@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Oksana
  */
+@Deprecated
 public class CSEGetServiceInstance implements ICommand {
 
 
