@@ -1,5 +1,6 @@
 package com.netcracker.wind.commands.implementations.csedashboard;
 
+import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Alexander Kovriga
  */
+@RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)
 public class CSEaddCustomer implements ICommand {
 
     public String execute(HttpServletRequest request,

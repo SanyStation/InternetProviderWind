@@ -1,10 +1,12 @@
 package com.netcracker.wind.commands.implementations.pedashboard;
 
+import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IDeviceDAO;
 import com.netcracker.wind.entities.Device;
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.PortPaginatedList;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Alexander Kovriga
  */
+@RolesAllowed(roles = Role.Roles.InstallationEngineer)
 public class PEreviewDevice implements ICommand {
 
     private static final String ID = "id";

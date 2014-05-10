@@ -5,6 +5,7 @@
  */
 package com.netcracker.wind.commands.implementations.csedashboard;
 
+import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Oksana
  */
+@RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)
 public class CSEGetGroupTasks implements ICommand {
 
     private static final String TASKS = "tasks";
