@@ -22,15 +22,11 @@ body {
     position: fixed;
     left: 50%;
     top: 50%;
-    background: rgba(255, 255, 255, 0.74);
-    border-radius: 7px;
-    padding: 10px;
-    width: 760px;
-    margin-left: -390px;
+    width: 450px;
+    margin-left: -225px;
     text-align: center;               
-    margin-top: -90px;
-    border: solid red 1px;
-    transition: 0.5s;
+    margin-top: -110px;
+    box-shadow: black 1px 1px 5px -3px;
 }
 #popup.active {
     border: solid white 1px;

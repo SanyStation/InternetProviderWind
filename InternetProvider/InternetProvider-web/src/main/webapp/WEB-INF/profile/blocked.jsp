@@ -4,15 +4,9 @@
     Author     : Anatolii
 --%>
 
-<%@page contentType="text/html" pageEncoding="windows-1251"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
-        <title>Blocked</title>
-    </head>
-    <body>
-        <h1>${user.name}, you are blocked :( </h1>
-        <br/><a href="logout">logout</a>
-    </body>
-</html>
+<jsp:include page="login.jsp">
+    <jsp:param name="error" value="true"/>
+    <jsp:param name="message" value="Your account is blocked!"/>
+    <jsp:param name="message2" value="<a href=\"logout\">Click to logout.</a>"/>
+    
+</jsp:include>

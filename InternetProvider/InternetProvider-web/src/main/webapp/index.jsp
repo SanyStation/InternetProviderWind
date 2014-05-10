@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9 divitem nopadding">
-            <iframe src="map.jsp" width="100%" height="75%"></iframe>
+            <iframe src="map.jsp" width="100%" height="75%" style="min-height: 460px;"></iframe>
         </div>
         <div class="col-md-3 nopadding">
             <div class="largefont paddingleftright nomargin headercolor whitetext borderleft borderright boxshadow">

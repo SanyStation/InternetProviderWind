@@ -1,4 +1,16 @@
+var map = true;
+function register() {
+    $('iframe').remove();
+    $('#side form').submit();
+}
 $(window).load(function() {
+    setTimeout(function() {
+        $("#popup").hover(function() {
+            $(this).fadeOut(300, function() {
+                $(this).remove();
+            });
+        });
+    }, 1000);
     function initialize() {
         if (window.parent.customer > 0) {
             $("#side form").append('<input type="hidden" name="customer_id" value="' + window.parent.customer + '"/>')
@@ -68,7 +80,6 @@ $(window).load(function() {
             $("#side form input[name=x]").attr('value', '');
             $("#side form input[name=y]").attr('value', '');
             $("#side form input[name=address]").attr('value', '');
-
             $.ajax({
                 type: 'POST',
                 url: 'Controller',
@@ -140,7 +151,7 @@ $(window).load(function() {
                     alert("AJAX error");
                 }
             });
-            $('#popup').addClass('active');
+            $('#popup').mouseover();
             console.log(e.latLng); // Координаты маркера
             $('#coord').html('<br>' + e.latLng);
             geocoder.geocode({
@@ -175,61 +186,47 @@ $(window).load(function() {
             url: url,
             data: $("#order_form").serialize(), // serializes the form's elements.
             dataType: 'json',
-            success: function(data) {
-                // alert(data); // show response from the php script.
-                if (!data.auth) {
-                    $('<iframe />', {
-                        name: 'frame1',
-                        id: 'frame1',
-                        src: 'profile'
-                    }).appendTo('body').load(function() {
-                        $(this).contents().find('form').submit(function() {
-                            //var url = $(this).attr('action'); // the script where you handle the form input.
-                            $('#frame1').load(function() {
-                                $(this).unbind('load');
-                                if ($(this)[0].contentDocument.URL.search('profile') > -1) {
-                                    $(this).remove();
-                                }
-                            });
-                            return;
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(['error ajax:184', jqXHR, textStatus, errorThrown]);
+                if (textStatus == 'parsererror') {
+                    $('#myModal').find('.modal-body').html('<div class="alert alert-danger">Error occured. Acces denied.</div>').end().modal('show')
 
-//                                    $.ajax({
-//                                        type: "POST",
-//                                        url: url,
-//                                        data: $(this).serialize(), // serializes the form's elements.
-//                                        //dataType: 'json',
-//                                        success: function(data, x, y) {
-//                                            console.log(data);
-//                                            console.log(x);
-//                                            console.log(y);
-//                                            
-//                                            //if($('#frame1').attr('src')=)
-//                                            
-//                                        },
-//                                        statusCode: {
-//                                            302: function() {
-//                                                alert('302');
-//                                                $('#frame1').remove;
-//                                            }
-//                                        }
-//                                    });
-//                                    return false; // avoid to execute the actual submit of the form.
-                        });
-                    });
                 } else {
-                    $('<div />', {
-                        name: 'frame1',
-                        id: 'frame1',
-                        src: 'profile'
-                    }).html('<center><h1>Order has been sent successfully</h1></center>').appendTo('body');
+                    $('#myModal').find('.modal-body').html('<div class="alert alert-danger">Error occured.</div>').end().modal('show')
                 }
-
-
-                //alert(data); // show response from the php script.
+            },
+            success: function(data) {
+                console.log(data);
+                // alert(data); // show response from the php script.
+                if (data.error) {
+                    $('#myModal').find('.modal-body').html('<div class="alert alert-danger">Error occured. You must create order for user only.</div>').end().modal('show');
+                    return;
+                }
+                if (!data.auth) {
+                    $('#myModal').find('.modal-body').html($('<iframe />', {
+                        name: 'frame1',
+                        src: 'profile',
+                        width: '100%',
+                        onload: 'autoResize(this)'
+                    })).end().modal('show')
+                } else {
+                    $('#myModal').find('.modal-body').html('<h1>Order has been sent successfully</h1>redirecting you to order...').end().modal('show')
+//                    $('<div />', {
+//                        name: 'frame1',
+//                        id: 'frame1',
+//                        src: 'profile'
+//                    }).html('<center><h1>Order has been sent successfully</h1>redirecting you to order...</center>').appendTo('body');
+                    setTimeout(function() {
+                        window.parent.location.href = "Controller?command=" + data.command + "&order_id=" + data.order_id;
+                    }, 1000)
+                }
             }
         });
         return false; // avoid to execute the actual submit of the form.
     });
-
-
 });
+var autoResize = function(e) {
+    console.log(e);
+    var newheight = e.contentWindow.document.body.children.item().offsetHeight;
+    $('#myModal iframe').height(newheight);
+}

@@ -58,7 +58,7 @@ public class ProceedToOrder implements ICommand {
         if (user.getRoleId() == Role.CSE_GROUP_ID) {
             int customerId = -1;
             try {
-                Integer.parseInt(request.getParameter(CUSTOMER_ID));
+                customerId = Integer.parseInt(request.getParameter(CUSTOMER_ID));
             } catch (NumberFormatException exception) {
                 try {
                     jsono.put(ERROR, true);
@@ -88,6 +88,7 @@ public class ProceedToOrder implements ICommand {
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Timestamp(System.currentTimeMillis()));
         order.setUser(user);
+//        System.out.println(user);
         //Hier new Service(serviceID)
         order.setService(new Service(serviceId));
         order.setProviderLocation(nearestProviderLocation);
@@ -104,6 +105,12 @@ public class ProceedToOrder implements ICommand {
         try {
             jsono.put("auth", true);
             jsono.put("order_id", order.getId().intValue());
+            if (((User)session.getAttribute(USER)).getRoleId() == Role.CSE_GROUP_ID) {
+                jsono.put("command","cse_review_order");
+            }
+            if (((User)session.getAttribute(USER)).getRoleId() == Role.CU_GROUP_ID) {
+                jsono.put("command","review_order");
+            }
         } catch (JSONException ex) {
             Logger.getLogger(ProceedToOrder.class.getName()).log(Level.SEVERE, null, ex);
         }

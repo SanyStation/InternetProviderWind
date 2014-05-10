@@ -29,14 +29,21 @@
         </script>
         <script type='text/javascript' src="js/map.js"></script>
         <link href="css/map.css" rel="stylesheet" media="screen">
-        
+         <!-- Bootstrap -->
+        <!--<script src="//code.jquery.com/jquery.js"></script>-->
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/wind.css" rel="stylesheet" media="screen">
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+
 
 
     </head>
     <body>
         <input id="pac-input" class="controls" type="text" placeholder="Enter your address">
         <div id="map_canvas" ></div>
-        <div id="popup">Drag the marker<span id="coord"></span></div>
+        <div id="popup" class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Drag the marker to desired service location</div>
         <div id="side">
             <h3 style="margin: 10px auto;">Choose desired service:</h3>
             <form id="order_form" action="Controller" method="POST">
@@ -46,9 +53,22 @@
                 <input type="hidden" name="x" value="ProceedToOrder"/>
                 <input type="hidden" name="y" value="ProceedToOrder"/>
                 <input type="hidden" name="address" value=""/>
-            </form></div></div>
+            </form></div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Authentication window</h4>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</body>
+    </body>
 
 
 </html>

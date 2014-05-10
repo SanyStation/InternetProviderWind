@@ -17,7 +17,9 @@
                 Logged in as <b>${user.name}</b> (${user.email})
                 <!-- Standard button -->
                 <button type="button" class="btn btn-default" id="password-changer-init"><span class="glyphicon glyphicon-cog"></span></button>
-                <jsp:include page="gen-modify-password.jsp"/>
+                <jsp:include page="gen-modify-password.jsp">
+                    <jsp:param name="userid" value="${user.id}"/>
+                </jsp:include>
             </div><!--/panel-body-->
         </div>
     </div>

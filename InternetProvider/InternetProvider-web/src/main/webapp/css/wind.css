@@ -1,3 +1,10 @@
+body > div.navbar {
+    height: 70px;
+}
+
+body > footer {
+    margin-top: -60px;
+}
 .header-item {
     height:70px;
 }
@@ -95,7 +102,10 @@ iframe {
 }
 
 body {
-    padding-bottom: 70px;
+    min-height: 100%;
+}
+html{
+    height: 100%;
 }
 
 .error {
@@ -106,4 +116,8 @@ body {
 }
 #customerinfo .popover {
     max-width: 400px;
+}
+div.body-wrapper {
+    min-height: 100%;    
+    padding-bottom: 70px;    
 }

@@ -21,7 +21,7 @@
                 <script type="text/javascript">                    
                     var customer = ${customer.id};
                 </script>
-                <iframe src="map.jsp" width="100%" height="75%"></iframe>
+                <iframe src="map.jsp" width="100%" height="75%"  style="min-height: 460px;"></iframe>
             </div>
         </div>
 

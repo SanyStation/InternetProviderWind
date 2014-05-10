@@ -1,3 +1,6 @@
+if(window.parent.map){
+    window.parent.register();
+}
 !function($){"use strict";var Tooltip=function(element,options){this.init('tooltip',element,options)}
 Tooltip.prototype={constructor:Tooltip,init:function(type,element,options){var eventIn,eventOut
 this.type=type

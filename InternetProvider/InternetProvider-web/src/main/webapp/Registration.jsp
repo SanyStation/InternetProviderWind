@@ -36,10 +36,10 @@
                     var pass = $("#pass").val();
                     var confpass = $("#confpass").val();
                     var email = $("#email").val();
-                    $.trim(login);
-                    $.trim(pass);
-                    $.trim(confpass);
-                    $.trim(email);
+//                    $.trim(login);
+//                    $.trim(pass);
+//                    $.trim(confpass);
+//                    $.trim(email);
                     //validation
                     $.ajax({
                         type: 'POST',
@@ -65,31 +65,43 @@
             });
         </script>
         <div id="div1">
-            <b>
-                Registration panel:
-            </b>
-            <br /><br />
-            <div id="msgfield">
-                Please, input your registration information
-            </div>
-            <br />
-            Login:
-            <br />
-            <input type="text" name="login" id="login" size="40" />
-            <br />
-            Password:
-            <br />
-            <input type="password" name="pass" id="pass" size="40">
-            <br />
-            Confirm Password:
-            <br />
-            <input type="password" name="confpass" id="confpass" size="40">
-            <br />
-            E-mail:
-            <br />
-            <input type="text" name="email" id="email" size="40">
-            <br />
-            <input type="button" id="register" value="Register new user">
+
+
+
+
+            <form class="form-horizontal" role="form" action="Controller">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="Name" name="login"  id="login">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email" id="email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="pass" id="pass">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Password (confirm)</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password (confirm)" name="confpass" id="confpass">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" name="command" value="validation" class="btn btn-default" id="register">Sign up</button>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </body>
 </html>

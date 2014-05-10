@@ -34,6 +34,7 @@
 
     </head>
     <body>
+        <div class="body-wrapper">
         <div class="navbar navbar-default navbar-static-top headercolor boxshadow" role="navigation">
             <div class="container">
                 <div class="row">
