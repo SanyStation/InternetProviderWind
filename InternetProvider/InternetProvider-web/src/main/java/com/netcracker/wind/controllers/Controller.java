@@ -40,7 +40,6 @@ public class Controller extends HttpServlet {
             if (AJAX_REQUEST_HEADER.equals(request.getHeader(HEADER))) {
                 response.getWriter().write(page);
             } else {
-                System.out.println(page);
                 RequestDispatcher dispatcher =
                         getServletContext().getRequestDispatcher(page);
                 dispatcher.forward(request, response);

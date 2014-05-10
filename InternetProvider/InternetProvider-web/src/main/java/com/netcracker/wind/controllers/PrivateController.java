@@ -64,16 +64,21 @@ public class PrivateController extends HttpServlet {
                     if (founded = request.isUserInRole(roles[i])) {
                         request.setAttribute(NAME, request.getUserPrincipal().getName());
                         HttpSession session = request.getSession(false);
+                        IUserDAO userDAO = FactoryCreator.getInstance().
+                                getFactory().createUserDAO();
+                        User user = userDAO.findByEmail(request.getUserPrincipal().getName());
+                        String pageRedirect = WEB_INF + roledirs[i] + INDEX;
                         if (session != null) {
-                            IUserDAO userDAO = FactoryCreator.getInstance().
-                                    getFactory().createUserDAO();
-                            User user = userDAO.findByEmail(request.getUserPrincipal().getName());
                             if (user != null) {
                                 session.setAttribute(USER, user);
+                                if (user.isBlocked()) {
+                                    pageRedirect = "/WEB-INF/profile/blocked.jsp";
+                                }
                             }
                         }
+                        
                         request.getSession().setAttribute(NAME, request.getUserPrincipal().getName());
-                        request.getRequestDispatcher(WEB_INF + roledirs[i] + INDEX).
+                        request.getRequestDispatcher(pageRedirect).
                                 forward(request, response);
                     }
                     i++;
