@@ -1,11 +1,13 @@
 package com.netcracker.wind.commands.implementations.order;
 
+import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IServiceDAO;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
+import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Service;
 import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.ServiceOrder;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Anatolii
  */
+@RolesAllowed(roles = {Role.Roles.CustomerSupportEngineer, Role.Roles.CustomerUser})
 public class OrderModifySI implements ICommand {
 
     private static final String SERVICE_INSTANCE_ID = "service_instance_id";
@@ -36,17 +39,7 @@ public class OrderModifySI implements ICommand {
         int serviceInstanceId = Integer.parseInt(request.getParameter(SERVICE_INSTANCE_ID));;
         int serviceId = Integer.parseInt(request.getParameter(SERVICE_ID));
 
-        HttpSession session = request.getSession();
-        if (session == null) {
-            //TODO return error page
-            return "";
-        }
-        Object paramUser = session.getAttribute(USER);
-        if (paramUser == null || !(paramUser instanceof User)) {
-            //TODO return error page
-            return "";
-        }
-//        User user = (User) session.getAttribute(USER);
+        HttpSession session = request.getSession(false);
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
@@ -54,8 +47,15 @@ public class OrderModifySI implements ICommand {
         IServiceOrderDAO serviceOrderDAO = factoryDAO.createServiceOrderDAO();
 
         ServiceInstance serviceInstance = serviceInstanceDAO.findById(serviceInstanceId);
+        User user = (User) request.getSession(false).getAttribute(USER);
+        if (serviceInstance == null
+                || !serviceInstance.getStatus().equals(ServiceInstance.Status.ACTIVE)
+                || (user.getId() != serviceInstance.getUserId() && user.getRoleId() != Role.CSE_GROUP_ID)) {
+            //TODO return error page
+            return "";
+        }
         Service service = serviceDAO.findById(serviceId);
-        User user = serviceInstance.getUser();
+        user = serviceInstance.getUser();
 
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Timestamp(System.currentTimeMillis()));

@@ -4,12 +4,14 @@ import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.CommandHelper;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.entities.Role;
+import com.netcracker.wind.entities.User;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,6 +21,7 @@ public class Controller extends HttpServlet {
 
     private static final String AJAX_REQUEST_HEADER = "XMLHttpRequest";
     private static final String HEADER = "X-Requested-With";
+    private static final String USER = "user";
 
     private final CommandHelper helper = CommandHelper.getInstance();
 
@@ -60,9 +63,19 @@ public class Controller extends HttpServlet {
         RolesAllowed annotation = command.getClass().getAnnotation(RolesAllowed.class);
         if (annotation == null) {
             return true;
+        } else {
+            HttpSession session = request.getSession(false);
+            if (session == null) {
+                return false;
+            } else {
+                Object logegUser = session.getAttribute(USER);
+                if (logegUser == null || !(logegUser instanceof User)) {
+                    return false;
+                }
+            }
         }
         for (Role.Roles s : annotation.roles()) {
-            if(request.isUserInRole(s.toString())){
+            if (request.isUserInRole(s.toString())) {
                 return true;
             }
         }
