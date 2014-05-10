@@ -125,6 +125,7 @@
 
     </head>
     <body>
+        <jsp:include page="../generic/header.jsp" />
         <div class="container">
             <div class="row">
                 <div class=" col-sm-4 col-sm-offset-4 paddingtop ">
@@ -206,7 +207,6 @@
                 </div>
             </div>
         </div>
-
-
+        <jsp:include page="../generic/footer.jsp" flush="true" />
     </body>
 </html>
