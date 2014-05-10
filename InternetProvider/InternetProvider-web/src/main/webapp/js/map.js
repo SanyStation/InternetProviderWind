@@ -75,8 +75,8 @@ $(window).load(function() {
         });
         google.maps.event.addListener(marker, 'dragend', function(e) {
             console.log(e);
-            $("#side form label").remove();
-            $("#side form input[type=submit]").attr('disabled');
+            $("#side form div").remove();
+            $("#side form input[type=submit]").addClass('disabled');
             $("#side form input[name=x]").attr('value', '');
             $("#side form input[name=y]").attr('value', '');
             $("#side form input[name=address]").attr('value', '');
@@ -136,14 +136,14 @@ $(window).load(function() {
                         }
                         var first = 'checked';
                         data.providerLocation.services.forEach(function(elem) {
-                            $("#side form").append(
-                                    '<label><input type="radio" name="serviceId" value="'
-                                    + elem.id + '"' + first + '>' + elem.name + ', <span>' + elem.price + '</span></label>');
+                            $("#side form").prepend(
+                                    '<div class="radio"><label><input type="radio" name="serviceId" value="'
+                                    + elem.id + '"' + first + '>' + elem.name + ', <span>' + elem.price + '</span></label></div>');
                             first = '';
                         });
                         $("#side form input[name=x]").attr('value', e.latLng.A);
                         $("#side form input[name=y]").attr('value', e.latLng.k);
-                        $("#side form input[type=submit]").removeAttr('disabled');
+                        $("#side form input[type=submit]").removeClass('disabled');
                     }
 
                 },

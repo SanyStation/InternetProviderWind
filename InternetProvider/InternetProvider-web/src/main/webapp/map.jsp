@@ -45,10 +45,10 @@
         <div id="map_canvas" ></div>
         <div id="popup" class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Drag the marker to desired service location</div>
         <div id="side">
-            <h3 style="margin: 10px auto;">Choose desired service:</h3>
+            <h4 style="margin: 10px auto;">Choose desired service:</h4>
             <form id="order_form" action="Controller" method="POST">
-                <label style="font-size: 20px;">select your position first...</label>
-                <input type="submit" name="send_order" value="Send order" disabled=""/>
+                <div class="alert alert-warning">select your position first...</div>
+                <input type="submit" name="send_order" value="Send order" class="btn btn-primary nav-justified btn-lg disabled"/>
                 <input type="hidden" name="command" value="proceed_to_order"/>
                 <input type="hidden" name="x" value="ProceedToOrder"/>
                 <input type="hidden" name="y" value="ProceedToOrder"/>

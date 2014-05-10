@@ -22,8 +22,8 @@ body {
     position: fixed;
     left: 50%;
     top: 50%;
-    width: 450px;
-    margin-left: -225px;
+    width: 350px;
+    margin-left: -175px;
     text-align: center;               
     margin-top: -110px;
     box-shadow: black 1px 1px 5px -3px;
@@ -38,22 +38,17 @@ body {
     right: 12px;
     top: 0;
     bottom: 0;
-    height: 220px;
+    height: 200px;
     margin: auto;
-    width: 250px;
+    width: 240px;
     background: white;
     padding: 10px 20px;
-}
-#side > form {
-    font-size: 22px;
 }
 #side > form > label > span {
     font-style: italic;
 }
-#side > form > label > span:after {
+#side > form > div span:after {
     content: '$';
-    font-size: 20px;
-    color: #555;
 }
 .controls {
     margin-top: 16px;
@@ -98,23 +93,8 @@ body {
     font-size: 13px;
     font-weight: 300;
 }
-#side > form > input[type="submit"] {
-    font-size: 40px;
-    padding: 10px 30px;
-    display: block;
-    box-shadow: rgb(50, 122, 220) 0px 0px 10px -1px;
-    margin: 30px auto;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 260px;
-}
 #side > form > input[type="submit"]:hover {
     box-shadow: rgb(50, 122, 220) 0px 0px 10px 1px;
-}
-#side > form > label {
-    display: block;
 }
 #side > form > input[disabled] {
     box-shadow: rgb(159, 159, 159) 0px 0px 10px -1px;
