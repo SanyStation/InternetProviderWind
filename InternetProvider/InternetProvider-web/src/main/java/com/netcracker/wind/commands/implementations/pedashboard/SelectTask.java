@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Anatolii
  */
+@Deprecated
 public class SelectTask implements ICommand {
 
     private static final String TASK_ID = "task_id";

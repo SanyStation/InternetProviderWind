@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Сашко
  */
+@Deprecated
 public class GetActiveIETasks implements ICommand {
 
     private final String USER_ID = "user_id";

@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author myshko
  */
+@Deprecated
 public class IEGetGroupTasks implements ICommand {
 
     private static final String TASKS = "tasks";
