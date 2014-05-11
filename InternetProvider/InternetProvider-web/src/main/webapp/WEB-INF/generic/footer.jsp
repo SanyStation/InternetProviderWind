@@ -4,7 +4,8 @@
     Author     : oneplayer
 --%>
 </div>
-<footer class="text-center navbar navbar-default navbar-fixed-bottom">Copyright (c) <a href="/">boreas.wind</a></footer>
+<footer class="text-center">Copyright (c) <a href="/">boreas.wind</a></footer>
+
 
 </body>
 </html>
