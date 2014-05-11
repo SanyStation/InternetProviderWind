@@ -22,6 +22,7 @@
         <!-- Bootstrap -->
         <!--<script src="//code.jquery.com/jquery.js"></script>-->
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/wind.css" rel="stylesheet" media="screen">
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -43,40 +44,40 @@
         <![endif]-->
 
     </head>
-    <body>
+    <body class="${param.headerClass}">
         <div class="body-wrapper">
             <div class="navbar navbar-default navbar-static-top headercolor boxshadow" role="navigation">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-3 header-item borderleft text-center">
-                            <a href="index.jsp">
-                                <h2>Wind</h2>
+                        <div class="col-md-3 header-item borderleft text-center nopadding">
+                            <a href="index.jsp" class="display-block largefont28">
+                                Wind
                             </a>
                         </div>
-                        <div class="col-md-3 header-item borderleft text-center">
+                        <div class="col-md-3 header-item borderleft text-center nopadding">
                             <c:if test="${user == null}">  
-                                <a href="profile" data-toggle="modal"  data-remote="false" data-target="#login-modal">
-                                    <h3><span class="glyphicon glyphicon-user pull-left">&nbsp;</span></h3>
-                                    <h3>Sign In</h3>
+                                <a href="profile" data-toggle="modal"  data-remote="false" data-target="#login-modal" class="display-block largefont28">
+                                    <span class="fa fa-user paddingtop">&nbsp;</span>
+                                    Sign In
                                 </a>
                             </c:if>
                             <c:if test="${user != null}">  
-                                <a href="profile">
-                                    <h3><span class="glyphicon glyphicon-user pull-left">&nbsp;</span></h3>
-                                    <h3>Profile</h3>
+                                <a href="profile" class="display-block largefont28">
+                                    <span class="fa fa-user paddingtop">&nbsp;</span>
+                                    Profile
                                 </a>
                             </c:if>
                         </div>
-                        <div class="col-md-3 header-item borderleft text-center">
-                            <a href="/help">
-                                <h3><span class="glyphicon glyphicon-question-sign pull-left">&nbsp;</span></h3>
-                                <h3>Help</h3>
+                        <div class="col-md-3 header-item borderleft text-center nopadding">
+                            <a href="/help" class="display-block largefont28">
+                                <span class="fa fa-question-circle paddingtop">&nbsp;</span>
+                                Help
                             </a>
                         </div>
-                        <div class="col-md-3 header-item borderleft borderright text-center">
-                            <a href="/callmeback">
-                                <h3><span class="glyphicon glyphicon-earphone pull-left">&nbsp;</span></h3>
-                                <h3>Call me back</h3>
+                        <div class="col-md-3 header-item borderleft borderright text-center nopadding">
+                            <a href="/callmeback" class="display-block largefont28">
+                                <span class="fa fa-phone-square paddingtop">&nbsp;</span>
+                                Call me back
                             </a>
                         </div>
                     </div>

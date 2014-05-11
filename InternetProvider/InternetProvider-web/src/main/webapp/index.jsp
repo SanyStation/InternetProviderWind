@@ -6,12 +6,16 @@
 
 <jsp:include page="WEB-INF/generic/header.jsp" flush="true">
     <jsp:param name="titleText" value="Internet provider Wind"/>
+    <jsp:param name="headerClass" value="background"/>
 </jsp:include>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-9 divitem nopadding">
-            <iframe src="map.jsp" width="100%" height="75%" style="min-height: 460px;"></iframe>
+        <div class="col-md-9 nopadding">
+            <jsp:include page="WEB-INF/generic/provider-info.jsp" flush="true"/>
+            <div id="map" class="hidden">
+                <iframe src="map.jsp" width="100%" height="75%" style="min-height: 460px;"></iframe>
+            </div>
         </div>
         <div class="col-md-3 nopadding">
             <div class="largefont paddingleftright nomargin headercolor whitetext borderleft borderright boxshadow">
