@@ -106,6 +106,7 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
     protected List<ServiceInstance> parseResult(ResultSet rs) {
         List<ServiceInstance> servInsts = new ArrayList<ServiceInstance>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 ServiceInstance servInst = new ServiceInstance();
                 servInst.setId(rs.getInt(ID));

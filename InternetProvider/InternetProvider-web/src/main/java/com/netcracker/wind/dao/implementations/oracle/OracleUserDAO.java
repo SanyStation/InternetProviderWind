@@ -104,6 +104,7 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
     protected List<User> parseResult(ResultSet rs) {
         List<User> users = new ArrayList<User>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt(ID));

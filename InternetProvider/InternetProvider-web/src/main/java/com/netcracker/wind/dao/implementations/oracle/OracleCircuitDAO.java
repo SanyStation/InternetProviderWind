@@ -94,6 +94,7 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
     protected List<Circuit> parseResult(ResultSet rs) {
         List<Circuit> circuits = new ArrayList<Circuit>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 Circuit circuit = new Circuit();
                 circuit.setId(rs.getInt(ID));

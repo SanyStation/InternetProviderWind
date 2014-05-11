@@ -95,6 +95,7 @@ public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {
     protected List<Cable> parseResult(ResultSet rs) {
         List<Cable> cables = new ArrayList<Cable>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 Cable cable = new Cable();
                 cable.setId(rs.getInt(ID));

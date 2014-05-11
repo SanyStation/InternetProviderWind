@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.dashboards;
 
-import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
@@ -30,12 +24,15 @@ public class GetTasksByPerformerStatus {
         this.status = status;
     }
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request,
+            HttpServletResponse response) {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
         int performerId = user.getId();
-        IExtendedPaginatedList paginatedList = new TasksByPerformerStatusPaginatedList(request,
-                AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId).addStatus(status);
+        IExtendedPaginatedList paginatedList
+                = new TasksByPerformerStatusPaginatedList(request,
+                AbstractOracleDAO.DEFAULT_PAGE_SIZE).
+                        setPerformer(performerId).addStatus(status);
         session.setAttribute(TASKS, paginatedList);
         return pageForReturn;
     }

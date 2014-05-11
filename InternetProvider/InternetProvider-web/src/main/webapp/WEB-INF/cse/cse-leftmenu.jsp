@@ -5,6 +5,8 @@
     Author     : oneplayer
 --%>
 
+<jsp:include page="../generic/gen-tasks-scriplet.jsp" flush="true" />
+
 <div class="col-md-3 leftmenu">
 
     <ul id="myTab" class="list-group">
@@ -19,17 +21,31 @@
 
         <li class="list-group-item">
             <ul class="nav nav-pills nav-stacked">
-                <li class="${param.active eq 'tasks' ? ' bg-info' : ''}">
-                    <a href="#"><i class="glyphicon glyphicon-briefcase"></i> Tasks</a></li>        
+                <li class="${param.active eq 'tasks' ? ' bg-info' : ''}"><a href="#"><i class="glyphicon glyphicon-briefcase"></i> Tasks</a>
+
                 <li class="${param.command eq 'cse_get_tasks' ? ' active' : ''}">
-                    <a href="Controller?command=cse_get_tasks"><i class="glyphicon glyphicon-briefcase"></i> New tasks</a></li>
+                    <a href="Controller?command=cse_get_tasks"><i class="glyphicon glyphicon-briefcase"></i> New tasks 
+                        <c:if test="${newTasks > 0}">
+                            <span class="badge pull-right">${newTasks}</span>
+                        </c:if>
+                    </a>
+                </li>
                 <li class="${param.command eq 'cse_user_active_tasks' ? ' active' : ''}">
-                    <a href="Controller?command=cse_user_active_tasks"><i class="glyphicon glyphicon-briefcase"></i> Active tasks</a></li>
+                    <a href="Controller?command=cse_user_active_tasks"><i class="glyphicon glyphicon-briefcase"></i> Active tasks 
+                        <c:if test="${activeTasks > 0}">
+                            <span class="badge pull-right">${activeTasks}</span>
+                        </c:if>
+                    </a>
+                </li>
                 <li class="${param.command eq 'cse_user_completed_tasks' ? ' active' : ''}">
-                    <a href="Controller?command=cse_user_completed_tasks"><i class="glyphicon glyphicon-briefcase"></i> Completed tasks</a></li>
+                    <a href="Controller?command=cse_user_completed_tasks"><i class="glyphicon glyphicon-briefcase"></i> Completed tasks 
+                        <c:if test="${completedTasks > 0}">
+                            <span class="badge pull-right">${completedTasks}</span>
+                        </c:if>
+                    </a>
+                </li>
             </ul>
         </li>
-
 
         <li class="list-group-item">
             <ul class="nav nav-pills nav-stacked">
@@ -46,10 +62,7 @@
                 </li>
             </ul>
         </li>
-
-
     </ul>
-    <hr>
 
     <c:if test="${param.report eq 'orders'}">
         <form id="validation" action="Controller" method="POST">
@@ -72,7 +85,7 @@
     <c:if test="${param.report eq 'profit'}">
         <form id="validation" action="Controller" method="POST">
             <div class="input-group paddingtop">
-                <span class="input-group-addon">Month</span>
+                <span class="input-group-addon paddingleftright">Month</span>
                 <input type="text" id="vdByMonth" class="form-control" name="vdByMonth" value="${date}" placeholder="Enter a month">
             </div>
             <hr>

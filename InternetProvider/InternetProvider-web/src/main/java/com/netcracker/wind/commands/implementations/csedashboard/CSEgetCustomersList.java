@@ -22,7 +22,8 @@ public class CSEgetCustomersList implements ICommand {
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
-        IExtendedPaginatedList paginatedList = new CSEUsersPaginatedList(request,
+        IExtendedPaginatedList paginatedList
+                = new CSEUsersPaginatedList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE);
         HttpSession session = request.getSession(false);
         session.setAttribute(USERS, paginatedList);

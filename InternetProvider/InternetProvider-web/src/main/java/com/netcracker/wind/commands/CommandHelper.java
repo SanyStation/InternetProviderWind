@@ -38,7 +38,6 @@ public class CommandHelper {
     private static final String NO_COMMAND = "no_command";
     private static final String PROCEED_TO_ORDER = "proceed_to_order";
     private static final String REFRESH_SERVICE = "refresh_service";
-    private static final String CUSTOMERS_LIST = "customers_list";
     private static final String NEW_DEVICE = "new_device";
     private static final String NEW_CABLE = "new_cable";
     private static final String DEL_CABLE = "delete_cable";
@@ -47,7 +46,7 @@ public class CommandHelper {
     private static final String ADM_ADD_USER_PAGE = "adm_add_user_page";
     private static final String PROCESS_TASK = "process_task";
     private static final String UNASSIGN_TASK = "unassign_task";
-    private static final String SEND_BILL = "send_bill";
+    
     private static final String SETUP_CIRCUIT = "setup_circuit";
     private static final String MODIFY_CIRCUIT = "modify_circuit";
     private static final String DELETE_CIRCUIT = "delete_circuit";
@@ -67,6 +66,8 @@ public class CommandHelper {
     private static final String CU_CONFIRM_ORDER = "confirm_order";
     private static final String CU_CANCEL_ORDER = "cancel_order";
     
+    private static final String CSE_SEND_BILL = "send_bill";
+    private static final String CSE_CUSTOMERS_LIST = "customers_list";
     private static final String CSE_USER_ACTIVE_TASKS = "cse_user_active_tasks";
     private static final String CSE_USER_COMPLETED_TASKS = "cse_user_completed_tasks";
     private static final String CSE_GET_TASKS = "cse_get_tasks";
@@ -108,21 +109,19 @@ public class CommandHelper {
         commands.put(NO_COMMAND, new NoCommand());
         commands.put(REFRESH_SERVICE, new RefreshService());
         commands.put(PROCEED_TO_ORDER, new ProceedToOrder());
-        commands.put(CUSTOMERS_LIST, new CSEgetCustomersList());
         commands.put(NEW_DEVICE, new CreateDevice());
         commands.put(NEW_CABLE, new CreateCable());
         commands.put(DEL_CABLE, new DeleteCable());
         commands.put(VALIDATION, new Validation());
         commands.put(REGISTRATION, new Registration());
-        commands.put(ADM_ADD_USER_PAGE, new ToAddUserPage());
         commands.put(PROCESS_TASK, new ProcessTask());
         commands.put(CHANGE_PASSWORD, new ChangePassword());
         commands.put(UNASSIGN_TASK, new UnassignTask());
-        commands.put(SEND_BILL, new CSEsentBill());
         commands.put(SETUP_CIRCUIT, new SetupCircuit());
         commands.put(MODIFY_CIRCUIT, new ModifyServiceInstance());
         commands.put(DELETE_CIRCUIT, new DeleteCircuit());
         
+        commands.put(ADM_ADD_USER_PAGE, new ToAddUserPage());
         commands.put(ADM_ADD_USER, new ADMaddUser());
         commands.put(ADM_GET_USERS, new ADMgetUsersList());
         commands.put(ADM_REVIEW_USER, new ADMreviewUser());
@@ -140,22 +139,24 @@ public class CommandHelper {
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder(reviewOrderPage));
         commands.put(CU_CANCEL_ORDER, new CancelOrder(reviewOrderPage));
         
+        commands.put(CSE_SEND_BILL, new CSEsentBill());
+        commands.put(CSE_CUSTOMERS_LIST, new CSEgetCustomersList());
         commands.put(CSE_USER_ACTIVE_TASKS,
-                new CSETasksByPerformerStatus(Task.Status.ACTIVE,
+                new CSEtasksByPerformerStatus(Task.Status.ACTIVE,
                         manager.getProperty(ConfigurationManager.PAGE_CSE_TASKS_LIST)));
         commands.put(CSE_USER_COMPLETED_TASKS,
-                new CSETasksByPerformerStatus(Task.Status.COMPLETED,
+                new CSEtasksByPerformerStatus(Task.Status.COMPLETED,
                         manager.getProperty(ConfigurationManager.PAGE_CSE_TASKS_LIST)));
         commands.put(CSE_GET_TASKS,
-                new CSEGroupTasks(Role.CSE_GROUP_ID,
+                new CSEgroupTasks(Role.CSE_GROUP_ID,
                         manager.getProperty(ConfigurationManager.PAGE_CSE_TASKS_LIST)));
         commands.put(CSE_CUSTOMER_REVIEW, new CSEreviewCustomer());
         commands.put(CSE_GET_REPORT_SI_NEW, new CSEgetReportSiNew());
         commands.put(CSE_GET_REPORT_SI_DISC, new CSEgetReportSiDisc());
         commands.put(CSE_GET_REPORT_SI_PROFIT, new CSEgetReportSiProfit());
-        commands.put(CSE_ADD_CUSTOMER_PAGE, new CSEToAddUserPage());
+        commands.put(CSE_ADD_CUSTOMER_PAGE, new CSEtoAddUserPage());
         commands.put(CSE_ADD_CUSTOMER, new CSEaddCustomer());
-        commands.put(CSE_GET_SI, new CSEGetServiceInstanceForUser());
+        commands.put(CSE_GET_SI, new CSEgetServiceInstanceForUser());
         commands.put(CSE_GET_SO, new CSEgetOrdersForUser());
         commands.put(CSE_REVIEW_INSTANCE, new InstanceReview(manager.
                 getProperty(ConfigurationManager.PAGE_CSE_REVIEW_INSTANCE)));

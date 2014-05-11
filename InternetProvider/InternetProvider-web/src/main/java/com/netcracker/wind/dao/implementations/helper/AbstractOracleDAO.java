@@ -14,28 +14,29 @@ import org.apache.log4j.Logger;
  * @author Oksana
  */
 public abstract class AbstractOracleDAO {
-    
+
     public static enum Direction {
-        
+
         ASC, DESC
     }
-    
+
     public static final int DEFAULT_PAGE_NUMBER = 1;
     public static final int DEFAULT_PAGE_SIZE = 15;
+    public static final int MIN_PAGE_SIZE = 1;
     public static final int ALL_RECORDS = 0;
     public static final int WRONG_ID = -1;
-    
+
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER
             = Logger.getLogger(AbstractOracleDAO.class.getName());
-    
+
     protected static final String ROWS = "total_rows";
     protected int rows;
-    
+
     public int countRows() {
         return rows;
     }
-    
+
     /**
      *
      * @param query SQL statement where for searching by different parameters
@@ -49,16 +50,26 @@ public abstract class AbstractOracleDAO {
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-            LOGGER.info("### Query: " + query);
+//            LOGGER.info("### Query: " + query);
             stat = con.prepareStatement(query);
             if (param != null) {
                 for (int i = 0; i < param.length; ++i) {
 //                    LOGGER.info("### param[" + i + "]= " + param[i]);
-                    stat.setObject(i + 1, param[i]);
+                    if (param[i] instanceof String) {
+                        stat.setString(i + 1, (String) param[i]);
+                    } else {
+                        stat.setObject(i + 1, param[i]);
+                    }
                 }
             }
             rs = stat.executeQuery();
             objects = parseResult(rs);
+//            for (Object obj : objects) {
+//                if (obj instanceof Port) {
+//                    Port port = (Port) obj;
+//                    LOGGER.info("PORT: " + port.getId() + " " + port.getName());
+//                }
+//            }
         } catch (SQLException ex) {
             LOGGER.error(null, ex);
         } finally {
@@ -89,8 +100,8 @@ public abstract class AbstractOracleDAO {
      * @param pageNumber number of desired page (starts from 1)
      * @param pageSize number of rows per desired page (starts from 1)
      * @param orderParam the parameter that is used for 'ORDER BY' statement
-     * @param direction direction sorting (ASC, DESC) that is used for
-     * 'ORDER BY' statement
+     * @param direction direction sorting (ASC, DESC) that is used for 'ORDER
+     * BY' statement
      * @return list of found rows
      */
     protected List findWhere(String query, Object[] param, int pageNumber,
@@ -113,6 +124,7 @@ public abstract class AbstractOracleDAO {
         sb.append(query);
         sb.append(" ORDER BY ? ");
         sb.append(direction);
+
         //if parameter for 'ORDER BY' statement is not specified then sort by id
 //        orderParam = orderParam.isEmpty() ? "id" : orderParam;
         p.add(orderParam);
@@ -126,7 +138,7 @@ public abstract class AbstractOracleDAO {
         p.add(rowFrom);
         return this.findWhere(sb.toString(), p.toArray());
     }
-    
+
     protected List findWhere(String query, Object[] param, int pageNumber,
             int pageSize) {
         return this.findWhere(query, param, pageNumber, pageSize, "id",

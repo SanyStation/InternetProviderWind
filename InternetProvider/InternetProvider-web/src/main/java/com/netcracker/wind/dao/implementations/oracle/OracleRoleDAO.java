@@ -82,6 +82,7 @@ public class OracleRoleDAO extends AbstractOracleDAO implements IRoleDAO {
     protected List<Role> parseResult(ResultSet rs) {
         List<Role> roles = new ArrayList<Role>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 Role role = new Role();
                 role.setId(rs.getInt(ID));

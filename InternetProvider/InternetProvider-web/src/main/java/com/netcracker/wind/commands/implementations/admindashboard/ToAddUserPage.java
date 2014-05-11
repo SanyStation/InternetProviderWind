@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.admindashboard;
 
 import com.netcracker.wind.annotations.RolesAllowed;
@@ -19,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 @RolesAllowed(roles = Role.Roles.Administrator)
 public class ToAddUserPage implements ICommand {
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request,
+            HttpServletResponse response) {
         return manager.getProperty(ConfigurationManager.PAGE_ADM_ADD_USER);
     }
 

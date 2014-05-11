@@ -142,6 +142,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
     protected List<Port> parseResult(ResultSet rs) {
         List<Port> ports = new ArrayList<Port>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 Port port = new Port();
                 port.setId(rs.getInt(ID));
@@ -186,7 +187,7 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
 
     @Override
     public List<Port> findByDevice(int deviceId, int pageNumber, int pageSize) {
-        return findWhere("WHERE DEVICE_ID = ?", 
+        return findWhere("WHERE DEVICE_ID = ?",
                 new Object[]{deviceId}, pageNumber, pageSize);
     }
 

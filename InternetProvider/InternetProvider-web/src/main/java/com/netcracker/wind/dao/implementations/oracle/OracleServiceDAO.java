@@ -85,6 +85,7 @@ public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {
     protected List<Service> parseResult(ResultSet rs) {
         List<Service> services = new ArrayList<Service>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 Service service = new Service();
                 int id = rs.getInt(ID);

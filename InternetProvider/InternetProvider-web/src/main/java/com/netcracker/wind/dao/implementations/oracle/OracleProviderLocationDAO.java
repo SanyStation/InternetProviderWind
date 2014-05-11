@@ -91,6 +91,7 @@ public class OracleProviderLocationDAO extends AbstractOracleDAO
     protected List<ProviderLocation> parseResult(ResultSet rs) {
         List<ProviderLocation> provLocs = new ArrayList<ProviderLocation>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 ProviderLocation provLoc = new ProviderLocation();
                 int id = rs.getInt(ID);

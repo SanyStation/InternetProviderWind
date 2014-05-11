@@ -136,6 +136,7 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     protected List<ServiceOrder> parseResult(ResultSet rs) {
         List<ServiceOrder> serviceOrders = new ArrayList<ServiceOrder>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 ServiceOrder serviceOrder = new ServiceOrder();
                 serviceOrder.setId(rs.getInt(ID));

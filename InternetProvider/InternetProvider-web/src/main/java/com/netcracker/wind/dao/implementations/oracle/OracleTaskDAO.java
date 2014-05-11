@@ -121,6 +121,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     protected List<Task> parseResult(ResultSet rs) {
         List<Task> tasks = new ArrayList<Task>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 Task task = new Task();
                 task.setId(rs.getInt(ID));
@@ -167,7 +168,7 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     @Override
     public List<Task> findByPerformerStatus(int idPerformer, String status,
             int pageNumber, int pageSize) {
-        List<Task> tasks = findWhere("WHERE USER_ID = ? AND STATUS= ?",
+        List<Task> tasks = findWhere("WHERE USER_ID = ? AND STATUS = ?",
                 new Object[]{idPerformer, status}, pageNumber, pageSize);
         return tasks;
     }

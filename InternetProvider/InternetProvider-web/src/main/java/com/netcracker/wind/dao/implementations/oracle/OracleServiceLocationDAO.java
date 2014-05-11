@@ -100,6 +100,7 @@ public class OracleServiceLocationDAO extends AbstractOracleDAO
     protected List<ServiceLocation> parseResult(ResultSet rs) {
         List<ServiceLocation> provLocs = new ArrayList<ServiceLocation>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 ServiceLocation provLoc = new ServiceLocation();
                 int id = rs.getInt(ID);

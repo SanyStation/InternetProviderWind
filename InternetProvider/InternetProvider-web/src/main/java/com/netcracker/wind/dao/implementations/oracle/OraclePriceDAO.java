@@ -85,6 +85,7 @@ public class OraclePriceDAO extends AbstractOracleDAO implements IPriceDAO {
     protected List<Price> parseResult(ResultSet rs) {
         List<Price> prices = new ArrayList<Price>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 Price price = new Price();
                 price.setId(rs.getInt(ID));

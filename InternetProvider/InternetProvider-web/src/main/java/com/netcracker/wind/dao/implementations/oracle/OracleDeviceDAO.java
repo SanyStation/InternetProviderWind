@@ -103,6 +103,7 @@ public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {
     protected List<Device> parseResult(ResultSet rs) {
         List<Device> devices = new ArrayList<Device>();
         try {
+            super.rows = 0;
             while (rs.next()) {
                 Device device = new Device();
                 int id = rs.getInt(ID);

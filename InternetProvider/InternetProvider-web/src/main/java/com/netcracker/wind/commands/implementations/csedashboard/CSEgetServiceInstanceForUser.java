@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.csedashboard;
 
 import com.netcracker.wind.annotations.RolesAllowed;
@@ -21,7 +16,7 @@ import javax.servlet.http.HttpSession;
  * @author Oksana
  */
 @RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)
-public class CSEGetServiceInstanceForUser implements ICommand {
+public class CSEgetServiceInstanceForUser implements ICommand {
 
     private static final String SI = "service_instances";
     private static final String CUSTOMER_ID = "customer_id";

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 public class TasksByPerformerStatusPaginatedList extends AbstractPaginatedList {
 
     private int performerId;
-    private List<Task.Status> statuses;
+    private final List<Task.Status> statuses;
     private final ITaskDAO taskDAO = FactoryCreator.getInstance().getFactory().
             createTaskDAO();
 
@@ -27,9 +27,9 @@ public class TasksByPerformerStatusPaginatedList extends AbstractPaginatedList {
     @Override
     public List getList() {
         List result = new ArrayList();
-        for(Task.Status status : statuses){
-            result.addAll(taskDAO.findByPerformerStatus(performerId, status.toString(), pageNumber, 
-                pageSize));
+        for (Task.Status status : statuses) {
+            result.addAll(taskDAO.findByPerformerStatus(performerId,
+                    status.toString(), pageNumber, pageSize));
         }
         return result;
     }
@@ -38,7 +38,7 @@ public class TasksByPerformerStatusPaginatedList extends AbstractPaginatedList {
     public int getFullListSize() {
         return taskDAO.countRows();
     }
-    
+
     public TasksByPerformerStatusPaginatedList setPerformer(int performerId) {
         this.performerId = performerId;
         return this;
