@@ -113,7 +113,14 @@
                     }
                     catch (e) {
                     }
-                })
+                });
+                $(window).resize(function() {
+                    try {
+                        window.parent.$('iframe')[0].onload();
+                    }
+                    catch (e) {
+                    }
+                });
             });
         </script>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -124,7 +131,7 @@
 
     </head>
     <body>
-       
+
         <div class="container">
             <div class="row">
                 <div class=" col-sm-6 col-sm-offset-3 paddingtop ">

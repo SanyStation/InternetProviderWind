@@ -206,7 +206,7 @@ $(window).load(function() {
                     return;
                 }
                 if (!data.auth) {
-                    $('#myModal').find('.modal-body').html($('<iframe />', {
+                    $('#myModal').find('.modal-body').html('').html($('<iframe />', {
                         name: 'frame1',
                         src: 'profile',
                         width: '100%',
@@ -231,6 +231,6 @@ $(window).load(function() {
 });
 var autoResize = function(e) {
     console.log(e);
-    var newheight = e.contentWindow.document.body.children.item().offsetHeight;
+    var newheight = e.contentWindow.document.body.children.item(0).offsetHeight;
     $('#myModal iframe').height(newheight);
 }

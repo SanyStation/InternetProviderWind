@@ -128,7 +128,7 @@ $(function() {
 });
 var autoResize = function(e) {
     console.log(e);
-    var newheight = e.contentWindow.document.body.children.item().offsetHeight;
+    var newheight = e.contentWindow.document.body.children.item(0).offsetHeight;
     $('#login-modal iframe').height(newheight);
 }
 map=true;
