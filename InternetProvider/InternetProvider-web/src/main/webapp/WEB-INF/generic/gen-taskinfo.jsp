@@ -1,7 +1,7 @@
 <%-- 
     Author     : Alexander Kovriga
 --%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div>
     <table class="table table-striped table-bordered">
         <tr>
@@ -62,7 +62,12 @@
                 Device
             </td>
             <td>
-                ${task.serviceOrder.serviceInstance.circuit.port.device.id} (${task.serviceOrder.serviceInstance.circuit.port.device.name})
+                <c:if test="${task.serviceOrder.serviceInstance.circuit!=null}">
+                    ${task.serviceOrder.serviceInstance.circuit.port.device.id} (${task.serviceOrder.serviceInstance.circuit.port.device.name})
+                </c:if>
+                <c:if test="${task.serviceOrder.serviceInstance.circuit==null}">
+                    ${task.serviceOrder.serviceLocation.cable.port.device.id} (${task.serviceOrder.serviceLocation.cable.port.device.name})
+                </c:if>
             </td>
         </tr>
         <tr>
@@ -70,7 +75,12 @@
                 Port
             </td>
             <td>
-                ${task.serviceOrder.serviceInstance.circuit.port.id} (${task.serviceOrder.serviceInstance.circuit.port.name})
+                <c:if test="${task.serviceOrder.serviceInstance.circuit!=null}">
+                    ${task.serviceOrder.serviceInstance.circuit.port.id} (${task.serviceOrder.serviceInstance.circuit.port.name})
+                </c:if>
+                <c:if test="${task.serviceOrder.serviceInstance.circuit==null}">
+                    ${task.serviceOrder.serviceLocation.cable.port.id} (${task.serviceOrder.serviceLocation.cable.port.name})
+                </c:if>
             </td>
         </tr>
     </table>
