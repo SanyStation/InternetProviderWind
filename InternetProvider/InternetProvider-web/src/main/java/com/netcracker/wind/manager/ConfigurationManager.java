@@ -29,7 +29,9 @@ public class ConfigurationManager {
     
     public static final String PAGE_CSE_TASKS_LIST = "PAGE_CSE_TASKS_LIST";
     public static final String PAGE_CSE_SERVICE_ORDERS = "PAGE_CSE_SERVICE_ORDERS";
+    public static final String PAGE_CSE_REVIEW_ORDER = "PAGE_CSE_REVIEW_ORDER";
     public static final String PAGE_CSE_SERVICE_INSTANCES = "PAGE_CSE_SERVICE_INSTANCES";
+    public static final String PAGE_CSE_REVIEW_INSTANCE = "PAGE_CSE_REVIEW_INSTANCE";
     public static final String PAGE_CSE_ADD_CUSTOMER = "PAGE_CSE_ADD_CUSTOMER";
     public static final String PAGE_CSE_CUSTOMER_REVIEW = "PAGE_CSE_CUSTOMER_REVIEW";
     public static final String PAGE_CSE_USERS_LIST = "PAGE_CSE_USERS_LIST";
@@ -39,11 +41,15 @@ public class ConfigurationManager {
 
     public static final String PAGE_CU_PAGE_INSTANCES_LIST = "PAGE_CU_PAGE_INSTANCES_LIST";
     public static final String PAGE_CU_PAGE_ORDERS_LIST = "PAGE_CU_PAGE_ORDERS_LIST";
+    public static final String PAGE_CU_PAGE_REVIEW_INSTANCE = "PAGE_CU_PAGE_REVIEW_INSTANCE";
+    public static final String PAGE_CU_PAGE_REVIEW_ORDER = "PAGE_CU_PAGE_REVIEW_ORDER";
     
     public static final String PAGE_IE_SELECTED_TASK = "PAGE_IE_SELECTED_TASK";
     public static final String PAGE_IE_REPORT_RI_PROFIT = "PAGE_IE_REPORT_RI_PROFIT";
     public static final String PAGE_IE_REPORT_RI_UTIL = "PAGE_IE_REPORT_RI_UTIL";
+    public static final String PAGE_IE_TASKS_LIST = "PAGE_IE_TASKS_LIST";
     
+    public static final String PAGE_PE_TASKS_LIST = "PAGE_PE_TASKS_LIST";
     public static final String PAGE_PE_SELECTED_TASK = "PAGE_PE_SELECTED_TASK";
     public static final String PAGE_PE_REPORT_CIA_IPT = "PAGE_PE_REPORT_CIA_IPT";
     public static final String PAGE_PE_REVIEW_CIRCUIT = "PAGE_PE_REVIEW_CIRCUIT";
