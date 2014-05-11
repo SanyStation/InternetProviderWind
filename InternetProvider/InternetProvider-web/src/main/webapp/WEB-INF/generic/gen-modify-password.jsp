@@ -22,7 +22,7 @@
                     <span class="input-group-addon">Password (repeat)</span>
                     <input type="password" name="conf_password" class="form-control" placeholder="Repeat your password...">
                 </div>
-                <button type="submit" name="command=" value="change_password" class="btn btn-default margintop"><span class="glyphicon glyphicon-ok"></span> Change</button>
+                <button type="submit" name="command=" value="change_password" class="btn btn-success margintop"><span class="glyphicon glyphicon-ok"></span> Change</button>
             </div>
         </div>
     </form>

@@ -24,23 +24,20 @@
 
                     <div class="col-md-7">
                         <h3>Adding new customer:</h3>
-                        <div class="input-group paddingtop">
+                        <div class="input-group ${errorname} paddingtop"  onmouseover="$(this).removeClass('has-error')">
                             <span class="input-group-addon">Name</span>
-                            <input type="text" class="form-control" name="name" placeholder="Enter full name">
+                            <input type="text" class="form-control" name="name" placeholder="Enter full name" value="${param.name}">
                         </div>
-                        <div class="input-group paddingtop">
+                        <div class="alert-danger alert badge  nomargin margintop" onmouseover="$(this).slideUp(100)">${messagename}</div>
+                        <div class="input-group ${erroremail} paddingtop" onmouseover="$(this).removeClass('has-error')"> 
                             <span class="input-group-addon">E-mail</span>
-                            <input type="text" class="form-control" name="email" placeholder="Enter e-mail">
+                            <input type="text" class="form-control" name="email" placeholder="Enter e-mail" value="${param.email}">
                             <label for="email">${message}</label>
                         </div>
+                        <div class="alert-danger alert badge  nomargin margintop" onmouseover="$(this).slideUp(100)">${messageemail}</div>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3">
-                        <button type="submit" id="Sender" class="btn btn-primary width-100-percent" style="margin-top:135px;">Add customer</button>
-                    </div>
-                </div>
+                        <button type="submit" id="Sender" class="btn btn-primary btn-lg margintop">Add customer</button>
             </form>
         </div>
     </div>

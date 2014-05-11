@@ -31,7 +31,7 @@ public class Registration implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         User user = new User();
-        Role userRole = new Role(5);
+        Role userRole = new Role(Role.CU_GROUP_ID);
         user.setName((String) request.getParameter(LOGIN));
         user.setEmail((String) request.getParameter(EMAIL));
         user.setPassword((String) request.getParameter(PASS));

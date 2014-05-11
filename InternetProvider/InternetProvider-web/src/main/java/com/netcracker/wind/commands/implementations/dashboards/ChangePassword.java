@@ -6,10 +6,12 @@
 package com.netcracker.wind.commands.implementations.dashboards;
 
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.commands.implementations.registration.Validator;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -28,14 +30,23 @@ public class ChangePassword implements ICommand {
     private static final String USER = "user";
     private static final String USER_ID = "user_id";
     private static final String ANSWER = "answer";
+    private static final String MESSAGE = "message";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String pass = request.getParameter(PASSWORD);
         String confPass = request.getParameter(CONF_PASSWORD);
+        HashMap<String, String> newUserData = new HashMap();
+        newUserData.put("pass", pass);
+        newUserData.put("confpass",confPass);
+        //Validation
+        Validator validator = new Validator(newUserData);
+        String validMessage = validator.validatePasswords();
         JSONObject answer = new JSONObject();
-        if ("".equals(pass) || !pass.equals(confPass)) {
+        //if ("".equals(pass) || !pass.equals(confPass)) {
+        if (validator.getIsvalid()==0) {
             try {
                 answer.put(ANSWER, false);
+                answer.put(MESSAGE, validMessage);
             } catch (JSONException ex) {
                 Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -58,6 +69,7 @@ public class ChangePassword implements ICommand {
                 answer.put(ANSWER, true);
             } else {
                 answer.put(ANSWER, false);
+                answer.put(MESSAGE, "Unknown server error");
             }
         } catch (JSONException ex) {
             Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);

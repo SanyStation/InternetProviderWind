@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  *
  * @author myshko
  */
-class Validator {
+public class Validator {
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]{2,}(\\." +
               "[_A-Za-z0-9-]+)*@[A-Za-z0-9]{1,}(\\.[A-Za-z0-9]+)*" +
                                               "(\\.[A-Za-z]{2,})$";
@@ -33,19 +33,24 @@ class Validator {
     private static final String CONFIRM_PASSWORD = "confpass";
     private static final String E_MAIL = "email";
     
-    HashMap<String,String> data;
-    private int isvalid=0;
-
+    private HashMap<String,String> data;
+    private int isvalid=0; // email = 010 // login = 100 // password = 001
+    /**
+     *  <pre>login=100</pre>
+     *  <pre>email=010</pre>
+     *  <pre>passw=001</pre>
+     * 
+     */
     public int getIsvalid() {
         return isvalid;
     }
     
-    Validator(HashMap<String,String> validationData){
+    public Validator(HashMap<String,String> validationData){
         data=validationData;
     }
 
     //Validation: is Login unique?
-    String validateLogin() {
+    public String validateLogin() {
         Pattern p = Pattern.compile(LOGIN_PATTERN);
         Matcher m = p.matcher(data.get(LOGIN));
         if (!m.matches()) return RETURN_INPUT_LOGIN_MESSAGE;
@@ -57,7 +62,7 @@ class Validator {
     }
 
     //Validation: is E-mail unique?
-    String validateEmail() {
+    public String validateEmail() {
         Pattern p = Pattern.compile(EMAIL_PATTERN);
         Matcher m = p.matcher(data.get(E_MAIL));
         if (!m.matches()) return RETURN_INPUT_EMAIL_MESSAGE;
@@ -83,7 +88,7 @@ class Validator {
 //    }
 
     //Passwords equals validation
-    String validatePasswords() {
+    public String validatePasswords() {
         Pattern p = Pattern.compile(PASSWORD_PATTERN);
         Matcher m = p.matcher(data.get(PASSWORD));
         if (!m.matches()) return RETURN_INPUT_PASSWORD_MESSAGE;

@@ -24,13 +24,13 @@
                 <form action="Controller" method="POST">
                     <input type="hidden" name="task_id" value="${task.id}"/>
                     <c:if test="${task.type=='CREATE_CIRCUIT'}">
-                        <button type="submit" name="command" value="setup_circuit" class="btn btn-success">Setup circuit</button>
+                        <button type="submit" name="command" value="setup_circuit" class="btn btn-success btn-lg">Setup circuit</button>
                     </c:if>
                     <c:if test="${task.type=='MODIFY_CIRCUIT'}">
-                        <button type="submit" name="command" value="modify_circuit" class="btn btn-info">Modify circuit</button>
+                        <button type="submit" name="command" value="modify_circuit" class="btn btn-info btn-lg">Modify circuit</button>
                     </c:if>
                     <c:if test="${task.type=='DELETE_CIRCUIT'}">
-                        <button type="submit" name="command" value="delete_circuit" class="btn btn-danger">Delete circuit</button>
+                        <button type="submit" name="command" value="delete_circuit" class="btn btn-danger btn-lg">Delete circuit</button>
                     </c:if>
                     <button type="submit" name="command" value="unassign_task" class="btn btn-danger pull-right">Unassign task</button>
                 </form>

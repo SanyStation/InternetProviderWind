@@ -32,7 +32,7 @@
                             <input type="text" class="form-control" name="name" value="" placeholder="Enter the cable name">
                         </div>
                         <hr>
-                        <button type="submit" name="command" value="new_cable" class="btn btn-success">Create cable</button>
+                        <button type="submit" name="command" value="new_cable" class="btn btn-success btn-lg">Create cable</button>
                     </c:if>
                     <c:if test="${task.type=='DELETE_CABLE'}">
                         <button type="submit" name="command" value="delete_cable" class="btn btn-danger">Delete cable</button>
@@ -43,7 +43,7 @@
                             <input type="text" class="form-control" name="name" value="" placeholder="Enter the device name">
                         </div>
                         <hr>
-                        <button type="submit" name="command" value="new_device" class="btn btn-success">Create device</button>
+                        <button type="submit" name="command" value="new_device" class="btn btn-success btn-lg">Create device</button>
                     </c:if>
                     <button type="submit" name="command" value="unassign_task" class="btn btn-danger pull-right">Unassign task</button>
                 </form>

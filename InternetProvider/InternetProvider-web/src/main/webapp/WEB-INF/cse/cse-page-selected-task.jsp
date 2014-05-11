@@ -24,7 +24,7 @@
             <c:if test="${task.status=='ACTIVE'}">
                 <form action="Controller" method="POST">
                     <input type="hidden" name="task_id" value="${task.id}"/>
-                    <button type="submit" name="command" value="send_bill" class="btn btn-success">Send bill</button>
+                    <button type="submit" name="command" value="send_bill" class="btn btn-success btn-lg">Send bill</button>
                     <button type="submit" name="command" value="unassign_task" class="btn btn-danger pull-right">Unassign task</button>
                 </form>
             </c:if>

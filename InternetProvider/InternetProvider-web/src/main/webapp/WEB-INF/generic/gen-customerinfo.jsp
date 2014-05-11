@@ -8,7 +8,7 @@
     <table class="table table-bordered table-striped">
         <tr>
             <td colspan="2">
-                <h4>${customer.name}<button type="button" class="btn btn-default pull-right gobuttontop" id="password-changer-init2"><span class="glyphicon glyphicon-cog"></span> Modify</button></h2>
+                <h4>${customer.name}<button type="button" class="btn btn-default pull-right gobuttontop" id="password-changer-init2" data-toggle="tooltip" data-placement="left" title="Change password"><span class="glyphicon glyphicon-cog"></span> Modify</button></h2>
             </td>
         </tr>
         <tr>
