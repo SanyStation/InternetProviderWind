@@ -59,26 +59,18 @@
         </tr>
         <tr>
             <td>
-                Port ID
-            </td>
-            <td>
-                ${task.serviceOrder.serviceInstance.circuit.port.id}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Device ID
-            </td>
-            <td>
-                ${task.serviceOrder.serviceInstance.circuit.port.device.id}
-            </td>
-        </tr>
-        <tr>
-            <td>
                 Device
             </td>
             <td>
-                ${task.serviceOrder.serviceInstance.circuit.port.device.name}
+                ${task.serviceOrder.serviceInstance.circuit.port.device.id} (${task.serviceOrder.serviceInstance.circuit.port.device.name})
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Port
+            </td>
+            <td>
+                ${task.serviceOrder.serviceInstance.circuit.port.id} (${task.serviceOrder.serviceInstance.circuit.port.name})
             </td>
         </tr>
     </table>

@@ -38,7 +38,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-3">
-                        <button type="submit" id="Sender" class="btn btn-primary width-100-percent" style="margin-top:135px;">Add customer</button>
+                        <button type="submit" id="Sender" class="btn btn-primary width-100-percent">Add customer</button>
                     </div>
                 </div>
             </form>

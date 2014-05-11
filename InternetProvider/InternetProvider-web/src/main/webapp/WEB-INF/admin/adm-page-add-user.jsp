@@ -40,7 +40,6 @@
                                                     <span class="input-group-addon">Password (confirm)</span>
                                                     <input type="text" class="form-control" name="conf_password" placeholder="Enter e-mail">
                                                 </div>-->
-                        <!-- Remake to SELECT -->
                         <div class="input-group paddingtop">
                             <span class="input-group-addon">Group</span>
                             <select name="role_id" class="form-control">
@@ -51,7 +50,12 @@
                                 <option value="4">Customer support engineer</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-default margintop" name="command" value="adm_add_user"><span class="glyphicon glyphicon-plus"></span> Add user</button>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <button type="submit" class="btn btn-primary width-100-percent" name="command" value="adm_add_user"><span class="glyphicon glyphicon-plus"></span> Add user</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>

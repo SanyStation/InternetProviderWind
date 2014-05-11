@@ -16,20 +16,8 @@
     <div class="row">
         <jsp:include page="cse-leftmenu.jsp" flush="false">
             <jsp:param name="active" value="reports" />
+            <jsp:param name="report" value="profit" />
         </jsp:include>
-
-        <div class="col-md-4 divitem">
-            <form id="validation" action="Controller" method="POST">
-                <div class="input-group paddingtop">
-                    <span class="input-group-addon">Month</span>
-                    <input type="text" id="vdByMonth" class="form-control" name="vdByMonth" value="${date}" placeholder="Enter a month">
-                </div>
-                <hr>
-                <div>
-                    <button type="submit" name="command" value="cse_get_report_si_profit" class="btn btn-default paddingtop"><span class="glyphicon glyphicon-refresh"></span> Generate</button>
-                </div>
-            </form>
-        </div>
         
         <div class="col-md-9 divitem">
             <h3>${title}</h3>
@@ -95,8 +83,6 @@
                     <display:column property="sum" title="Profit, $" />
                 </display:table>
             </form>
-        </div>
-        <div class="col-md-offset-3">
         </div>
     </div>
 </div>

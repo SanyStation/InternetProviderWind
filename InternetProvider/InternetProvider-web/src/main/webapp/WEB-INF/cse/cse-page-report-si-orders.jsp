@@ -16,26 +16,8 @@
     <div class="row">
         <jsp:include page="cse-leftmenu.jsp" flush="false">
             <jsp:param name="active" value="reports" />
+            <jsp:param name="report" value="orders" />
         </jsp:include>
-
-        <div class="col-md-4 divitem">
-            <form id="validation" action="Controller" method="POST">
-                <div class="input-group paddingtop">
-                    <span class="input-group-addon">Date from</span>
-                    <input type="text" id="vdFrom" class="form-control" name="vdFrom" value="${dateFrom}" placeholder="Enter date from">
-                    <label for="vdFrom" class="error" style="display: none;"></label>
-                </div>
-                <div class="input-group paddingtop">
-                    <span class="input-group-addon">Date to</span>
-                    <input type="text" id="vdTo" class="form-control" name="vdTo" value="${dateTo}" placeholder="Enter date to">
-                    <label for="vdTo" class="error" style="display: none;"></label>
-                </div>
-                <hr>
-                <div>
-                    <button type="submit" name="command" value="${command}" class="btn btn-default paddingtop"><span class="glyphicon glyphicon-refresh"></span> Generate</button>
-                </div>
-            </form>
-        </div>
 
         <div class="col-md-9 divitem">
             <h3>${title}</h3>
@@ -105,6 +87,11 @@
             </form>
         </div>
         <div class="col-md-offset-3">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 leftmenu">
+
         </div>
     </div>
 </div>

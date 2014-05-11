@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
  * @author Oksana
  */
 @RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)
-public class SentBill implements ICommand {
+public class CSEsentBill implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);

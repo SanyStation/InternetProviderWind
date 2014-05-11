@@ -62,8 +62,8 @@
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
         <display:column property="id" title="ID" />
-        <display:column property="name" title="Name" href="Controller?command=customer_review" paramId="id" paramProperty="id" />
-        <display:column property="email" title="e-mail" />
+        <display:column property="name" title="Name" />
+        <display:column property="email" title="E-mail" href="Controller?command=customer_review" paramId="id" paramProperty="id" />
         <display:column property="status" title="Status" />
     </display:table>
 
