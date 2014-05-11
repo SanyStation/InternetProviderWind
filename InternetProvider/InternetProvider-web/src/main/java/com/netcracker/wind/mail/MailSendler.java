@@ -1,9 +1,11 @@
 package com.netcracker.wind.mail;
 
 import com.netcracker.wind.entities.User;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -40,16 +42,16 @@ public class MailSendler {
             if (true) {      //comment this block 
                 return true; //when deploying to 
             }                //production server
+            MimeMessage message = new MimeMessage(mailSession);
+            message.setFrom(new InternetAddress(FROM));
             for (User user : users) {
-                MimeMessage message = new MimeMessage(mailSession);
-                message.setFrom(new InternetAddress(FROM));
-                message.setRecipients(Message.RecipientType.TO,
+                message.addRecipients(Message.RecipientType.TO,
                         user.getEmail());
-                message.setSubject(subject);
-                message.setSentDate(new Date());
-                message.setText(body);
-                Transport.send(message);
             }
+            message.setSubject(subject);
+            message.setSentDate(new Date());
+            message.setText(body);
+            Transport.send(message);
             LOGGER.info("Mail with subject \"" + subject
                     + "\" has been sent to " + users.size() + " user(s)");
             return true;
