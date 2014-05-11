@@ -14,7 +14,8 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author Oksana and Anatolii
+ * @author Oksana
+ * @author Anatolii
  */
 public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 

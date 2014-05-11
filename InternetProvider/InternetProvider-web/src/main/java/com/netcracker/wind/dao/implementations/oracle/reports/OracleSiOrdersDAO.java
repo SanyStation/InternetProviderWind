@@ -30,7 +30,7 @@ public class OracleSiOrdersDAO extends AbstractOracleDAO
     public static final String SERVICE_ID = "service_id";
     public static final String SERVICE_NAME = "service_name";
     public static final String COMPLETE_DATE = "complete_date";
-    public static final String SELECT
+    private static final String SELECT
             = "SELECT so.id AS " + ID + ", so.name AS " + NAME + ", pl.id AS "
             + PROVIDER_LOCATION_ID + ", pl.name AS " + PROVIDER_LOCATION_NAME
             + ", sl.id AS " + SERVICE_LOCATION_ID + ", sl.name AS "
@@ -41,17 +41,19 @@ public class OracleSiOrdersDAO extends AbstractOracleDAO
             + "JOIN service_locations sl ON so.service_location_id = sl.id "
             + "JOIN services s ON so.service_id = s.id ";
 
-    public static final String WHERE = "WHERE scenario LIKE ?";
+    private static final String WHERE = "WHERE scenario LIKE ?";
 
-    public static final String WHERE_FROM
+    private static final String WHERE_FROM
             = "so.completedate >= TO_DATE(?, '" + DATE_FORMAT + "')";
 
-    public static final String WHERE_TO
+    private static final String WHERE_TO
             = "so.completedate <= TO_DATE(?, '" + DATE_FORMAT + "')";
 
-    public static final String WHERE_FULL
+    private static final String WHERE_FULL
             = "so.completedate BETWEEN TO_DATE(?, '" + DATE_FORMAT + "') AND "
             + " TO_DATE(?, '" + DATE_FORMAT + "')";
+    
+    private static final String ORDER_BY = " ORDER BY so.id";
 
     private static final Logger LOGGER
             = Logger.getLogger(OracleSiOrdersDAO.class.getName());
@@ -122,14 +124,13 @@ public class OracleSiOrdersDAO extends AbstractOracleDAO
             query.append(WHERE_TO);
             param.add(dateTo);
         }
+        query.append(ORDER_BY);
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             for (int i = 1; i < param.size(); ++i) {
                 sdf.parse(param.get(i));
             }
-            orders = super.findWhere(query.toString(), param.toArray(),
-                    AbstractOracleDAO.DEFAULT_PAGE_NUMBER,
-                    AbstractOracleDAO.ALL_RECORDS);
+            orders = super.findWhere(query.toString(), param.toArray());
         } catch (ParseException ex) {
             LOGGER.error(null, ex);
         }

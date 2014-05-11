@@ -32,8 +32,7 @@ public class OracleRiRoutersUtilNCapDAO extends AbstractOracleDAO
             Logger.getLogger(OracleRiMostProfRouterDAO.class.getName());
 
     public List<RiRouterUtilNCap> findAll() {
-         return super.findWhere(QUERY, new Object[]{}, DEFAULT_PAGE_NUMBER,
-                ALL_RECORDS);
+        return super.findWhere(QUERY, new Object[]{});
     }
 
     @Override
@@ -59,6 +58,7 @@ public class OracleRiRoutersUtilNCapDAO extends AbstractOracleDAO
     }
     
     @Override
-    public void delete(String deleteQuery, int id) {}
+    public void delete(String deleteQuery, int id) {
+    }
 
 }

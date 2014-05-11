@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : leftmenu
     Created on : 29.04.2014, 17:39:08
@@ -49,4 +50,35 @@
 
     </ul>
     <hr>
+
+    <c:if test="${param.report eq 'orders'}">
+        <form id="validation" action="Controller" method="POST">
+            <div class="input-group paddingtop">
+                <span class="input-group-addon">Date from</span>
+                <input type="text" id="vdFrom" class="form-control" name="vdFrom" value="${dateFrom}" placeholder="Enter date">
+                <label for="vdFrom" class="error" style="display: none;"></label>
+            </div>
+            <div class="input-group paddingtop">
+                <span class="input-group-addon">Date to</span>
+                <input type="text" id="vdTo" class="form-control" name="vdTo" value="${dateTo}" placeholder="Enter date">
+                <label for="vdTo" class="error" style="display: none;"></label>
+            </div>
+            <hr>
+            <div>
+                <button type="submit" name="command" value="${command}" class="btn btn-primary paddingtop width-100-percent"><span class="glyphicon glyphicon-refresh"></span> Generate</button>
+            </div>
+        </form>
+    </c:if>
+    <c:if test="${param.report eq 'profit'}">
+        <form id="validation" action="Controller" method="POST">
+            <div class="input-group paddingtop">
+                <span class="input-group-addon">Month</span>
+                <input type="text" id="vdByMonth" class="form-control" name="vdByMonth" value="${date}" placeholder="Enter a month">
+            </div>
+            <hr>
+            <div>
+                <button type="submit" name="command" value="cse_get_report_si_profit" class="btn btn-primary paddingtop width-100-percent"><span class="glyphicon glyphicon-refresh"></span> Generate</button>
+            </div>
+        </form>
+    </c:if>
 </div>

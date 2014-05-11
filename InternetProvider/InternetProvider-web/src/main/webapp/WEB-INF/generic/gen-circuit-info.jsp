@@ -11,50 +11,26 @@
         </tr>
         <tr>
             <td>
-                Circuit id
+                Circuit
             </td>
             <td>
-                ${circuit.id}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Circuit name
-            </td>
-            <td>
-                ${circuit.name}
+                ${circuit.id} (${circuit.name})
             </td>
         </tr>
         <tr>
             <td>
-                Service instance id
+                Service instance
             </td>
             <td>
-                ${circuit.serviceInstanceId}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Service instance name
-            </td>
-            <td>
-                ${circuit.serviceInstance.name}
+                ${circuit.serviceInstanceId} (${circuit.serviceInstance.name})
             </td>
         </tr>
         <tr>
             <td>
-                Port id
+                Port
             </td>
             <td>
-                ${circuit.portId}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Port name
-            </td>
-            <td>
-                ${circuit.port.name}
+                ${circuit.portId} (${circuit.port.name})
             </td>
         </tr>
     </table>

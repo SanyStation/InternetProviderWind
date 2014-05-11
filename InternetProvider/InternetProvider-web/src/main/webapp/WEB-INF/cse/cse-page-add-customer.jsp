@@ -38,6 +38,7 @@
                     </div>
                 </div>
                         <button type="submit" id="Sender" class="btn btn-primary btn-lg margintop">Add customer</button>
+
             </form>
         </div>
     </div>

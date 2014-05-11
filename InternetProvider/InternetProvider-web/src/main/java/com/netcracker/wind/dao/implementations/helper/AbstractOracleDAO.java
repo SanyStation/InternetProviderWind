@@ -15,6 +15,11 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractOracleDAO {
     
+    public static enum Direction {
+        
+        ASC, DESC
+    }
+    
     public static final int DEFAULT_PAGE_NUMBER = 1;
     public static final int DEFAULT_PAGE_SIZE = 15;
     public static final int ALL_RECORDS = 0;
@@ -37,7 +42,7 @@ public abstract class AbstractOracleDAO {
      * @param param parameters by which search will be formed
      * @return list of found service instances
      */
-    private List findWhere(String query, Object[] param) {
+    protected List findWhere(String query, Object[] param) {
         List objects = null;
         Connection con = null;
         ResultSet rs = null;
@@ -48,6 +53,7 @@ public abstract class AbstractOracleDAO {
             stat = con.prepareStatement(query);
             if (param != null) {
                 for (int i = 0; i < param.length; ++i) {
+//                    LOGGER.info("### param[" + i + "]= " + param[i]);
                     stat.setObject(i + 1, param[i]);
                 }
             }
@@ -76,16 +82,19 @@ public abstract class AbstractOracleDAO {
     }
 
     /**
-     * Paginated SELECT.
+     * Paginated and sorted SELECT.
      *
      * @param query SQL statement
      * @param param the list of parameters
      * @param pageNumber number of desired page (starts from 1)
      * @param pageSize number of rows per desired page (starts from 1)
+     * @param orderParam the parameter that is used for 'ORDER BY' statement
+     * @param direction direction sorting (ASC, DESC) that is used for
+     * 'ORDER BY' statement
      * @return list of found rows
      */
     protected List findWhere(String query, Object[] param, int pageNumber,
-            int pageSize) {
+            int pageSize, String orderParam, Direction direction) {
         if (pageNumber < 1) {
             throw new IllegalArgumentException("Page number must be greater "
                     + "than 0: " + pageNumber);
@@ -99,9 +108,14 @@ public abstract class AbstractOracleDAO {
             p.add(param[i]);
         }
         int rowFrom = (pageNumber - 1) * pageSize;
-        StringBuilder sb = new StringBuilder();
+        StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM (SELECT ROWNUM ROW_NUM, SUBQ.* FROM (");
         sb.append(query);
+        sb.append(" ORDER BY ? ");
+        sb.append(direction);
+        //if parameter for 'ORDER BY' statement is not specified then sort by id
+//        orderParam = orderParam.isEmpty() ? "id" : orderParam;
+        p.add(orderParam);
         if (pageSize > 0) {
             sb.append(") SUBQ WHERE ROWNUM <= ?) WHERE ROW_NUM > ?");
             int rowTo = pageNumber * pageSize;
@@ -111,6 +125,12 @@ public abstract class AbstractOracleDAO {
         }
         p.add(rowFrom);
         return this.findWhere(sb.toString(), p.toArray());
+    }
+    
+    protected List findWhere(String query, Object[] param, int pageNumber,
+            int pageSize) {
+        return this.findWhere(query, param, pageNumber, pageSize, "id",
+                Direction.ASC);
     }
 
     public void delete(String deleteQuery, int id) {

@@ -114,7 +114,7 @@ public class CommandHelper {
         commands.put(PROCESS_TASK, new ProcessTask());
         commands.put(CHANGE_PASSWORD, new ChangePassword());
         commands.put(UNASSIGN_TASK, new UnassignTask());
-        commands.put(SEND_BILL, new SentBill());
+        commands.put(SEND_BILL, new CSEsentBill());
         commands.put(SETUP_CIRCUIT, new SetupCircuit());
         commands.put(MODIFY_CIRCUIT, new ModifyServiceInstance());
         commands.put(DELETE_CIRCUIT, new DeleteCircuit());
