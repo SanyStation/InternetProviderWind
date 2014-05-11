@@ -66,7 +66,7 @@
                     ${task.serviceOrder.serviceInstance.circuit.port.device.id} (${task.serviceOrder.serviceInstance.circuit.port.device.name})
                 </c:if>
                 <c:if test="${task.serviceOrder.serviceInstance.circuit==null}">
-                    ${task.serviceOrder.serviceInstance.serviceOrder.serviceLocation.cable.port.device.id} (${task.serviceOrder.serviceInstance.serviceOrder.serviceLocation.cable.port.device.name})
+                    ${task.serviceOrder.serviceLocation.cable.port.device.id} (${task.serviceOrder.serviceLocation.cable.port.device.name})
                 </c:if>
             </td>
         </tr>
@@ -79,7 +79,7 @@
                     ${task.serviceOrder.serviceInstance.circuit.port.id} (${task.serviceOrder.serviceInstance.circuit.port.name})
                 </c:if>
                 <c:if test="${task.serviceOrder.serviceInstance.circuit==null}">
-                    ${task.serviceOrder.serviceInstance.serviceOrder.serviceLocation.cable.port.id} (${task.serviceOrder.serviceInstance.serviceOrder.serviceLocation.cable.port.name})
+                    ${task.serviceOrder.serviceLocation.cable.port.id} (${task.serviceOrder.serviceLocation.cable.port.name})
                 </c:if>
             </td>
         </tr>
