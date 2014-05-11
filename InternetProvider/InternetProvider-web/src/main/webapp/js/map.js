@@ -180,6 +180,7 @@ $(window).load(function() {
     initialize();
     $('#order_form').submit(function(e) {
         var url = $('#order_form').attr('action'); // the script where you handle the form input.
+        $("#side form input[type=submit]").addClass('disabled');
 
         $.ajax({
             type: "POST",
@@ -188,6 +189,7 @@ $(window).load(function() {
             dataType: 'json',
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(['error ajax:184', jqXHR, textStatus, errorThrown]);
+                
                 if (textStatus == 'parsererror') {
                     $('#myModal').find('.modal-body').html('<div class="alert alert-danger">Error occured. Acces denied.</div>').end().modal('show')
 
@@ -200,6 +202,7 @@ $(window).load(function() {
                 // alert(data); // show response from the php script.
                 if (data.error) {
                     $('#myModal').find('.modal-body').html('<div class="alert alert-danger">Error occured. You must create order for user only.</div>').end().modal('show');
+                    $("#side form input[type=submit]").removeClass('disabled');
                     return;
                 }
                 if (!data.auth) {
@@ -208,9 +211,10 @@ $(window).load(function() {
                         src: 'profile',
                         width: '100%',
                         onload: 'autoResize(this)'
-                    })).end().modal('show')
+                    })).end().modal('show');
+                    $("#side form input[type=submit]").removeClass('disabled');
                 } else {
-                    $('#myModal').find('.modal-body').html('<h1>Order has been sent successfully</h1>redirecting you to order...').end().modal('show')
+                    $('#myModal').find('.modal-body').html('<h1>Order has been sent successfully</h1><span class="label label-success">redirecting you to order...</span>').end().modal('show')
 //                    $('<div />', {
 //                        name: 'frame1',
 //                        id: 'frame1',
@@ -218,7 +222,7 @@ $(window).load(function() {
 //                    }).html('<center><h1>Order has been sent successfully</h1>redirecting you to order...</center>').appendTo('body');
                     setTimeout(function() {
                         window.parent.location.href = "Controller?command=" + data.command + "&order_id=" + data.order_id;
-                    }, 1000)
+                    }, 1500)
                 }
             }
         });

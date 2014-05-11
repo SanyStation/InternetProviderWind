@@ -19,7 +19,7 @@
 
         <li class="list-group-item">
             <ul class="nav nav-pills nav-stacked">
-                <li class="${param.command eq 'tasks' ? ' active' : ''}">
+                <li class="${param.active eq 'tasks' ? ' bg-info' : ''}">
                     <a href="#"><i class="glyphicon glyphicon-briefcase"></i> Tasks</a></li>        
                 <li class="${param.command eq 'cse_get_tasks' ? ' active' : ''}">
                     <a href="Controller?command=cse_get_tasks"><i class="glyphicon glyphicon-briefcase"></i> New tasks</a></li>
@@ -33,7 +33,7 @@
 
         <li class="list-group-item">
             <ul class="nav nav-pills nav-stacked">
-                <li class="${param.command eq 'reports' ? ' active' : ''}"><a href="#">
+                <li class="${param.active eq 'reports' ? ' bg-info' : ''}"><a href="#">
                         <i class="glyphicon glyphicon-list-alt"></i> Reports</a></li>
                 <li class="${param.command eq 'cse_get_report_si_new' ? ' active' : ''}">
                     <a href="Controller?command=cse_get_report_si_new"><i class="glyphicon glyphicon-list-alt"></i> New orders</a>
