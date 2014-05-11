@@ -6,6 +6,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ICircuitDAO;
 import com.netcracker.wind.entities.Circuit;
 import com.netcracker.wind.entities.Role;
+import com.netcracker.wind.manager.ConfigurationManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,7 +29,7 @@ public class PEreviewCircuit implements ICommand {
             return "";
         }
         request.setAttribute("circuit", circuit);
-        return "/WEB-INF/pe/pe-page-review-circuit.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_PE_REVIEW_CIRCUIT);
     }
 
 }

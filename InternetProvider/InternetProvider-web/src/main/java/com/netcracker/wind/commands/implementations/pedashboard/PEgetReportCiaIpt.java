@@ -7,6 +7,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.reports.CiaIpt;
+import com.netcracker.wind.manager.ConfigurationManager;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ public class PEgetReportCiaIpt implements ICommand {
         hs.setAttribute("links", links);
         hs.setAttribute("title", "Impact Propagation Tree");
         hs.setAttribute("pageSize", AbstractOracleDAO.DEFAULT_PAGE_SIZE);
-        return "/WEB-INF/pe/pe-page-report-cia-ipt.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_PE_REPORT_CIA_IPT);
     }
 
 }

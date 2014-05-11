@@ -11,6 +11,7 @@ import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Circuit;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Task;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +40,7 @@ public class CreateCable implements ICommand {
         String name = request.getParameter(NAME);
         if (!task.getStatus().equals(Task.Status.ACTIVE) || "".equals(name)) {
             request.setAttribute(ERROR, ERROR_MESSAGE);
-            return "/WEB-INF/ie/ie-page-selected-task.jsp";
+            return manager.getProperty(ConfigurationManager.PAGE_IE_SELECTED_TASK);
         }
 
         Cable cable = new Cable();
@@ -51,7 +52,7 @@ public class CreateCable implements ICommand {
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
         Workflow.createTaskForPE(task.getServiceOrder(), Task.Type.CREATE_CIRCUIT, taskDAO);
-        return "/WEB-INF/ie/ie-page-selected-task.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_IE_SELECTED_TASK);
     }
 
 }

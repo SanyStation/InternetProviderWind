@@ -13,7 +13,6 @@ import com.netcracker.wind.entities.User;
 import java.sql.Timestamp;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -48,7 +47,7 @@ public class OrderDisconnectSI implements ICommand {
             return "";
         }
         ServiceOrder oldOrder = serviceInstance.getServiceOrder();
-        
+
         user = serviceInstance.getUser();
 
         ServiceOrder order = new ServiceOrder();
@@ -61,7 +60,6 @@ public class OrderDisconnectSI implements ICommand {
         order.setServiceLocation(oldOrder.getServiceLocation());
         serviceOrderDAO.add(order);
         request.setAttribute(ORDER, order);
-        //TODO return next page
         return page;
     }
 

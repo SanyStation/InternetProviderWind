@@ -6,6 +6,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceInstance;
+import com.netcracker.wind.manager.ConfigurationManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,7 +30,7 @@ public class PEreviewSI implements ICommand {
             return "";
         }
         request.setAttribute("instance", si);
-        return "/WEB-INF/pe/pe-page-review-instance.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_PE_REVIEW_INSTANCE);
     }
 
 }

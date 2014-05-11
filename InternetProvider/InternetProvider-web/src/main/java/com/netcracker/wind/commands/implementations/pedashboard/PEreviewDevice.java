@@ -7,6 +7,7 @@ import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IDeviceDAO;
 import com.netcracker.wind.entities.Device;
 import com.netcracker.wind.entities.Role;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.PortPaginatedList;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,6 @@ public class PEreviewDevice implements ICommand {
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
         int deviceId = Integer.parseInt(request.getParameter(ID));
-        System.out.println("ID = " + deviceId + " string id = " + request.getParameter(ID));
         IDeviceDAO deviceDAO
                 = FactoryCreator.getInstance().getFactory().createDeviceDAO();
         Device device = deviceDAO.findById(deviceId);
@@ -37,7 +37,7 @@ public class PEreviewDevice implements ICommand {
         HttpSession hs = request.getSession(false);
         hs.setAttribute("ports", pl);
         hs.setAttribute("device", device);
-        return "/WEB-INF/pe/pe-page-review-device.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_PE_REVIEW_DEVICE);
     }
 
 }

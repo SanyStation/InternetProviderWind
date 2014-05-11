@@ -10,6 +10,7 @@ import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.OrderUserPaginatedList;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,6 @@ public class ListOrders implements ICommand {
         IExtendedPaginatedList paginatedList = new OrderUserPaginatedList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId);
         session.setAttribute(ORDERS, paginatedList);
-        return "/WEB-INF/user/cu-page-orders-list.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_CU_PAGE_ORDERS_LIST);
     }
 }

@@ -46,6 +46,7 @@ public class CSEsentBill implements ICommand {
 
         Task task = taskDAO.findById(taskId);
         if (!task.getStatus().equals(Task.Status.ACTIVE)) {
+            request.setAttribute("task", task);
             return manager.getProperty(ConfigurationManager.PAGE_CSE_SELECTED_TASK);
         }
 

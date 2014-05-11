@@ -10,6 +10,7 @@ import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.SIUserPaginationList;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +35,7 @@ public class CUGetServiceInstanceForUser implements ICommand {
         IExtendedPaginatedList paginatedList = new SIUserPaginationList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId);
         session.setAttribute(SI, paginatedList);
-        return "/WEB-INF/user/cu-page-instances-list.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_CU_PAGE_INSTANCES_LIST);
 
     }
 

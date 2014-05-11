@@ -19,6 +19,7 @@ public class InstanceReview implements ICommand {
 
     private static final String ID = "id";
     private static final String USER = "user";
+    private static final String INSTANCE = "instance";
 
     private final String page;
 
@@ -35,7 +36,7 @@ public class InstanceReview implements ICommand {
                 && serviceInstance.getUserId() != user.getId())) {
             return "";
         }
-        request.setAttribute("instance", serviceInstance);
+        request.setAttribute(INSTANCE, serviceInstance);
         return page;
     }
 

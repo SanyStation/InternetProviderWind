@@ -32,13 +32,7 @@ public class GetTasksByPerformerStatus {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "";
-        }
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "";
-        }
         int performerId = user.getId();
         IExtendedPaginatedList paginatedList = new TasksByPerformerStatusPaginatedList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId).addStatus(status);

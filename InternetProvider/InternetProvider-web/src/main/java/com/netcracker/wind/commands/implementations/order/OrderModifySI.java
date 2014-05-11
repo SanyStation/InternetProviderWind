@@ -39,8 +39,6 @@ public class OrderModifySI implements ICommand {
         int serviceInstanceId = Integer.parseInt(request.getParameter(SERVICE_INSTANCE_ID));;
         int serviceId = Integer.parseInt(request.getParameter(SERVICE_ID));
 
-        HttpSession session = request.getSession(false);
-
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         IServiceInstanceDAO serviceInstanceDAO = factoryDAO.createServiceInstanceDAO();
         IServiceDAO serviceDAO = factoryDAO.createServiceDAO();
@@ -68,7 +66,6 @@ public class OrderModifySI implements ICommand {
         order.setService(service);
         serviceOrderDAO.add(order);
         request.setAttribute(ORDER, order);
-        //TODO return next page
         return page;
     }
 

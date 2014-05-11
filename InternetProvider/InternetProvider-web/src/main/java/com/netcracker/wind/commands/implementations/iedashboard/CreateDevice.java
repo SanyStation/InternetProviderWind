@@ -15,6 +15,7 @@ import com.netcracker.wind.entities.Port;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceLocation;
 import com.netcracker.wind.entities.Task;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.workflow.Workflow;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +50,7 @@ public class CreateDevice implements ICommand {
         //if task isn't 'ACTIVE' don't do task
         if (!task.getStatus().equals(Task.Status.ACTIVE) || "".equals(deviceName)) {
             request.setAttribute(ERROR, ERROR_MESSAGE);
-            return "/WEB-INF/ie/ie-page-selected-task.jsp";
+            return manager.getProperty(ConfigurationManager.PAGE_IE_SELECTED_TASK);
         }
         IServiceLocationDAO servLocDAO = factoryDAO.createServiceLocationDAO();
         ServiceLocation servLoc = new ServiceLocation();
@@ -73,18 +74,7 @@ public class CreateDevice implements ICommand {
         List<Circuit> circuits = circuitDAO.findByNullPort();
         for (Circuit nullPortCircuit : circuits) {
             Workflow.createTaskForNewScnario(nullPortCircuit.getServiceInstance().getServiceOrder());
-//            Port occupiedPort = portDAO.occupyFreePort();
-//            if (occupiedPort != null) {
-//                nullPortCircuit.setPortId(occupiedPort.getId());
-//                circuitDAO.update(nullPortCircuit);
-//            } else {
-//                Workflow.createTaskForIE(
-//                        nullPortCircuit.getServiceInstance().getServiceOrder(),
-//                        Task.Type.NEW_DEVICE,
-//                        taskDAO);
-//                break;
-//            }
         }
-        return "/WEB-INF/ie/ie-page-selected-task.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_IE_SELECTED_TASK);
     }
 }

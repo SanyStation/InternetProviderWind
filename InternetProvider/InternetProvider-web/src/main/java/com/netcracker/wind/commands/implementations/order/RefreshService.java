@@ -23,17 +23,29 @@ import org.json.JSONObject;
  * @author Anatolii
  */
 public class RefreshService implements ICommand {
+    
+    private static final String X = "x";
+    private static final String Y = "y";
+    private static final String STATUS = "status";
+    private static final String ERROR = "error";
+    private static final String OK = "ok";
+    private static final String ID = "id";
+    private static final String NAME = "name";
+    private static final String PRICE = "price";
+    private static final String SERVICES = "services";
+    private static final String ADDRESS = "address";
+    private static final String PROVIDER_LOCATION = "providerLocation";
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
         JSONObject jsono = new JSONObject();
-        String sX = request.getParameter("x");
-        String sY = request.getParameter("y");
+        String sX = request.getParameter(X);
+        String sY = request.getParameter(Y);
         double actualX;
         double actualY;
         if ("".equals(sX) || "".equals(sY)) {
             try {
-                jsono.put("status", "error");
+                jsono.put(STATUS, ERROR);
             } catch (JSONException ex) {
                 Logger.getLogger(RefreshService.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -57,7 +69,7 @@ public class RefreshService implements ICommand {
 
             if (nearestProviderLocation == null) {
                 try {
-                    jsono.put("status", "error");
+                    jsono.put(STATUS, ERROR);
                 } catch (JSONException ex) {
                     Logger.getLogger(RefreshService.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -71,23 +83,23 @@ public class RefreshService implements ICommand {
                     AbstractOracleDAO.ALL_RECORDS);
 
             try {
-                jsono.put("status", "ok");
+                jsono.put(STATUS, OK);
                 JSONObject providerLocationJSON = new JSONObject();
                 JSONArray servicesJSONArray = new JSONArray();
                 for (Price price : prices) {
                     Service service = price.getService();
                     JSONObject serviceJSONObject = new JSONObject();
-                    serviceJSONObject.put("id", service.getId());
-                    serviceJSONObject.put("name", service.getName());
-                    serviceJSONObject.put("price", price.getPrice());
+                    serviceJSONObject.put(ID, service.getId());
+                    serviceJSONObject.put(NAME, service.getName());
+                    serviceJSONObject.put(PRICE, price.getPrice());
                     servicesJSONArray.put(serviceJSONObject);
                 }
-                providerLocationJSON.put("services", servicesJSONArray);
-                providerLocationJSON.put("address", nearestProviderLocation.getAddress());
+                providerLocationJSON.put(SERVICES, servicesJSONArray);
+                providerLocationJSON.put(ADDRESS, nearestProviderLocation.getAddress());
 //                providerLocation.put("name", nearestProviderLocation.getName());
-                providerLocationJSON.put("y", nearestProviderLocation.getPosY());
-                providerLocationJSON.put("x", nearestProviderLocation.getPosX());
-                jsono.put("providerLocation", providerLocationJSON);
+                providerLocationJSON.put(Y, nearestProviderLocation.getPosY());
+                providerLocationJSON.put(X, nearestProviderLocation.getPosX());
+                jsono.put(PROVIDER_LOCATION, providerLocationJSON);
             } catch (JSONException ex) {
                 Logger.getLogger(RefreshService.class.getName()).log(Level.SEVERE, null, ex);
             }

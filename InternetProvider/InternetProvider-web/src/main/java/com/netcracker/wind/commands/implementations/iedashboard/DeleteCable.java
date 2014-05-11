@@ -11,6 +11,7 @@ import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Port;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Task;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,20 +36,19 @@ public class DeleteCable implements ICommand {
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
 
         Task task = taskDAO.findById(taskID);
+        request.setAttribute(TASK, task);
         if (!task.getStatus().equals(Task.Status.ACTIVE)) {
-            return "/WEB-INF/ie/ie-page-selected-task.jsp";
+            return manager.getProperty(ConfigurationManager.PAGE_IE_SELECTED_TASK);
         }
         Cable cable = task.getServiceOrder().getServiceLocation().getCable();
-
         Port port = cable.getPort();
         port.setFree(true);
         portDAO.update(port);
         cableDAO.delete(cable.getId());
         task.setStatus(Task.Status.COMPLETED);
         taskDAO.update(task);
-        request.getSession(false).setAttribute(TASK, task);
         Workflow.createTaskForCSE(task.getServiceOrder(), taskDAO);
-        return "/WEB-INF/ie/ie-page-selected-task.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_IE_SELECTED_TASK);
     }
 
 }

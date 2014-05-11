@@ -14,6 +14,7 @@ import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.Task;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.workflow.Workflow;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +44,7 @@ public class ModifyServiceInstance implements ICommand {
 
         Task task = taskDAO.findById(taskId);
         if (!task.getStatus().equals(Task.Status.ACTIVE)) {
-            return "/WEB-INF/ie/ie-page-selected-task.jsp";
+            return manager.getProperty(ConfigurationManager.PAGE_PE_SELECTED_TASK);
         }
 
         ServiceInstance serviceInstance = task.getServiceOrder().getServiceInstance();
@@ -56,7 +57,7 @@ public class ModifyServiceInstance implements ICommand {
         request.setAttribute(TASK, task);
         Workflow.createTaskForCSE(task.getServiceOrder(), taskDAO);
 
-        return "/WEB-INF/pe/pe-page-selected-task.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_PE_SELECTED_TASK);
     }
 
 }

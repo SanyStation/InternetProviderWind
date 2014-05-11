@@ -37,6 +37,20 @@ public class ConfigurationManager {
     public static final String PAGE_CSE_REPORT_SI_PROFIT = "PAGE_CSE_REPORT_SI_PROFIT";
     public static final String PAGE_CSE_SELECTED_TASK = "PAGE_CSE_SELECTED_TASK";
 
+    public static final String PAGE_CU_PAGE_INSTANCES_LIST = "PAGE_CU_PAGE_INSTANCES_LIST";
+    public static final String PAGE_CU_PAGE_ORDERS_LIST = "PAGE_CU_PAGE_ORDERS_LIST";
+    
+    public static final String PAGE_IE_SELECTED_TASK = "PAGE_IE_SELECTED_TASK";
+    public static final String PAGE_IE_REPORT_RI_PROFIT = "PAGE_IE_REPORT_RI_PROFIT";
+    public static final String PAGE_IE_REPORT_RI_UTIL = "PAGE_IE_REPORT_RI_UTIL";
+    
+    public static final String PAGE_PE_SELECTED_TASK = "PAGE_PE_SELECTED_TASK";
+    public static final String PAGE_PE_REPORT_CIA_IPT = "PAGE_PE_REPORT_CIA_IPT";
+    public static final String PAGE_PE_REVIEW_CIRCUIT = "PAGE_PE_REVIEW_CIRCUIT";
+    public static final String PAGE_PE_REVIEW_DEVICE = "PAGE_PE_REVIEW_DEVICE";
+    public static final String PAGE_PE_REVIEW_PORT = "PAGE_PE_REVIEW_PORT";
+    public static final String PAGE_PE_REVIEW_INSTANCE = "PAGE_PE_REVIEW_INSTANCE";
+    
     private static final ConfigurationManager configurationManager
             = new ConfigurationManager();
     private final ResourceBundle bundle;

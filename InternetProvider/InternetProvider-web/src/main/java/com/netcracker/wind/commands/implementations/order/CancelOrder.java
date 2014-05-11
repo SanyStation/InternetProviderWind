@@ -44,7 +44,6 @@ public class CancelOrder implements ICommand {
         order.setStatus(ServiceOrder.Status.CANCELLED);
         serviceOrderDAO.update(order);
         request.setAttribute(ORDER, order);
-        //TODO redirect to next page
         return page;
     }
 

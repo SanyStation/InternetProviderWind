@@ -7,6 +7,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.reports.RiRouterUtilNCap;
+import com.netcracker.wind.manager.ConfigurationManager;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +30,7 @@ public class IEgetReportRiUtil implements ICommand {
         hs.setAttribute("devices", devices);
         hs.setAttribute("title", "Routers' utilization and capacity");
         hs.setAttribute("pageSize", AbstractOracleDAO.DEFAULT_PAGE_SIZE);
-        return "/WEB-INF/ie/ie-page-report-ri-util.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_IE_REPORT_RI_UTIL);
     }
     
 }

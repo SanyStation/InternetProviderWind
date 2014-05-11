@@ -92,7 +92,6 @@ public class ConfirmOrder implements ICommand {
         }
         serviceOrderDAO.update(order);
         request.setAttribute(ORDER, order);
-        //TODO redirect to next page
         return page;
     }
 
