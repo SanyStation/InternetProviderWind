@@ -42,7 +42,7 @@ public class Registration implements ICommand {
         userDAO.add(user);
         List<User> users = new ArrayList<User>();
         users.add(user);
-        //new MailSendler().sendEmail(users, REGISTRATION_MESSAGE, new FormatedMail().getUserRegistrationMassage(user));
+        new MailSendler().sendEmail(users, REGISTRATION_MESSAGE, new FormatedMail().getUserRegistrationMassage(user));
         return "/index.jsp";
     }
 

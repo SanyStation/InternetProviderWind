@@ -134,8 +134,10 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
 
     @Override
     protected List<Port> findWhere(String where, Object[] param,
-            int pageNumber, int pageSize) {
-        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
+            int pageNumber, int pageSize, String orderParam,
+            Direction direction) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize,
+                orderParam, direction);
     }
 
     @Override
@@ -187,8 +189,16 @@ public class OraclePortDAO extends AbstractOracleDAO implements IPortDAO {
 
     @Override
     public List<Port> findByDevice(int deviceId, int pageNumber, int pageSize) {
+        return findByDevice(deviceId, pageNumber, pageSize, "",
+                Direction.ASC);
+    }
+    
+    @Override
+    public List<Port> findByDevice(int deviceId, int pageNumber, int pageSize, 
+            String orderParam, Direction direction) {
         return findWhere("WHERE DEVICE_ID = ?",
-                new Object[]{deviceId}, pageNumber, pageSize);
+                new Object[]{deviceId}, pageNumber, pageSize, orderParam,
+                direction);
     }
 
     @Override

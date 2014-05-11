@@ -25,7 +25,6 @@
                 AbstractOracleDAO.DEFAULT_PAGE_NUMBER, AbstractOracleDAO.MIN_PAGE_SIZE);
         completedTasks = taskDAO.countRows();
     }
-    System.out.println("### new " + newTasks + " active " + activeTasks + " completed " + completedTasks);
     request.setAttribute("newTasks", newTasks);
     request.setAttribute("activeTasks", activeTasks);
     request.setAttribute("completedTasks", completedTasks);

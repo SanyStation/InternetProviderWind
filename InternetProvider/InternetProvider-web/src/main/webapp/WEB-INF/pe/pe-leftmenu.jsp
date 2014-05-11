@@ -6,7 +6,7 @@
     Author     : oneplayer
 --%>
 
-<jsp:include page="../generic/gen-tasks-scriplet.jsp" flush="true" />
+<jsp:include page="../generic/gen-tasks-scriplet.jsp" flush="false" />
 
 <div class="col-md-3 leftmenu">
 

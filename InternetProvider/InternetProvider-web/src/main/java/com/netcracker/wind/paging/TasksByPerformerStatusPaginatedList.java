@@ -29,7 +29,8 @@ public class TasksByPerformerStatusPaginatedList extends AbstractPaginatedList {
         List result = new ArrayList();
         for (Task.Status status : statuses) {
             result.addAll(taskDAO.findByPerformerStatus(performerId,
-                    status.toString(), pageNumber, pageSize));
+                    status.toString(), pageNumber, pageSize, sortCriterion,
+                    direction));
         }
         return result;
     }

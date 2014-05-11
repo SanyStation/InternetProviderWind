@@ -76,8 +76,8 @@
                         name="css.table" 
                         value="table table-striped table-hover nomargin"/>
 
-                    <display:column property="name" title="Router name" />
-                    <display:column property="profit" title="Profit by router, $" />
+                    <display:column property="name" title="Router name" sortable="true" />
+                    <display:column property="profit" title="Profit by router, $" sortable="true" />
                 </display:table>
             </form>
         </div>

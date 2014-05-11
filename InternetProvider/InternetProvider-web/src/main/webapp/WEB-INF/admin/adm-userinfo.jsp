@@ -4,7 +4,7 @@
 --%>
 
 <div>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <tr>
             <td colspan="2">
                 <form action="Controller" method="POST">

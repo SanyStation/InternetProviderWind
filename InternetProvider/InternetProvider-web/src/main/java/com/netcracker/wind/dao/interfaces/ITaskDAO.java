@@ -1,5 +1,6 @@
 package com.netcracker.wind.dao.interfaces;
 
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO.Direction;
 import com.netcracker.wind.entities.Task;
 import java.util.List;
 
@@ -19,13 +20,22 @@ public interface ITaskDAO extends IRowsCounter {
 
     public List<Task> findByGroup(int groupId, int pageNumber, int pageSize);
 
-    public List<Task> findByGroupStatus(int groupId, String status, int pageNumber, int pageSize);
+    public List<Task> findByGroupStatus(int groupId, String status,
+            int pageNumber, int pageSize);
+    
+    public List<Task> findByGroupStatus(int groupId, String status,
+            int pageNumber, int pageSize, String orderParam,
+            Direction direction);
 
     public List<Task> findByPerformer(int idPerformer, int pageNumber,
             int pageSize);
 
     public List<Task> findByPerformerStatus(int idPerformer, String status,
             int pageNumber, int pageSize);
+    
+    public List<Task> findByPerformerStatus(int idPerformer, String status,
+            int pageNumber, int pageSize, String orderPara,
+            Direction direction);
 
     public List<Task> findByTypeAndStatus(int pageNumber, int pageSize,
             Task.Type type, Task.Status... status);

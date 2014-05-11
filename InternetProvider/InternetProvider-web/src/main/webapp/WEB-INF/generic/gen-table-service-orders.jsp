@@ -70,7 +70,7 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID" href="Controller?command=${comm}" paramId="order_id" paramProperty="id"/>
+        <display:column property="id" title="ID" href="Controller?command=${comm}" paramId="order_id" paramProperty="id" />
         <display:column property="dateEnter" title="Enter date" />
         <display:column property="dateComplete" title="Completed date" />
         <display:column property="service.name" title="Service" />

@@ -50,26 +50,15 @@ public abstract class AbstractOracleDAO {
         PreparedStatement stat = null;
         try {
             con = connectionPool.getConnection();
-//            LOGGER.info("### Query: " + query);
+            LOGGER.info("### Query: " + query);
             stat = con.prepareStatement(query);
             if (param != null) {
                 for (int i = 0; i < param.length; ++i) {
-//                    LOGGER.info("### param[" + i + "]= " + param[i]);
-                    if (param[i] instanceof String) {
-                        stat.setString(i + 1, (String) param[i]);
-                    } else {
-                        stat.setObject(i + 1, param[i]);
-                    }
+                    stat.setObject(i + 1, param[i]);
                 }
             }
             rs = stat.executeQuery();
             objects = parseResult(rs);
-//            for (Object obj : objects) {
-//                if (obj instanceof Port) {
-//                    Port port = (Port) obj;
-//                    LOGGER.info("PORT: " + port.getId() + " " + port.getName());
-//                }
-//            }
         } catch (SQLException ex) {
             LOGGER.error(null, ex);
         } finally {
@@ -93,7 +82,8 @@ public abstract class AbstractOracleDAO {
     }
 
     /**
-     * Paginated and sorted SELECT.
+     * Paginated and sorted SELECT. This method makes wrapper to the SQL query
+     * that pass as parameter for counting total rows.
      *
      * @param query SQL statement
      * @param param the list of parameters
@@ -122,12 +112,16 @@ public abstract class AbstractOracleDAO {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM (SELECT ROWNUM ROW_NUM, SUBQ.* FROM (");
         sb.append(query);
-        sb.append(" ORDER BY ? ");
+        sb.append(" ORDER BY ");
+        
+        //if the parameter for 'ORDER BY' statement is not specified then sort by id
+        orderParam = orderParam.isEmpty() ? "id" : orderParam;
+        sb.append(orderParam); //dangerous snippet of code, possible SQl-injections
+        
+        sb.append(" ");
         sb.append(direction);
-
-        //if parameter for 'ORDER BY' statement is not specified then sort by id
-//        orderParam = orderParam.isEmpty() ? "id" : orderParam;
-        p.add(orderParam);
+        
+//        p.add(orderParam);
         if (pageSize > 0) {
             sb.append(") SUBQ WHERE ROWNUM <= ?) WHERE ROW_NUM > ?");
             int rowTo = pageNumber * pageSize;
@@ -141,7 +135,7 @@ public abstract class AbstractOracleDAO {
 
     protected List findWhere(String query, Object[] param, int pageNumber,
             int pageSize) {
-        return this.findWhere(query, param, pageNumber, pageSize, "id",
+        return this.findWhere(query, param, pageNumber, pageSize, "",
                 Direction.ASC);
     }
 

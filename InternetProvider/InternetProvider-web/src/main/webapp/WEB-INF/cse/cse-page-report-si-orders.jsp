@@ -23,7 +23,7 @@
             <h3>${title}</h3>
 
             <form role="form">
-                <display:table name="sessionScope.orders" export="true" requestURI="Controller"
+                <display:table name="sessionScope.orders" sort="list" export="true" requestURI="Controller"
                                class="simple table table-striped" pagesize="${pageSize}" >
 
                     <display:caption media="sio csio">${title}</display:caption>
@@ -78,11 +78,11 @@
                         name="css.table" 
                         value="table table-striped table-hover nomargin"/>
 
-                    <display:column property="name" title="Service order" />
-                    <display:column property="providerLocationName" title="Provider location" />
-                    <display:column property="serviceLocationName" title="Service location" />
-                    <display:column property="serviceName" title="Service name" />
-                    <display:column property="completeDate" title="Complete date" />
+                    <display:column property="name" title="Service order" sortable="true" />
+                    <display:column property="providerLocationName" title="Provider location" sortable="true" />
+                    <display:column property="serviceLocationName" title="Service location" sortable="true" />
+                    <display:column property="serviceName" title="Service name" sortable="true" />
+                    <display:column property="completeDate" title="Complete date" sortable="true" />
                 </display:table>
             </form>
         </div>

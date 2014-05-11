@@ -113,8 +113,10 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
 
     @Override
     protected List<Task> findWhere(String where, Object[] param,
-            int pageNumber, int pageSize) {
-        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
+            int pageNumber, int pageSize, String orderParam,
+            Direction direction) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize,
+                orderParam, direction);
     }
 
     @Override
@@ -168,8 +170,17 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
     @Override
     public List<Task> findByPerformerStatus(int idPerformer, String status,
             int pageNumber, int pageSize) {
-        List<Task> tasks = findWhere("WHERE USER_ID = ? AND STATUS = ?",
-                new Object[]{idPerformer, status}, pageNumber, pageSize);
+        return this.findByPerformerStatus(idPerformer, status, pageNumber,
+                pageSize, "", Direction.ASC);
+    }
+    
+    @Override
+    public List<Task> findByPerformerStatus(int idPerformer, String status,
+            int pageNumber, int pageSize, String orderParam,
+            Direction direction) {
+        List<Task> tasks = this.findWhere("WHERE USER_ID = ? AND STATUS = ?",
+                new Object[]{idPerformer, status}, pageNumber, pageSize,
+                orderParam, direction);
         return tasks;
     }
 
@@ -267,9 +278,20 @@ public class OracleTaskDAO extends AbstractOracleDAO implements ITaskDAO {
         return tasks;
     }
 
-    public List<Task> findByGroupStatus(int groupId, String status, int pageNumber, int pageSize) {
-        List<Task> tasks = findWhere("WHERE ROLE_ID = ? AND STATUS= ?",
-                new Object[]{groupId, status}, pageNumber, pageSize);
+    @Override
+    public List<Task> findByGroupStatus(int groupId, String status,
+            int pageNumber, int pageSize) {
+        return findByGroupStatus(groupId, status, pageNumber, pageSize,
+                "", Direction.ASC);
+    }
+    
+    @Override
+    public List<Task> findByGroupStatus(int groupId, String status,
+            int pageNumber, int pageSize, String orderParam,
+            Direction direction) {
+        List<Task> tasks = this.findWhere("WHERE ROLE_ID = ? AND STATUS = ?",
+                new Object[]{groupId, status}, pageNumber, pageSize,
+                orderParam, direction);
         return tasks;
     }
 

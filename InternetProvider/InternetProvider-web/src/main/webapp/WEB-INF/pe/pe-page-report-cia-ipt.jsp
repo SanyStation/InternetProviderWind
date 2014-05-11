@@ -20,9 +20,9 @@
 
         <div class="col-md-9 divitem">
             <h3>${title}</h3>
-            
+
             <form role="form">
-                <display:table name="sessionScope.links" export="true" requestURI="Controller"
+                <display:table name="sessionScope.links" sort="list" export="true" requestURI="Controller"
                                class="simple" pagesize="${pageSize}" >
 
                     <display:setProperty name="export.ciaipt" value="true"/>
@@ -76,16 +76,47 @@
                         name="css.table" 
                         value="table table-striped table-hover nomargin"/>
 
-                    <display:column property="deviceId" title="Device ID" group="1" href="Controller?command=pe_review_device" paramId="id" paramProperty="deviceId" />
-                    <display:column property="deviceName" title="Device" group="1" href="Controller?command=pe_review_device" paramId="id" paramProperty="deviceId" />
-                    <display:column property="portName" title="Port" href="Controller?command=pe_review_port" paramId="id" paramProperty="portId" />
-                    <display:column property="portStatus" title="Port status" />
-                    <display:column property="circuitName" title="Circuit" href="Controller?command=pe_review_circuit" paramId="id" paramProperty="circuitId" />
-                    <display:column property="serviceInstanceName" title="Service instance" href="Controller?command=pe_review_service_instance" paramId="id" paramProperty="serviceInstanceId" />
+                    <display:column property="deviceId"
+                                    title="Device ID"
+                                    group="1"
+                                    href="Controller?command=pe_review_device"
+                                    paramId="id"
+                                    paramProperty="deviceId"
+                                    sortable="true"
+                                    />
+                    <display:column property="deviceName"
+                                    title="Device" group="1"
+                                    href="Controller?command=pe_review_device"
+                                    paramId="id"
+                                    paramProperty="deviceId"
+                                    sortable="true"
+                                    />
+                    <display:column property="portName" title="Port"
+                                    href="Controller?command=pe_review_port"
+                                    paramId="id"
+                                    paramProperty="portId"
+                                    sortable="true"
+                                    />
+                    <display:column property="portStatus"
+                                    title="Port status"
+                                    sortable="true"
+                                    />
+                    <display:column property="circuitName"
+                                    title="Circuit"
+                                    href="Controller?command=pe_review_circuit"
+                                    paramId="id"
+                                    paramProperty="circuitId"
+                                    sortable="true"
+                                    />
+                    <display:column property="serviceInstanceName"
+                                    title="Service instance"
+                                    href="Controller?command=pe_review_service_instance"
+                                    paramId="id"
+                                    paramProperty="serviceInstanceId"
+                                    sortable="true"
+                                    />
                 </display:table>
             </form>
-        </div>
-        <div class="col-md-offset-3">
         </div>
     </div>
 </div>

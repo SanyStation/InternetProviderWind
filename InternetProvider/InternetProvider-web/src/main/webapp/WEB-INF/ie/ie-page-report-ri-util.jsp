@@ -77,9 +77,9 @@
                         value="table table-striped table-hover nomargin"/>
                     
                     <display:column property="name" title="Name" />
-                    <display:column property="capacity" title="Capacity, ports" />
-                    <display:column property="utilization" title="Utilization, ports" />
-                    <display:column property="utilizationPercent" title="Utilization, %" format="{0, number, 0.00}"/>
+                    <display:column property="capacity" title="Capacity, ports" sortable="true" />
+                    <display:column property="utilization" title="Utilization, ports" sortable="true" />
+                    <display:column property="utilizationPercent" title="Utilization, %" format="{0, number, 0.00}" sortable="true" />
                 </display:table>
             </form>
         </div>

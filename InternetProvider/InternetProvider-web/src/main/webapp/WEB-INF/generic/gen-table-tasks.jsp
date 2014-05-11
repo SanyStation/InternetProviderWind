@@ -63,9 +63,9 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID"/>
-        <display:column property="type" title="Type"/>
-        <display:column property="status" title="Status"/>
+        <display:column property="id" title="ID" sortable="true" sortProperty="id" />
+        <display:column property="type" title="Type" sortable="true" sortProperty="type" />
+        <display:column property="status" title="Status" />
         <display:column title="Action">
             <c:if test="${row.status=='NEW'}">
                 <a href="Controller?command=process_task&task_id=${row.id}" class="btn btn-primary">Select task</a>

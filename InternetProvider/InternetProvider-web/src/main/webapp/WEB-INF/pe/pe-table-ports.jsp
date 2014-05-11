@@ -2,6 +2,8 @@
     Author     : Alexander Kovriga
 --%>
 
+<%@page import="org.displaytag.util.ParamEncoder"%>
+<%@page import="org.displaytag.tags.TableTagParameters"%>
 <%@ page import="com.netcracker.wind.paging.IExtendedPaginatedList"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%
@@ -10,7 +12,7 @@
 %>
 <h4>Ports</h4>
 <form role="form">
-    <display:table name="sessionScope.ports" sort="external"  requestURI="Controller"
+    <display:table id="element" name="sessionScope.ports" sort="external"  requestURI="Controller" defaultsort="1"
                    partialList="true" class="simple"
                    pagesize="${sessionScope.ports.objectsPerPage}" 
                    size="${sessionScope.ports.fullListSize}">
@@ -61,9 +63,9 @@
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
         
-        <display:column property="id" title="ID" href="Controller?command=pe_review_port" paramId="id" paramProperty="id" />
-        <display:column property="name" title="Name" href="Controller?command=pe_review_port" paramId="id" paramProperty="id" />
-        <display:column property="status" title="Status" />
+        <display:column property="id" title="ID" href="Controller?command=pe_review_port" paramId="id" paramProperty="id" sortable="true" sortProperty="id" />
+        <display:column property="name" title="Name" href="Controller?command=pe_review_port" paramId="id" paramProperty="id" sortable="true" sortProperty="name" />
+        <display:column property="status" title="Status" sortable="true" sortProperty="free" />
 
     </display:table>
 </form>

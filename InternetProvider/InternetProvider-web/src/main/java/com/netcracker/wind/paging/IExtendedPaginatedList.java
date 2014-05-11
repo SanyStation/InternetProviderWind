@@ -10,6 +10,8 @@ import org.displaytag.pagination.PaginatedList;
 public interface IExtendedPaginatedList extends PaginatedList {
 
     public static final String ATTRIBUTE_PAGE = "page";
+    public static final String ATTRIBUTE_SORT_DIRECTION = "dir";
+    public static final String ATTRIBUTE_SORT_CRITERION = "sort";
 
     public void setRequest(HttpServletRequest request);
 

@@ -23,7 +23,7 @@
             <h3>${title}</h3>
 
             <form role="form">
-                <display:table name="sessionScope.profits" export="true" requestURI="Controller"
+                <display:table name="sessionScope.profits" sort="list" export="true" requestURI="Controller"
                                class="simple" pagesize="${pageSize}" >
 
                     <display:caption media="sip csip">${title}</display:caption>
@@ -78,9 +78,9 @@
                         name="css.table" 
                         value="table table-striped table-hover nomargin"/>
 
-                    <display:column property="providerLocationName" title="Provider location name" />
-                    <display:column property="serviceName" title="Service name" />
-                    <display:column property="sum" title="Profit, $" />
+                    <display:column property="providerLocationName" title="Provider location name" sortable="true" />
+                    <display:column property="serviceName" title="Service name" sortable="true" />
+                    <display:column property="sum" title="Profit, $" sortable="true" />
                 </display:table>
             </form>
         </div>

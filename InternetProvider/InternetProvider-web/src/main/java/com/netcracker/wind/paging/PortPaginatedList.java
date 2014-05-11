@@ -23,7 +23,8 @@ public class PortPaginatedList extends AbstractPaginatedList {
 
     @Override
     public List getList() {
-        return portDAO.findByDevice(deviceId, pageNumber, pageSize);
+        return portDAO.findByDevice(deviceId, pageNumber, pageSize,
+                sortCriterion, direction);
     }
 
     @Override
