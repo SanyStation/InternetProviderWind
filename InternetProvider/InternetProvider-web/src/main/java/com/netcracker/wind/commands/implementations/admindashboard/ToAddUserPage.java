@@ -20,9 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ToAddUserPage implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        ConfigurationManager manager = ConfigurationManager.getInstance();
-        String toPage = manager.getProperty(ConfigurationManager.PAGE_ADM_ADD_USER);
-        return toPage;
+        return manager.getProperty(ConfigurationManager.PAGE_ADM_ADD_USER);
     }
 
 }

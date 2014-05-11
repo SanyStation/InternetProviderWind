@@ -9,6 +9,7 @@ import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.SIUserPaginationList;
 import javax.servlet.http.HttpServletRequest;
@@ -28,15 +29,11 @@ public class CSEGetServiceInstanceForUser implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "";
-        }
-        
         int customerId = Integer.parseInt(request.getParameter(CUSTOMER_ID));
         IExtendedPaginatedList paginatedList = new SIUserPaginationList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(customerId);
         session.setAttribute(SI, paginatedList);
-        return "/WEB-INF/cse/cse-page-service-instances.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_CSE_SERVICE_INSTANCES);
 
     }
 

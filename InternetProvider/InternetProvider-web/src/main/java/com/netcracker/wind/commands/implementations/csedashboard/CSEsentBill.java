@@ -19,6 +19,7 @@ import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
 import com.netcracker.wind.mail.FormatedMail;
 import com.netcracker.wind.mail.MailSendler;
+import com.netcracker.wind.manager.ConfigurationManager;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,13 +36,7 @@ public class CSEsentBill implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "";
-        }
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "";
-        }
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();
         ITaskDAO taskDAO = factoryDAO.createTaskDAO();
         IServiceOrderDAO orderDAO = factoryDAO.createServiceOrderDAO();
@@ -51,7 +46,7 @@ public class CSEsentBill implements ICommand {
 
         Task task = taskDAO.findById(taskId);
         if (!task.getStatus().equals(Task.Status.ACTIVE)) {
-            return "/WEB-INF/ie/ie-page-selected-task.jsp";
+            return manager.getProperty(ConfigurationManager.PAGE_CSE_SELECTED_TASK);
         }
 
         task.setStatus(Task.Status.COMPLETED);
@@ -73,7 +68,7 @@ public class CSEsentBill implements ICommand {
         users.add(order.getUser());
         
         new MailSendler().sendEmail(users, "Boreas Bill", new FormatedMail().getSentBillMassage(null, null, order.getUser()));
-        return "/WEB-INF/cse/cse-page-selected-task.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_CSE_SELECTED_TASK);
     }
 
 }

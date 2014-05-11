@@ -8,6 +8,7 @@ import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.workflow.generator.PasswordGenerator;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -57,11 +58,11 @@ public class CSEaddCustomer implements ICommand {
         int id = userDAO.add(user);
         if (id == AbstractOracleDAO.WRONG_ID) {
             request.setAttribute("messageemail", "Unknown error");
-            return "/WEB-INF/cse/cse-page-add-customer.jsp";
+            return manager.getProperty(ConfigurationManager.PAGE_CSE_ADD_CUSTOMER);
         }
         user.setId(id);
         request.setAttribute("customer", user);
-        return "/WEB-INF/cse/cse-page-customer-review.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_CSE_CUSTOMER_REVIEW);
     }
 
 }

@@ -22,7 +22,20 @@ public class ConfigurationManager {
     public static final String REPORT_CIA_IPT = "REPORT_CIA_IPT";
     public static final String PAGE_PE_DASHBOARD = "PAGE_PE_DASHBOARD";
     public static final String PAGE_ERROR = "PAGE_ERROR";
+    
     public static final String PAGE_ADM_ADD_USER = "PAGE_ADM_ADD_USER";
+    public static final String PAGE_ADM_REVIEW_USER = "PAGE_ADM_REVIEW_USER";
+    public static final String PAGE_ADM_USERS_LIST = "PAGE_ADM_USERS_LIST";
+    
+    public static final String PAGE_CSE_TASKS_LIST = "PAGE_CSE_TASKS_LIST";
+    public static final String PAGE_CSE_SERVICE_ORDERS = "PAGE_CSE_SERVICE_ORDERS";
+    public static final String PAGE_CSE_SERVICE_INSTANCES = "PAGE_CSE_SERVICE_INSTANCES";
+    public static final String PAGE_CSE_ADD_CUSTOMER = "PAGE_CSE_ADD_CUSTOMER";
+    public static final String PAGE_CSE_CUSTOMER_REVIEW = "PAGE_CSE_CUSTOMER_REVIEW";
+    public static final String PAGE_CSE_USERS_LIST = "PAGE_CSE_USERS_LIST";
+    public static final String PAGE_CSE_REPORT_SI_ORDERS = "PAGE_CSE_REPORT_SI_ORDERS";
+    public static final String PAGE_CSE_REPORT_SI_PROFIT = "PAGE_CSE_REPORT_SI_PROFIT";
+    public static final String PAGE_CSE_SELECTED_TASK = "PAGE_CSE_SELECTED_TASK";
 
     private static final ConfigurationManager configurationManager
             = new ConfigurationManager();

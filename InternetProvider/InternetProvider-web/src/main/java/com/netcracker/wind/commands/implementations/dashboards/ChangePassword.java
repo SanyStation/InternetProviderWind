@@ -5,6 +5,7 @@
  */
 package com.netcracker.wind.commands.implementations.dashboards;
 
+import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.commands.implementations.registration.Validator;
 import com.netcracker.wind.dao.factory.FactoryCreator;
@@ -23,6 +24,12 @@ import org.json.JSONObject;
  *
  * @author Anatolii
  */
+@RolesAllowed(roles
+        = {Role.Roles.Administrator,
+            Role.Roles.CustomerSupportEngineer,
+            Role.Roles.CustomerUser,
+            Role.Roles.InstallationEngineer,
+            Role.Roles.ProvisioningEngineer})
 public class ChangePassword implements ICommand {
 
     private static final String PASSWORD = "password";
@@ -31,19 +38,22 @@ public class ChangePassword implements ICommand {
     private static final String USER_ID = "user_id";
     private static final String ANSWER = "answer";
     private static final String MESSAGE = "message";
+    
+    private static final String VALIDATION_PASSWORD = "pass";
+    private static final String VALIDATION_CONF_PASSWORD = "confpass";
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String pass = request.getParameter(PASSWORD);
         String confPass = request.getParameter(CONF_PASSWORD);
         HashMap<String, String> newUserData = new HashMap();
-        newUserData.put("pass", pass);
-        newUserData.put("confpass",confPass);
+        newUserData.put(VALIDATION_PASSWORD, pass);
+        newUserData.put(VALIDATION_CONF_PASSWORD, confPass);
         //Validation
         Validator validator = new Validator(newUserData);
         String validMessage = validator.validatePasswords();
         JSONObject answer = new JSONObject();
         //if ("".equals(pass) || !pass.equals(confPass)) {
-        if (validator.getIsvalid()==0) {
+        if (validator.getIsvalid() == 0) {
             try {
                 answer.put(ANSWER, false);
                 answer.put(MESSAGE, validMessage);
@@ -53,14 +63,13 @@ public class ChangePassword implements ICommand {
             return answer.toString();
         }
 
-        
         User user = (User) request.getSession(false).getAttribute(USER);
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
-        int userId = Integer.parseInt(((String)request.getParameter(USER_ID)));
-        if(user.getRoleId() != Role.CSE_GROUP_ID && userId != user.getId()){
+        int userId = Integer.parseInt(((String) request.getParameter(USER_ID)));
+        if (user.getRoleId() != Role.CSE_GROUP_ID && userId != user.getId()) {
             //TODO return to error page
             return "";
-        } 
+        }
         user = userDAO.findById(userId);
         user.setPassword(pass);
         int result = userDAO.updatePass(user);

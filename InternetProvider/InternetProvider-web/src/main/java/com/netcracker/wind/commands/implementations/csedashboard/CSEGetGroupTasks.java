@@ -9,6 +9,7 @@ import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.TaskPaginationList;
 import javax.servlet.http.HttpServletRequest;
@@ -29,11 +30,8 @@ public class CSEGetGroupTasks implements ICommand {
         IExtendedPaginatedList paginatedList = new TaskPaginationList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setGroup(Role.CSE_GROUP_ID);
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "";
-        }
         session.setAttribute(TASKS, paginatedList);
-        return "/WEB-INF/cse/cse-page-tasks-list.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_CSE_TASKS_LIST);
 
     }
 

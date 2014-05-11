@@ -10,6 +10,7 @@ import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import com.netcracker.wind.paging.OrderUserPaginatedList;
 import javax.servlet.http.HttpServletRequest;
@@ -28,17 +29,11 @@ public class CSEGetOrderUser implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "";
-        }
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "";
-        }
         int performerId = user.getId();
         IExtendedPaginatedList paginatedList = new OrderUserPaginatedList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId);
         session.setAttribute(ORDERS, paginatedList);
-        return "/WEB-INF/cse/cse-page-service-orders.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_CSE_SERVICE_ORDERS);
     }
 }

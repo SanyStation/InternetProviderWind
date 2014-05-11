@@ -7,6 +7,7 @@ import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.workflow.generator.PasswordGenerator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +31,8 @@ public class ADMaddUser implements ICommand {
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
         User user = userDAO.findByEmail(email);
         if (user != null || email.isEmpty() || !(role_id>1)) {
-            return "/WEB-INF/admim/adm-page-add-user.jsp";
+            return ConfigurationManager.getInstance().
+                    getProperty(ConfigurationManager.PAGE_ADM_ADD_USER);
         }
         user = new User();
         user.setName(name);
@@ -41,11 +43,12 @@ public class ADMaddUser implements ICommand {
 //        user.setRoleId(Role.CU_GROUP_ID);
         int id = userDAO.add(user);
         if (id == AbstractOracleDAO.WRONG_ID) {
-            return "/WEB-INF/admim/adm-page-add-user.jsp";
+            return ConfigurationManager.getInstance().
+                    getProperty(ConfigurationManager.PAGE_ADM_ADD_USER);
         }
         user.setId(id);
         request.setAttribute(USER_TO_VIEW, user);
-        return "/WEB-INF/admin/adm-page-review-user.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_ADM_REVIEW_USER);
     }
 
 }

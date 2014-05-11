@@ -7,6 +7,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,8 +32,7 @@ public class ADMsetBlockUser implements ICommand {
             userDAO.update(user);
         }
         request.setAttribute(USER_TO_VIEW, user);
-        //TODO return next page
-        return "/WEB-INF/admin/adm-page-review-user.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_ADM_REVIEW_USER);
     }
 
 }

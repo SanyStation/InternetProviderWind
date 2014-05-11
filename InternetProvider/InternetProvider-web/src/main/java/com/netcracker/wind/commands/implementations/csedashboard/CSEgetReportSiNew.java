@@ -7,6 +7,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.reports.SiOrder;
+import com.netcracker.wind.manager.ConfigurationManager;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +39,7 @@ public class CSEgetReportSiNew implements ICommand {
         hs.setAttribute("title", "New orders per period: " + dateFrom
                 + " - " + dateTo);
         hs.setAttribute("orders", orders);
-        return "/WEB-INF/cse/cse-page-report-si-orders.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_CSE_REPORT_SI_ORDERS);
     }
     
 }

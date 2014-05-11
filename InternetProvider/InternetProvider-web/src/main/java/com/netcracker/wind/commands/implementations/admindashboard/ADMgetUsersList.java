@@ -4,6 +4,7 @@ import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.paging.ADMUsersPaginatedList;
 import com.netcracker.wind.paging.IExtendedPaginatedList;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,6 @@ public class ADMgetUsersList implements ICommand {
             return "";
         }
         session.setAttribute("users", paginatedList);
-        return "/WEB-INF/admin/adm-page-users-list.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_ADM_USERS_LIST);
     }
 }
