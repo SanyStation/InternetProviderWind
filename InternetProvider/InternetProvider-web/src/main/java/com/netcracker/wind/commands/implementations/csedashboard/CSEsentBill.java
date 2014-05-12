@@ -68,7 +68,7 @@ public class CSEsentBill implements ICommand {
         List<User> users = new ArrayList<User>();
         users.add(order.getUser());
         
-        new MailSendler().sendEmail(users, "Boreas Bill", new FormatedMail().getSentBillMassage(null, null, order.getUser()));
+        new MailSendler().sendEmail(users, "Boreas Bill", new FormatedMail().getSentBillMassage(order.getServiceInstance(), order.getUser()));
         return manager.getProperty(ConfigurationManager.PAGE_CSE_SELECTED_TASK);
     }
 
