@@ -61,10 +61,10 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID" />
-        <display:column property="name" title="Name" />
-        <display:column property="email" title="E-mail" href="Controller?command=customer_review" paramId="id" paramProperty="id" />
-        <display:column property="status" title="Status" />
+        <display:column property="id" title="ID" href="Controller?command=customer_review" paramId="id" paramProperty="id" sortable="true" sortable="true" sortProperty="id" />
+        <display:column property="name" title="Name" href="Controller?command=customer_review" paramId="id" paramProperty="id" sortable="true" sortable="true" sortProperty="name" />
+        <display:column property="email" title="E-mail" href="Controller?command=customer_review" paramId="id" paramProperty="id" sortable="true" sortProperty="email" />
+        <display:column property="status" title="Status" sortable="true" sortProperty="blocked" />
     </display:table>
 
 </form>

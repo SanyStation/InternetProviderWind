@@ -20,7 +20,7 @@ public class ADMUsersPaginatedList extends AbstractPaginatedList {
 
     @Override
     public List getList() {
-        return userDAO.findAll(pageNumber, pageSize);
+        return userDAO.findAll(pageNumber, pageSize, sortCriterion, direction);
     }
 
     @Override

@@ -21,7 +21,8 @@ public class CSEUsersPaginatedList extends AbstractPaginatedList {
 
     @Override
     public List getList() {
-        return userDAO.findByRole(Role.CU_GROUP_ID, pageNumber, pageSize);
+        return userDAO.findByRole(Role.CU_GROUP_ID, pageNumber, pageSize,
+                sortCriterion, direction);
     }
 
     @Override

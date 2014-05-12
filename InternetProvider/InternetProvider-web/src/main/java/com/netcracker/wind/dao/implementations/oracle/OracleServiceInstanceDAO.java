@@ -99,7 +99,16 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
     @Override
     protected List<ServiceInstance> findWhere(String where, Object[] param,
             int pageNumber, int pageSize) {
-        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
+        return this.findWhere(where, param, pageNumber, pageSize, "",
+                Direction.ASC);
+    }
+    
+    @Override
+    protected List<ServiceInstance> findWhere(String where, Object[] param,
+            int pageNumber, int pageSize, String orderParam,
+            Direction direction) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize,
+                orderParam, direction);
     }
 
     @Override
@@ -190,6 +199,15 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
         List<ServiceInstance> servInsts
                 = findWhere("WHERE USER_ID = ?", new Object[]{userId},
                         pageNumber, pageSize);
+        return servInsts;
+    }
+    
+    @Override
+    public List<ServiceInstance> findByUser(int userId, int pageNumber,
+            int pageSize, String orderParam, Direction direction) {
+        List<ServiceInstance> servInsts
+                = findWhere("WHERE USER_ID = ?", new Object[]{userId},
+                        pageNumber, pageSize, orderParam, direction);
         return servInsts;
     }
 

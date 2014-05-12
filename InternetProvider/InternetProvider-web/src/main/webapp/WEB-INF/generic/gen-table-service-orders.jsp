@@ -70,11 +70,11 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID" href="Controller?command=${comm}" paramId="order_id" paramProperty="id" />
-        <display:column property="dateEnter" title="Enter date" />
-        <display:column property="dateComplete" title="Completed date" />
-        <display:column property="service.name" title="Service" />
-        <display:column property="status" title="Status" />
-        <display:column property="serviceLocation.address" title="Service Location" />
+        <display:column property="id" title="ID" href="Controller?command=${comm}" paramId="order_id" paramProperty="id" sortable="true" sortProperty="id" />
+        <display:column property="dateEnter" title="Enter date" sortable="true" sortProperty="enterdate" />
+        <display:column property="dateComplete" title="Completed date" sortable="true" sortProperty="completedate" />
+        <display:column property="service.name" title="Service" sortable="true" sortProperty="service_id" />
+        <display:column property="status" title="Status" sortable="true" sortProperty="status" />
+        <display:column property="serviceLocation.address" title="Service Location" sortable="true" sortProperty="service_location_id" />
     </display:table>
 </form>

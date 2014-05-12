@@ -1,5 +1,6 @@
 package com.netcracker.wind.dao.interfaces;
 
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO.Direction;
 import com.netcracker.wind.entities.ServiceInstance;
 import java.util.List;
 
@@ -24,6 +25,9 @@ public interface IServiceInstanceDAO extends IRowsCounter {
 
     public List<ServiceInstance> findByUser(int userId, int pageNumber,
             int pageSize);
+    
+    public List<ServiceInstance> findByUser(int userId, int pageNumber,
+            int pageSize, String orderParam, Direction direction);
 
     public void update(ServiceInstance serviceInstance);
     

@@ -1,5 +1,6 @@
 package com.netcracker.wind.dao.interfaces;
 
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO.Direction;
 import com.netcracker.wind.entities.ServiceOrder;
 import java.util.List;
 
@@ -26,6 +27,9 @@ public interface IServiceOrderDAO extends IRowsCounter {
     
     public List<ServiceOrder> findByUser(int userId, int pageNumber,
             int pageSize);
+    
+    public List<ServiceOrder> findByUser(int userId, int pageNumber,
+            int pageSize, String orderParam, Direction direction);
 
     public List<ServiceOrder> findAll(int pageNumber, int pageSize);
 

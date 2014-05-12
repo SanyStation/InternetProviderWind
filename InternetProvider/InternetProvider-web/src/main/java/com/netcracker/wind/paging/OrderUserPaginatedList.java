@@ -22,7 +22,8 @@ public class OrderUserPaginatedList extends AbstractPaginatedList {
 
     @Override
     public List getList() {
-        return serviceOrderDAO.findByUser(performerId, pageNumber, pageSize);
+        return serviceOrderDAO.findByUser(performerId, pageNumber, pageSize,
+                sortCriterion, direction);
     }
 
     @Override

@@ -96,8 +96,10 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
     @Override
     protected List<User> findWhere(String where, Object[] param,
-            int pageNumber, int pageSize) {
-        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
+            int pageNumber, int pageSize, String orderParam, 
+            Direction direction) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize,
+                orderParam, direction);
     }
 
     @Override
@@ -151,9 +153,15 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
     @Override
     public List<User> findByRole(int roleId, int pageNumber, int pageSize) {
+        return this.findByRole(roleId, pageNumber, pageSize, "", Direction.ASC);
+    }
+    
+    @Override
+    public List<User> findByRole(int roleId, int pageNumber, int pageSize,
+            String orderParam, Direction direction) {
         List<User> users
                 = findWhere("WHERE ROLE_ID = ?", new Object[]{roleId},
-                        pageNumber, pageSize);
+                        pageNumber, pageSize, orderParam, direction);
         if (users.isEmpty()) {
             return null;
         } else {
@@ -189,12 +197,25 @@ public class OracleUserDAO extends AbstractOracleDAO implements IUserDAO {
 
     @Override
     public List<User> findAll(int pageNumber, int pageSize) {
-        return findWhere("", new Object[]{}, pageNumber, pageSize);
+        return this.findAll(pageNumber, pageSize, "", Direction.ASC);
+    }
+    
+    @Override
+    public List<User> findAll(int pageNumber, int pageSize, String orderParam,
+            Direction direction) {
+        return findWhere("", new Object[]{}, pageNumber, pageSize, orderParam,
+                direction);
     }
 
     public List<User> findByRole(int roleID) {
+        return this.findByRole(roleID, "", Direction.ASC);
+    }
+    
+    public List<User> findByRole(int roleID, String orderPara,
+            Direction direction) {
         List<User> users
-                = findWhere("WHERE ROLE_ID = ?", new Object[]{roleID}, DEFAULT_PAGE_NUMBER, ALL_RECORDS);
+                = findWhere("WHERE ROLE_ID = ?", new Object[]{roleID},
+                        DEFAULT_PAGE_NUMBER, ALL_RECORDS, orderPara, direction);
         if (users.isEmpty()) {
             return null;
         } else {

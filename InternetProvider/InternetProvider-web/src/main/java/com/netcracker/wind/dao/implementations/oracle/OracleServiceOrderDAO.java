@@ -128,8 +128,10 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
 
     @Override
     protected List<ServiceOrder> findWhere(String where, Object[] param,
-            int pageNumber, int pageSize) {
-        return super.findWhere(SELECT + where, param, pageNumber, pageSize);
+            int pageNumber, int pageSize, String orderParam,
+            Direction direction) {
+        return super.findWhere(SELECT + where, param, pageNumber, pageSize,
+                orderParam, direction);
     }
 
     @Override
@@ -249,9 +251,15 @@ public class OracleServiceOrderDAO extends AbstractOracleDAO
     @Override
     public List<ServiceOrder> findByUser(int userId, int pageNumber,
             int pageSize) {
+        return this.findByUser(userId, pageNumber, pageSize, "", Direction.ASC);
+    }
+    
+    @Override
+    public List<ServiceOrder> findByUser(int userId, int pageNumber,
+            int pageSize, String orderParam, Direction direction) {
         List<ServiceOrder> serviceOrders
                 = findWhere("WHERE USER_ID = ?", new Object[]{userId},
-                        pageNumber, pageSize);
+                        pageNumber, pageSize, orderParam, direction);
         return serviceOrders;
     }
 

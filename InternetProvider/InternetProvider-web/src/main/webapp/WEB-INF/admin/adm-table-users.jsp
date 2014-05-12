@@ -10,7 +10,7 @@
 %>
 <h3>Customer users list</h3>
 <form role="form">
-    <display:table name="sessionScope.users" requestURI="Controller"
+    <display:table name="sessionScope.users" requestURI="Controller" sort="external"
                    partialList="true" class="simple"
                    pagesize="${sessionScope.users.objectsPerPage}" 
                    size="${sessionScope.users.fullListSize}">
@@ -60,10 +60,31 @@
         <display:setProperty 
             name="css.table" 
             value="table table-striped table-hover nomargin"/>
-        <display:column property="id" title="ID" href="Controller?command=adm_review_user" paramId="id" paramProperty="id" />
-        <display:column property="name" title="Name" href="Controller?command=adm_review_user" paramId="id" paramProperty="id" />
-        <display:column property="email" title="E-mail" />
-        <display:column property="status" title="Status" />
+        
+        <display:column property="id"
+                        title="ID"
+                        href="Controller?command=adm_review_user"
+                        paramId="id"
+                        paramProperty="id"
+                        sortable="true"
+                        sortProperty="id" />
+        <display:column property="name"
+                        title="Name"
+                        href="Controller?command=adm_review_user"
+                        paramId="id"
+                        paramProperty="id"
+                        sortable="true"
+                        sortProperty="name" />
+        <display:column property="email"
+                        title="E-mail"
+                        href="Controller?command=adm_review_user"
+                        paramId="id"
+                        paramProperty="id"
+                        sortable="true"
+                        sortProperty="email" />
+        <display:column property="status"
+                        title="Status"
+                        sortable="true"
+                        sortProperty="blocked" />
     </display:table>
-
 </form>
