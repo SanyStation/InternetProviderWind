@@ -25,8 +25,7 @@ public class CSEreviewCustomer implements ICommand {
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
         User user = userDAO.findById(customerId);
         if (user == null) {
-            //TODO redirect to error page
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         request.setAttribute(CUSTOMER, user);
         return manager.getProperty(ConfigurationManager.PAGE_CSE_CUSTOMER_REVIEW);

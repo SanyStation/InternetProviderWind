@@ -4,6 +4,7 @@ import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.annotations.RolesForbidden;
 import com.netcracker.wind.commands.CommandHelper;
 import com.netcracker.wind.commands.ICommand;
+import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +27,9 @@ public class Controller extends HttpServlet {
     private static final String USER = "user";
 
     private final CommandHelper helper = CommandHelper.getInstance();
+
+    private static final Logger LOGGER
+            = Logger.getLogger(Controller.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,6 +49,8 @@ public class Controller extends HttpServlet {
             ICommand command = helper.getCommand(request);
             if (isInRole(request, response, command)) {
                 page = command.execute(request, response);
+            } else {
+                LOGGER.info("attempt illegal access");
             }
             if (AJAX_REQUEST_HEADER.equals(request.getHeader(HEADER))) {
                 response.getWriter().write(page);
@@ -53,9 +60,9 @@ public class Controller extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } catch (ServletException se) {
-            //TODO Log4j ServletException
+            LOGGER.error(null, se);
         } catch (IOException ioe) {
-            //TODO Log4j IOException
+            LOGGER.error(null, ioe);
         }
     }
 

@@ -12,6 +12,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * This annotation allow to check access rules.
+ * Annotation can be used for marker commands.
+ * All roles that will declare in input parameters can
+ * invoke command in main controller class.
  *
  * @author Anatolii
  */

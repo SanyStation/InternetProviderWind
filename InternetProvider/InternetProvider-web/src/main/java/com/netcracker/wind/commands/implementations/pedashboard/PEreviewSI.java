@@ -27,7 +27,7 @@ public class PEreviewSI implements ICommand {
                         createServiceInstanceDAO();
         ServiceInstance si = siDAO.findById(id);
         if (si == null) {
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         request.setAttribute("instance", si);
         return manager.getProperty(ConfigurationManager.PAGE_PE_REVIEW_INSTANCE);
