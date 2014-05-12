@@ -8,8 +8,11 @@ import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.mail.FormatedMail;
+import com.netcracker.wind.mail.MailSendler;
 import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.workflow.generator.PasswordGenerator;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)
 public class CSEaddCustomer implements ICommand {
+
+    private final static String REGISTRATION_MESSAGE = "Boreas registration";
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
@@ -62,6 +67,10 @@ public class CSEaddCustomer implements ICommand {
         }
         user.setId(id);
         request.setAttribute("customer", user);
+        ArrayList<User> users = new ArrayList<User>(1);
+        users.add(user);
+        new MailSendler().sendEmail(users, REGISTRATION_MESSAGE,
+                new FormatedMail().getUserRegistrationMassage(user));
         return manager.getProperty(ConfigurationManager.PAGE_CSE_CUSTOMER_REVIEW);
     }
 

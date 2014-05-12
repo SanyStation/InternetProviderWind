@@ -21,7 +21,7 @@
         <div class="col-md-12">
             <h4>Order Internet for home or business.</h4>
             <h4>High service quality and uptime.</h4>
-            <h4>Price from 25$/month.</h4>
+            <h4>Price from 15$/month.</h4>
             <button id="btn-get-order" class="btn btn-primary btn-lg" id="btn-get-order">Get order!</button>
         </div>
     </div>
