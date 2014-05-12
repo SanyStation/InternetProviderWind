@@ -30,6 +30,7 @@ public class ConfirmOrder implements ICommand {
     private static final String ORDER = "order";
     private static final String ORDER_MESSAGE = "Boreas order information";
     private static final String USER = "user";
+    private static final String SERVICE_INSTANCE_NAME = "Service Instatnce ";
     private final String page;
 
     public ConfirmOrder(String page) {
@@ -58,6 +59,7 @@ public class ConfirmOrder implements ICommand {
         if (order.getScenario().toString().equals(
                 ServiceOrder.Scenario.NEW.toString())) {
             ServiceInstance serviceInstance = new ServiceInstance();
+            serviceInstance.setName(SERVICE_INSTANCE_NAME + order.getId());
             serviceInstance.setStatus(ServiceInstance.Status.PLANNED);
             serviceInstance.setUser(order.getUser());
             serviceInstance.setServiceOrder(order);

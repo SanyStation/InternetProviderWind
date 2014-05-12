@@ -25,6 +25,7 @@ import java.util.List;
 public class Workflow {
 
     private static final int PORT_ON_DEVICE = 60;
+    private static final String CIRCUIT_NAME = "Circuit ";
 
     public static void createTaskForNewScnario(ServiceOrder order) {
         AbstractFactoryDAO factoryDAO
@@ -48,6 +49,7 @@ public class Workflow {
             Circuit circuit = order.getServiceInstance().getCircuit();
             if (circuit == null) {
                 circuit = new Circuit();
+                circuit.setName(CIRCUIT_NAME + order.getId());
                 circuit.setServiceInstance(order.getServiceInstance());
                 circuit.setPortId(portId);
                 circuitDAO.add(circuit);
@@ -76,7 +78,7 @@ public class Workflow {
         List<User> users = FactoryCreator.getInstance().getFactory().
                 createUserDAO().findByRole(Role.IE_GROUP_ID);
         if (users != null) {
-            new MailSendler().sendEmail(users, task.getType().toString(), 
+            new MailSendler().sendEmail(users, task.getType().toString(),
                     new FormatedMail().getInformGroupAboutTaskMessage(task));
         }
     }
@@ -101,7 +103,7 @@ public class Workflow {
         List<User> users = FactoryCreator.getInstance().getFactory().
                 createUserDAO().findByRole(Role.CSE_GROUP_ID);
         if (users != null) {
-            new MailSendler().sendEmail(users, task.getType().toString(), 
+            new MailSendler().sendEmail(users, task.getType().toString(),
                     new FormatedMail().getInformGroupAboutTaskMessage(task));
         }
     }
