@@ -18,14 +18,7 @@
             <jsp:include page="WEB-INF/generic/provider-info.jsp" flush="true"/>
         </div>
         <div class="col-md-3 nopadding" id="right-info">
-            <div class="largefont paddingleftright nomargin headercolor whitetext borderleft borderright boxshadow">
-                <ul id="contacts" class="nav nav-pills nav-stacked">
-                    <li class="nav-header"></li>
-                    <li><i class="glyphicon glyphicon-phone-alt"></i> 044 388 02 02<li>
-                    <li><i class="glyphicon glyphicon-headphones"></i> Skype: IPWind</li>
-                    <li><i class="glyphicon glyphicon-home"></i> Address:<br>Borshahivska str. 33, office 13</li>
-                </ul>
-            </div>
+            <jsp:include page="WEB-INF/generic/rightmenu.jsp" flush="true"/>
         </div>
     </div>
 </div>
