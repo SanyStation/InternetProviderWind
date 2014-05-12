@@ -8,8 +8,11 @@ import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.mail.FormatedMail;
+import com.netcracker.wind.mail.MailSendler;
 import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.workflow.generator.PasswordGenerator;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 @RolesAllowed(roles = Role.Roles.Administrator)
 public class ADMaddUser implements ICommand {
 
+    private final static String REGISTRATION_MESSAGE = "Boreas registration";
     private static final String USER_TO_VIEW = "us";
 
     public String execute(HttpServletRequest request,
@@ -29,7 +33,7 @@ public class ADMaddUser implements ICommand {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         //null
-        int role_id = Integer.parseInt("0".concat((String)(request.getParameter("role_id"))));
+        int role_id = Integer.parseInt("0".concat((String) (request.getParameter("role_id"))));
         HashMap<String, String> newUserData = new HashMap();
 
         newUserData.put("login", name);
@@ -71,6 +75,10 @@ public class ADMaddUser implements ICommand {
         }
         user.setId(id);
         request.setAttribute(USER_TO_VIEW, user);
+        ArrayList<User> users = new ArrayList<User>(1);
+        users.add(user);
+        new MailSendler().sendEmail(users, REGISTRATION_MESSAGE,
+                new FormatedMail().getUserRegistrationMassage(user));
         return manager.getProperty(ConfigurationManager.PAGE_ADM_REVIEW_USER);
     }
 
