@@ -195,6 +195,7 @@ $(window).load(function() {
     $('#order_form').submit(function(e) {
         var url = $('#order_form').attr('action'); // the script where you handle the form input.
         $("#side form input[type=submit]").addClass('disabled');
+        $('#myModal').find('.modal-body').html('<span class="label label-info">sending order...</span>').end().modal('show')
 
         $.ajax({
             type: "POST",

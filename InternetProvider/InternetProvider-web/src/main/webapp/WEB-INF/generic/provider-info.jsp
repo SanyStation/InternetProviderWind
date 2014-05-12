@@ -9,7 +9,7 @@
     </div>
     <img id="header-logo" src="images/header-logo2.png" alt=""/>
     <div class="col-md-8 topic boxshadow margintoplarge">
-        <div class="col-md-6">
+        <div class="col-md-6 margintop">
             <h3><i class="glyphicon glyphicon-ok galka larger-font22"></i> High quality.</h3>
             <h3><i class="glyphicon glyphicon-ok galka larger-font22"></i> High speed.</h3>
             <h3><i class="glyphicon glyphicon-ok galka larger-font22"></i> Stable work.</h3>
