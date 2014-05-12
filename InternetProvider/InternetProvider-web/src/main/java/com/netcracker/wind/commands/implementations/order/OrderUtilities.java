@@ -19,7 +19,7 @@ public class OrderUtilities {
     public static ProviderLocation findNearestProviderLocation(
             List<ProviderLocation> providerLocations, double actualX, double actualY) {
         ProviderLocation nearestProviderLocation = null;
-        double minDist = Double.MAX_VALUE;
+        double minDist = 0.15;//Double.MAX_VALUE;
         for (ProviderLocation pl : providerLocations) {
             double dist = OrderUtilities.getDistance(actualX, actualY,
                     pl.getPosY(),

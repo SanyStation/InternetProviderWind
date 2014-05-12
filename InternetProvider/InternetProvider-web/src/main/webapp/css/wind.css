@@ -181,3 +181,12 @@ div.body-wrapper {
 #btn-get-order {
     margin-bottom: 15px;
 }
+.disabled>a {
+    cursor: default!important;
+}
+.myhidden {
+    z-index: -81;
+    margin-top: -9999px;
+    opacity: 0;
+    width: 100%;
+}

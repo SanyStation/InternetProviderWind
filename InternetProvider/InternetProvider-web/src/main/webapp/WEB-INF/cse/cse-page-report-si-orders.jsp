@@ -28,10 +28,24 @@
 
                     <display:caption media="sio csio">${title}</display:caption>
                     <display:setProperty name="export.sio" value="true"/>
-                    <display:setProperty name="export.sio.label" value="XLS"/>
+                    <display:setProperty name="export.sio.label" value="<button type=\"button\" class=\"btn btn-block btn-link\">XLS</button>"/>
                     <display:setProperty name="export.csio" value="true"/>
-                    <display:setProperty name="export.csio.label" value="CSV"/>
+                    <display:setProperty name="export.csio.label" value="<button type=\"button\" class=\"btn btn-block btn-link\">CSV</button>"/>
 
+                    <display:setProperty 
+                        name="export.banner.sepchar" 
+                        value=" "/>
+                    <display:setProperty 
+                        name="export.banner" 
+                        value="<div class=\"btn-group margintop\">
+                        <button type=\"button\" class=\"btn btn-info dropdown-toggle\" data-toggle=\"dropdown\">
+                        Export <span class=\"caret\"></span>
+                        </button>
+                        <ul class=\"dropdown-menu\" role=\"menu\">
+                        {0}
+                        </ul>
+                        </div>"
+                        />
                     <display:setProperty 
                         name="paging.banner.full" 
                         value="<br/><ul class=\"pagination\">

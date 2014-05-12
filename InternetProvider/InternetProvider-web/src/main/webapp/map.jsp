@@ -43,7 +43,8 @@
     <body>
         <input id="pac-input" class="controls" type="text" placeholder="Enter your address">
         <div id="map_canvas" ></div>
-        <div id="popup" class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Drag the marker to desired service location</div>
+        <div id="popup" class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span>Drag the marker to desired service location</span></div>
+        <div id="popup-input" class="alert alert-warning alert-dismissable" style="position: absolute; left: 88px; top: 15px; width: 400px;padding: 6px 35px 4px 15px;" onmouseover="$(this).fadeOut(200); $('#pac-input').focus();"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span>Enter you address here</span></div>
         <div id="side">
             <h4 style="margin: 10px auto;">Choose desired service:</h4>
             <form id="order_form" action="Controller" method="POST">

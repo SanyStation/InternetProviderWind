@@ -15,10 +15,10 @@
             <ul class="nav nav-pills nav-stacked">
                 <li class="${param.active eq 'tasks' ? ' bg-info' : ''}"><a href="#"><i class="glyphicon glyphicon-briefcase"></i> Tasks</a>
 
-                <li class="${param.command eq 'pe_get_tasks' ? ' active' : ''}">
+                <li class="${param.command eq 'pe_get_tasks' ? ' active' : ''}  ${newTasks > 0 ? 'alert-success' : ''}">
                     <a href="Controller?command=pe_get_tasks"><i class="glyphicon glyphicon-briefcase"></i> New tasks 
                         <c:if test="${newTasks > 0}">
-                            <span class="badge pull-right">${newTasks}</span>
+                            <span class="badge pull-right alert-danger">${newTasks}</span>
                         </c:if>
                     </a>
                 </li>

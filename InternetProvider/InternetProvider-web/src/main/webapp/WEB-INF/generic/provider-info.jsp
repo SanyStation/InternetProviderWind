@@ -29,6 +29,10 @@
 <script>
     $("#btn-get-order").click(function() {
         $("#provider-info").addClass("hidden");
-        $("#map").removeClass("hidden");
+        $("#right-info").addClass("hidden");
+        $("#map iframe").removeClass("myhidden");
+        $('html, body').animate({
+        scrollTop: $("#map").offset().top
+    }, 700);
     });
 </script>

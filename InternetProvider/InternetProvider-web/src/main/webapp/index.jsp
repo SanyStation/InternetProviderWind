@@ -11,13 +11,13 @@
 
 <div class="container">
     <div class="row">
+        <div id="map" class=" col-md-12 nopadding">
+            <iframe src="map.jsp" width="100%" height="100%" style="min-height: 460px;" class="myhidden"></iframe>
+        </div>
         <div class="col-md-9 nopadding">
             <jsp:include page="WEB-INF/generic/provider-info.jsp" flush="true"/>
-            <div id="map" class="hidden">
-                <iframe src="map.jsp" width="100%" height="75%" style="min-height: 460px;"></iframe>
-            </div>
         </div>
-        <div class="col-md-3 nopadding">
+        <div class="col-md-3 nopadding" id="right-info">
             <div class="largefont paddingleftright nomargin headercolor whitetext borderleft borderright boxshadow">
                 <ul id="contacts" class="nav nav-pills nav-stacked">
                     <li class="nav-header"></li>

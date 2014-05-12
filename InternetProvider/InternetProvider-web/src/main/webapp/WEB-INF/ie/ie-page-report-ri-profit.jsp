@@ -26,10 +26,24 @@
                                class="simple" pagesize="${pageSize}" >
 
                     <display:setProperty name="export.rimpr" value="true"/>
-                    <display:setProperty name="export.rimpr.label" value="XLS"/>
+                    <display:setProperty name="export.rimpr.label" value="<button type=\"button\" class=\"btn btn-block btn-link\">XLS</button>"/>
                     <display:setProperty name="export.crimpr" value="true"/>
-                    <display:setProperty name="export.crimpr.label" value="CSV"/>
-
+                    <display:setProperty name="export.crimpr.label" value="<button type=\"button\" class=\"btn btn-block btn-link\">CSV</button>"/>
+                    
+                    <display:setProperty 
+                        name="export.banner.sepchar" 
+                        value=" "/>
+                    <display:setProperty 
+                        name="export.banner" 
+                        value="<div class=\"btn-group margintop\">
+                        <button type=\"button\" class=\"btn btn-info dropdown-toggle\" data-toggle=\"dropdown\">
+                        Export <span class=\"caret\"></span>
+                        </button>
+                        <ul class=\"dropdown-menu\" role=\"menu\">
+                        {0}
+                        </ul>
+                        </div>"
+                        />
                     <display:setProperty 
                         name="paging.banner.full" 
                         value="<br/><ul class=\"pagination\">
