@@ -11,7 +11,7 @@ import com.netcracker.wind.entities.User;
  * @author Oksana and Sashko
  */
 public class FormatedMail {
-
+    
     private final String HELLO = "Welcome to Boreas Internet Provider!\n\n";
     private final String CONGRATULATION = "Congratulation, ";
     private final String DEAR = "Dear, ";
@@ -35,6 +35,8 @@ public class FormatedMail {
     private final String MESSAGE_REGISTRATION = "\n\tYou have succesfully registred in boreas system\n"
             + "Your login is : ";
     private final String YOUR_PASSWORD = "\n\tYour password is : ";
+    private final String INFORMATION_ABOUT_SERVICE = "Your service is:";
+    private final String INFO_ABOUT_PRICE = "The price of ordered service is: ";
     private final String TASK_ID = "\n The ID of new Task is: ";
     private final String HOPE_PLEASED = "\n\t We hope that you will be pleased with our service!";
     private final String END_OF_MASSAGE = "\nSincerely,\n\tboreas staff.";
@@ -47,21 +49,21 @@ public class FormatedMail {
                 .append(HOPE_PLEASED).append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
-
+    
     public String getBlockedAccountMessage(User user) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DEAR).append(user.getName()).append(OK).append(MESSAGE_BLOCKING_ACCOUNT)
                 .append(CONTACT_US).append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
-
+    
     public String getInformGroupAboutTaskMessage(Task task) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(MESSAGE_ABOUT_TASK).append(TASK_INFORMATION).append(task.getType())
                 .append(TASK_ID).append(task.getId()).append(TASK_TAKE).append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
-
+    
     public String getNewSOComplMassage(ServiceOrder order, Service service, User user) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DEAR).append(user.getName()).append(OK).append(ORDER)
@@ -69,7 +71,7 @@ public class FormatedMail {
                 .append(service.getName()).append(INSTALLED).append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
-
+    
     public String getNewSOTakeMassage(ServiceOrder order, Service service, User user) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DEAR).append(user.getName()).append(OK)
@@ -78,7 +80,7 @@ public class FormatedMail {
                 .append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
-
+    
     public String getModifySOComplMassage(ServiceOrder order, Service service, User user) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DEAR).append(user.getName()).append(OK)
@@ -87,7 +89,7 @@ public class FormatedMail {
                 .append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
-
+    
     public String getModifySOTakeMassage(ServiceOrder order, Service service, User user) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DEAR).append(user.getName()).append(OK)
@@ -96,7 +98,7 @@ public class FormatedMail {
                 .append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
-
+    
     public String getDiscSOComplMassage(ServiceOrder order, Service service, User user) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DEAR).append(user.getName()).append(OK)
@@ -105,7 +107,7 @@ public class FormatedMail {
                 .append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
-
+    
     public String getDiscSOTakeMassage(ServiceOrder order, Service service, User user) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DEAR).append(user.getName()).append(OK).append(ORDER)
@@ -113,10 +115,16 @@ public class FormatedMail {
                 .append(service.getName()).append(WILLDISCONNECT).append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
-
-    public String getSentBillMassage(ServiceInstance serviceInstance, Service service, User user) {
+    
+    public String getSentBillMassage(ServiceInstance serviceInstance, User user) {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("Sent Bill Massage");
+        stringBuffer.append(DEAR).append(user.getName()).append(OK)
+                .append(INFORMATION_ABOUT_SERVICE)
+                .append(serviceInstance.getService().getDescription())
+                .append(INFO_ABOUT_PRICE)
+                .append(serviceInstance.getServiceOrder().getPrice())
+                .append(CONTACT_US)
+                .append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
 }
