@@ -35,9 +35,10 @@ public class FormatedMail {
     private final String MESSAGE_REGISTRATION = "\n\tYou have succesfully registred in boreas system\n"
             + "Your login is : ";
     private final String YOUR_PASSWORD = "\n\tYour password is : ";
+    private final String TASK_ID = "\n The ID of new Task is: ";
     private final String HOPE_PLEASED = "\n\t We hope that you will be pleased with our service!";
     private final String END_OF_MASSAGE = "\nSincerely,\n\tboreas staff.";
-
+    
     public String getUserRegistrationMassage(User user) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(HELLO).append(CONGRATULATION).append(user.getName()).append(OK)
@@ -57,7 +58,7 @@ public class FormatedMail {
     public String getInformGroupAboutTaskMessage(Task task) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(MESSAGE_ABOUT_TASK).append(TASK_INFORMATION).append(task.getType())
-                .append(TASK_TAKE).append(END_OF_MASSAGE);
+                .append(TASK_ID).append(task.getId()).append(TASK_TAKE).append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
 
