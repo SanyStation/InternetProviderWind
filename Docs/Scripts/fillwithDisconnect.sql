@@ -134,27 +134,27 @@ BEGIN
   insert into services 
   (name)
   values 
-  ('Gold internet');
+  ('business internet');
 
   insert into services 
   (name)
   values 
-  ('Platinum internet');
+  ('silver internet');
 
   insert into services 
   (name)
   values
-  ('Plutinum internet');
+  ('gold internet');
 
   insert into services 
   (name)
   values 
-  ('Royal internet');
+  ('platinum internet');
 
   insert into services 
   ( name)
   values 
-  ('PUTINUM internet');
+  ('unlimited internet');
 
   insert into prices
   (provider_location_id, service_id, price)
@@ -179,12 +179,12 @@ BEGIN
   insert into prices
   (provider_location_id, service_id, price)
   values
-  (2, 4, 60);
+  (2, 4, 45);
 
   insert into prices
   (provider_location_id, service_id, price)
   values
-  (2, 5, 1099);
+  (2, 5, 55);
 
   insert into prices
   (provider_location_id, service_id, price)
@@ -214,7 +214,7 @@ BEGIN
   insert into prices
   (provider_location_id, service_id, price)
   values
-  (4, 5, 899);
+  (4, 5, 80);
 
   insert into prices
   (provider_location_id, service_id, price)
@@ -229,7 +229,7 @@ BEGIN
   insert into prices
   (provider_location_id, service_id, price)
   values
-  (5, 5, 999);
+  (5, 5, 75);
 
    x :=50.467476;
    y :=30.413128;
