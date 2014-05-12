@@ -15,6 +15,7 @@ public class ConfigurationManager {
     public static final String PAGE_LOGIN = "PAGE_LOGIN";
     public static final String PAGE_INDEX = "PAGE_INDEX";
     public static final String PAGE_PROFILE = "PAGE_PROFILE";
+    public static final String PAGE_BLOCKED = "PAGE_BLOCKED";
     public static final String PAGE_ERROR = "PAGE_ERROR";
     public static final String PAGE_WRON_SELECTED_TASK = "PAGE_WRON_SELECTED_TASK";
     

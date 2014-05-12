@@ -14,6 +14,7 @@ import com.netcracker.wind.entities.User;
  *
  * @author Oksana
  */
+@Deprecated
 public class FormatedMailHTML {
 
     private final String HELLO = "Welcome to Boreas Internet Provider!";

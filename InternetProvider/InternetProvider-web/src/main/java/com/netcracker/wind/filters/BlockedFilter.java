@@ -3,6 +3,7 @@ package com.netcracker.wind.filters;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -24,9 +25,6 @@ public class BlockedFilter implements Filter {
     private static final String LOGOUT = "/InternetProvider-web/logout";
     private static final IUserDAO USER_DAO
             = FactoryCreator.getInstance().getFactory().createUserDAO();
-    // The filter configuration object we are associated with.  If
-    // this value is null, this filter instance is not currently
-    // configured. 
     private FilterConfig filterConfig = null;
 
     public BlockedFilter() {
@@ -58,7 +56,8 @@ public class BlockedFilter implements Filter {
                     flag = false;
                     RequestDispatcher dispatcher = httpServletRequest.
                             getRequestDispatcher(
-                                    "/WEB-INF/profile/blocked.jsp");
+                                    ConfigurationManager.getInstance().
+                                    getProperty(ConfigurationManager.PAGE_BLOCKED));
                     dispatcher.forward(request, response);
                 }
             }
@@ -86,31 +85,12 @@ public class BlockedFilter implements Filter {
         this.filterConfig = filterConfig;
     }
 
-    /**
-     * Destroy method for this filter
-     */
+    @Override
     public void destroy() {
     }
 
-    /**
-     * Init method for this filter
-     */
     public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
-    }
-
-    /**
-     * Return a String representation of this object.
-     */
-    @Override
-    public String toString() {
-        if (filterConfig == null) {
-            return ("BlockedFilter()");
-        }
-        StringBuffer sb = new StringBuffer("BlockedFilter(");
-        sb.append(filterConfig);
-        sb.append(")");
-        return (sb.toString());
     }
 
 }

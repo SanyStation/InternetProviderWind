@@ -1,11 +1,9 @@
 package com.netcracker.wind.mail;
 
 import com.netcracker.wind.entities.User;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
-import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
