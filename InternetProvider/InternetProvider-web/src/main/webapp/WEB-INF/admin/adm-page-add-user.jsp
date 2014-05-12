@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row">
         <jsp:include page="adm-leftmenu.jsp" flush="true">
-            <jsp:param name="active" value="add-user" />
+            <jsp:param name="active" value="users" />
         </jsp:include>
 
         <div class="col-md-9 divitem">

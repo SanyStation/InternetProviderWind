@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row">
         <jsp:include page="cu-leftmenu.jsp" flush="true">
-            <jsp:param name="active" value="instances" />
+            <jsp:param name="active" value="user" />
         </jsp:include>
 
         <div class="col-md-9 divitem">

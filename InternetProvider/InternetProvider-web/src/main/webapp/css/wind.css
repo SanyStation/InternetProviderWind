@@ -160,9 +160,7 @@ div.body-wrapper {
 
 .layer2 {
     position: absolute; /* Абсолютное позиционирование */
-    background-image: url(../images/bg_topic.png);
-    background-position-x: right;
-    background-position-y: top;
+    background: url(../images/bg_topic.png) 100% 100%;
     background-repeat: no-repeat;
     z-index: 1;
     min-height: 384px;
@@ -190,3 +188,9 @@ div.body-wrapper {
     opacity: 0;
     width: 100%;
 }
+#map{
+    overflow: hidden;
+}
+/*.nav-stacked>.panel-heading {
+margin-bottom: -2px;
+}*/
