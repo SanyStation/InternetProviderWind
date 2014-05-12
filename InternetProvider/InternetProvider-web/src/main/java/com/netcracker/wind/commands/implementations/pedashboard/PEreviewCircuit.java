@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
 public class PEreviewCircuit implements ICommand {
-    
+
     private static final String ID = "id";
 
     public String execute(HttpServletRequest request,
@@ -26,7 +26,7 @@ public class PEreviewCircuit implements ICommand {
                 = FactoryCreator.getInstance().getFactory().createCircuitDAO();
         Circuit circuit = circuitDAO.findById(id);
         if (circuit == null) {
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         request.setAttribute("circuit", circuit);
         return manager.getProperty(ConfigurationManager.PAGE_PE_REVIEW_CIRCUIT);

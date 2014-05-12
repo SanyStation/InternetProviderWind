@@ -12,6 +12,7 @@ import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.User;
 import com.netcracker.wind.mail.FormatedMail;
 import com.netcracker.wind.mail.MailSendler;
+import com.netcracker.wind.manager.ConfigurationManager;
 import com.netcracker.wind.workflow.Workflow;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -50,8 +51,7 @@ public class ConfirmOrder implements ICommand {
         if (order == null
                 || !order.getStatus().equals(ServiceOrder.Status.ENTERING)
                 || (user.getId() != order.getUserId() && user.getRoleId() != Role.CSE_GROUP_ID)) {
-            //TODO return error page
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
 
         order.setStatus(ServiceOrder.Status.PROCESSING);
@@ -89,8 +89,7 @@ public class ConfirmOrder implements ICommand {
             users.add(order.getUser());
             //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getDiscSOTakeMassage(order, order.getService(), order.getUser()));
         } else {
-            //TODO return error page
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         serviceOrderDAO.update(order);
         request.setAttribute(ORDER, order);

@@ -8,6 +8,7 @@ import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,8 +39,7 @@ public class CancelOrder implements ICommand {
         if (order == null
                 || !order.getStatus().equals(ServiceOrder.Status.ENTERING)
                 || (user.getId() != order.getUserId() && user.getRoleId() != Role.CSE_GROUP_ID)) {
-            //TODO return error page
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         order.setStatus(ServiceOrder.Status.CANCELLED);
         serviceOrderDAO.update(order);

@@ -67,7 +67,6 @@ public class ChangePassword implements ICommand {
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
         int userId = Integer.parseInt(((String) request.getParameter(USER_ID)));
         if (user.getRoleId() != Role.CSE_GROUP_ID && userId != user.getId()) {
-            //TODO return to error page
             return "";
         }
         user = userDAO.findById(userId);

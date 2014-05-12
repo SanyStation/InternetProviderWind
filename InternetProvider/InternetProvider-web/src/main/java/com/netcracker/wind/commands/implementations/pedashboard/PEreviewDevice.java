@@ -30,7 +30,7 @@ public class PEreviewDevice implements ICommand {
                 = FactoryCreator.getInstance().getFactory().createDeviceDAO();
         Device device = deviceDAO.findById(deviceId);
         if (device == null) {
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         IExtendedPaginatedList pl = new PortPaginatedList(request,
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE, deviceId);

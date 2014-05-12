@@ -12,16 +12,11 @@ public class ConfigurationManager {
 
     private static final String FILE_PROPERTIES = "configuration";
 
-    public static final String PAGE_LOGIN_ERROR = "PAGE_LOGIN_ERROR";
-    public static final String PAGE_CONFIRM_ORDER = "PAGE_CONFIRM_ORDER";
     public static final String PAGE_LOGIN = "PAGE_LOGIN";
-    public static final String REPORT_RI_MPR = "REPORT_RI_MPR";
-    public static final String REPORT_RI_UNC = "REPORT_RI_UNC";
-    public static final String REPORT_SI_O = "REPORT_SI_O";
-    public static final String REPORT_SI_P = "REPORT_SI_P";
-    public static final String REPORT_CIA_IPT = "REPORT_CIA_IPT";
-    public static final String PAGE_PE_DASHBOARD = "PAGE_PE_DASHBOARD";
+    public static final String PAGE_INDEX = "PAGE_INDEX";
+    public static final String PAGE_PROFILE = "PAGE_PROFILE";
     public static final String PAGE_ERROR = "PAGE_ERROR";
+    public static final String PAGE_WRON_SELECTED_TASK = "PAGE_WRON_SELECTED_TASK";
     
     public static final String PAGE_ADM_ADD_USER = "PAGE_ADM_ADD_USER";
     public static final String PAGE_ADM_REVIEW_USER = "PAGE_ADM_REVIEW_USER";

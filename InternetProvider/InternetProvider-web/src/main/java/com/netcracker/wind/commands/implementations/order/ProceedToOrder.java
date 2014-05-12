@@ -39,6 +39,17 @@ public class ProceedToOrder implements ICommand {
     private static final String ERROR = "error";
     private static final String CUSTOMER_ID = "customer_id";
 
+    private static final String X = "x";
+    private static final String Y = "y";
+    private static final String SERVICE_ID = "serviceId";
+    private static final String ADDRESS = "address";
+    private static final String AUTH = "auth";
+    private static final String ORDER_ID = "order_id";
+    private static final String COMMAND = "command";
+    private static final String CSE_REVIEW_ORDER = "cse_review_order";
+    private static final String REVIEW_ORDER = "review_order";
+    private static final String NEXT_PAGE = "nextPage";
+
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         JSONObject jsono = new JSONObject();
         HttpSession session = request.getSession(false);
@@ -56,7 +67,7 @@ public class ProceedToOrder implements ICommand {
         IProviderLocationDAO providerLocationDAO = factoryDAO.createProviderLocationDAO();
         IUserDAO userDAO = factoryDAO.createUserDAO();
         if (user.getRoleId() == Role.CSE_GROUP_ID) {
-            int customerId = -1;
+            int customerId;
             try {
                 customerId = Integer.parseInt(request.getParameter(CUSTOMER_ID));
             } catch (NumberFormatException exception) {
@@ -70,10 +81,10 @@ public class ProceedToOrder implements ICommand {
             user = userDAO.findById(customerId);
         }
 
-        String sX = request.getParameter("x");
-        String sY = request.getParameter("y");
-        String sID = request.getParameter("serviceId");
-        String address = request.getParameter("address");
+        String sX = request.getParameter(X);
+        String sY = request.getParameter(Y);
+        String sID = request.getParameter(SERVICE_ID);
+        String address = request.getParameter(ADDRESS);
         double actualX = Double.parseDouble(sX);
         double actualY = Double.parseDouble(sY);
         int serviceId = Integer.parseInt(sID);
@@ -88,8 +99,6 @@ public class ProceedToOrder implements ICommand {
         ServiceOrder order = new ServiceOrder();
         order.setEnterdate(new Timestamp(System.currentTimeMillis()));
         order.setUser(user);
-//        System.out.println(user);
-        //Hier new Service(serviceID)
         order.setService(new Service(serviceId));
         order.setProviderLocation(nearestProviderLocation);
         ServiceLocation serviceLocation = new ServiceLocation();
@@ -97,31 +106,29 @@ public class ProceedToOrder implements ICommand {
         serviceLocation.setPosY(actualY);
         serviceLocation.setAddress(address);
         serviceLocationDAO.add(serviceLocation);
-        //TODO configure servise location
         order.setServiceLocation(serviceLocation);
         order.setStatus(ServiceOrder.Status.ENTERING);
         order.setScenario(ServiceOrder.Scenario.NEW);
         orderDAO.add(order);
         try {
-            jsono.put("auth", true);
-            jsono.put("order_id", order.getId().intValue());
-            if (((User)session.getAttribute(USER)).getRoleId() == Role.CSE_GROUP_ID) {
-                jsono.put("command","cse_review_order");
+            jsono.put(AUTH, true);
+            jsono.put(ORDER_ID, order.getId().intValue());
+            if (((User) session.getAttribute(USER)).getRoleId() == Role.CSE_GROUP_ID) {
+                jsono.put(COMMAND, CSE_REVIEW_ORDER);
             }
-            if (((User)session.getAttribute(USER)).getRoleId() == Role.CU_GROUP_ID) {
-                jsono.put("command","review_order");
+            if (((User) session.getAttribute(USER)).getRoleId() == Role.CU_GROUP_ID) {
+                jsono.put(COMMAND, REVIEW_ORDER);
             }
         } catch (JSONException ex) {
             Logger.getLogger(ProceedToOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //TODO redirect to next page
         return jsono.toString();
     }
 
     private String processError(JSONObject jsono) {
         try {
-            jsono.put("auth", false);
-            jsono.put("nextPage", ConfigurationManager.getInstance().
+            jsono.put(AUTH, false);
+            jsono.put(NEXT_PAGE, ConfigurationManager.getInstance().
                     getProperty(ConfigurationManager.PAGE_LOGIN));
         } catch (JSONException ex) {
             Logger.getLogger(ProceedToOrder.class.getName()).log(Level.SEVERE, null, ex);

@@ -6,6 +6,7 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.entities.Port;
 import com.netcracker.wind.entities.Role;
+import com.netcracker.wind.manager.ConfigurationManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
 public class PEreviewPort implements ICommand {
-    
+
     private static final String ID = "id";
 
     public String execute(HttpServletRequest request,
@@ -25,10 +26,10 @@ public class PEreviewPort implements ICommand {
                 = FactoryCreator.getInstance().getFactory().createPortDAO();
         Port port = portDAO.findById(id);
         if (port == null) {
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         request.setAttribute("port", port);
-        return "/WEB-INF/pe/pe-page-review-port.jsp";
+        return manager.getProperty(ConfigurationManager.PAGE_PE_REVIEW_PORT);
     }
 
 }

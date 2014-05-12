@@ -12,10 +12,10 @@ import com.netcracker.wind.entities.Service;
 import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import java.sql.Timestamp;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -49,8 +49,7 @@ public class OrderModifySI implements ICommand {
         if (serviceInstance == null
                 || !serviceInstance.getStatus().equals(ServiceInstance.Status.ACTIVE)
                 || (user.getId() != serviceInstance.getUserId() && user.getRoleId() != Role.CSE_GROUP_ID)) {
-            //TODO return error page
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         Service service = serviceDAO.findById(serviceId);
         user = serviceInstance.getUser();

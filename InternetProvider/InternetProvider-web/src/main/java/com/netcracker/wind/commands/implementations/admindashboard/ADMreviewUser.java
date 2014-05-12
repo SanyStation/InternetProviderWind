@@ -23,9 +23,6 @@ public class ADMreviewUser implements ICommand {
         int customerId = Integer.parseInt(request.getParameter(ID));
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
         User user = userDAO.findById(customerId);
-        if (user == null) {
-            return "";
-        }
         request.setAttribute("us", user);
         return manager.getProperty(ConfigurationManager.PAGE_ADM_REVIEW_USER);
     }

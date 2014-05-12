@@ -7,6 +7,7 @@ import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,7 +35,7 @@ public class InstanceReview implements ICommand {
         User user = (User)request.getSession(false).getAttribute(USER);
         if (serviceInstance == null || (user.getRoleId() != Role.CSE_GROUP_ID 
                 && serviceInstance.getUserId() != user.getId())) {
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         request.setAttribute(INSTANCE, serviceInstance);
         return page;

@@ -40,7 +40,7 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String page = "/logout";
+            String page = "/index.jsp";
             ICommand command = helper.getCommand(request);
             if (isInRole(request, response, command)) {
                 page = command.execute(request, response);

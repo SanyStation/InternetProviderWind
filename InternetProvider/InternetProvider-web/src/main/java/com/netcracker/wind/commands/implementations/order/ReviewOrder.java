@@ -12,6 +12,7 @@ import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,8 +40,7 @@ public class ReviewOrder implements ICommand {
         User user = (User) request.getSession(false).getAttribute(USER);
         if (order == null
                 || (user.getId() != order.getUserId() && user.getRoleId() != Role.CSE_GROUP_ID)) {
-            //TODO return error page
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         request.setAttribute(ORDER, order);
         return page;

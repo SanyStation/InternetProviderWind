@@ -32,10 +32,6 @@ public class ModifyServiceInstance implements ICommand {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "";
-        }
-
         int taskId = Integer.parseInt(request.getParameter(TASK_ID));
 
         AbstractFactoryDAO factoryDAO = FactoryCreator.getInstance().getFactory();

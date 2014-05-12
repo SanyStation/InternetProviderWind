@@ -96,7 +96,6 @@ public class RefreshService implements ICommand {
                 }
                 providerLocationJSON.put(SERVICES, servicesJSONArray);
                 providerLocationJSON.put(ADDRESS, nearestProviderLocation.getAddress());
-//                providerLocation.put("name", nearestProviderLocation.getName());
                 providerLocationJSON.put(Y, nearestProviderLocation.getPosY());
                 providerLocationJSON.put(X, nearestProviderLocation.getPosX());
                 jsono.put(PROVIDER_LOCATION, providerLocationJSON);

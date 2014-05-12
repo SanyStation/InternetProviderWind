@@ -9,6 +9,7 @@ import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
 import com.netcracker.wind.mail.FormatedMail;
 import com.netcracker.wind.mail.MailSendler;
+import com.netcracker.wind.manager.ConfigurationManager;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,12 +32,11 @@ public class UnassignTask implements ICommand {
         ITaskDAO taskDAO = FactoryCreator.getInstance().getFactory().createTaskDAO();
         Task task = taskDAO.findById(taskId);
         if (task == null) {
-            //TODO return to error page
-            return "";
+            return manager.getProperty(ConfigurationManager.PAGE_WRON_SELECTED_TASK);
         }
         User user = (User) request.getSession(false).getAttribute(USER);
         if (task.getUserId() != user.getId()) {
-            return "/WEB-INF/generic/wrong-selected-task.jsp";
+            return manager.getProperty(ConfigurationManager.PAGE_WRON_SELECTED_TASK);
         }
         task.setStatus(Task.Status.NEW);
         task.setUserId(0);
@@ -49,6 +49,6 @@ public class UnassignTask implements ICommand {
                     new FormatedMail().getInformGroupAboutTaskMessage(task));
         }
         
-        return "/profile";
+        return manager.getProperty(ConfigurationManager.PAGE_PROFILE);
     }
 }
