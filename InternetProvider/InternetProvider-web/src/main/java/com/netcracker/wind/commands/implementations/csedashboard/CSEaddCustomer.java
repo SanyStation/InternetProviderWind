@@ -47,7 +47,7 @@ public class CSEaddCustomer implements ICommand {
             request.setAttribute("erroremail", "has-error");
             request.setAttribute("messagename", message_name);
             request.setAttribute("errorname", "has-error");
-            return "/WEB-INF/cse/cse-page-add-customer.jsp";
+            return manager.getProperty(ConfigurationManager.PAGE_CSE_CUSTOMER_REVIEW);
         }
         User user = new User();
         user.setName(name);
