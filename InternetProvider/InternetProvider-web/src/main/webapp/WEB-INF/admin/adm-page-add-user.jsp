@@ -24,14 +24,16 @@
 
                     <div class="col-md-7">
                         <h3>Adding new user:</h3>
-                        <div class="input-group paddingtop">
+                        <div class="input-group ${errorname} paddingtop"  onmouseover="$(this).removeClass('has-error')">
                             <span class="input-group-addon">Name</span>
-                            <input type="text" class="form-control" name="name" placeholder="Enter full name">
+                            <input type="text" class="form-control" name="name" placeholder="Enter full name" value="${param.name}">
                         </div>
-                        <div class="input-group paddingtop">
+                        <div class="alert-danger alert badge  nomargin margintop" onmouseover="$(this).slideUp(100)">${messagename}</div>
+                        <div class="input-group ${erroremail} paddingtop" onmouseover="$(this).removeClass('has-error')"> 
                             <span class="input-group-addon">E-mail</span>
-                            <input type="text" class="form-control" name="email" placeholder="Enter e-mail">
+                            <input type="text" class="form-control" name="email" placeholder="Enter e-mail" value="${param.email}">
                         </div>
+                        <div class="alert-danger alert badge  nomargin margintop" onmouseover="$(this).slideUp(100)">${messageemail}</div>
                         <!--                         <div class="input-group paddingtop">
                                                     <span class="input-group-addon">Password</span>
                                                     <input type="text" class="form-control" name="password" placeholder="Enter e-mail">
@@ -42,14 +44,15 @@
                                                 </div>-->
                         <div class="input-group paddingtop">
                             <span class="input-group-addon">Group</span>
-                            <select name="role_id" class="form-control">
+                            <select name="role_id" class="form-control" value="3">
                                 <option value="">Select group</option>
-                                <option value="5">Customer</option>
-                                <option value="2">Provision engineer</option>
-                                <option value="3">Installation engineer</option>
-                                <option value="4">Customer support engineer</option>
+                                <option value="5" ${param.role_id eq 5 ? 'selected' : ''}>Customer</option>
+                                <option value="2" ${param.role_id eq 2 ? 'selected' : ''}>Provision engineer</option>
+                                <option value="3" ${param.role_id eq 3 ? 'selected' : ''}>Installation engineer</option>
+                                <option value="4" ${param.role_id eq 4 ? 'selected' : ''}>Customer support engineer</option>
                             </select>
-                        </div>
+                        </div>                        
+                        <div class="alert-danger alert badge  nomargin margintop" onmouseover="$(this).slideUp(100)">${messagebottom}</div>
                         <hr>
                         <div class="row">
                             <div class="col-md-7">
