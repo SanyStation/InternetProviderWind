@@ -75,9 +75,9 @@
                             </a>
                         </div>
                         <div class="col-md-3 header-item borderleft borderright text-center nopadding">
-                            <a href="/callmeback" class="display-block largefont28">
+                            <a href="#" class="display-block largefont28">
                                 <span class="fa fa-phone-square paddingtop">&nbsp;</span>
-                                Call me back
+                                044 388 02 02
                             </a>
                         </div>
                     </div>
