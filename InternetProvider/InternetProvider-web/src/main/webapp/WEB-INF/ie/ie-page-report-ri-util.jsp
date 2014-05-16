@@ -22,7 +22,7 @@
             <h3>${title}</h3>
 
             <form role="form">
-                <display:table name="sessionScope.devices" export="true" requestURI="Controller"
+                <display:table name="sessionScope.devices" export="true" sort="list" requestURI="Controller"
                                class="simple" pagesize="${pageSize}" >
 
                     <display:setProperty name="export.riunc" value="true"/>
@@ -60,7 +60,7 @@
                     <display:setProperty 
                         name="paging.banner.first" 
                         value="<br/><ul class=\"pagination\">
-                        <li class=\"active\"><a href=\"{1}\">First</a></li>
+                        <li class=\"active\"><a>First</a></li>
                         <li class=\"disabled\"><a>Prev</a></li>
                         {0}
                         <li><a href=\"{3}\">Next</a></li>
@@ -73,7 +73,7 @@
                         <li><a href=\"{2}\">Prev</a></li>
                         {0}
                         <li class=\"disabled\"><a>Next</a></li>
-                        <li class=\"active\"><a href=\"{4}\">Last</a></li>
+                        <li class=\"active\"><a>Last</a></li>
                         </ul>"/>
                     <display:setProperty 
                         name="paging.banner.onepage" 
@@ -90,7 +90,7 @@
                         name="css.table" 
                         value="table table-striped table-hover nomargin"/>
                     
-                    <display:column property="name" title="Name" />
+                    <display:column property="name" title="Name" sortable="true" />
                     <display:column property="capacity" title="Capacity, ports" sortable="true" />
                     <display:column property="utilization" title="Utilization, ports" sortable="true" />
                     <display:column property="utilizationPercent" title="Utilization, %" format="{0, number, 0.00}" sortable="true" />

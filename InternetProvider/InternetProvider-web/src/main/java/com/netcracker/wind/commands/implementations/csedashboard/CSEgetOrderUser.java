@@ -26,8 +26,9 @@ public class CSEgetOrderUser implements ICommand {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
         int performerId = user.getId();
-        IExtendedPaginatedList paginatedList = new OrderUserPaginatedList(request,
+        IExtendedPaginatedList paginatedList = new OrderUserPaginatedList(
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId);
+        paginatedList.setRequest(request);
         session.setAttribute(ORDERS, paginatedList);
         return manager.getProperty(ConfigurationManager.PAGE_CSE_SERVICE_ORDERS);
     }

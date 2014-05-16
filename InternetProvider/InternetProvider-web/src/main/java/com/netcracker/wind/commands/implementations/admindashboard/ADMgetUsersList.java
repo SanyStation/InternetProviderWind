@@ -20,9 +20,9 @@ public class ADMgetUsersList implements ICommand {
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
-        IExtendedPaginatedList paginatedList
-                = new ADMUsersPaginatedList(request,
-                        AbstractOracleDAO.DEFAULT_PAGE_SIZE);
+        IExtendedPaginatedList paginatedList = new ADMUsersPaginatedList(
+                AbstractOracleDAO.DEFAULT_PAGE_SIZE);
+        paginatedList.setRequest(request);
         HttpSession session = request.getSession(false);
         session.setAttribute("users", paginatedList);
         return manager.getProperty(ConfigurationManager.PAGE_ADM_USERS_LIST);

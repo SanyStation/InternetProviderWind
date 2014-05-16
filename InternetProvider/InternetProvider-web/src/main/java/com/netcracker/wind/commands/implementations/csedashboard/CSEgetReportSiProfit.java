@@ -8,6 +8,8 @@ import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.reports.SiProfit;
 import com.netcracker.wind.manager.ConfigurationManager;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,17 +25,21 @@ public class CSEgetReportSiProfit implements ICommand {
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
         HttpSession hs = request.getSession(false);
-        AbstractFactoryDAO factoryDAO =
-                FactoryCreator.getInstance().getFactory();
+        AbstractFactoryDAO factoryDAO
+                = FactoryCreator.getInstance().getFactory();
         String date = request.getParameter("vdByMonth");
-        date = date == null ? "" : date;
-        List<SiProfit> orders =
-                factoryDAO.createSiProfByMonthDAO().findByDateTo(date);
+        if (date == null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+            date = sdf.format(Calendar.getInstance().getTime());
+        }
+        List<SiProfit> orders
+                = factoryDAO.createSiProfByMonthDAO().findByDateTo(date);
         hs.setAttribute("date", date);
         hs.setAttribute("pageSize", AbstractOracleDAO.DEFAULT_PAGE_SIZE);
         hs.setAttribute("title", "Profit on " + date);
         hs.setAttribute("profits", orders);
-        return manager.getProperty(ConfigurationManager.PAGE_CSE_REPORT_SI_PROFIT);
+        return manager.getProperty(
+                ConfigurationManager.PAGE_CSE_REPORT_SI_PROFIT);
     }
-    
+
 }

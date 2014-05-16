@@ -32,8 +32,9 @@ public class PEreviewDevice implements ICommand {
         if (device == null) {
             return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
-        IExtendedPaginatedList pl = new PortPaginatedList(request,
+        IExtendedPaginatedList pl = new PortPaginatedList(
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE, deviceId);
+        pl.setRequest(request);
         HttpSession hs = request.getSession(false);
         hs.setAttribute("ports", pl);
         hs.setAttribute("device", device);

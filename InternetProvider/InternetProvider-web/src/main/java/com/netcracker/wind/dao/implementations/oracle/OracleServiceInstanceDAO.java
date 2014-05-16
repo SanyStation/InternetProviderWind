@@ -24,16 +24,17 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
             = Logger.getLogger(OracleServiceInstanceDAO.class.getName());
 
     private static final String UPDATE = "UPDATE SERVICE_INSTANCES SET "
-            + "USER_ID = ?, SERVICE_ORDER_ID = ?, STATUS = ?, SERVICE_ID = ? "
+            + "NAME = ?, USER_ID = ?, SERVICE_ORDER_ID = ?, STATUS = ?, SERVICE_ID = ? "
             + "WHERE ID = ?";
     private static final String DELETE = "DELETE FROM SERVICE_INSTANCES WHERE "
             + "ID = ?";
     private static final String INSERT = "INSERT INTO SERVICE_INSTANCES ("
-            + "USER_ID, SERVICE_ORDER_ID, STATUS, SERVICE_ID) "
-            + "VALUES(?, ?, ?, ?)";
+            + "NAME, USER_ID, SERVICE_ORDER_ID, STATUS, SERVICE_ID) "
+            + "VALUES(?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT si.*, COUNT(*) OVER () AS "
             + ROWS + " FROM service_instances si ";
     private static final String ID = "id";
+    private static final String NAME = "name";
     private static final String STATUS = "status";
     private static final String USER_ID = "user_id";
     private static final String SERVICE_ORDER_ID = "service_order_id";
@@ -50,10 +51,11 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
             connection = connectionPool.getConnection();
             stat = connection.prepareStatement(INSERT,
                     PreparedStatement.RETURN_GENERATED_KEYS);
-            stat.setInt(1, serviceInstance.getUserId());
-            stat.setInt(2, serviceInstance.getServiceOrderId());
-            stat.setString(3, serviceInstance.getStatus().toString());
-            stat.setInt(4, serviceInstance.getServiceId());
+            stat.setString(1, serviceInstance.getName());
+            stat.setInt(2, serviceInstance.getUserId());
+            stat.setInt(3, serviceInstance.getServiceOrderId());
+            stat.setString(4, serviceInstance.getStatus().toString());
+            stat.setInt(5, serviceInstance.getServiceId());
             stat.executeUpdate();
             ResultSet insertedResultSet = stat.getGeneratedKeys();
             if (insertedResultSet != null && insertedResultSet.next()) {
@@ -118,6 +120,7 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
             super.rows = 0;
             while (rs.next()) {
                 ServiceInstance servInst = new ServiceInstance();
+                servInst.setName(rs.getString(NAME));
                 servInst.setId(rs.getInt(ID));
                 servInst.setUserId(rs.getInt(USER_ID));
                 servInst.setStatus(ServiceInstance.Status.valueOf(
@@ -141,11 +144,12 @@ public class OracleServiceInstanceDAO extends AbstractOracleDAO
         try {
             con = connectionPool.getConnection();
             stat = con.prepareStatement(UPDATE);
-            stat.setInt(1, serviceInstance.getUserId());
-            stat.setInt(2, serviceInstance.getServiceOrderId());
-            stat.setString(3, serviceInstance.getStatus().toString());
-            stat.setInt(4, serviceInstance.getServiceId());
-            stat.setInt(5, serviceInstance.getId());
+            stat.setString(1, serviceInstance.getName());
+            stat.setInt(2, serviceInstance.getUserId());
+            stat.setInt(3, serviceInstance.getServiceOrderId());
+            stat.setString(4, serviceInstance.getStatus().toString());
+            stat.setInt(5, serviceInstance.getServiceId());
+            stat.setInt(6, serviceInstance.getId());
             stat.executeUpdate();
         } catch (SQLException ex) {
             LOGGER.error(null, ex);

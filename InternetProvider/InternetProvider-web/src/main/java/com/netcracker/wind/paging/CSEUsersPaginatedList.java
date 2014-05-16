@@ -4,7 +4,6 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Role;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -15,8 +14,8 @@ public class CSEUsersPaginatedList extends AbstractPaginatedList {
     private final IUserDAO userDAO = FactoryCreator.getInstance().getFactory().
             createUserDAO();
 
-    public CSEUsersPaginatedList(HttpServletRequest request, int pageSize) {
-        super(request, pageSize);
+    public CSEUsersPaginatedList(int pageSize) {
+        super(pageSize);
     }
 
     @Override

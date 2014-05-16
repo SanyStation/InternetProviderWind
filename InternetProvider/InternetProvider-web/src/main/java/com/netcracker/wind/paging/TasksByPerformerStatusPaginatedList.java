@@ -5,7 +5,6 @@ import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Task;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -18,9 +17,8 @@ public class TasksByPerformerStatusPaginatedList extends AbstractPaginatedList {
     private final ITaskDAO taskDAO = FactoryCreator.getInstance().getFactory().
             createTaskDAO();
 
-    public TasksByPerformerStatusPaginatedList(HttpServletRequest request,
-            int pageSize) {
-        super(request, pageSize);
+    public TasksByPerformerStatusPaginatedList(int pageSize) {
+        super(pageSize);
         statuses = new ArrayList<Task.Status>(4);
     }
 

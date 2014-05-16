@@ -60,7 +60,7 @@
                     <display:setProperty 
                         name="paging.banner.first" 
                         value="<br/><ul class=\"pagination\">
-                        <li class=\"active\"><a href=\"{1}\">First</a></li>
+                        <li class=\"active\"><a>First</a></li>
                         <li class=\"disabled\"><a>Prev</a></li>
                         {0}
                         <li><a href=\"{3}\">Next</a></li>
@@ -73,7 +73,7 @@
                         <li><a href=\"{2}\">Prev</a></li>
                         {0}
                         <li class=\"disabled\"><a>Next</a></li>
-                        <li class=\"active\"><a href=\"{4}\">Last</a></li>
+                        <li class=\"active\"><a>Last</a></li>
                         </ul>"/>
                     <display:setProperty 
                         name="paging.banner.onepage" 

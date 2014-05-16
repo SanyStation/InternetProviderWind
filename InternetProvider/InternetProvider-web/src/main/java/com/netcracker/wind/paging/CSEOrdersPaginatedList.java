@@ -3,7 +3,6 @@ package com.netcracker.wind.paging;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IServiceOrderDAO;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -15,8 +14,8 @@ public class CSEOrdersPaginatedList extends AbstractPaginatedList {
             getFactory().createServiceOrderDAO();
     private int userId;
 
-    public CSEOrdersPaginatedList(HttpServletRequest request, int pageSize) {
-        super(request, pageSize);
+    public CSEOrdersPaginatedList(int pageSize) {
+        super(pageSize);
     }
 
     @Override

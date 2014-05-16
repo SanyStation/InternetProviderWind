@@ -7,10 +7,10 @@
 <div class="col-md-12 nopadding">
     <table class="table table-striped table-bordered"><tr><td colspan="2">
                 <h4>Order info</h2></td></tr><tr>
-            <td>Service:</td>
-            <td>${order.service.name}<!--Silver--></td></tr><tr>
-            <td>Price:</td>
-            <td>${order.price.price} $</td></tr><tr>
+            <td>Service</td>
+            <td>${order.service.name}</td></tr><tr>
+            <td>Price, $</td>
+            <td>${order.price.price}</td></tr><tr>
             <td>Location</td>
             <td>${order.serviceLocation.address}</td></tr><tr>
             <td>Provider Location</td>

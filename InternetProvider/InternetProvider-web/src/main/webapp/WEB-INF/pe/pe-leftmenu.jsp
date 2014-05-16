@@ -12,7 +12,7 @@
 
     <ul id="myTab" class="list-group">
         <li class="list-group-item">
-            <ul class="nav nav-pills nav-stacked panel panel-${param.active eq 'tasks' ? 'primary' : 'default'}  nomargin">
+            <ul class="nav nav-pills nav-stacked panel panel-${param.active eq 'tasks' ? 'info' : 'default'}  nomargin">
                 <li class="panel-heading"><i class="glyphicon glyphicon-briefcase"></i> Tasks</li>
 
                 <li class="${param.command eq 'pe_get_tasks' ? ' active' : ''}  ${newTasks > 0 ? 'alert-success' : ''}">
@@ -40,7 +40,7 @@
         </li>
 
         <li class="list-group-item">
-            <ul class="nav nav-pills nav-stacked panel panel-${param.active eq 'reports' ? 'primary' : 'default'}  nomargin">
+            <ul class="nav nav-pills nav-stacked panel panel-${param.active eq 'reports' ? 'info' : 'default'} nomargin">
                 <li class="panel-heading"><i class="glyphicon glyphicon-list-alt"></i> Reports</li>
                 <li class="${param.command eq 'pe_get_report_cia_ipt' ? ' active' : ''}"><a href="Controller?command=pe_get_report_cia_ipt"><i class="glyphicon glyphicon-list-alt"></i> Impact Propagation Tree</a></li>
             </ul>

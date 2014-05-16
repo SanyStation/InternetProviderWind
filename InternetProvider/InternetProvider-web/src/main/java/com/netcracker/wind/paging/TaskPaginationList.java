@@ -4,7 +4,6 @@ import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Task;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -16,8 +15,8 @@ public class TaskPaginationList extends AbstractPaginatedList {
     private final ITaskDAO taskDAO = FactoryCreator.getInstance().getFactory().
             createTaskDAO();
 
-    public TaskPaginationList(HttpServletRequest request, int pageSize) {
-        super(request, pageSize);
+    public TaskPaginationList(int pageSize) {
+        super(pageSize);
     }
 
     @Override

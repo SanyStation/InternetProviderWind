@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 /**
@@ -114,13 +116,19 @@ public abstract class AbstractOracleDAO {
         sb.append(query);
         sb.append(" ORDER BY ");
         
-        //if the parameter for 'ORDER BY' statement is not specified then sort by id
-        orderParam = orderParam.isEmpty() ? "id" : orderParam;
-        sb.append(orderParam); //dangerous snippet of code, possible SQl-injections
-        
+        Pattern pattern = Pattern.compile("^(\\w+\\.*\\w+)+$");
+        Matcher matcher = pattern.matcher(orderParam);
+        /**
+         * If the parameter for 'ORDER BY' did not pass then sort by id
+         */
+        if (!matcher.matches()) {
+            orderParam = "id";
+        }
+        sb.append(orderParam);
+
         sb.append(" ");
         sb.append(direction);
-        
+
 //        p.add(orderParam);
         if (pageSize > 0) {
             sb.append(") SUBQ WHERE ROWNUM <= ?) WHERE ROW_NUM > ?");

@@ -31,8 +31,9 @@ public class ListOrders implements ICommand {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute(USER);
         int performerId = user.getId();
-        IExtendedPaginatedList paginatedList = new OrderUserPaginatedList(request,
+        IExtendedPaginatedList paginatedList = new OrderUserPaginatedList(
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(performerId);
+        paginatedList.setRequest(request);
         session.setAttribute(ORDERS, paginatedList);
         return manager.getProperty(ConfigurationManager.PAGE_CU_PAGE_ORDERS_LIST);
     }

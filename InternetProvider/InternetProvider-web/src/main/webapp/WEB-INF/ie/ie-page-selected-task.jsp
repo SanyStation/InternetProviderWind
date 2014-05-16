@@ -35,7 +35,7 @@
                         <button type="submit" name="command" value="new_cable" class="btn btn-success btn-lg">Create cable</button>
                     </c:if>
                     <c:if test="${task.type=='DELETE_CABLE'}">
-                        <button type="submit" name="command" value="delete_cable" class="btn btn-danger">Delete cable</button>
+                        <button type="submit" name="command" value="delete_cable" class="btn btn-danger btn-lg">Delete cable</button>
                     </c:if>
                     <c:if test="${task.type=='NEW_DEVICE'}">
                         <div class="col-md-5 input-group paddingtop">

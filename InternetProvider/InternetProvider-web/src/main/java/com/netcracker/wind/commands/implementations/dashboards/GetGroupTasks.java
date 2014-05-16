@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.dashboards;
 
 import com.netcracker.wind.dao.implementations.helper.AbstractOracleDAO;
@@ -27,9 +22,11 @@ public class GetGroupTasks{
         this.pageForReturn = pageForReturn;
     }
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        IExtendedPaginatedList paginatedList = new TaskPaginationList(request,
+    public String execute(HttpServletRequest request,
+            HttpServletResponse response) {
+        IExtendedPaginatedList paginatedList = new TaskPaginationList(
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setGroup(groupId);
+        paginatedList.setRequest(request);
         HttpSession session = request.getSession(false);
         session.setAttribute(TASKS, paginatedList);
         return pageForReturn;

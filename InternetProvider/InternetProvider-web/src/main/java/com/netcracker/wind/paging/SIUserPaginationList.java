@@ -3,7 +3,6 @@ package com.netcracker.wind.paging;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -12,11 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 public class SIUserPaginationList extends AbstractPaginatedList {
     private int performerId;
 
-    private final IServiceInstanceDAO serviceInstanceDAO = FactoryCreator.getInstance().getFactory()
+    private final IServiceInstanceDAO serviceInstanceDAO
+            = FactoryCreator.getInstance().getFactory()
             .createServiceInstanceDAO();
 
-    public SIUserPaginationList(HttpServletRequest request, int pageSize) {
-        super(request, pageSize);
+    public SIUserPaginationList(int pageSize) {
+        super(pageSize);
     }
     
     @Override

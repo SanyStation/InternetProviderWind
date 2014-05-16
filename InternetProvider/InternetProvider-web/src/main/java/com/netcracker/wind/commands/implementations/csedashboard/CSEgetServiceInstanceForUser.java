@@ -21,14 +21,16 @@ public class CSEgetServiceInstanceForUser implements ICommand {
     private static final String SI = "service_instances";
     private static final String CUSTOMER_ID = "customer_id";
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-
+    public String execute(HttpServletRequest request,
+            HttpServletResponse response) {
         HttpSession session = request.getSession(false);
         int customerId = Integer.parseInt(request.getParameter(CUSTOMER_ID));
-        IExtendedPaginatedList paginatedList = new SIUserPaginationList(request,
+        IExtendedPaginatedList paginatedList = new SIUserPaginationList(
                 AbstractOracleDAO.DEFAULT_PAGE_SIZE).setPerformer(customerId);
+        paginatedList.setRequest(request);
         session.setAttribute(SI, paginatedList);
-        return manager.getProperty(ConfigurationManager.PAGE_CSE_SERVICE_INSTANCES);
+        return manager.getProperty(
+                ConfigurationManager.PAGE_CSE_SERVICE_INSTANCES);
 
     }
 

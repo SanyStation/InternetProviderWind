@@ -11,6 +11,7 @@ import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Circuit;
 import com.netcracker.wind.entities.Port;
 import com.netcracker.wind.entities.Role;
+import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
@@ -25,7 +26,7 @@ import java.util.List;
 public class Workflow {
 
     private static final int PORT_ON_DEVICE = 60;
-    private static final String CIRCUIT_NAME = "Circuit ";
+    private static final String CIRCUIT_NAME = "Circuit";
 
     public static void createTaskForNewScnario(ServiceOrder order) {
         AbstractFactoryDAO factoryDAO
@@ -62,8 +63,8 @@ public class Workflow {
         }
     }
 
-    public static void createTaskForIE(ServiceOrder order,
-            Task.Type taskType, ITaskDAO taskDAO) {
+    public static void createTaskForIE(ServiceOrder order, Task.Type taskType,
+            ITaskDAO taskDAO) {
 
         //If in system isn't task to create new device with not completed status
         //then don't create new task NEW_DEVICE

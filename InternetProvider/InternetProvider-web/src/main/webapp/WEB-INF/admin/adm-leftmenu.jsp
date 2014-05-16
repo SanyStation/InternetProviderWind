@@ -6,7 +6,7 @@
 
     <ul id="myTab" class="list-group">
         <li class="list-group-item">
-            <ul class="nav nav-pills nav-stacked panel panel-${param.active eq 'users' ? 'primary' : 'default'}  nomargin">
+            <ul class="nav nav-pills nav-stacked panel panel-${param.active eq 'users' ? 'info' : 'default'}  nomargin">
                 <li class="${param.command eq 'adm_get_users' ? ' active' : ''}"><a href="Controller?command=adm_get_users" ><i class="glyphicon glyphicon-list"></i> Users</a></li>
                 <li class="${param.command eq 'adm_add_user_page' ? ' active' : ''}"><a href="Controller?command=adm_add_user_page"><i class="glyphicon glyphicon-plus"></i> Add user</a></li>
             </ul>

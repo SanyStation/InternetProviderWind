@@ -31,7 +31,7 @@ public class ConfirmOrder implements ICommand {
     private static final String ORDER = "order";
     private static final String ORDER_MESSAGE = "Boreas order information";
     private static final String USER = "user";
-    private static final String SERVICE_INSTANCE_NAME = "Service Instatnce ";
+    private static final String SERVICE_INSTANCE_NAME = "Service_instatnce";
     private final String page;
 
     public ConfirmOrder(String page) {
@@ -50,7 +50,8 @@ public class ConfirmOrder implements ICommand {
         User user = (User) request.getSession(false).getAttribute(USER);
         if (order == null
                 || !order.getStatus().equals(ServiceOrder.Status.ENTERING)
-                || (user.getId() != order.getUserId() && user.getRoleId() != Role.CSE_GROUP_ID)) {
+                || (user.getId() != order.getUserId() && user.getRoleId() !=
+                Role.CSE_GROUP_ID)) {
             return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
 
@@ -69,7 +70,9 @@ public class ConfirmOrder implements ICommand {
             Workflow.createTaskForNewScnario(order);
             List<User> users = new ArrayList<User>();
             users.add(order.getUser());
-            //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getNewSOTakeMassage(order, order.getService(), order.getUser()));
+            new MailSendler().sendEmail(users, ORDER_MESSAGE,
+                    new FormatedMail().getNewSOTakeMassage(order,
+                            order.getService(), order.getUser()));
         } else if (order.getScenario().toString().equals(
                 ServiceOrder.Scenario.MODIFY.toString())) {
             ServiceInstance serviceInstance = order.getServiceInstance();
@@ -78,7 +81,9 @@ public class ConfirmOrder implements ICommand {
             Workflow.createTaskForModifyScenario(order);
             List<User> users = new ArrayList<User>();
             users.add(order.getUser());
-            //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getModifySOTakeMassage(order, order.getService(), order.getUser()));
+            new MailSendler().sendEmail(users, ORDER_MESSAGE,
+                    new FormatedMail().getModifySOTakeMassage(order,
+                            order.getService(), order.getUser()));
         } else if (order.getScenario().toString().equals(
                 ServiceOrder.Scenario.DISCONNECT.toString())) {
             ServiceInstance serviceInstance = order.getServiceInstance();
@@ -87,7 +92,9 @@ public class ConfirmOrder implements ICommand {
             Workflow.createTaskForDisconnectScenario(order);
             List<User> users = new ArrayList<User>();
             users.add(order.getUser());
-            //new MailSendler().sendEmail(users, ORDER_MESSAGE, new FormatedMail().getDiscSOTakeMassage(order, order.getService(), order.getUser()));
+            new MailSendler().sendEmail(users, ORDER_MESSAGE, 
+                    new FormatedMail().getDiscSOTakeMassage(order,
+                            order.getService(), order.getUser()));
         } else {
             return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }

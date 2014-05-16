@@ -16,8 +16,8 @@ public class OrderUserPaginatedList extends AbstractPaginatedList {
     private final IServiceOrderDAO serviceOrderDAO = FactoryCreator.getInstance().getFactory()
             .createServiceOrderDAO();
 
-    public OrderUserPaginatedList(HttpServletRequest request, int pageSize) {
-        super(request, pageSize);
+    public OrderUserPaginatedList(int pageSize) {
+        super(pageSize);
     }
 
     @Override

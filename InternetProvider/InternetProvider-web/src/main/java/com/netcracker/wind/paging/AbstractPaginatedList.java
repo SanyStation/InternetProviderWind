@@ -10,38 +10,22 @@ import org.displaytag.properties.SortOrderEnum;
  * @author Alexander Kovriga
  */
 public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
-    
+
     protected int pageNumber;
     protected int pageSize;
     protected String sortCriterion;
     protected Direction direction;
 
-    public AbstractPaginatedList(HttpServletRequest request, int pageSize) {
-        String page = (String) request.getParameter(ATTRIBUTE_PAGE);
-        String dir = request.getParameter(ATTRIBUTE_SORT_DIRECTION);
-        String criterion = request.getParameter(ATTRIBUTE_SORT_CRITERION);
-        if (page == null) {
-            this.pageNumber = AbstractOracleDAO.DEFAULT_PAGE_NUMBER;
-        } else {
-            this.pageNumber = Integer.parseInt(page);
-        }
-        if (dir == null) {
-            direction = Direction.ASC;
-        } else {
-            if (dir.equals("asc")) {
-                direction = Direction.ASC;
-            } else {
-                direction = Direction.DESC;
-            }
-        }
-        if (criterion == null) {
-            sortCriterion = "";
-        } else {
-            sortCriterion = criterion;
-        }
+    /**
+     * Simple constructor that takes size of page of paginated list like
+     * parameter.
+     *
+     * @param pageSize count of record per page
+     */
+    public AbstractPaginatedList(int pageSize) {
         this.pageSize = pageSize;
     }
-    
+
     @Override
     public void setRequest(HttpServletRequest request) {
         String page = (String) request.getParameter(ATTRIBUTE_PAGE);
@@ -50,7 +34,11 @@ public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
         if (page == null) {
             this.pageNumber = AbstractOracleDAO.DEFAULT_PAGE_NUMBER;
         } else {
-            this.pageNumber = Integer.parseInt(page);
+            if (!page.isEmpty()) {
+                this.pageNumber = Integer.parseInt(page);
+            } else {
+                this.pageNumber = AbstractOracleDAO.DEFAULT_PAGE_NUMBER;
+            }
         }
         if (dir == null) {
             direction = Direction.ASC;
@@ -72,7 +60,7 @@ public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
     public int getPageNumber() {
         return pageNumber;
     }
-    
+
     @Override
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
@@ -89,7 +77,7 @@ public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
     }
 
     @Override
-    public SortOrderEnum getSortDirection() {        
+    public SortOrderEnum getSortDirection() {
         if ("ASC".equals(direction.toString())) {
             return SortOrderEnum.ASCENDING;
         } else {

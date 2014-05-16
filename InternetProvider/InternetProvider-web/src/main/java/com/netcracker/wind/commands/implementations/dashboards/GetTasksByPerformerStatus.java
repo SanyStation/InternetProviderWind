@@ -30,9 +30,10 @@ public class GetTasksByPerformerStatus {
         User user = (User) session.getAttribute("user");
         int performerId = user.getId();
         IExtendedPaginatedList paginatedList
-                = new TasksByPerformerStatusPaginatedList(request,
-                AbstractOracleDAO.DEFAULT_PAGE_SIZE).
-                        setPerformer(performerId).addStatus(status);
+                = new TasksByPerformerStatusPaginatedList(
+                        AbstractOracleDAO.DEFAULT_PAGE_SIZE).
+                setPerformer(performerId).addStatus(status);
+        paginatedList.setRequest(request);
         session.setAttribute(TASKS, paginatedList);
         return pageForReturn;
     }

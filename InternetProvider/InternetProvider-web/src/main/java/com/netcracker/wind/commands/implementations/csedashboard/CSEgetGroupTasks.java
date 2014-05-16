@@ -21,9 +21,12 @@ public class CSEgetGroupTasks implements ICommand {
 
     private static final String TASKS = "tasks";
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        IExtendedPaginatedList paginatedList = new TaskPaginationList(request,
-                AbstractOracleDAO.DEFAULT_PAGE_SIZE).setGroup(Role.CSE_GROUP_ID);
+    public String execute(HttpServletRequest request,
+            HttpServletResponse response) {
+        IExtendedPaginatedList paginatedList = new TaskPaginationList(
+                AbstractOracleDAO.DEFAULT_PAGE_SIZE)
+                .setGroup(Role.CSE_GROUP_ID);
+        paginatedList.setRequest(request);
         HttpSession session = request.getSession(false);
         session.setAttribute(TASKS, paginatedList);
         return manager.getProperty(ConfigurationManager.PAGE_CSE_TASKS_LIST);
