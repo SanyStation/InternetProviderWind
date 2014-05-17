@@ -159,11 +159,12 @@ div.body-wrapper {
 }
 
 .layer2 {
-    position: absolute; /* Абсолютное позиционирование */
-    background: url(../images/bg_topic.png) 100% 100%;
+    position: absolute;
+    background: url(../images/bg_topic.png) 72% 100%;
     background-repeat: no-repeat;
     z-index: 1;
     min-height: 384px;
+    margin-left: -10px;
 }
 
 #header-logo {
@@ -194,3 +195,13 @@ div.body-wrapper {
 /*.nav-stacked>.panel-heading {
 margin-bottom: -2px;
 }*/
+.menu-phone-item > div {
+    font-size: 28px;
+}
+.menu-phone-item > div > span {
+    font-size: 32px;
+    line-height: 28px;
+}
+.menu-phone-item {
+    background-color: transparent!important;
+}

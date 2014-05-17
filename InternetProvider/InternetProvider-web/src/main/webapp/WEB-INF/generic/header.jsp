@@ -49,12 +49,13 @@
             <div class="navbar navbar-default navbar-static-top headercolor boxshadow" role="navigation">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-3 header-item borderleft text-center nopadding">
+                        <div class="col-sm-3 header-item borderleft text-center nopadding">
                             <a href="index.jsp" class="display-block largefont28">
+                                <span class="fa fa-home paddingtop">&nbsp;</span>
                                 Wind
                             </a>
                         </div>
-                        <div class="col-md-3 header-item borderleft text-center nopadding">
+                        <div class="col-sm-3 header-item borderleft text-center nopadding">
                             <c:if test="${user == null}">  
                                 <a href="profile" data-toggle="modal"  data-remote="false" data-target="#login-modal" class="display-block largefont28">
                                     <span class="fa fa-user paddingtop">&nbsp;</span>
@@ -68,17 +69,15 @@
                                 </a>
                             </c:if>
                         </div>
-                        <div class="col-md-3 header-item borderleft text-center nopadding">
+                        <div class="col-sm-3 header-item borderleft text-center nopadding">
                             <a href="/help" class="display-block largefont28">
                                 <span class="fa fa-question-circle paddingtop">&nbsp;</span>
                                 Help
                             </a>
                         </div>
-                        <div class="col-md-3 header-item borderleft borderright text-center nopadding">
-                            <a class="display-block largefont28">
-                                <span class="fa fa-phone-square paddingtop">&nbsp;</span>
-                                044 388 02 02
-                            </a>
+                        <div class="col-sm-3 header-item borderleft borderright text-center nopadding menu-phone-item header-item whitetext">
+                            <div class="display-block largefont28">
+                                <span class="fa fa-phone-square paddingtop">&nbsp;</span>044 388 02 02</div>
                         </div>
                     </div>
                 </div>
