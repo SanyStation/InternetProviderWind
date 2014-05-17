@@ -1,5 +1,6 @@
 package com.netcracker.wind.commands;
 
+import com.netcracker.wind.commands.implementations.dashboards.ServiceOrderReview;
 import com.netcracker.wind.commands.implementations.NoCommand;
 import com.netcracker.wind.commands.implementations.ProcessTask;
 import com.netcracker.wind.commands.implementations.admindashboard.ToAddUserPage;
@@ -11,7 +12,7 @@ import com.netcracker.wind.commands.implementations.admindashboard.ADMsetBlockUs
 import com.netcracker.wind.commands.implementations.csedashboard.*;
 import com.netcracker.wind.commands.implementations.dashboards.CUGetServiceInstanceForUser;
 import com.netcracker.wind.commands.implementations.dashboards.ChangePassword;
-import com.netcracker.wind.commands.implementations.dashboards.InstanceReview;
+import com.netcracker.wind.commands.implementations.dashboards.ServiceInstanceReview;
 import com.netcracker.wind.commands.implementations.iedashboard.*;
 import com.netcracker.wind.commands.implementations.order.*;
 import com.netcracker.wind.commands.implementations.pedashboard.*;
@@ -131,12 +132,12 @@ public class CommandHelper {
         String reviewOrderPage = manager.
                 getProperty(ConfigurationManager.PAGE_CU_PAGE_REVIEW_ORDER);
         commands.put(CU_INSTANCES, new CUGetServiceInstanceForUser());
-        commands.put(CU_REVIEW_INSTANCE, new InstanceReview(manager.
+        commands.put(CU_REVIEW_INSTANCE, new ServiceInstanceReview(manager.
                 getProperty(ConfigurationManager.PAGE_CU_PAGE_REVIEW_INSTANCE)));
         commands.put(CU_MODIFY_INSTANCE, new OrderModifySI(reviewOrderPage));
         commands.put(CU_DISCONNECT_INSTANCE, new OrderDisconnectSI(reviewOrderPage));
         commands.put(CU_ORDERS, new ListOrders());
-        commands.put(CU_REVIEW_ORDER, new ReviewOrder(reviewOrderPage));
+        commands.put(CU_REVIEW_ORDER, new ServiceOrderReview(reviewOrderPage));
         commands.put(CU_CONFIRM_ORDER, new ConfirmOrder(reviewOrderPage));
         commands.put(CU_CANCEL_ORDER, new CancelOrder(reviewOrderPage));
 
@@ -149,7 +150,7 @@ public class CommandHelper {
                 new CSEtasksByPerformerStatus(Task.Status.COMPLETED,
                         manager.getProperty(ConfigurationManager.PAGE_CSE_TASKS_LIST)));
         commands.put(CSE_GET_TASKS,
-                new CSEgroupTasks(Role.CSE_GROUP_ID,
+                new CSEgroupTasks(
                         manager.getProperty(ConfigurationManager.PAGE_CSE_TASKS_LIST)));
         commands.put(CSE_CUSTOMER_REVIEW, new CSEreviewCustomer());
         commands.put(CSE_GET_REPORT_SI_NEW, new CSEgetReportSiNew());
@@ -159,11 +160,11 @@ public class CommandHelper {
         commands.put(CSE_ADD_CUSTOMER, new CSEaddCustomer());
         commands.put(CSE_GET_SI, new CSEgetServiceInstanceForUser());
         commands.put(CSE_GET_SO, new CSEgetOrdersForUser());
-        commands.put(CSE_REVIEW_INSTANCE, new InstanceReview(manager.
+        commands.put(CSE_REVIEW_INSTANCE, new ServiceInstanceReview(manager.
                 getProperty(ConfigurationManager.PAGE_CSE_REVIEW_INSTANCE)));
         reviewOrderPage = manager.
                 getProperty(ConfigurationManager.PAGE_CSE_REVIEW_ORDER);
-        commands.put(CSE_REVIEW_ORDER, new ReviewOrder(reviewOrderPage));
+        commands.put(CSE_REVIEW_ORDER, new ServiceOrderReview(reviewOrderPage));
         commands.put(CSE_MODIFY_INSTANCE, new OrderModifySI(reviewOrderPage));
         commands.put(CSE_DISCONNECT_INSTANCE, new OrderDisconnectSI(reviewOrderPage));
         commands.put(CSE_CONFIRM_ORDER, new ConfirmOrder(reviewOrderPage));
@@ -175,7 +176,7 @@ public class CommandHelper {
         commands.put(IE_USER_COMPLETED_TASKS,
                 new IETasksByPerformerStatus(Task.Status.COMPLETED, tasksListPage));
         commands.put(IE_GET_TASKS,
-                new IEGroupTasks(Role.IE_GROUP_ID, tasksListPage));
+                new IEGroupTasks(tasksListPage));
         commands.put(IE_GET_REPORT_RI_UTIL, new IEgetReportRiUtil());
         commands.put(IE_GET_REPORT_RI_PROFIT, new IEgetReportRiProfit());
 
@@ -194,7 +195,7 @@ public class CommandHelper {
     }
 
     /**
-     * Method allow get exemplar of CommandHelper.
+     * Method allow to get exemplar CommandHelper class.
      *
      * @return exemplar CommandHelper
      */

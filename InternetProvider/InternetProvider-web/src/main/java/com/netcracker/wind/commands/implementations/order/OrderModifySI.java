@@ -18,6 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This class-command allows to create Service Order in order to modify
+ * particular Service Instance. Customer user can create such order for own
+ * 'ACTIVE' Service Instance. CSE can create such Service Order for 'ACTIVE'
+ * Service Instance for any customer user.
  *
  * @author Anatolii
  */
@@ -30,6 +34,11 @@ public class OrderModifySI implements ICommand {
     private static final String ORDER = "order";
     private final String page;
 
+    /**
+     * Constructor for creating exemplar of this command.
+     *
+     * @param page page where will be redirect after executing command.
+     */
     public OrderModifySI(String page) {
         this.page = page;
     }

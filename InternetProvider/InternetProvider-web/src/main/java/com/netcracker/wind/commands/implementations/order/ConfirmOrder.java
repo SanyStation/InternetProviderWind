@@ -21,6 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This class-command allows to confirm particular Service Order. Service Order
+ * can be confirmed if Service Order with status 'ENTERING'. Customer user can
+ * confirm only own Service Order. CSE can confirm Service Order for any
+ * customer user.
  *
  * @author Anatolii
  */
@@ -34,6 +38,11 @@ public class ConfirmOrder implements ICommand {
     private static final String SERVICE_INSTANCE_NAME = "Service_instatnce";
     private final String page;
 
+    /**
+     * Constructor for creating exemplar of this command.
+     *
+     * @param page page where will be redirect after executing command.
+     */
     public ConfirmOrder(String page) {
         this.page = page;
     }
@@ -50,8 +59,8 @@ public class ConfirmOrder implements ICommand {
         User user = (User) request.getSession(false).getAttribute(USER);
         if (order == null
                 || !order.getStatus().equals(ServiceOrder.Status.ENTERING)
-                || (user.getId() != order.getUserId() && user.getRoleId() !=
-                Role.CSE_GROUP_ID)) {
+                || (user.getId() != order.getUserId() && user.getRoleId()
+                != Role.CSE_GROUP_ID)) {
             return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
 
@@ -92,7 +101,7 @@ public class ConfirmOrder implements ICommand {
             Workflow.createTaskForDisconnectScenario(order);
             List<User> users = new ArrayList<User>();
             users.add(order.getUser());
-            new MailSendler().sendEmail(users, ORDER_MESSAGE, 
+            new MailSendler().sendEmail(users, ORDER_MESSAGE,
                     new FormatedMail().getDiscSOTakeMassage(order,
                             order.getService(), order.getUser()));
         } else {

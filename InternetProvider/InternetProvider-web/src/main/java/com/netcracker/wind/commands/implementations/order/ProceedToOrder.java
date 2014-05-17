@@ -27,10 +27,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ * This class-command allows create new Service Order with status 'ENTERING'.
+ * This command is AJAX-type command and communicate with client side across
+ * JSON protocol. Administrator, PE, IE cannot invoke this command.
  *
  * @author Anatolii
  */
-@RolesForbidden(roles = {Role.Roles.Administrator,
+@RolesForbidden(roles = {
+    Role.Roles.Administrator,
     Role.Roles.InstallationEngineer,
     Role.Roles.ProvisioningEngineer})
 public class ProceedToOrder implements ICommand {

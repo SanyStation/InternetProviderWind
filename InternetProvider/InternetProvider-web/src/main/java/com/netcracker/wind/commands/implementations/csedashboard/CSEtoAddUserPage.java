@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This class-command redirects to CSE page "Add User"
  *
  * @author Anatolii
  */

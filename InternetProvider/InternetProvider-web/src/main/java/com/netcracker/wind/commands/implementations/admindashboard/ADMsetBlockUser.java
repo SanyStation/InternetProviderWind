@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This class-command allows block and unblock particular user. This command may
+ * be calling only administrator. Also, administrator cannot block and unblock
+ * himself and another administrators(if they be in system)
  *
  * @author Anatolii
  */
@@ -27,7 +30,7 @@ public class ADMsetBlockUser implements ICommand {
         IUserDAO userDAO = factoryDAO.createUserDAO();
 
         User user = userDAO.findById(userId);
-        if (user != null) {
+        if (user != null && user.getRoleId() != Role.ADM_GROUP_ID) {
             user.setBlocked(!user.isBlocked());
             userDAO.update(user);
         }

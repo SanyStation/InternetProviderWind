@@ -6,14 +6,20 @@ import com.netcracker.wind.commands.implementations.dashboards.GetGroupTasks;
 import com.netcracker.wind.entities.Role;
 
 /**
+ * This class-command allows CSE to get list of new task for CSE group.
  *
  * @author Anatolii
  */
 @RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)
 public class CSEgroupTasks extends GetGroupTasks implements ICommand {
 
-    public CSEgroupTasks(int groupId, String pageForReturn) {
-        super(groupId, pageForReturn);
+    /**
+     * Constructor for creating exemplar of this class.
+     *
+     * @param pageForReturn page where will be redirect after executing command.
+     */
+    public CSEgroupTasks(String pageForReturn) {
+        super(Role.CSE_GROUP_ID, pageForReturn);
     }
 
 }

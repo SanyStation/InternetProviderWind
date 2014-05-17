@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This class-command was designed for situation when will request to controller
+ * with wrong key for parameter command. Command do redirect to index page.
  *
  * @author Bed Anatolii
  */

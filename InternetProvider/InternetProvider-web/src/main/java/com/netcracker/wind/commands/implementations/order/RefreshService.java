@@ -19,11 +19,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ * This class-command allows to find nearest Provider Location and refresh
+ * available Service for this Provider Location. This command is AJAX-type
+ * command and communicate with client side across JSON protocol.
  *
  * @author Anatolii
  */
 public class RefreshService implements ICommand {
-    
+
     private static final String X = "x";
     private static final String Y = "y";
     private static final String STATUS = "status";

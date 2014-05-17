@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.order;
 
 import com.netcracker.wind.annotations.RolesAllowed;
@@ -18,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * This class-command allows customer user to get own list of Service Instances.
+ * List of Service Order will be put to request under defined key - "orders"
  *
  * @author Anatolii
  */
-@RolesAllowed(roles = {Role.Roles.CustomerSupportEngineer, Role.Roles.CustomerUser})
+@RolesAllowed(roles = {Role.Roles.CustomerUser})
 public class ListOrders implements ICommand {
 
     private static final String ORDERS = "orders";

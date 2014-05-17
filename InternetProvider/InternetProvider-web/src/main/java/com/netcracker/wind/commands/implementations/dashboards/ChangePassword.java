@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.dashboards;
 
 import com.netcracker.wind.annotations.RolesAllowed;
@@ -21,8 +16,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ * This class-command allows change own password. CSE user can change own password
+ * and password for customer user. Another roles that exist in system can change
+ * only own password.
  *
  * @author Anatolii
+ * @author j_mart
  */
 @RolesAllowed(roles
         = {Role.Roles.Administrator,
@@ -38,7 +37,7 @@ public class ChangePassword implements ICommand {
     private static final String USER_ID = "user_id";
     private static final String ANSWER = "answer";
     private static final String MESSAGE = "message";
-    
+
     private static final String VALIDATION_PASSWORD = "pass";
     private static final String VALIDATION_CONF_PASSWORD = "confpass";
 

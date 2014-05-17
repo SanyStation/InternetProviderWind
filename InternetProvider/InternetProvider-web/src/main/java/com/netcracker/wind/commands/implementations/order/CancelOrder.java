@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This class-command allows to cancel particular Service Order. Service Order
+ * can be canceled if Service Order with status 'ENTERING'. Customer user can
+ * cancel only own Service Order. CSE can cancel Service Order for any customer
+ * user.
  *
  * @author Anatolii
  */
@@ -24,6 +28,11 @@ public class CancelOrder implements ICommand {
     private static final String USER = "user";
     private final String page;
 
+    /**
+     * Constructor for creating exemplar of this command.
+     *
+     * @param page page where will be redirect after executing command.
+     */
     public CancelOrder(String page) {
         this.page = page;
     }

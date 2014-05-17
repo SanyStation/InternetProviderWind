@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.netcracker.wind.commands.implementations.order;
+package com.netcracker.wind.commands.implementations.dashboards;
 
 import com.netcracker.wind.annotations.RolesAllowed;
 import com.netcracker.wind.commands.ICommand;
@@ -17,21 +12,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This class-command allows to get information about Service Order. Command
+ * can be invoke customer user to review own Service Order and CSE to review
+ * Service Instance for customer user. Needed Service Order will be putted
+ * into request under defined key - "order"
  *
  * @author Anatolii
  */
 @RolesAllowed(roles = {Role.Roles.CustomerSupportEngineer, Role.Roles.CustomerUser})
-public class ReviewOrder implements ICommand {
+public class ServiceOrderReview implements ICommand {
 
     private static final String ORDER_ID = "order_id";
     private static final String ORDER = "order";
     private static final String USER = "user";
     private final String page;
 
-    public ReviewOrder(String page) {
+    /**
+     * Constructor for creating exemplar of this command.
+     *
+     * @param page page where will be redirected after executing command.
+     */
+    public ServiceOrderReview(String page) {
         this.page = page;
     }
-    
+
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int orderId = Integer.parseInt(request.getParameter(ORDER_ID));
         IServiceOrderDAO orderDAO

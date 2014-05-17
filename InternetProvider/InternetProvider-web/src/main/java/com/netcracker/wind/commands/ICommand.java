@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * This interface is common interface for commands. All classes that implement
- * this interface can be invoked in main controller.
+ * this interface can be invoked as command.
  *
  * @author Bed Anatolii
  *
@@ -16,6 +16,8 @@ public interface ICommand {
     public ConfigurationManager manager = ConfigurationManager.getInstance();
 
     /**
+     * In this method implements logic of command. What do command do, may see
+     * in javadoc for particular command.
      *
      * @param request servlet request
      * @param response servlet response

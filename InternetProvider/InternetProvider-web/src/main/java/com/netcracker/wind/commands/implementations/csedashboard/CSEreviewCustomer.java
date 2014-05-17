@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This class-command allows CSE to get information about particular customer
+ * user. Needed customer user will be put to request under defined key -
+ * "customer". Command may be invoke only CSE.
  *
  * @author Anatolii
  */
@@ -24,7 +27,7 @@ public class CSEreviewCustomer implements ICommand {
         int customerId = Integer.parseInt(request.getParameter(ID));
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
         User user = userDAO.findById(customerId);
-        if (user == null) {
+        if (user == null || user.getRoleId() != Role.CU_GROUP_ID) {
             return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         request.setAttribute(CUSTOMER, user);

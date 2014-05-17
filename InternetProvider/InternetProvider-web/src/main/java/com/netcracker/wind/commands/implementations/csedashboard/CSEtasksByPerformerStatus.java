@@ -7,6 +7,7 @@ import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.Task;
 
 /**
+ * This class-command allows CSE to get list of tasks with status.
  *
  * @author Anatolii
  */
@@ -14,6 +15,12 @@ import com.netcracker.wind.entities.Task;
 public class CSEtasksByPerformerStatus extends GetTasksByPerformerStatus
         implements ICommand {
 
+    /**
+     * Constructor for creating exemplar of this command.
+     *
+     * @param status status of needed list of task
+     * @param pageForReturn page where will be redirect after executing command.
+     */
     public CSEtasksByPerformerStatus(Task.Status status, String pageForReturn) {
         super(status, pageForReturn);
     }
