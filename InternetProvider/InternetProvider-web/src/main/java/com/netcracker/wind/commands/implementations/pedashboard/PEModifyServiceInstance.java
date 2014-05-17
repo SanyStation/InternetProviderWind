@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.pedashboard;
 
 import com.netcracker.wind.annotations.RolesAllowed;
@@ -21,11 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * This class-command allows PE modify Service Instance for particular task.
  *
  * @author Anatolii
  */
 @RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
-public class ModifyServiceInstance implements ICommand {
+public class PEModifyServiceInstance implements ICommand {
 
     private static final String TASK_ID = "task_id";
     private static final String TASK = "task";

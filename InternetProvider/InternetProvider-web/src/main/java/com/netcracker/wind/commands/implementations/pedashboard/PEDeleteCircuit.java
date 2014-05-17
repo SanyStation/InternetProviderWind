@@ -5,7 +5,6 @@ import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
 import com.netcracker.wind.dao.factory.FactoryCreator;
 import com.netcracker.wind.dao.interfaces.ICircuitDAO;
-import com.netcracker.wind.dao.interfaces.IPortDAO;
 import com.netcracker.wind.dao.interfaces.IServiceInstanceDAO;
 import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import com.netcracker.wind.entities.Circuit;
@@ -18,11 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This class-command allows PE delete circuit.
  *
  * @author Anatolii
  */
 @RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
-public class DeleteCircuit implements ICommand {
+public class PEDeleteCircuit implements ICommand {
 
     private static final String TASK_ID = "task_id";
     private static final String TASK = "task";

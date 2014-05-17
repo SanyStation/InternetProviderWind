@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 
 /**
+ * This singleton class allow organize easy work with connection to database.
  *
  * @author Anatolii
  */
@@ -31,10 +32,21 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Method allow to get instance of {@link ConnectionPool} class
+     *
+     * @return instance {@link ConnectionPool}
+     */
     public static ConnectionPool getInstance() {
         return connectionPool;
     }
 
+    /**
+     * Method allows to get instance of {@link Connection}
+     *
+     * @return instance {@link Connection} or null if was throwing
+     * {@link SQLException}
+     */
     public synchronized Connection getConnection() {
         Connection connection = null;
         try {
@@ -45,6 +57,11 @@ public class ConnectionPool {
         return connection;
     }
 
+    /**
+     * Method allows close instance of {@link Connection}
+     *
+     * @param connection connection that should be close
+     */
     public void close(Connection connection) {
         try {
             connection.close();

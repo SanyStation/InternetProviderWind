@@ -13,11 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This class-command allows PE to setting circuit.
  *
  * @author Anatolii
  */
 @RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
-public class SetupCircuit implements ICommand {
+public class PESettingCircuit implements ICommand {
 
     private static final String TASK_ID = "task_id";
     private static final String TASK = "task";

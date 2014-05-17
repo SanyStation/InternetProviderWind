@@ -119,9 +119,9 @@ public class CommandHelper {
         commands.put(PROCESS_TASK, new ProcessTask());
         commands.put(CHANGE_PASSWORD, new ChangePassword());
         commands.put(UNASSIGN_TASK, new UnassignTask());
-        commands.put(SETUP_CIRCUIT, new SetupCircuit());
-        commands.put(MODIFY_CIRCUIT, new ModifyServiceInstance());
-        commands.put(DELETE_CIRCUIT, new DeleteCircuit());
+        commands.put(SETUP_CIRCUIT, new PESettingCircuit());
+        commands.put(MODIFY_CIRCUIT, new PEModifyServiceInstance());
+        commands.put(DELETE_CIRCUIT, new PEDeleteCircuit());
 
         commands.put(ADM_ADD_USER_PAGE, new ToAddUserPage());
         commands.put(ADM_ADD_USER, new ADMaddUser());
@@ -186,7 +186,7 @@ public class CommandHelper {
         commands.put(PE_USER_COMPLETED_TASKS,
                 new PETasksByPerformerStatus(Task.Status.COMPLETED, tasksListPage));
         commands.put(PE_GET_TASKS,
-                new PEGroupTasks(Role.PE_GROUP_ID, tasksListPage));
+                new PEGroupTasks(tasksListPage));
         commands.put(PE_GET_REPORT_CIA_IPT, new PEgetReportCiaIpt());
         commands.put(PE_REVIEW_DEVICE, new PEreviewDevice());
         commands.put(PE_REVIEW_PORT, new PEreviewPort());

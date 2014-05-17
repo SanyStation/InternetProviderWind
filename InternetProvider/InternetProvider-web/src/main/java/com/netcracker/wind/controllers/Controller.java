@@ -6,6 +6,7 @@ import com.netcracker.wind.commands.CommandHelper;
 import com.netcracker.wind.commands.ICommand;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
+import com.netcracker.wind.manager.ConfigurationManager;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 /**
+ * Main Controller class.
  *
  * @author Bed Anatolii
  */
@@ -32,21 +34,24 @@ public class Controller extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. Method get command in request via {@link CommandHelper}, check
+     * permission and invoke it if exist permissions.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @see CommandHelper
      */
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String page = "/index.jsp";
+            String page = ConfigurationManager.getInstance().
+                    getProperty(ConfigurationManager.PAGE_ERROR);
             ICommand command = helper.getCommand(request);
-            if (isInRole(request, response, command)) {
+            if (isInRole(request, command)) {
                 page = command.execute(request, response);
             } else {
                 LOGGER.info("attempt illegal access");
@@ -65,7 +70,7 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private boolean isInRole(HttpServletRequest request, HttpServletResponse response, ICommand command) {
+    private boolean isInRole(HttpServletRequest request, ICommand command) {
 
         RolesAllowed allowed = command.getClass().getAnnotation(RolesAllowed.class);
         RolesForbidden forbidden = command.getClass().getAnnotation(RolesForbidden.class);
@@ -99,7 +104,6 @@ public class Controller extends HttpServlet {
         return false;
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -136,6 +140,6 @@ public class Controller extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

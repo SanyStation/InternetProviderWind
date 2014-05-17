@@ -15,7 +15,7 @@ public class NoCommand implements ICommand {
 
     public String execute(HttpServletRequest request,
             HttpServletResponse response) {
-        return manager.getProperty(ConfigurationManager.PAGE_INDEX);
+        return manager.getProperty(ConfigurationManager.PAGE_ERROR);
     }
 
 }
