@@ -3,7 +3,9 @@ package com.netcracker.wind.entities.reports;
 import java.io.Serializable;
 
 /**
- *
+ * The entity that used like data transfer object for cia report (impact 
+ * propagation tree).
+ * 
  * @author Alexander Kovriga
  */
 public class CiaIpt implements Serializable {

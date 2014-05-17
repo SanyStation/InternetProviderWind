@@ -11,12 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * This class-command allows PE to review the service instance that assigned on 
+ * defined device.
+ * 
  * @author Alexander Kovriga
  */
 @RolesAllowed(roles = Role.Roles.ProvisioningEngineer)
 public class PEreviewSI implements ICommand {
     
+    /**
+     * Id of defined user.
+     */
     private static final String ID = "id";
 
     public String execute(HttpServletRequest request,
@@ -30,7 +35,8 @@ public class PEreviewSI implements ICommand {
             return manager.getProperty(ConfigurationManager.PAGE_ERROR);
         }
         request.setAttribute("instance", si);
-        return manager.getProperty(ConfigurationManager.PAGE_PE_REVIEW_INSTANCE);
+        return manager.getProperty(
+                ConfigurationManager.PAGE_PE_REVIEW_INSTANCE);
     }
 
 }

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
+ * The entity that used like data transfer object for si report (new and 
+ * disconnect orders per period).
+ * 
  * @author Alexander Kovriga
  */
 public class SiOrder implements Serializable {

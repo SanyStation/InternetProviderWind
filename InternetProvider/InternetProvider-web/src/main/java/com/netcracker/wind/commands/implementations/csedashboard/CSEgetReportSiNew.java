@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * This class-command allows CSE to review the si report (new orders per
+ * period).
+ * 
  * @author Alexander Kovriga
  */
 @RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)
@@ -39,7 +41,8 @@ public class CSEgetReportSiNew implements ICommand {
         hs.setAttribute("title", "New orders per period: " + dateFrom
                 + " - " + dateTo);
         hs.setAttribute("orders", orders);
-        return manager.getProperty(ConfigurationManager.PAGE_CSE_REPORT_SI_ORDERS);
+        return manager.getProperty(
+                ConfigurationManager.PAGE_CSE_REPORT_SI_ORDERS);
     }
     
 }

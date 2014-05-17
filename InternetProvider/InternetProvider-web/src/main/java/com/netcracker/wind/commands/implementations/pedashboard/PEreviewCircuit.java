@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * This class-command allows PE to review the circuit that assigned on 
+ * defined device.
+ * 
  * @author Alexander Kovriga
  */
 @RolesAllowed(roles = Role.Roles.ProvisioningEngineer)

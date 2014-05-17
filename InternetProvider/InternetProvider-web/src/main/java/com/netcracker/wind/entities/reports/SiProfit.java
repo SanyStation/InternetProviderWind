@@ -3,7 +3,9 @@ package com.netcracker.wind.entities.reports;
 import java.io.Serializable;
 
 /**
- *
+ * The entity that used like data transfer object for si report (profit by
+ * certain month).
+ * 
  * @author Alexander Kovriga
  */
 public class SiProfit implements Serializable {

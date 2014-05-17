@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * This class-command allows CSE to review the si report (disconnect orders per
+ * period).
+ * 
  * @author Alexander Kovriga
  */
 @RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)
@@ -39,7 +41,8 @@ public class CSEgetReportSiDisc implements ICommand {
         hs.setAttribute("title", "Disconnect orders per period: " + dateFrom
                 + " - " + dateTo);
         hs.setAttribute("orders", orders);
-        return manager.getProperty(ConfigurationManager.PAGE_CSE_REPORT_SI_ORDERS);
+        return manager.getProperty(
+                ConfigurationManager.PAGE_CSE_REPORT_SI_ORDERS);
     }
 
 }

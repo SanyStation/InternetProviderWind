@@ -3,7 +3,9 @@ package com.netcracker.wind.entities.reports;
 import java.io.Serializable;
 
 /**
- *
+ * The entity that used like data transfer object for ri report (routers` 
+ * utilization and capacity).
+ * 
  * @author Alexander Kovriga
  */
 public class RiRouterUtilNCap implements Serializable {

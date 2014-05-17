@@ -13,7 +13,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * 
+ * 
  * @author Alexander Kovriga
  */
 public class OracleSiProfitDAO extends AbstractOracleDAO
@@ -74,6 +75,7 @@ public class OracleSiProfitDAO extends AbstractOracleDAO
     public void delete(String deleteQuery, int id) {
     }
     
+    @Override
     public List<SiProfit> findByDateTo(String dateTo) {
         List<SiProfit> orders = null;
         List<String> param = new ArrayList<String>();

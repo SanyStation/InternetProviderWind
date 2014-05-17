@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Alexander Kovriga
+ * @author j_mart
  */
 @RolesAllowed(roles = Role.Roles.Administrator)
 public class ADMaddUser implements ICommand {
@@ -33,7 +33,8 @@ public class ADMaddUser implements ICommand {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         //null
-        int role_id = Integer.parseInt("0".concat((String) (request.getParameter("role_id"))));
+        int role_id = Integer.parseInt("0".concat(
+                (String) (request.getParameter("role_id"))));
         HashMap<String, String> newUserData = new HashMap();
 
         newUserData.put("login", name);
@@ -46,10 +47,11 @@ public class ADMaddUser implements ICommand {
         String message_email = validator.validateEmail();
         String message_name = validator.validateLogin();
 
-        IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
+        IUserDAO userDAO
+                = FactoryCreator.getInstance().getFactory().createUserDAO();
 //        User user = userDAO.findByEmail(email);
 //        if (user != null || email.isEmpty() || !(role_id>1)) {
-        if (validator.getIsvalid() != 110 || !(role_id > 1)) {
+        if (validator.getIsvalid() != 110 || !(role_id > 1)) {//magic numbers!!!
             request.setAttribute("messageemail", message_email);
             request.setAttribute("erroremail", "has-error");
             request.setAttribute("messagename", message_name);

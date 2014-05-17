@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Alexander Kovriga
+ * @author j_mart
  */
 @RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)
 public class CSEaddCustomer implements ICommand {
@@ -44,15 +44,17 @@ public class CSEaddCustomer implements ICommand {
 //        String validMessage = validator.validatePasswords();
         String message_email = validator.validateEmail();
         String message_name = validator.validateLogin();
-        IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
+        IUserDAO userDAO
+                = FactoryCreator.getInstance().getFactory().createUserDAO();
 //        User user = userDAO.findByEmail(email);
 //        if (user != null || email.isEmpty()) {
-        if (validator.getIsvalid() != 110) {
+        if (validator.getIsvalid() != 110) {//magic numbers!!!
             request.setAttribute("messageemail", message_email);
             request.setAttribute("erroremail", "has-error");
             request.setAttribute("messagename", message_name);
             request.setAttribute("errorname", "has-error");
-            return manager.getProperty(ConfigurationManager.PAGE_CSE_CUSTOMER_REVIEW);
+            return manager.getProperty(
+                    ConfigurationManager.PAGE_CSE_CUSTOMER_REVIEW);
         }
         User user = new User();
         user.setName(name);
@@ -63,7 +65,8 @@ public class CSEaddCustomer implements ICommand {
         int id = userDAO.add(user);
         if (id == AbstractOracleDAO.WRONG_ID) {
             request.setAttribute("messageemail", "Unknown error");
-            return manager.getProperty(ConfigurationManager.PAGE_CSE_ADD_CUSTOMER);
+            return manager.getProperty(
+                    ConfigurationManager.PAGE_CSE_ADD_CUSTOMER);
         }
         user.setId(id);
         request.setAttribute("customer", user);
@@ -71,7 +74,8 @@ public class CSEaddCustomer implements ICommand {
         users.add(user);
         new MailSendler().sendEmail(users, REGISTRATION_MESSAGE,
                 new FormatedMail().getUserRegistrationMassage(user));
-        return manager.getProperty(ConfigurationManager.PAGE_CSE_CUSTOMER_REVIEW);
+        return manager.getProperty(
+                ConfigurationManager.PAGE_CSE_CUSTOMER_REVIEW);
     }
 
 }

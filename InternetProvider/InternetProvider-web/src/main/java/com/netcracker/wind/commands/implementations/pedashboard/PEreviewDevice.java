@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * This class-command allows PE to review the device.
+ * 
  * @author Alexander Kovriga
  */
 @RolesAllowed(roles = Role.Roles.ProvisioningEngineer)

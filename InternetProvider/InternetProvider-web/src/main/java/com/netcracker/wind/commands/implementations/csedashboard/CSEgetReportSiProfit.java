@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * This class-command allows CSE to review the si report (profit by month).
+ * 
  * @author Alexander Kovriga
  */
 @RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)

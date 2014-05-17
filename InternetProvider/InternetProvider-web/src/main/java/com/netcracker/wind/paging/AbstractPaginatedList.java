@@ -6,14 +6,31 @@ import javax.servlet.http.HttpServletRequest;
 import org.displaytag.properties.SortOrderEnum;
 
 /**
- *
+ * The {@code AbstractPaginatedList} class designed to incapsulate some methods
+ * that uses in all subclasses for avoiding duplicating of code.
+ * 
  * @author Alexander Kovriga
  */
 public abstract class AbstractPaginatedList implements IExtendedPaginatedList {
 
+    /**
+     * Number of current page
+     */
     protected int pageNumber;
+    
+    /**
+     * Rows per page.
+     */
     protected int pageSize;
+    
+    /**
+     * Criterion of sorting.
+     */
     protected String sortCriterion;
+    
+    /**
+     * Direction of sorting.
+     */
     protected Direction direction;
 
     /**

@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * This class-command allows IE to review the ri report (routers`
+ * profitability).
+ * 
  * @author Alexander Kovriga
  */
 @RolesAllowed(roles = Role.Roles.InstallationEngineer)
@@ -30,7 +32,8 @@ public class IEgetReportRiProfit implements ICommand {
         hs.setAttribute("devices", devices);
         hs.setAttribute("title", "Routers' profitability");
         hs.setAttribute("pageSize", AbstractOracleDAO.DEFAULT_PAGE_SIZE);
-        return manager.getProperty(ConfigurationManager.PAGE_IE_REPORT_RI_PROFIT);
+        return manager.getProperty(
+                ConfigurationManager.PAGE_IE_REPORT_RI_PROFIT);
     }
 
 }

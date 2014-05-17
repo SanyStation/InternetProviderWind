@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * This class-command allows IE to review the ri report (routers` utilization
+ * and capacity).
+ * 
  * @author Alexander Kovriga
  */
 @RolesAllowed(roles = Role.Roles.InstallationEngineer)
