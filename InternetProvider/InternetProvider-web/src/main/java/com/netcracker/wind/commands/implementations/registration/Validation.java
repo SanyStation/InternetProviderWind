@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.commands.implementations.registration;
 
 import com.netcracker.wind.commands.ICommand;
@@ -15,7 +10,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- *
+ * This class-command allows to validate inputed data using Validator class.
+ * When information is valid - class initiates user registration
+ * 
  * @author myshko
  */
 public class Validation implements ICommand {
