@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author �����
+ *{@code CreateCable) is class for completing task NEW_CABLE by Installation <br>
+ * engineer.
+ * 
+ * @author Sashko
  */
 @RolesAllowed(roles = Role.Roles.InstallationEngineer)
 public class CreateCable implements ICommand {
