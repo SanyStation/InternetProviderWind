@@ -112,7 +112,7 @@ $(function() {
                 if (data.answer) {
                     $alert.removeClass('alert-danger').addClass('alert-success').html('<strong>Password has been changed!</strong>').slideDown(300).delay(1500).fadeOut(300);
                 } else {
-                    $alert.removeClass('alert-success').addClass('alert-danger').html('<strong>Passwords doesn\'t match!</strong> Retype them again.').slideDown(400).delay(1500).fadeOut(300);
+                    $alert.removeClass('alert-success').addClass('alert-danger').html('<strong>Error!</strong> '+data.message).slideDown(400).delay(1500).fadeOut(300);
                 }
             },
             error: function() {

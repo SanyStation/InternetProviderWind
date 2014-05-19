@@ -35,13 +35,14 @@ body > footer {
     display:block;
 }
 .leftmenu {
-
+    padding-left: 0;
 }
 
 .nopadding {
     padding-left:0px;
     padding-right:0px;
 }
+
 .paddingtop {
     padding-top:10px;
 }

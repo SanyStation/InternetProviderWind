@@ -24,24 +24,27 @@
                 <li class="panel-heading"><i class="glyphicon glyphicon-briefcase"></i> Tasks</li>
 
                 <li class="${param.command eq 'cse_get_tasks' ? ' active' : ''} ${newTasks > 0 ? 'alert-success' : ''}">
-                    <a href="Controller?command=cse_get_tasks"><i class="glyphicon glyphicon-briefcase"></i> New tasks 
+                    <a href="Controller?command=cse_get_tasks">
                         <c:if test="${newTasks > 0}">
                             <span class="badge pull-right alert-danger">${newTasks}</span>
                         </c:if>
+                        <i class="glyphicon glyphicon-briefcase"></i> New tasks 
                     </a>
                 </li>
                 <li class="${param.command eq 'cse_user_active_tasks' ? ' active' : ''}">
-                    <a href="Controller?command=cse_user_active_tasks"><i class="glyphicon glyphicon-briefcase"></i> Active tasks 
+                    <a href="Controller?command=cse_user_active_tasks">
                         <c:if test="${activeTasks > 0}">
                             <span class="badge pull-right">${activeTasks}</span>
                         </c:if>
+                        <i class="glyphicon glyphicon-briefcase"></i> Active tasks 
                     </a>
                 </li>
                 <li class="${param.command eq 'cse_user_completed_tasks' ? ' active' : ''}">
-                    <a href="Controller?command=cse_user_completed_tasks"><i class="glyphicon glyphicon-briefcase"></i> Completed tasks 
+                    <a href="Controller?command=cse_user_completed_tasks">
                         <c:if test="${completedTasks > 0}">
                             <span class="badge pull-right">${completedTasks}</span>
                         </c:if>
+                        <i class="glyphicon glyphicon-briefcase"></i> Completed tasks 
                     </a>
                 </li>
             </ul>
