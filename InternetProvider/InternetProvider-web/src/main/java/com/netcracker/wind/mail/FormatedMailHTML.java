@@ -23,18 +23,18 @@ public class FormatedMailHTML {
     private final String DEAR = "Dear, ";
     private final String OK = "!";
     private final String TASK = "New Task information";
-    private final String MESSAGE_ABOUT_TASK = "We want to inform you that new task have been create.";
-    private final String TASK_INFORMATION = "Information about task:";
-    private final String TASK_TAKE = "If tou want to take your that task sign in boreas system.";
-    private final String MESSAGE_BLOCKING_ACCOUNT = "Unfortunally, we want to inform you that your acount have been blocked.";
+    private final String MESSAGE_ABOUT_TASK = "We want to inform you that new task have been create. ";
+    private final String TASK_INFORMATION = "Information about task: ";
+    private final String TASK_TAKE = "If tou want to take your that task sign in boreas system. ";
+    private final String MESSAGE_BLOCKING_ACCOUNT = "Unfortunally, we want to inform you that your acount have been blocked. ";
     private final String CONTACT_US = "For more information contact our service senter";
     private final String MESSAGE_REGISTRATION = "You have succesfully registred in boreas system"
             + "Your login is : ";
-    private final String HOPE_PLEASED = " We hope that you will be pleased with our service!";
+    private final String HOPE_PLEASED = " We hope that you will be pleased with our service! ";
     private final String END_OF_MASSAGE = "Sincerely,";
-    private final String BOREAS_STAFF = "boreas staff.";
+    private final String BOREAS_STAFF = "boreas staff. ";
     private final String MORE_INFO = "For more information go to";
-    private final String LINK = "http://www.boreas.ml/InternetProvider-web/index.jsp";
+    private final String LINK = "http://www.boreas.ml/";
     private final String BOREAS = "boreas.ml";
 
     public String getUserRegistrationMassage(User user) {

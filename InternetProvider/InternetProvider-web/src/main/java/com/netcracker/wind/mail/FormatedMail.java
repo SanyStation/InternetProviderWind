@@ -16,31 +16,32 @@ public class FormatedMail {
     private final String HELLO = "Welcome to Boreas Internet Provider!\n\n";
     private final String CONGRATULATION = "Congratulation, ";
     private final String DEAR = "Dear, ";
-    private final String OK = "!";
+    private final String OK = "! ";
     private final String ORDER = "\n\tYour order #";
     private final String COMPLETED = " is completed.";
     private final String SERVICE = "\n\tService ";
     private final String SERVICEMOD = "\n\tYour service instant modify to ";
     private final String SERVWILLM = "\n\tYour service instant'll be modify to ";
-    private final String INSTALLED = " is already installed in your location.";
-    private final String DISCONNECT = " is already disconnect in your location.";
-    private final String WILLDISCONNECT = " will be disconnect in your location.";
-    private final String DORT = ".";
-    private final String RECEIVED = " is received.";
+    private final String INSTALLED = " is already installed in your location. ";
+    private final String DISCONNECT = " is already disconnect in your location. ";
+    private final String WILLDISCONNECT = " will be disconnect in your location. ";
+    private final String DOT = ". ";
+    private final String RECEIVED = " is received. ";
     private final String WILLINST = " will be installed in your location";
-    private final String MESSAGE_ABOUT_TASK = "We want to inform you that new task have been create.";
+    private final String MESSAGE_ABOUT_TASK = "We want to inform you that new task have been create. ";
     private final String TASK_INFORMATION = "\n\t Information about task:";
-    private final String TASK_TAKE = "\n If tou want to take your that task sign in boreas system.";
-    private final String MESSAGE_BLOCKING_ACCOUNT = "\nUnfortunally, we want to inform you that your acount have been blocked.";
-    private final String CONTACT_US = "\nFor more information contact our service senter";
+    private final String TASK_TAKE = "\n If tou want to take your that task sign in boreas system. ";
+    private final String MESSAGE_BLOCKING_ACCOUNT = "\nUnfortunally, we want to inform you that your acount have been blocked. ";
+    private final String CONTACT_US = "\nFor more information contact our service center";
     private final String MESSAGE_REGISTRATION = "\n\tYou have succesfully registred in boreas system\n"
             + "Your login is : ";
     private final String YOUR_PASSWORD = "\n\tYour password is : ";
     private final String INFORMATION_ABOUT_SERVICE = "Your service is:";
     private final String INFO_ABOUT_PRICE = "The price of ordered service is: ";
-    private final String TASK_ID = "\n The ID of new Task is: ";
-    private final String HOPE_PLEASED = "\n\t We hope that you will be pleased with our service!";
-    private final String END_OF_MASSAGE = "\nSincerely,\n\tboreas staff.";
+    private final String TASK_ID = "\nThe ID of new Task is: ";
+    private final String HOPE_PLEASED = "\n\tWe hope that you will be pleased with our service!";
+    private final String END_OF_MASSAGE = "\nSincerely,\n\tboreas staff. ";
+    private final String DOLLAR = "$";
     
     public String getUserRegistrationMassage(User user) {
         StringBuffer stringBuffer = new StringBuffer();
@@ -86,7 +87,7 @@ public class FormatedMail {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DEAR).append(user.getName()).append(OK)
                 .append(ORDER).append(order.getId()).append(COMPLETED)
-                .append(SERVICEMOD).append(service.getName()).append(DORT)
+                .append(SERVICEMOD).append(service.getName()).append(DOT)
                 .append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
@@ -95,7 +96,7 @@ public class FormatedMail {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DEAR).append(user.getName()).append(OK)
                 .append(ORDER).append(order.getId()).append(RECEIVED)
-                .append(SERVWILLM).append(service.getName()).append(DORT)
+                .append(SERVWILLM).append(service.getName()).append(DOT)
                 .append(END_OF_MASSAGE);
         return stringBuffer.toString();
     }
@@ -121,9 +122,10 @@ public class FormatedMail {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(DEAR).append(user.getName()).append(OK)
                 .append(INFORMATION_ABOUT_SERVICE)
-                .append(serviceInstance.getService().getDescription())
+                .append(serviceInstance.getService().getName())
                 .append(INFO_ABOUT_PRICE)
-                .append(serviceInstance.getServiceOrder().getPrice())
+                .append(serviceInstance.getServiceOrder().getPrice().getPrice().toString())
+                .append(DOLLAR).append(DOT)
                 .append(CONTACT_US)
                 .append(END_OF_MASSAGE);
         return stringBuffer.toString();
