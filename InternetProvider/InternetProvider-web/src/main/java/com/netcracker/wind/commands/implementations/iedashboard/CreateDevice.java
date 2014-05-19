@@ -22,8 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * {@code CreateDevice) is class for completing task NEW_DEVICE by Installation <br>
+ * engineer.
  *
- * @author �����
+ * @author Sashko
  */
 @RolesAllowed(roles = Role.Roles.InstallationEngineer)
 public class CreateDevice implements ICommand {

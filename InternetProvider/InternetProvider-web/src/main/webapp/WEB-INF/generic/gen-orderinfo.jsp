@@ -6,7 +6,7 @@
 
 <div class="col-md-12 nopadding">
     <table class="table table-striped table-bordered"><tr><td colspan="2">
-                <h4>Order info</h2></td></tr><tr>
+                <h4>Order info</h4></td></tr><tr>
             <td>Service</td>
             <td>${order.service.name}</td></tr><tr>
             <td>Price, $</td>

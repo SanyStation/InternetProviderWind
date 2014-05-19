@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-sm-3 header-item borderleft borderright text-center nopadding menu-phone-item header-item whitetext">
                             <div class="display-block largefont28">
-                                <span class="fa fa-phone-square paddingtop">&nbsp;</span>044 388 02 02</div>
+                                <span class="fa fa-phone-square paddingtop hidden-sm">&nbsp;</span><div class="paddingtop" style="line-height: 32px; display: inline-block;">044 388 02 02</div></div>
                         </div>
                     </div>
                 </div>

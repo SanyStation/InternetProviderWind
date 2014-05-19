@@ -8,10 +8,10 @@ import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,9 +30,13 @@ import org.json.JSONObject;
             Role.Roles.InstallationEngineer,
             Role.Roles.ProvisioningEngineer})
 public class ChangePassword implements ICommand {
+    
+    private static final Logger LOGGER
+            = Logger.getLogger(ChangePassword.class.getName());
 
     private static final String PASSWORD = "password";
     private static final String CONF_PASSWORD = "conf_password";
+    private static final String OLD_PASSWORD = "old_password";
     private static final String USER = "user";
     private static final String USER_ID = "user_id";
     private static final String ANSWER = "answer";
@@ -44,6 +48,7 @@ public class ChangePassword implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String pass = request.getParameter(PASSWORD);
         String confPass = request.getParameter(CONF_PASSWORD);
+        String oldPass = request.getParameter(OLD_PASSWORD);
         HashMap<String, String> newUserData = new HashMap();
         newUserData.put(VALIDATION_PASSWORD, pass);
         newUserData.put(VALIDATION_CONF_PASSWORD, confPass);
@@ -57,7 +62,7 @@ public class ChangePassword implements ICommand {
                 answer.put(ANSWER, false);
                 answer.put(MESSAGE, validMessage);
             } catch (JSONException ex) {
-                Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             return answer.toString();
         }
@@ -65,12 +70,27 @@ public class ChangePassword implements ICommand {
         User user = (User) request.getSession(false).getAttribute(USER);
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
         int userId = Integer.parseInt(((String) request.getParameter(USER_ID)));
-        if (user.getRoleId() != Role.CSE_GROUP_ID && userId != user.getId()) {
-            return "";
+        if (user.getRoleId() != Role.CSE_GROUP_ID && userId != user.getId() || (userId == user.getId() && ((oldPass instanceof String) ? (!DigestUtils.md5Hex(oldPass).equals(user.getPassword())) : true) ) ) {
+             try {
+                answer.put(ANSWER, false);
+                answer.put(MESSAGE, "Wrong current password!");
+            } catch (JSONException ex) {
+                LOGGER.error(null, ex);
+            }
+            return answer.toString();
         }
-        user = userDAO.findById(userId);
-        user.setPassword(pass);
-        int result = userDAO.updatePass(user);
+        User user2 = userDAO.findById(userId);
+        if(user.getRoleId() == Role.CSE_GROUP_ID && user2.getRoleId() != Role.CU_GROUP_ID && userId != user.getId()){
+             try {
+                answer.put(ANSWER, false);
+                answer.put(MESSAGE, "Access error");
+            } catch (JSONException ex) {
+                LOGGER.error(null, ex);
+            }
+            return answer.toString();
+        }
+        user2.setPassword(pass);
+        int result = userDAO.updatePass(user2);
         try {
             if (result == 1) {
                 answer.put(ANSWER, true);
@@ -79,7 +99,7 @@ public class ChangePassword implements ICommand {
                 answer.put(MESSAGE, "Unknown server error");
             }
         } catch (JSONException ex) {
-            Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
         return answer.toString();
     }

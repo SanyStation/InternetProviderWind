@@ -10,10 +10,9 @@ import com.netcracker.wind.entities.Price;
 import com.netcracker.wind.entities.ProviderLocation;
 import com.netcracker.wind.entities.Service;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +25,9 @@ import org.json.JSONObject;
  * @author Anatolii
  */
 public class RefreshService implements ICommand {
+    
+    private static final Logger LOGGER
+            = Logger.getLogger(RefreshService.class.getName());
 
     private static final String X = "x";
     private static final String Y = "y";
@@ -50,7 +52,7 @@ public class RefreshService implements ICommand {
             try {
                 jsono.put(STATUS, ERROR);
             } catch (JSONException ex) {
-                Logger.getLogger(RefreshService.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
         } else {
             actualX = Double.parseDouble(sX);
@@ -74,7 +76,7 @@ public class RefreshService implements ICommand {
                 try {
                     jsono.put(STATUS, ERROR);
                 } catch (JSONException ex) {
-                    Logger.getLogger(RefreshService.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error(null, ex);
                 }
                 return jsono.toString();
             }
@@ -103,7 +105,7 @@ public class RefreshService implements ICommand {
                 providerLocationJSON.put(X, nearestProviderLocation.getPosX());
                 jsono.put(PROVIDER_LOCATION, providerLocationJSON);
             } catch (JSONException ex) {
-                Logger.getLogger(RefreshService.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
         }
         return jsono.toString();

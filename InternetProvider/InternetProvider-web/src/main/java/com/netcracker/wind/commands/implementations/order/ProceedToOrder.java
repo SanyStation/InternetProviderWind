@@ -18,11 +18,10 @@ import com.netcracker.wind.entities.User;
 import com.netcracker.wind.manager.ConfigurationManager;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,6 +37,9 @@ import org.json.JSONObject;
     Role.Roles.InstallationEngineer,
     Role.Roles.ProvisioningEngineer})
 public class ProceedToOrder implements ICommand {
+    
+    private static final Logger LOGGER
+            = Logger.getLogger(ProceedToOrder.class.getName());
 
     private static final String USER = "user";
     private static final String ERROR = "error";
@@ -78,7 +80,7 @@ public class ProceedToOrder implements ICommand {
                 try {
                     jsono.put(ERROR, true);
                 } catch (JSONException ex) {
-                    Logger.getLogger(ProceedToOrder.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error(null, ex);
                 }
                 return jsono.toString();
             }
@@ -124,7 +126,7 @@ public class ProceedToOrder implements ICommand {
                 jsono.put(COMMAND, REVIEW_ORDER);
             }
         } catch (JSONException ex) {
-            Logger.getLogger(ProceedToOrder.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
         return jsono.toString();
     }
@@ -135,7 +137,7 @@ public class ProceedToOrder implements ICommand {
             jsono.put(NEXT_PAGE, ConfigurationManager.getInstance().
                     getProperty(ConfigurationManager.PAGE_LOGIN));
         } catch (JSONException ex) {
-            Logger.getLogger(ProceedToOrder.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
         return jsono.toString();
     }
