@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 /**
@@ -191,13 +190,13 @@ public class OracleCircuitDAO extends AbstractOracleDAO implements ICircuitDAO {
                 LOGGER.error(null, ex);
             }
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(OracleCircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         } finally {
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(OracleCircuitDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error(null, ex);
                 }
             }
             connectionPool.close(connection);
