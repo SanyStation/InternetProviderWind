@@ -54,7 +54,7 @@ public class CSEaddCustomer implements ICommand {
             request.setAttribute("messagename", message_name);
             request.setAttribute("errorname", "has-error");
             return manager.getProperty(
-                    ConfigurationManager.PAGE_CSE_CUSTOMER_REVIEW);
+                    ConfigurationManager.PAGE_CSE_ADD_CUSTOMER);
         }
         User user = new User();
         user.setName(name);
