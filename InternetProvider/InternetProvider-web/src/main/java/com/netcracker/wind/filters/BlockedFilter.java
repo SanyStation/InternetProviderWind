@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
+ * This filter was designed for check blocked users.
  *
  * @author Anatolii
  */

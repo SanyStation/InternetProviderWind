@@ -7,6 +7,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
+ * Class-entity task.
  *
  * @author Anatolii
  */
@@ -17,12 +18,18 @@ public class Task implements Serializable {
     private final AbstractFactoryDAO factoryDAO
             = FactoryCreator.getInstance().getFactory();
 
+    /**
+     * Define available types for task.
+     */
     public static enum Type {
 
         NEW_DEVICE, NEW_CABLE, DELETE_CABLE, DELETE_CIRCUIT,
         MODIFY_CIRCUIT, CREATE_CIRCUIT, SEND_BILL
     }
 
+    /**
+     * Define available status for task.
+     */
     public static enum Status {
 
         NEW, ACTIVE, SUSPENDED, COMPLETED;

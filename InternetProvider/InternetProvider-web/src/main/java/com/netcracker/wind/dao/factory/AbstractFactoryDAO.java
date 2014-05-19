@@ -8,6 +8,7 @@ import com.netcracker.wind.dao.interfaces.reports.ISiOrdersDAO;
 import com.netcracker.wind.dao.interfaces.reports.ISiProfitDAO;
 
 /**
+ * Class is common interface for all DAO fabrics that can be in system.
  *
  * @author Anatolii
  */
@@ -50,5 +51,5 @@ public abstract class AbstractFactoryDAO {
     public abstract ISiOrdersDAO createSiNewOrdersDAO();
 
     public abstract ISiOrdersDAO createSiDiscOrdersDAO();
-    
+
 }

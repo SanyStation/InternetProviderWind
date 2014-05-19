@@ -11,7 +11,6 @@ import com.netcracker.wind.entities.Cable;
 import com.netcracker.wind.entities.Circuit;
 import com.netcracker.wind.entities.Port;
 import com.netcracker.wind.entities.Role;
-import com.netcracker.wind.entities.ServiceInstance;
 import com.netcracker.wind.entities.ServiceOrder;
 import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
@@ -20,6 +19,7 @@ import com.netcracker.wind.mail.MailSendler;
 import java.util.List;
 
 /**
+ * Class with static methods for create workflow.
  *
  * @author Anatolii
  */
@@ -28,6 +28,11 @@ public class Workflow {
     private static final int PORT_ON_DEVICE = 60;
     private static final String CIRCUIT_NAME = "Circuit";
 
+    /**
+     * Method for creating start point for workflow of new scenario.
+     *
+     * @param order {@link ServiceOrder} for tasks
+     */
     public static void createTaskForNewScnario(ServiceOrder order) {
         AbstractFactoryDAO factoryDAO
                 = FactoryCreator.getInstance().getFactory();
@@ -63,6 +68,13 @@ public class Workflow {
         }
     }
 
+    /**
+     * Method create task for instalation engineers.
+     *
+     * @param order {@link ServiceOrder} for tasks
+     * @param taskType {@link Task.Type} for task
+     * @param taskDAO instance of {@link ITaskDAO} for persist task
+     */
     public static void createTaskForIE(ServiceOrder order, Task.Type taskType,
             ITaskDAO taskDAO) {
 
@@ -84,6 +96,13 @@ public class Workflow {
         }
     }
 
+    /**
+     * Method create task for provisioning engineers.
+     *
+     * @param order {@link ServiceOrder} for tasks
+     * @param type {@link Task.Type} for task
+     * @param taskDAO instance of {@link ITaskDAO} for persist task
+     */
     public static void createTaskForPE(ServiceOrder order, Task.Type type,
             ITaskDAO taskDAO) {
         Task task = TaskCreator.createTask(Role.PE_GROUP_ID, type,
@@ -97,6 +116,12 @@ public class Workflow {
         }
     }
 
+    /**
+     * Method create task for customer support engineers.
+     *
+     * @param order {@link ServiceOrder} for tasks
+     * @param taskDAO instance of {@link ITaskDAO} for persist task
+     */
     public static void createTaskForCSE(ServiceOrder order, ITaskDAO taskDAO) {
         Task task = TaskCreator.createTask(Role.CSE_GROUP_ID,
                 Task.Type.SEND_BILL, Task.Status.NEW, order);
@@ -121,11 +146,21 @@ public class Workflow {
         return !tasks.isEmpty() && circuits.size() < PORT_ON_DEVICE;
     }
 
+    /**
+     * Method for creating start point for workflow of modify scenario.
+     *
+     * @param order {@link ServiceOrder} for tasks
+     */
     public static void createTaskForModifyScenario(ServiceOrder order) {
         createTaskForPE(order, Task.Type.MODIFY_CIRCUIT,
                 FactoryCreator.getInstance().getFactory().createTaskDAO());
     }
 
+    /**
+     * Method for creating start point for workflow of disconnect scenario.
+     *
+     * @param order {@link ServiceOrder} for tasks
+     */
     public static void createTaskForDisconnectScenario(ServiceOrder order) {
         createTaskForPE(order, Task.Type.DELETE_CIRCUIT,
                 FactoryCreator.getInstance().getFactory().createTaskDAO());
