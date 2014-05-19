@@ -8,11 +8,10 @@ import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.Role;
 import com.netcracker.wind.entities.User;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,6 +30,9 @@ import org.json.JSONObject;
             Role.Roles.InstallationEngineer,
             Role.Roles.ProvisioningEngineer})
 public class ChangePassword implements ICommand {
+    
+    private static final Logger LOGGER
+            = Logger.getLogger(ChangePassword.class.getName());
 
     private static final String PASSWORD = "password";
     private static final String CONF_PASSWORD = "conf_password";
@@ -60,7 +62,7 @@ public class ChangePassword implements ICommand {
                 answer.put(ANSWER, false);
                 answer.put(MESSAGE, validMessage);
             } catch (JSONException ex) {
-                Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             return answer.toString();
         }
@@ -74,7 +76,7 @@ public class ChangePassword implements ICommand {
                 answer.put(ANSWER, false);
                 answer.put(MESSAGE, "Wrong current password!");
             } catch (JSONException ex) {
-                Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             return answer.toString();
         }
@@ -84,7 +86,7 @@ public class ChangePassword implements ICommand {
                 answer.put(ANSWER, false);
                 answer.put(MESSAGE, "Access error");
             } catch (JSONException ex) {
-                Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.error(null, ex);
             }
             return answer.toString();
         }
@@ -98,7 +100,7 @@ public class ChangePassword implements ICommand {
                 answer.put(MESSAGE, "Unknown server error");
             }
         } catch (JSONException ex) {
-            Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
         return answer.toString();
     }

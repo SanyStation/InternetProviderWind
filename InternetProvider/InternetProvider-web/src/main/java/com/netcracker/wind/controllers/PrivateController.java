@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.netcracker.wind.controllers;
 
 import com.netcracker.wind.dao.factory.FactoryCreator;
@@ -10,14 +5,12 @@ import com.netcracker.wind.dao.interfaces.IUserDAO;
 import com.netcracker.wind.entities.User;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -34,7 +27,8 @@ public class PrivateController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final Logger logger = Logger.getLogger(PrivateController.class.getName());
+    private static final Logger LOGGER
+            = Logger.getLogger(PrivateController.class.getName());
     private static final String NAME = "name";
     private static final String USER = "user";
     private static final String WEB_INF = "WEB-INF/";
@@ -102,7 +96,7 @@ public class PrivateController extends HttpServlet {
             roles = props.getProperty("roles").split(",");
             roledirs = props.getProperty("roledirs").split(",");
         } catch (IOException ex) {
-            Logger.getLogger(PrivateController.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(null, ex);
         }
     }
 
