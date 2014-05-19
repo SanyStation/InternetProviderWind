@@ -70,7 +70,6 @@ public class ChangePassword implements ICommand {
         User user = (User) request.getSession(false).getAttribute(USER);
         IUserDAO userDAO = FactoryCreator.getInstance().getFactory().createUserDAO();
         int userId = Integer.parseInt(((String) request.getParameter(USER_ID)));
-        System.out.println(oldPass);
         if (user.getRoleId() != Role.CSE_GROUP_ID && userId != user.getId() || (userId == user.getId() && ((oldPass instanceof String) ? (!DigestUtils.md5Hex(oldPass).equals(user.getPassword())) : true) ) ) {
              try {
                 answer.put(ANSWER, false);
