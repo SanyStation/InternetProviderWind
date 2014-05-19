@@ -10,7 +10,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * The {@code OracleRiMostProfRouterDAO} class designed to implement 
+ * {@code IRiMostProfRouterDAO} interface and some methods of 
+ * {@code AbstractOracleDAO} class to interact with Oracle database.
+ * 
  * @author Alexander Kovriga
  */
 public class OracleRiMostProfRouterDAO extends AbstractOracleDAO

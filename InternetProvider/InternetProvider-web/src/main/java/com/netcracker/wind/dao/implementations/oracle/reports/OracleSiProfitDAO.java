@@ -13,7 +13,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- * 
+ * The {@code OracleSiProfitDAO} class designed to implement 
+ * {@code ISiProfitDAO} interface and some methods of {@code AbstractOracleDAO}
+ * class to interact with Oracle database.
  * 
  * @author Alexander Kovriga
  */

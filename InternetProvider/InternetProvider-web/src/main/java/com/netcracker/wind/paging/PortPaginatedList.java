@@ -5,7 +5,9 @@ import com.netcracker.wind.dao.interfaces.IPortDAO;
 import java.util.List;
 
 /**
- *
+ * The {@code PortpaginatedList} class designed to creating paginated list of
+ * ports for certain device.
+ * 
  * @author Alexander Kovriga
  */
 public class PortPaginatedList extends AbstractPaginatedList {

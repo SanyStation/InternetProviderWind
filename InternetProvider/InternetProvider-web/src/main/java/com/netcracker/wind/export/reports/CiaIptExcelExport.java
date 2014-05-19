@@ -17,18 +17,20 @@ import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 
 /**
- *
+ * The {@ CiaIptExcelExport} class designed to exporting cia (impact
+ * propagation tree) report to excel file.
+ * 
  * @author Alexander Kovriga
  */
-public class CiaIptExport extends AbstractExcelExport {
+public class CiaIptExcelExport extends AbstractExcelExport {
 
     private static final Logger LOGGER = Logger.getLogger(
-            CiaIptExport.class.getName());
+            CiaIptExcelExport.class.getName());
 
     private static final String TEMPLATE_PATH
             = "/reports/templates/template_cia_ipt.xls";
 
-    public CiaIptExport() {
+    public CiaIptExcelExport() {
         super(TEMPLATE_PATH);
     }
 

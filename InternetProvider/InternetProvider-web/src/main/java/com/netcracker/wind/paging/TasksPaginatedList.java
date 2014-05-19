@@ -5,7 +5,9 @@ import com.netcracker.wind.dao.interfaces.ITaskDAO;
 import java.util.List;
 
 /**
- *
+ * The {@code TasksPaginatedList} class designed to creating paginated list of
+ * task for certain user groups.
+ * 
  * @author Alexander Kovriga
  */
 public class TasksPaginatedList extends AbstractPaginatedList {

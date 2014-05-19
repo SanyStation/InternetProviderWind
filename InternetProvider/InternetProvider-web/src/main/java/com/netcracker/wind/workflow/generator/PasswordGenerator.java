@@ -7,7 +7,14 @@ package com.netcracker.wind.workflow.generator;
  */
 public class PasswordGenerator {
 
+    /**
+     * Default length of generated password.
+     */
     private static final int DEFAULT_PASS_SIZE = 10;
+    
+    /**
+     * Alphabet for generating random password.
+     */
     private static final String ALPHABET = "ABCDEFGHJKLMNOPQRSTUVWXYZ"
             + "abcdefghjklmnopqrstuvwxyz1234567890";
 

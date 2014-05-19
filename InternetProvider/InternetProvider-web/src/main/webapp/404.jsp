@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 topic boxshadow nopadding text-center text-danger">
-            <h2>Error 404 - such page does not exists</h2>
+            <h2>Error 404 - such page does not exist</h2>
             <img src="images/404.jpg" alt=""/>
         </div>
         <div class="col-md-3 col-md-offset-3 nopadding" id="right-info">

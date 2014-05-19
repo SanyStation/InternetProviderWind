@@ -1,6 +1,6 @@
 package com.netcracker.wind.export.reports;
 
-import com.netcracker.wind.entities.reports.SiProfit;
+import com.netcracker.wind.entities.reports.RiMostProfRouter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,24 +14,26 @@ import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 
 /**
+ * The {@ RiMostProfRouterExcelExport} class designed to exporting ri (most
+ * profitable router) report to excel file.
  *
  * @author Alexander Kovriga
  */
-public class SiProfitExport extends AbstractExcelExport {
+public class RiMostProfRouterExcelExport extends AbstractExcelExport {
 
     private static final Logger LOGGER = Logger.getLogger(
-            SiProfitExport.class.getName());
+            RiMostProfRouterExcelExport.class.getName());
 
     private static final String TEMPLATE_PATH
-            = "/reports/templates/template_si_profit.xls";
+            = "/reports/templates/template_ri_most_prof.xls";
 
-    public SiProfitExport() {
+    public RiMostProfRouterExcelExport() {
         super(TEMPLATE_PATH);
     }
 
     @Override
     protected Map fillBeansMap() {
-        List<SiProfit> profits = new ArrayList<SiProfit>();
+        List<RiMostProfRouter> routers = new ArrayList<RiMostProfRouter>();
         Map beans = new HashMap();
         RowIterator rowIterator = super.tableModel.getRowIterator(true);
         try {
@@ -41,26 +43,20 @@ public class SiProfitExport extends AbstractExcelExport {
                         super.tableModel.getHeaderCellList());
                 Column column;
                 column = columnIterator.nextColumn();
-                String providerLocationName = (String) column.getValue(true);
+                String name = (String) column.getValue(true);
                 column = columnIterator.nextColumn();
-                String serviceName = (String) column.getValue(true);
-                column = columnIterator.nextColumn();
-                double sum = (Double) column.getValue(true);
-                
-                SiProfit profit = new SiProfit();
-                profit.setProviderLocationName(providerLocationName);
-                profit.setServiceName(serviceName);
-                profit.setSum(sum);
-                
-                profits.add(profit);
+                double profit = (Double) column.getValue(true);
+                RiMostProfRouter r = new RiMostProfRouter();
+                r.setName(name);
+                r.setProfit(profit);
+                routers.add(r);
             }
-            beans.put("caption", super.tableModel.getCaption());
-            beans.put("profits", profits);
         } catch (ObjectLookupException ex) {
             LOGGER.error(null, ex);
         } catch (DecoratorException ex) {
             LOGGER.error(null, ex);
         }
+        beans.put("routers", routers);
         return beans;
     }
 

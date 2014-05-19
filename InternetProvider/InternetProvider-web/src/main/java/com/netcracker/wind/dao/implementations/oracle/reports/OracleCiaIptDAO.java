@@ -10,7 +10,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * The {@code OracleCiaIptDAO} class designed to implement {@code ICiaIptDAO}
+ * interface and some methods of {@code AbstractOracleDAO} class to interact
+ * with Oracle database.
+ * 
  * @author Alexander Kovriga
  */
 public class OracleCiaIptDAO extends AbstractOracleDAO implements ICiaIptDAO {
@@ -31,7 +34,8 @@ public class OracleCiaIptDAO extends AbstractOracleDAO implements ICiaIptDAO {
             + PORT_STATUS + ", c.id AS " + CIRCUIT_ID + ", c.name AS "
             + CIRCUIT_NAME + ", si.id AS " + SERVICE_INSTANCE_ID + ", "
             + "si.name AS " + SERVICE_INSTANCE_NAME + " "
-            + "FROM devices d LEFT JOIN ports p ON d.id = p.device_id "
+            + "FROM devices d "
+            + "LEFT JOIN ports p ON d.id = p.device_id "
             + "LEFT JOIN circuits c ON p.id = c.PORT_ID "
             + "LEFT JOIN service_instances si ON si.id = c.service_instance_id "
             + "ORDER BY d.id";

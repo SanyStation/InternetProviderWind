@@ -14,7 +14,9 @@ import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 
 /**
- *
+ * The {@ RiUtilNCapExcelExport} class designed to exporting ri (routers`
+ * utilization and capacity) report to excel file.
+ * 
  * @author Alexander Kovriga
  */
 public class RiUtilNCapExcelExport extends AbstractExcelExport {

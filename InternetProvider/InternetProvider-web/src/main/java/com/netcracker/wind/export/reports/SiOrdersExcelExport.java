@@ -15,18 +15,20 @@ import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 
 /**
- *
+ * The {@ SiOrdersExcelExport} class designed to exporting si (defined orders
+ * per certain period) report to excel file.
+ * 
  * @author Alexander Kovriga
  */
-public class SiOrdersExport extends AbstractExcelExport {
+public class SiOrdersExcelExport extends AbstractExcelExport {
 
     private static final Logger LOGGER = Logger.getLogger(
-            SiOrdersExport.class.getName());
+            SiOrdersExcelExport.class.getName());
 
     private static final String TEMPLATE_PATH
             = "/reports/templates/template_si_orders.xls";
 
-    public SiOrdersExport() {
+    public SiOrdersExcelExport() {
         super(TEMPLATE_PATH);
     }
 
