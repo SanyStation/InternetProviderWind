@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * this command helps to get task for specified user by task status
  * @author Oksana
  */
 public class GetTasksByPerformerStatus {

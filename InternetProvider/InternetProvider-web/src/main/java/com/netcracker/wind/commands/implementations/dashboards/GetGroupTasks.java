@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ *  this class helps to get tasks for specified group
  * @author Oksana
  */
 public class GetGroupTasks{
@@ -17,6 +17,11 @@ public class GetGroupTasks{
     private final int groupId;
     private final String pageForReturn;
 
+    /**
+     * 
+     * @param groupId id of group for which we want to get list of tasks
+     * @param pageForReturn the page which we will return
+     */
     public GetGroupTasks(int groupId, String pageForReturn) {
         this.groupId = groupId;
         this.pageForReturn = pageForReturn;

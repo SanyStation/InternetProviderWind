@@ -12,7 +12,10 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * this class contain common method for all others dao
+ * such as delete, findWhere, parseResult 
+ * each class that  is inherited from AbstractOracleDAO 
+ * must define List parseResult(ResultSet rs) method
  * @author Oksana
  */
 public abstract class AbstractOracleDAO {

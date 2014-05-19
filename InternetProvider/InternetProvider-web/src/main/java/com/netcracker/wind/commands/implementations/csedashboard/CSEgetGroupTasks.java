@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * don't need any more
+ *this command helps get list of tasks for Customer Support Engineer group
  *
  * @author Oksana
  */

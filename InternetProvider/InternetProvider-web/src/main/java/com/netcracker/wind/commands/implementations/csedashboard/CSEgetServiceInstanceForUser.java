@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * *this command helps to find all service instances for 
+ * particular users and show them on CSE dashboard
  * @author Oksana
  */
 @RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)

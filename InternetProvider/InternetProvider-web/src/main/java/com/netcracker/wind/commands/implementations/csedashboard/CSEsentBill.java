@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * this command help to execute CSE task: "sending bill"
  * @author Oksana
  */
 @RolesAllowed(roles = Role.Roles.CustomerSupportEngineer)
