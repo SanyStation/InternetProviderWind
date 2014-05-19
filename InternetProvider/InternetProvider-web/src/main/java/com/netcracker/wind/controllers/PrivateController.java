@@ -38,6 +38,16 @@ public class PrivateController extends HttpServlet {
     private String roles[];
     private String roledirs[];
 
+    /**
+     * 
+     * processRequest method check user's role and redirect it to dashboard according to his role.
+     * This method also redirect user to 'user blocked' page if he is blocked.
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     //static final Logger logger = LogManager.getRootLogger();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -85,6 +95,13 @@ public class PrivateController extends HttpServlet {
         }
     }
 
+    /**
+     * 
+     * Overloaded init method.
+     * Added roles parsing and logging.
+     * 
+     * @throws ServletException 
+     */
     @Override
     public void init() throws ServletException {
         super.init();
