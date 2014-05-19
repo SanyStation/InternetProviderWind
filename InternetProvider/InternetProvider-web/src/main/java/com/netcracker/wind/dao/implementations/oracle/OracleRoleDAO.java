@@ -13,7 +13,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * implementation of IRoleDAO  for Oracle
  * @author Oksana
  */
 public class OracleRoleDAO extends AbstractOracleDAO implements IRoleDAO {

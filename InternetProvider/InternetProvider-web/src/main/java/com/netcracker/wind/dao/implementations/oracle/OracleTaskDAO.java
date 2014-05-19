@@ -14,7 +14,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * implementation of ITaskDAO  for Oracle
  * @author Oksana
  * @author Anatolii
  */

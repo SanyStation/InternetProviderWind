@@ -4,7 +4,7 @@ import com.netcracker.wind.entities.Price;
 import java.util.List;
 
 /**
- *
+ * interface for working with Price entity and database
  * @author Oksana
  */
 public interface IPriceDAO {

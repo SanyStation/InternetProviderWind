@@ -11,7 +11,8 @@ import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
 
 /**
- *
+ * class for generating HTML letters of different types
+ * for sending via email
  * @author Oksana
  */
 @Deprecated

@@ -15,7 +15,7 @@ import com.netcracker.wind.dao.interfaces.reports.ISiOrdersDAO;
 import com.netcracker.wind.dao.interfaces.reports.ISiProfitDAO;
 
 /**
- *
+ * this class is an implementation of DAO factory for Oracle
  * @author Oksana
  */
 public class OracleDAOFactory extends AbstractFactoryDAO {

@@ -7,7 +7,8 @@ import com.netcracker.wind.entities.Task;
 import com.netcracker.wind.entities.User;
 
 /**
- *
+ * class for generating text letters of different types
+ * for sending via email
  * @author Oksana and Sashko
  */
 public class FormatedMail {

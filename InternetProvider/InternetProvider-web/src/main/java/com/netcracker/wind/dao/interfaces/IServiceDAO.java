@@ -4,7 +4,7 @@ import com.netcracker.wind.entities.Service;
 import java.util.List;
 
 /**
- *
+ * interface for working with Service entity and database
  * @author Oksana
  */
 public interface IServiceDAO extends IRowsCounter {

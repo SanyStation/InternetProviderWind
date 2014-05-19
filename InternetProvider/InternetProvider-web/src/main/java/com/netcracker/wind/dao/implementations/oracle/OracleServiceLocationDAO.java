@@ -14,7 +14,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * implementation of IServiceLocationDAO  for Oracle
  * @author Oksana
  */
 public class OracleServiceLocationDAO extends AbstractOracleDAO

@@ -4,7 +4,7 @@ import com.netcracker.wind.entities.ProviderLocation;
 import java.util.List;
 
 /**
- *
+ * interface for working with Provider Location entity and database
  * @author Oksana
  */
 public interface IProviderLocationDAO extends IRowsCounter {

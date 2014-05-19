@@ -4,7 +4,7 @@ import com.netcracker.wind.entities.Role;
 import java.util.List;
 
 /**
- *
+ * interface for working with Role entity and database
  * @author Oksana
  */
 public interface IRoleDAO extends IRowsCounter {

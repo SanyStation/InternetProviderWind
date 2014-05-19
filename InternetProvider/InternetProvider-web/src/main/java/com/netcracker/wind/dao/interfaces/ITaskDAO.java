@@ -5,7 +5,7 @@ import com.netcracker.wind.entities.Task;
 import java.util.List;
 
 /**
- *
+ * interface for working with Task entity and database
  * @author Oksana
  */
 public interface ITaskDAO extends IRowsCounter {

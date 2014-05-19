@@ -13,7 +13,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * implementation of IDeviceDAO  for Oracle
  * @author Oksana
  */
 public class OracleDeviceDAO extends AbstractOracleDAO implements IDeviceDAO {

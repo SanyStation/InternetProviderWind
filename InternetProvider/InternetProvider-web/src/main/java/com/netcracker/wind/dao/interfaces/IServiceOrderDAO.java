@@ -5,7 +5,7 @@ import com.netcracker.wind.entities.ServiceOrder;
 import java.util.List;
 
 /**
- *
+ * interface for working with Service Order entity and database
  * @author Oksana
  */
 public interface IServiceOrderDAO extends IRowsCounter {

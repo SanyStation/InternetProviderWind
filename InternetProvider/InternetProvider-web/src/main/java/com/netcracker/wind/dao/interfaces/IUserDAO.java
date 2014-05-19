@@ -5,7 +5,7 @@ import com.netcracker.wind.entities.User;
 import java.util.List;
 
 /**
- *
+ * interface for working with User entity and database
  * @author Anatolii
  */
 public interface IUserDAO extends IRowsCounter {

@@ -4,7 +4,7 @@ import com.netcracker.wind.entities.ServiceLocation;
 import java.util.List;
 
 /**
- *
+ * interface for working with Service Location entity and database
  * @author Oksana
  */
 public interface IServiceLocationDAO extends IRowsCounter {

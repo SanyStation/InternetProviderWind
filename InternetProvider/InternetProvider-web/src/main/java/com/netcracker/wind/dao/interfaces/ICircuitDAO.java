@@ -4,7 +4,7 @@ import com.netcracker.wind.entities.Circuit;
 import java.util.List;
 
 /**
- *
+ * interface for working with Circuit entity and database
  * @author Oksana
  */
 public interface ICircuitDAO extends IRowsCounter {

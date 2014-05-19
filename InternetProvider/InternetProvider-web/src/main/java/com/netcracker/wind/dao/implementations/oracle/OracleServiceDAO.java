@@ -13,7 +13,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * implementation of IServiceDAO  for Oracle
  * @author Oksana
  */
 public class OracleServiceDAO extends AbstractOracleDAO implements IServiceDAO {

@@ -4,7 +4,7 @@ import com.netcracker.wind.entities.Device;
 import java.util.List;
 
 /**
- *
+ * interface for working with  Device entity and database
  * @author Oksana
  */
 public interface IDeviceDAO extends IRowsCounter {

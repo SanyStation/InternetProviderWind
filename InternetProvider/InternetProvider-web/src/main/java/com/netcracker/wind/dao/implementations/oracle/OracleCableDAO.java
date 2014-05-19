@@ -13,7 +13,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * implementation of ICableDAO  for Oracle
  * @author Oksana
  */
 public class OracleCableDAO extends AbstractOracleDAO implements ICableDAO {

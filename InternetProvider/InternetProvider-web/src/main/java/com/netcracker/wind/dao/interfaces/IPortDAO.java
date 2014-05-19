@@ -5,7 +5,7 @@ import com.netcracker.wind.entities.Port;
 import java.util.List;
 
 /**
- *
+ * interface for working with Port entity and database
  * @author Oksana
  */
 public interface IPortDAO extends IRowsCounter {

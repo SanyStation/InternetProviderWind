@@ -4,7 +4,7 @@ import com.netcracker.wind.entities.Cable;
 import java.util.List;
 
 /**
- *
+ * interface for working with Cable entity and database
  * @author Oksana
  */
 public interface ICableDAO extends IRowsCounter {
