@@ -197,11 +197,11 @@ div.body-wrapper {
 margin-bottom: -2px;
 }*/
 .menu-phone-item > div {
-    font-size: 28px;
+    font-size: 27px;
 }
 .menu-phone-item > div > span {
     font-size: 32px;
-    line-height: 28px;
+    line-height: 27px;
 }
 .menu-phone-item {
     background-color: transparent!important;
