@@ -17,11 +17,11 @@ public class FormatedMail {
     private final String CONGRATULATION = "Congratulation, ";
     private final String DEAR = "Dear, ";
     private final String OK = "!";
-    private final String ORDER = "/n/tYour order � ";
+    private final String ORDER = "\n\tYour order #";
     private final String COMPLETED = " is completed.";
-    private final String SERVICE = "/n/tService ";
-    private final String SERVICEMOD = "/n/tYour service instant modify to ";
-    private final String SERVWILLM = "/n/tYour service instant'll be modify to ";
+    private final String SERVICE = "\n\tService ";
+    private final String SERVICEMOD = "\n\tYour service instant modify to ";
+    private final String SERVWILLM = "\n\tYour service instant'll be modify to ";
     private final String INSTALLED = " is already installed in your location.";
     private final String DISCONNECT = " is already disconnect in your location.";
     private final String WILLDISCONNECT = " will be disconnect in your location.";

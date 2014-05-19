@@ -9,7 +9,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- *
+ * This class-command allows to validate inputed data using Validator class.
+ * When information is valid - class initiates user registration
+ * 
  * @author myshko
  */
 public class Validation implements ICommand {

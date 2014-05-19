@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.netcracker.wind.commands.implementations.registration;
 
 import com.netcracker.wind.dao.factory.AbstractFactoryDAO;
@@ -14,6 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * This class allows to validate inputed data. Method getIsvalid returns 111 
+ * if data is valid
  *
  * @author myshko
  */
