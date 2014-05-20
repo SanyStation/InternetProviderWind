@@ -22,7 +22,7 @@
             <h3>${title}</h3>
 
             <form role="form">
-                <display:table name="sessionScope.links" sort="list" export="true" requestURI="Controller"
+                <display:table name="sessionScope.links" export="true" sort="list" requestURI="Controller"
                                class="simple" pagesize="${pageSize}" >
 
                     <display:setProperty name="export.ciaipt" value="true"/>
@@ -42,8 +42,7 @@
                         <ul class=\"dropdown-menu\" role=\"menu\">
                         {0}
                         </ul>
-                        </div>"
-                        />
+                        </div>"/>
                     <display:setProperty 
                         name="paging.banner.full" 
                         value="<br/><ul class=\"pagination\">
