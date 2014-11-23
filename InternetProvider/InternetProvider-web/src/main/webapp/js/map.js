@@ -96,7 +96,7 @@ $(window).load(function() {
                 dataType: 'json',
                 data: {
                     'command': 'refresh_service',
-                    'x': e.latLng.A, //50.526232,
+                    'x': e.latLng.B, //50.526232,
                     'y': e.latLng.k //30.6020479
                 },
                 success: function(data) {
@@ -153,7 +153,7 @@ $(window).load(function() {
                                     + elem.id + '"' + first + '>' + elem.name + ', <span>' + elem.price + '</span></label></div>');
                             first = '';
                         });
-                        $("#side form input[name=x]").attr('value', e.latLng.A);
+                        $("#side form input[name=x]").attr('value', e.latLng.B);
                         $("#side form input[name=y]").attr('value', e.latLng.k);
                         $("#side form input[type=submit]").removeClass('disabled');
                     }else{
